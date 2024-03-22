@@ -56,20 +56,20 @@ class _LoginAccountFormWidgetState extends State<LoginAccountFormWidget> {
           ),
 
           /// Make Space
-          SizedBox(height: 20.h),
+          // SizedBox(height: 20.h),
 
-          /// Email
-          TextFormFieldWidget(
-            controller: emailController,
-            textInputType: TextInputType.emailAddress,
-            focusNode: emailFocusNode,
-            hintText: 'Email (Optional)',
-            hintColor: isEmailFieldFocused ? OColors.primaryColor500 : OColors.greyScale500,
-            prefixIcon: SvgPicture.asset(OImages.emailIcon, fit: BoxFit.scaleDown, colorFilter: ColorFilter.mode(isEmailFieldFocused ? OColors.primaryColor500 : emailController.text.isNotEmpty ? OColors.greyScale900 : OColors.greyScale500, BlendMode.srcIn)),
-            fillColor: isEmailFieldFocused ? OColors.purpleTransparent.withOpacity(.08) : OColors.greyScale50,
-            borderSide: isEmailFieldFocused ? BorderSide(color: OColors.primaryColor500) : BorderSide.none,
-            obscureText: false,
-          ),
+          // /// Email
+          // TextFormFieldWidget(
+          //   controller: emailController,
+          //   textInputType: TextInputType.emailAddress,
+          //   focusNode: emailFocusNode,
+          //   hintText: 'Email (Optional)',
+          //   hintColor: isEmailFieldFocused ? OColors.primaryColor500 : OColors.greyScale500,
+          //   prefixIcon: SvgPicture.asset(OImages.emailIcon, fit: BoxFit.scaleDown, colorFilter: ColorFilter.mode(isEmailFieldFocused ? OColors.primaryColor500 : emailController.text.isNotEmpty ? OColors.greyScale900 : OColors.greyScale500, BlendMode.srcIn)),
+          //   fillColor: isEmailFieldFocused ? OColors.purpleTransparent.withOpacity(.08) : OColors.greyScale50,
+          //   borderSide: isEmailFieldFocused ? BorderSide(color: OColors.primaryColor500) : BorderSide.none,
+          //   obscureText: false,
+          // ),
 
           /// Make Space
           // SizedBox(height: 20.h),

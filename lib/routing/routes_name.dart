@@ -19,4 +19,5 @@ class ORoutesName {
   static const String customerServiceRoute = 'customer-service-route';
   static const String inviteFriendsRoute = 'invite-friends-route';
   static const String notificationsRoute = 'notifications-route';
+  static const String allServicesRoute = 'all-services-route';
 }

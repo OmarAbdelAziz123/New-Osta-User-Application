@@ -34,7 +34,7 @@ class OImages {
   static const String chartIconNotSelected = 'assets/images/svgs/chartIconNotSelected.svg';
 
 
-  static const String moreIcon = 'assets/images/svgs/moreIcon.svg';
+  static const String moreIcon2 = 'assets/images/svgs/moreIcon2.svg';
   static const String profileLogo = 'assets/images/svgs/profileLogo.svg';
   static const String arrowBack = 'assets/images/svgs/arrowBack.svg';
   static const String profileImage = 'assets/images/pngs/profileImage.png';
@@ -60,5 +60,28 @@ class OImages {
   static const String newCategoryIcon = 'assets/images/svgs/newCategoryIcon.svg';
   static const String todayIcon = 'assets/images/svgs/todayIcon.svg';
   static const String accountImage = 'assets/images/svgs/accountImage.svg';
+
+  static const String cleaningIcon = 'assets/images/svgs/cleaningIcon.svg';
+  static const String repairingIcon = 'assets/images/svgs/repairingIcon.svg';
+  static const String paintingIcon = 'assets/images/svgs/paintingIcon.svg';
+  static const String laundry = 'assets/images/svgs/laundry.svg';
+  static const String applianceIcon = 'assets/images/svgs/applianceIcon.svg';
+  static const String plumbingIcon = 'assets/images/svgs/plumbingIcon.svg';
+  static const String shiftingIcon = 'assets/images/svgs/shiftingIcon.svg';
+  static const String moreIcon = 'assets/images/svgs/moreIcon2.svg';
+  static const String osta1 = 'assets/images/pngs/osta1.png';
+  static const String starIcon = 'assets/images/svgs/starIcon.svg';
+  static const String beautyIcon = 'assets/images/svgs/beautyIcon.svg';
+  static const String acIcon = 'assets/images/svgs/acIcon.svg';
+  static const String vehicleIcon = 'assets/images/svgs/vehicleIcon.svg';
+  static const String electronicsIcon = 'assets/images/svgs/electronicsIcon.svg';
+  static const String massageIcon = 'assets/images/svgs/massageIcon.svg';
+  static const String menIcon = 'assets/images/svgs/menIcon.svg';
+  static const String ostaImage = 'assets/images/pngs/ostaImage.png';
+  static const String starIcon2 = 'assets/images/svgs/starIcon2.svg';
+  static const String notFoundIcon = 'assets/images/svgs/notFoundIcon.svg';
+  static const String foundIcon = 'assets/images/svgs/foundIcon.svg';
+  static const String contractorRequestIcon = 'assets/images/svgs/contractorRequestIcon.svg';
+  static const String marketIcon = 'assets/images/svgs/marketIcon.svg';
 
 }

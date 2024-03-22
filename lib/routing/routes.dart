@@ -7,6 +7,7 @@ import 'package:osta_user_app/features/auth/presentation/screens/password_config
 import 'package:osta_user_app/features/auth/presentation/screens/password_configuration/enter_function_connection_screen.dart';
 import 'package:osta_user_app/features/auth/presentation/screens/password_configuration/forget_password_screen.dart';
 import 'package:osta_user_app/features/auth/presentation/screens/password_configuration/otp_in_forget_password_screen.dart';
+import 'package:osta_user_app/features/home/presentation/screens/all_services/all_services_screen.dart';
 import 'package:osta_user_app/features/home/presentation/screens/notifications/notifications_screen.dart';
 import 'package:osta_user_app/features/onboarding/screens/onboarding_screen.dart';
 import 'package:osta_user_app/features/profile/presentation/screens/change_password/change_password_screen.dart';
@@ -111,6 +112,13 @@ class RouteGenerator {
       case ORoutesName.notificationsRoute:
         return PageTransition(
           child: const NotificationsScreen(),
+          type: PageTransitionType.fade,
+          settings: settings,
+          reverseDuration: const Duration(milliseconds: 300),
+        );
+      case ORoutesName.allServicesRoute:
+        return PageTransition(
+          child: const AllServicesScreen(),
           type: PageTransitionType.fade,
           settings: settings,
           reverseDuration: const Duration(milliseconds: 300),

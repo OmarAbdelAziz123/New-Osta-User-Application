@@ -21,7 +21,7 @@ class FillYourProfileScreen extends StatelessWidget {
               /// Profile Image
               Container(
                 width: double.infinity,
-                height: 500.h,
+                height: 622.h,
                 child: Column(
                   children: [
                     Stack(
@@ -67,12 +67,15 @@ class FillYourProfileFormWidget extends StatefulWidget {
 
 class _FillYourProfileFormWidgetState extends State<FillYourProfileFormWidget> {
   TextEditingController fullNameController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
   TextEditingController dateOfBirthController = TextEditingController();
   TextEditingController addressController = TextEditingController();
   final FocusNode fullNameFocusNode = FocusNode();
+  final FocusNode emailFocusNode = FocusNode();
   final FocusNode dateOfBirthFocusNode = FocusNode();
   final FocusNode addressFocusNode = FocusNode();
   bool isFullNameFieldFocused = false;
+  bool isEmailFieldFocused = false;
   bool isDateOfBirthFieldFocused = false;
   bool isAddressFieldFocused = false;
 
@@ -81,6 +84,7 @@ class _FillYourProfileFormWidgetState extends State<FillYourProfileFormWidget> {
     super.initState();
     /// Add listener to focus node
     fullNameFocusNode.addListener(() => setState(() => isFullNameFieldFocused = fullNameFocusNode.hasFocus));
+    emailFocusNode.addListener(() => setState(() => isEmailFieldFocused = emailFocusNode.hasFocus));
     dateOfBirthFocusNode.addListener(() => setState(() => isDateOfBirthFieldFocused = dateOfBirthFocusNode.hasFocus));
     addressFocusNode.addListener(() => setState(() => isAddressFieldFocused = addressFocusNode.hasFocus));
   }
@@ -89,9 +93,11 @@ class _FillYourProfileFormWidgetState extends State<FillYourProfileFormWidget> {
   void dispose() {
     /// Clean up the focus node and controller when the widget is disposed.
     fullNameFocusNode.dispose();
+    emailFocusNode.dispose();
     dateOfBirthFocusNode.dispose();
     addressFocusNode.dispose();
     fullNameController.dispose();
+    emailController.dispose();
     dateOfBirthController.dispose();
     addressController.dispose();
     super.dispose();
@@ -101,7 +107,7 @@ class _FillYourProfileFormWidgetState extends State<FillYourProfileFormWidget> {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      height: 350.h,
+      height: 480.h,
       child: Column(
         children: [
           /// Full Name
@@ -113,6 +119,22 @@ class _FillYourProfileFormWidgetState extends State<FillYourProfileFormWidget> {
             hintColor: isFullNameFieldFocused ? OColors.primaryColor500 : OColors.greyScale500,
             fillColor: isFullNameFieldFocused ? OColors.purpleTransparent.withOpacity(.08) : OColors.greyScale50,
             borderSide: isFullNameFieldFocused ? BorderSide(color: OColors.primaryColor500) : BorderSide.none,
+            obscureText: false,
+          ),
+
+          /// Make Space
+          SizedBox(height: 20.h),
+
+          /// Email
+          TextFormFieldWidget(
+            controller: emailController,
+            textInputType: TextInputType.emailAddress,
+            focusNode: emailFocusNode,
+            hintText: 'Email (Optional)',
+            hintColor: isEmailFieldFocused ? OColors.primaryColor500 : OColors.greyScale500,
+            prefixIcon: SvgPicture.asset(OImages.email2Icon, fit: BoxFit.scaleDown, colorFilter: ColorFilter.mode(isEmailFieldFocused ? OColors.primaryColor500 : emailController.text.isNotEmpty ? OColors.greyScale900 : OColors.greyScale500, BlendMode.srcIn)),
+            fillColor: isEmailFieldFocused ? OColors.purpleTransparent.withOpacity(.08) : OColors.greyScale50,
+            borderSide: isEmailFieldFocused ? BorderSide(color: OColors.primaryColor500) : BorderSide.none,
             obscureText: false,
           ),
 

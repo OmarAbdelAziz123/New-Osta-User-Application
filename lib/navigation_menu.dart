@@ -1,4 +1,5 @@
 import 'package:osta_user_app/features/home/presentation/screens/home_screen.dart';
+import 'package:osta_user_app/features/offer/presentation/screens/offers_screen.dart';
 import 'package:osta_user_app/utils/constants/exports.dart';
 
 class NavigationMenu extends StatefulWidget {
@@ -16,7 +17,7 @@ class _NavigationMenuState extends State<NavigationMenu> {
     List tabs = [
       HomeScreen(),
       Container(color: Colors.grey),
-      Container(color: Colors.green),
+      OffersScreen(),
       Container(color: Colors.black),
       ProfileScreen(),
     ];

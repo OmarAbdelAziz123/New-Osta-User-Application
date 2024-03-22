@@ -58,8 +58,8 @@ class CreateAccountScreen extends StatelessWidget {
               /// Make Space
               SizedBox(height: 45.25.h),
 
-              // Text in Bottom
-              TextRich1Widget(text1: "Already have an account? ", text2: 'Sign in', onTap: () => context.pushNamed(ORoutesName.loginAccountRoute), style: OStyles.bodyMediumRegular.copyWith(color: OColors.greyScale500))
+              /// Text in Bottom
+              TextRich1Widget(text1: "Already have an account? ", text2: 'Sign in', onTap: () => context.pushNamed(ORoutesName.loginAccountRoute), styleOfText1: OStyles.bodyMediumRegular.copyWith(color: OColors.greyScale500), styleOfText2: OStyles.bodyMediumSemiBold.copyWith(color: OColors.primaryColor500))
             ],
           ),
         ),

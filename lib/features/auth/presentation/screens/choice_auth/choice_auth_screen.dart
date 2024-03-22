@@ -57,7 +57,7 @@ class ChoiceAuthScreen extends StatelessWidget {
               SizedBox(height: 31.h),
 
               /// Text in Bottom
-              TextRich1Widget(text1: "Don't have an account? ", text2: 'Sign up', onTap: () => context.pushNamed(ORoutesName.createAccountRoute), style: OStyles.bodyMediumRegular.copyWith(color: OColors.greyScale500))
+              TextRich1Widget(text1: "Don't have an account? ", text2: 'Sign up', onTap: () => context.pushNamed(ORoutesName.createAccountRoute), styleOfText1: OStyles.bodyMediumRegular.copyWith(color: OColors.greyScale500), styleOfText2: OStyles.bodyMediumSemiBold.copyWith(color: OColors.primaryColor500),)
             ],
           ),
         ),

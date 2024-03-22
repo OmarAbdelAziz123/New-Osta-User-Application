@@ -49,6 +49,15 @@ class ODeviceUtils {
     );
 }
 
+  static Container buildDotWidget(int index, int currentIndex, BuildContext context, Decoration decoration) {
+    return Container(
+      height: 8.h,
+      width: currentIndex == index ? 32.w : 8.w,
+      margin: EdgeInsets.only(right: 6.w),
+      decoration: decoration,
+    );
+  }
+
   static void showCustomBottomSheet({required BuildContext context, required Widget widget}) {
     showModalBottomSheet(
       context: context,

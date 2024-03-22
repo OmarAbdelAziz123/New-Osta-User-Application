@@ -15,7 +15,7 @@ class ProfileScreen extends StatelessWidget {
           children: [
 
             /// App Bar
-            AppBarWidget(leading: SvgPicture.asset(OImages.profileLogo, fit: BoxFit.scaleDown), title: 'Profile', actions: SvgPicture.asset(OImages.moreIcon), widthOfText: 282.w),
+            AppBarWidget(leading: SvgPicture.asset(OImages.profileLogo, fit: BoxFit.scaleDown), title: 'Profile', actions: SvgPicture.asset(OImages.moreIcon2), widthOfText: 280.w),
 
             /// Make Space
             SizedBox(height: 24.h),

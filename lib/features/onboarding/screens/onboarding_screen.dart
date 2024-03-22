@@ -75,7 +75,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: List.generate(
                 OConstants.onBoardingTexts.length,
-                (index) => buildDotWidget(index, context),
+                (index) => ODeviceUtils.buildDotWidget(index, currentIndex, context, BoxDecoration(gradient: AppGradients.purpleGradient, borderRadius: BorderRadius.circular(100.r))),
               ),
           ),
 
@@ -97,18 +97,6 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
             boxShadow: [AppBoxShadows.buttonShadowOne],
           ),
         ],
-      ),
-    );
-  }
-
-  Container buildDotWidget(int index, BuildContext context) {
-    return Container(
-      height: 8.h,
-      width: currentIndex == index ? 32.w : 8.w,
-      margin: EdgeInsets.only(right: 6.w),
-      decoration: BoxDecoration(
-        gradient: AppGradients.purpleGradient,
-        borderRadius: BorderRadius.circular(100.r),
       ),
     );
   }
