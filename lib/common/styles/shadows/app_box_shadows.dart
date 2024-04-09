@@ -46,4 +46,11 @@ class AppBoxShadows {
     blurRadius: 100.r,
     offset: Offset(0.w, 20.h),
   );
+  /// Card Shadow Four
+  static final BoxShadow cardShadowFour = BoxShadow(
+    color: OColors.blackColor.withOpacity(.1),
+    spreadRadius: 0,
+    blurRadius: 10.r,
+    offset: Offset(0.w, 4.h),
+  );
 }

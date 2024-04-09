@@ -81,7 +81,7 @@ class _CreateNewPasswordFormWidgetState extends State<CreateNewPasswordFormWidge
 
         /// Continue Button
         MainButtonWidget(
-          buttonText: 'Continue',
+          centerWidgetInButton: Text('Continue', style: OStyles.bodyLargeBold.copyWith(color: OColors.whiteColor)),
           onTap: () => ODeviceUtils.showDialogFunction(context: context, imagePath: OImages.congratulationUpdatePassword),
           margin: EdgeInsets.zero,
           buttonColor: newPasswordController.text.isEmpty || confirmNewPasswordController.text.isEmpty ? OColors.disabledButton : OColors.primaryColor500,

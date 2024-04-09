@@ -1,4 +1,3 @@
-import 'package:osta_user_app/features/home/presentation/widgets/home/product_container_widget.dart';
 import 'package:osta_user_app/utils/constants/exports.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -179,10 +178,10 @@ class _HomeScreenState extends State<HomeScreen> {
                   /// Make Space
                   SizedBox(height: 11.h),
 
-                  const Row(
+                  Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      AdvancedServicesWidget(image: OImages.contractorRequestIcon, title: 'Contractor request'),
+                      AdvancedServicesWidget(image: OImages.contractorRequestIcon, title: 'Contractor request', onTap: () => context.pushNamed(ORoutesName.oneTimeServiceInHomeScreenRoute)),
                       AdvancedServicesWidget(image: OImages.marketIcon, title: 'Market'),
                     ],
                   ),
@@ -253,32 +252,6 @@ class _HomeScreenState extends State<HomeScreen> {
             // SizedBox(height: 24.h),
           ],
         ),
-      ),
-    );
-  }
-}
-
-class AdvancedServicesWidget extends StatelessWidget {
-  const AdvancedServicesWidget({super.key, required this.image, required this.title});
-
-  final String image, title;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: 190.w,
-      height: 90.h,
-      decoration: BoxDecoration(
-          color: OColors.whiteColor,
-          borderRadius: BorderRadius.circular(16.r),
-          boxShadow: [AppBoxShadows.cardShadowTwo]
-      ),
-      child: Row(
-        children: [
-          SvgPicture.asset(image),
-          SizedBox(width: 10.w),
-          Expanded(child: Text(title, style: OStyles.h6Bold, overflow: TextOverflow.clip)),
-        ],
       ),
     );
   }

@@ -108,7 +108,7 @@ class _UpdateNewPasswordWidgetState extends State<UpdateNewPasswordWidget> {
 
         /// Continue Button
         MainButtonWidget(
-          buttonText: 'Update',
+          centerWidgetInButton: Text('Update', style: OStyles.bodyLargeBold.copyWith(color: OColors.whiteColor)),
           onTap: () => ODeviceUtils.showDialogFunction(context: context, imagePath: OImages.congratulationUpdatePassword),
           margin: EdgeInsets.zero,
           buttonColor: newPasswordController.text.isEmpty || confirmNewPasswordController.text.isEmpty ? OColors.disabledButton : OColors.primaryColor500,

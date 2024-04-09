@@ -1,4 +1,6 @@
+import 'package:osta_user_app/features/booking/presentation/screens/booking_screen.dart';
 import 'package:osta_user_app/features/home/presentation/screens/home_screen.dart';
+import 'package:osta_user_app/features/inbox/presentation/screens/inbox_screen.dart';
 import 'package:osta_user_app/features/offer/presentation/screens/offers_screen.dart';
 import 'package:osta_user_app/utils/constants/exports.dart';
 
@@ -16,9 +18,9 @@ class _NavigationMenuState extends State<NavigationMenu> {
   Widget build(BuildContext context) {
     List tabs = [
       HomeScreen(),
-      Container(color: Colors.grey),
+      BookingScreen(),
       OffersScreen(),
-      Container(color: Colors.black),
+      InboxScreen(),
       ProfileScreen(),
     ];
 

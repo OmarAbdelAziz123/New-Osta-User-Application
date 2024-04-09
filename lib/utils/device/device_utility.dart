@@ -1,3 +1,4 @@
+import 'package:floating_snackbar/floating_snackbar.dart';
 import 'package:osta_user_app/utils/constants/exports.dart';
 
 class ODeviceUtils {
@@ -66,6 +67,17 @@ class ODeviceUtils {
       },
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.only(topLeft: Radius.circular(40.r), topRight: Radius.circular(40.r))),
       backgroundColor: Colors.transparent,
+    );
+  }
+
+  static void showSnackBar({required BuildContext context, required String message, required Color textColor, required TextStyle textStyle, bgColor}) {
+    return FloatingSnackBar(
+      message: message,
+      context: context,
+      textColor: textColor,
+      textStyle: textStyle,
+      duration: const Duration(milliseconds: 4000),
+      backgroundColor: bgColor,
     );
   }
 

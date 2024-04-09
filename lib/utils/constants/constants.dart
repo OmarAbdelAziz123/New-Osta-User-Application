@@ -160,4 +160,83 @@ class OConstants {
     'Massage',
     'Men’s Sal..',
   ];
+
+  /// Bookings Image
+  static List<String> bookingImage = [
+    OImages.myBooking1,
+    OImages.myBooking2,
+    OImages.myBooking3,
+  ];
+
+  /// Bookings Jobs
+  static List<String> bookingJobs = [
+    "Plumbing Repair",
+    "Appliance Service",
+    "Laundry Services",
+  ];
+
+  /// Bookings name
+  static List<String> bookingName = [
+    "Chantal Shelburne",
+    "Benny Spanbauer",
+    "Phyllis Godley",
+  ];
+
+  /// Inbox Image
+  static List<String> inboxProfileImage = [
+    OImages.inbox1,
+    OImages.inbox2,
+    OImages.inbox3,
+    OImages.inbox1,
+    OImages.inbox2,
+    OImages.inbox3,
+    OImages.inbox1,
+    OImages.inbox2,
+    OImages.inbox3,
+    OImages.inbox3,
+  ];
+  /// Inbox Name
+  static List<String> inboxProfileName = [
+    "Lauralee Quintero",
+    "Tanner Stafford",
+    "Augustina Midgett",
+    "Lauralee Quintero",
+    "Tanner Stafford",
+    "Augustina Midgett",
+    "Lauralee Quintero",
+    "Tanner Stafford",
+    "Augustina Midgett",
+    "Augustina Midgett",
+  ];
+
+  /// Inbox description
+  static List<String> inboxProfileDes = [
+    "Incoming",
+    "Outgoing",
+    "Missed",
+    "Incoming",
+    "Outgoing",
+    "Missed",
+    "Incoming",
+    "Outgoing",
+    "Missed",
+    "Missed",
+  ];
+
+  /// Days List
+  static List<String> daysList = [
+    '30 days',
+    '60 days',
+    '90 days',
+  ];
+
+  /// Days List
+  static List<String> pricesList = [
+    '60 sr',
+    '90 sr',
+    '120 sr',
+  ];
+
+
+
 }

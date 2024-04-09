@@ -112,7 +112,7 @@ class _EditProfileFormWidgetState extends State<EditProfileFormWidget> {
         /// Make Space
         SizedBox(height: 24.h),
 
-        DropDownWidget(selectedItem: OConstants.selectedState!, items: OConstants.states),
+        DropDownWidget(selectedItem: OConstants.selectedState!, items: OConstants.states, isInFillProfile: false),
 
         /// Make Space
         SizedBox(height: 24.h),
@@ -135,7 +135,7 @@ class _EditProfileFormWidgetState extends State<EditProfileFormWidget> {
         SizedBox(height: 24.h),
 
         /// Check for Male or Female
-        DropDownWidget(selectedItem: OConstants.selectedGender!, items: OConstants.genders),
+        DropDownWidget(selectedItem: OConstants.selectedGender!, items: OConstants.genders, isInFillProfile: false),
 
         /// Make Space
         SizedBox(height: 24.h),
@@ -160,7 +160,7 @@ class _EditProfileFormWidgetState extends State<EditProfileFormWidget> {
         Align(
           alignment: Alignment.bottomCenter,
           child: MainButtonWidget(
-            buttonText: 'Update',
+            centerWidgetInButton: Text('Update', style: OStyles.bodyLargeBold.copyWith(color: OColors.whiteColor)),
             onTap: () => {},
             margin: EdgeInsets.zero,
             buttonColor: fullNameController.text.isEmpty || addressController.text.isEmpty || dateOfBirthController.text.isEmpty || addressController.text.isEmpty ? OColors.disabledButton : OColors.primaryColor500,

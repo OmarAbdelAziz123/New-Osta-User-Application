@@ -1,4 +1,3 @@
-import 'package:osta_user_app/features/auth/presentation/screens/choice_auth/choice_auth_screen.dart';
 import 'package:osta_user_app/features/auth/presentation/screens/create_account/create_account_screen.dart';
 import 'package:osta_user_app/features/auth/presentation/screens/fill_your_profile/fill_your_profile_screen.dart';
 import 'package:osta_user_app/features/auth/presentation/screens/login_account/login_account_screen.dart';
@@ -9,10 +8,23 @@ import 'package:osta_user_app/features/auth/presentation/screens/password_config
 import 'package:osta_user_app/features/auth/presentation/screens/password_configuration/otp_in_forget_password_screen.dart';
 import 'package:osta_user_app/features/home/presentation/screens/all_services/all_services_screen.dart';
 import 'package:osta_user_app/features/home/presentation/screens/notifications/notifications_screen.dart';
+import 'package:osta_user_app/features/home/presentation/screens/one_time/one_time_service_screen.dart';
+import 'package:osta_user_app/features/home/presentation/screens/one_time/order_details_screeen.dart';
+import 'package:osta_user_app/features/home/presentation/screens/services_details/cleanliness_and_gardens/cleanliness_and_gardens_screen.dart';
+import 'package:osta_user_app/features/home/presentation/screens/services_details/cleanliness_and_gardens/one_time/service_type_screen.dart';
+import 'package:osta_user_app/features/home/presentation/screens/services_details/cleanliness_and_gardens/one_time/spaces_screen.dart';
+import 'package:osta_user_app/features/home/presentation/screens/services_details/electricity_plumbing_aircondition_carpentry/electricity_plumbing_aircondition_carpentry_screen.dart';
+import 'package:osta_user_app/features/home/presentation/screens/services_details/electricity_plumbing_aircondition_carpentry/one_time/one_time_screen_in_electricity.dart';
+import 'package:osta_user_app/features/home/presentation/screens/services_details/electricity_plumbing_aircondition_carpentry/one_time/specific_services_screen.dart';
+import 'package:osta_user_app/features/home/presentation/screens/services_details/home_app_satellite_channel_and_surveillance_cameras/home_app_satellite_channel_and_surveillance_cameras_screen.dart';
+import 'package:osta_user_app/features/home/presentation/screens/services_details/tiling_and_painting/tiling_and_painting_screen.dart';
+import 'package:osta_user_app/features/inbox/presentation/screens/chat_screen.dart';
 import 'package:osta_user_app/features/onboarding/screens/onboarding_screen.dart';
 import 'package:osta_user_app/features/profile/presentation/screens/change_password/change_password_screen.dart';
 import 'package:osta_user_app/features/profile/presentation/screens/customer_service/customer_service_screen.dart';
 import 'package:osta_user_app/features/profile/presentation/screens/edit_profile/edit_profile_screen.dart';
+import 'package:osta_user_app/features/profile/presentation/screens/invite_friends/invite_friends_screen.dart';
+import 'package:osta_user_app/features/profile/presentation/screens/payment/add_new_card_screen.dart';
 import 'package:osta_user_app/features/profile/presentation/screens/payment/payment_screen.dart';
 import 'package:osta_user_app/features/profile/presentation/screens/privacy_policy/privacy_policy_screen.dart';
 import 'package:osta_user_app/navigation_menu.dart';
@@ -35,13 +47,6 @@ class RouteGenerator {
           settings: settings,
           reverseDuration: const Duration(milliseconds: 300),
         );
-      case ORoutesName.choiceAuthRoute:
-        return PageTransition(
-          child: const ChoiceAuthScreen(),
-          type: PageTransitionType.fade,
-          settings: settings,
-          reverseDuration: const Duration(milliseconds: 300),
-        );
       case ORoutesName.createAccountRoute:
         return PageTransition(
           child: const CreateAccountScreen(),
@@ -50,8 +55,10 @@ class RouteGenerator {
           reverseDuration: const Duration(milliseconds: 300),
         );
       case ORoutesName.fillYourRoute:
+        String phoneNumber = settings.arguments as String;
+
         return PageTransition(
-          child: const FillYourProfileScreen(),
+          child: FillYourProfileScreen(phoneNumber: phoneNumber),
           type: PageTransitionType.fade,
           settings: settings,
           reverseDuration: const Duration(milliseconds: 300),
@@ -64,37 +71,39 @@ class RouteGenerator {
           reverseDuration: const Duration(milliseconds: 300),
         );
       case ORoutesName.otpRoute:
-        return PageTransition(
-          child: const OtpInCreateAndLoginScreen(),
-          type: PageTransitionType.fade,
-          settings: settings,
-          reverseDuration: const Duration(milliseconds: 300),
-        );
-      case ORoutesName.enterFunctionConnectionRoute:
-        bool viaConnection = settings.arguments as bool;
+        String phoneNumber = settings.arguments as String;
 
         return PageTransition(
-          child: EnterFunctionConnectionScreen(viaConnection: viaConnection),
+          child: OtpInCreateAndLoginScreen(phoneNumber: phoneNumber),
           type: PageTransitionType.fade,
           settings: settings,
           reverseDuration: const Duration(milliseconds: 300),
         );
-      case ORoutesName.otpInForgetPasswordRoute:
-        final Map<String, dynamic> map = settings.arguments as Map<String, dynamic>;
-
-        return PageTransition(
-          child: OtpInForgetPasswordScreen(map: map),
-          type: PageTransitionType.fade,
-          settings: settings,
-          reverseDuration: const Duration(milliseconds: 300),
-        );
-      case ORoutesName.forgetPasswordRoute:
-        return PageTransition(
-          child: const ForgetPasswordScreen(),
-          type: PageTransitionType.fade,
-          settings: settings,
-          reverseDuration: const Duration(milliseconds: 300),
-        );
+      // case ORoutesName.enterFunctionConnectionRoute:
+      //   bool viaConnection = settings.arguments as bool;
+      //
+      //   return PageTransition(
+      //     child: EnterFunctionConnectionScreen(viaConnection: viaConnection),
+      //     type: PageTransitionType.fade,
+      //     settings: settings,
+      //     reverseDuration: const Duration(milliseconds: 300),
+      //   );
+      // case ORoutesName.otpInForgetPasswordRoute:
+      //   final Map<String, dynamic> map = settings.arguments as Map<String, dynamic>;
+      //
+      //   return PageTransition(
+      //     child: OtpInForgetPasswordScreen(map: map),
+      //     type: PageTransitionType.fade,
+      //     settings: settings,
+      //     reverseDuration: const Duration(milliseconds: 300),
+      //   );
+      // case ORoutesName.forgetPasswordRoute:
+      //   return PageTransition(
+      //     child: const ForgetPasswordScreen(),
+      //     type: PageTransitionType.fade,
+      //     settings: settings,
+      //     reverseDuration: const Duration(milliseconds: 300),
+      //   );
       case ORoutesName.createNewPasswordRoute:
         return PageTransition(
           child: const CreateNewPasswordScreen(),
@@ -165,13 +174,91 @@ class RouteGenerator {
           settings: settings,
           reverseDuration: const Duration(milliseconds: 300),
         );
-      // case ORoutesName.inviteFriendsRoute:
-      //   return PageTransition(
-      //     child: const NavigationMenu(),
-      //     type: PageTransitionType.fade,
-      //     settings: settings,
-      //     reverseDuration: const Duration(milliseconds: 300),
-      //   );
+      case ORoutesName.inviteFriendsRoute:
+        return PageTransition(
+          child: const InviteFriendsScreen(),
+          type: PageTransitionType.fade,
+          settings: settings,
+          reverseDuration: const Duration(milliseconds: 300),
+        );
+      case ORoutesName.chatRoute:
+        final title = settings.arguments as String;
+        return PageTransition(
+          child: ChatScreen(title: title),
+          type: PageTransitionType.fade,
+          settings: settings,
+          reverseDuration: const Duration(milliseconds: 300),
+        );
+      case ORoutesName.cleanlinessAndGardensRoute:
+        return PageTransition(
+          child: const CleanlinessAndGardensScreen(),
+          type: PageTransitionType.fade,
+          settings: settings,
+          reverseDuration: const Duration(milliseconds: 300),
+        );
+      case ORoutesName.serviceTypeRoute:
+        return PageTransition(
+          child: const ServiceTypeScreen(),
+          type: PageTransitionType.fade,
+          settings: settings,
+          reverseDuration: const Duration(milliseconds: 300),
+        );
+      case ORoutesName.spaceRoute:
+        return PageTransition(
+          child: const SpacesScreen(),
+          type: PageTransitionType.fade,
+          settings: settings,
+          reverseDuration: const Duration(milliseconds: 300),
+        );
+      case ORoutesName.electricityPlumbingAirConditionCarpentrySRoute:
+        return PageTransition(
+          child: const ElectricityPlumbingAirConditionCarpentryScreen(),
+          type: PageTransitionType.fade,
+          settings: settings,
+          reverseDuration: const Duration(milliseconds: 300),
+        );
+      case ORoutesName.homeAppSatelliteChannelAndSurveillanceCamerasSRoute:
+        return PageTransition(
+          child: const HomeAppSatelliteChannelAndSurveillanceCameras(),
+          type: PageTransitionType.fade,
+          settings: settings,
+          reverseDuration: const Duration(milliseconds: 300),
+        );
+      case ORoutesName.specificServicesRoute:
+        return PageTransition(
+          child: const SpecificServicesScreen(),
+          type: PageTransitionType.fade,
+          settings: settings,
+          reverseDuration: const Duration(milliseconds: 300),
+        );
+      case ORoutesName.tilingAndPaintingRoute:
+        return PageTransition(
+          child: const TilingAndPaintingScreen(),
+          type: PageTransitionType.fade,
+          settings: settings,
+          reverseDuration: const Duration(milliseconds: 300),
+        );
+      case ORoutesName.oneTimeServiceInHomeScreenRoute:
+        return PageTransition(
+          child: const OneTimeServiceInHomeScreen(),
+          type: PageTransitionType.fade,
+          settings: settings,
+          reverseDuration: const Duration(milliseconds: 300),
+        );
+      case ORoutesName.orderDetailsRoute:
+        return PageTransition(
+          child: const OrderDetailsScreen(),
+          type: PageTransitionType.fade,
+          settings: settings,
+          reverseDuration: const Duration(milliseconds: 300),
+        );
+      case ORoutesName.addNewCardRoute:
+        return PageTransition(
+          child: const AddNewCardScreen(),
+          type: PageTransitionType.fade,
+          settings: settings,
+          reverseDuration: const Duration(milliseconds: 300),
+        );
       default:
         return unDefinedRoute();
     }

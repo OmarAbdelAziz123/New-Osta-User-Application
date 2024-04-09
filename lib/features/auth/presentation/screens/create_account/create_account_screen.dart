@@ -26,34 +26,34 @@ class CreateAccountScreen extends StatelessWidget {
               const CreateAccountFormWidget(),
 
               /// Make Space
-              SizedBox(height: 50.h),
+              // SizedBox(height: 50.h),
 
               /// OR - Social Buttons
-              SizedBox(
-                width: double.infinity,
-                height: 125.h,
-                child: Column(
-                  children: [
-                    const OrWidget(text: 'or continue with'),
-
-                    /// Make Space
-                    SizedBox(height: 20.h),
-
-                    /// Social Containers Widget
-                    Row(
-                      children: List.generate(
-                        OConstants.choiceIcons.length,
-                            (index) => Flexible(
-                          child: Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 12.w),
-                            child: SocialContainerWidget(companyIcon: OConstants.choiceIcons[index]),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
+              // SizedBox(
+              //   width: double.infinity,
+              //   // height: 125.h,
+              //   child: Column(
+              //     children: [
+              //       const OrWidget(text: 'or continue with'),
+              //
+              //       /// Make Space
+              //       // SizedBox(height: 20.h),
+              //
+              //       /// Social Containers Widget
+              //       // Row(
+              //       //   children: List.generate(
+              //       //     OConstants.choiceIcons.length,
+              //       //         (index) => Flexible(
+              //       //       child: Padding(
+              //       //         padding: EdgeInsets.symmetric(horizontal: 12.w),
+              //       //         child: SocialContainerWidget(companyIcon: OConstants.choiceIcons[index]),
+              //       //       ),
+              //       //     ),
+              //       //   ),
+              //       // ),
+              //     ],
+              //   ),
+              // ),
 
               /// Make Space
               SizedBox(height: 45.25.h),

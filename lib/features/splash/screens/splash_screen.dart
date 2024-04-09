@@ -99,11 +99,11 @@ class _SplashScreenState extends State<SplashScreen> {
     Future.delayed(
       const Duration(seconds: 4),
           () {
-        // if (OCacheHelper.getString(key: CacheKeys.token) == '') {
+        if (OCacheHelper.getString(key: CacheKeys.token) == '') {
           context.pushReplacementNamed(ORoutesName.onBoardingRoute);
-        // } else {
-        //   context.pushReplacementNamed(ORoutesName.navigationMenuRoute);
-        // }
+        } else {
+          context.pushReplacementNamed(ORoutesName.navigationMenuRoute);
+        }
       },
     );
   }

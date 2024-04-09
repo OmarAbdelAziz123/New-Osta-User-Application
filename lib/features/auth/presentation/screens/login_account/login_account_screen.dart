@@ -25,38 +25,38 @@ class LoginAccountScreen extends StatelessWidget {
 
               const LoginAccountFormWidget(),
 
-              /// OR - Social Buttons
-              SizedBox(
-                width: double.infinity,
-                height: 125.h,
-                child: Column(
-                  children: [
-                    const OrWidget(text: 'or continue with'),
-
-                    /// Make Space
-                    SizedBox(height: 20.h),
-
-                    /// Social Containers Widget
-                    Row(
-                      children: List.generate(
-                        OConstants.choiceIcons.length,
-                            (index) => Flexible(
-                          child: Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 12.w),
-                            child: SocialContainerWidget(companyIcon: OConstants.choiceIcons[index]),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-
-              /// Make Space
-              SizedBox(height: 45.25.h),
-
-              /// Text in Bottom
-              TextRich1Widget(text1: "Don’t have an account? ", text2: 'Sign up', onTap: () => context.pushNamed(ORoutesName.createAccountRoute), styleOfText1: OStyles.bodyMediumRegular.copyWith(color: OColors.greyScale500), styleOfText2: OStyles.bodyMediumSemiBold.copyWith(color: OColors.primaryColor500)),
+              // /// OR - Social Buttons
+              // SizedBox(
+              //   width: double.infinity,
+              //   height: 125.h,
+              //   child: Column(
+              //     children: [
+              //       const OrWidget(text: 'or continue with'),
+              //
+              //       /// Make Space
+              //       SizedBox(height: 20.h),
+              //
+              //       /// Social Containers Widget
+              //       Row(
+              //         children: List.generate(
+              //           OConstants.choiceIcons.length,
+              //               (index) => Flexible(
+              //             child: Padding(
+              //               padding: EdgeInsets.symmetric(horizontal: 12.w),
+              //               child: SocialContainerWidget(companyIcon: OConstants.choiceIcons[index]),
+              //             ),
+              //           ),
+              //         ),
+              //       ),
+              //     ],
+              //   ),
+              // ),
+              //
+              // /// Make Space
+              // SizedBox(height: 45.25.h),
+              //
+              // /// Text in Bottom
+              // TextRich1Widget(text1: "Don’t have an account? ", text2: 'Sign up', onTap: () => context.pushNamed(ORoutesName.createAccountRoute), styleOfText1: OStyles.bodyMediumRegular.copyWith(color: OColors.greyScale500), styleOfText2: OStyles.bodyMediumSemiBold.copyWith(color: OColors.primaryColor500)),
             ],
           ),
         ),

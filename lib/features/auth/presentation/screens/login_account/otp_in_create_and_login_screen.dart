@@ -1,7 +1,12 @@
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:osta_user_app/common/widgets/texts_rich/text_rich2_widget.dart';
+import 'package:osta_user_app/features/auth/managers/auth_cubit.dart';
 import 'package:osta_user_app/utils/constants/exports.dart';
 
 class OtpInCreateAndLoginScreen extends StatefulWidget {
-  const OtpInCreateAndLoginScreen({super.key});
+  const OtpInCreateAndLoginScreen({super.key, required this.phoneNumber});
+
+  final String phoneNumber;
 
   @override
   State<OtpInCreateAndLoginScreen> createState() => _OtpInCreateAndLoginScreenState();
@@ -13,86 +18,106 @@ class _OtpInCreateAndLoginScreenState extends State<OtpInCreateAndLoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        children: [
-          Padding(
-            padding: EdgeInsets.only(left: 24.w, right: 24.w, top: 75.h, bottom: 48.h),
-            child: Column(
-              children: [
-                /// Arrow Button
-                TopRowInAllScreens(titleOfScreenWidget: Text('Create New PIN', style: OStyles.h4Bold)),
+      body: BlocConsumer<AuthCubit, AuthState>(
+        listener: (context, state) {
+          if(state is VerifyOTPErrorState) {
+            ODeviceUtils.showSnackBar(context: context, message: 'The otp have a problem', textStyle: OStyles.bodyLargeRegular, textColor: OColors.whiteColor, bgColor: OColors.error);
+          } else if(state is VerifyOTPSuccessState) {
+            ODeviceUtils.showDialogFunction(context: context, imagePath: OImages.congratulationProfile);
+            Future.delayed(const Duration(seconds: 2), () {
+              if (context.mounted) context.pushNamed(ORoutesName.navigationMenuRoute);
+            });
+          }
+        },
+        builder: (context, state) {
+          var verifyOTPCubit = AuthCubit.get(context);
 
-                /// Make Space
-                SizedBox(height: 125.h),
+          return Column(
+            children: [
+              Padding(
+                padding: EdgeInsets.only(left: 24.w, right: 24.w, top: 75.h, bottom: 48.h),
+                child: Column(
+                  children: [
+                    /// Arrow Button
+                    TopRowInAllScreens(titleOfScreenWidget: Text('', style: OStyles.h4Bold)),
 
-                SizedBox(height: 50.h, width: double.infinity, child: Text('Add a PIN number to make your account more secure.', style: OStyles.bodyXLargeRegular, textAlign: TextAlign.center)),
+                    /// Make Space
+                    SizedBox(height: 125.h),
 
-                /// Make Space
-                SizedBox(height: 80.h),
+                    SizedBox(height: 50.h, width: double.infinity, child: Text('Code has been send to: ${widget.phoneNumber}', style: OStyles.bodyXLargeRegular, textAlign: TextAlign.center)),
 
-                /// OTP
-                Directionality(
-                  textDirection: TextDirection.ltr,
-                  child: SizedBox(
-                    width: double.infinity,
-                    child: Pinput(
-                      androidSmsAutofillMethod: AndroidSmsAutofillMethod.smsUserConsentApi,
-                      controller: pinputController,
-                      length: 4,
-                      obscureText: true,
-                      obscuringCharacter: '⚫',
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      focusedPinTheme: PinTheme(
-                        height: 61.h,
-                        width: 83.w,
-                        textStyle: OStyles.h4Bold,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10.sp),
-                          border: Border.all(width: 1.w, color: OColors.primaryColor500),
-                          color: OColors.purpleTransparent.withOpacity(.08),
+                    /// Make Space
+                    SizedBox(height: 80.h),
+
+                    /// OTP
+                    Directionality(
+                      textDirection: TextDirection.ltr,
+                      child: SizedBox(
+                        width: double.infinity,
+                        child: Pinput(
+                          androidSmsAutofillMethod: AndroidSmsAutofillMethod.smsUserConsentApi,
+                          controller: pinputController,
+                          length: 4,
+                          obscureText: true,
+                          obscuringCharacter: '⚫',
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          focusedPinTheme: PinTheme(
+                            height: 61.h,
+                            width: 83.w,
+                            textStyle: OStyles.h4Bold,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10.sp),
+                              border: Border.all(width: 1.w, color: OColors.primaryColor500),
+                              color: OColors.purpleTransparent.withOpacity(.08),
+                            ),
+                          ),
+                          defaultPinTheme: PinTheme(
+                            height: 61.h,
+                            width: 83.w,
+                            textStyle: OStyles.h4Bold,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(12.sp),
+                              color: OColors.greyScale50,
+                              border: Border.all(width: 1.w, color: OColors.greyScale200),
+                            ),
+                          ),
+                          pinputAutovalidateMode: PinputAutovalidateMode.onSubmit,
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return '';
+                            }
+                            return null;
+                          },
+                          onCompleted: (value) async {},
                         ),
                       ),
-                      defaultPinTheme: PinTheme(
-                        height: 61.h,
-                        width: 83.w,
-                        textStyle: OStyles.h4Bold,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(12.sp),
-                          color: OColors.greyScale50,
-                          border: Border.all(width: 1.w, color: OColors.greyScale200),
-                        ),
-                      ),
-                      pinputAutovalidateMode: PinputAutovalidateMode.onSubmit,
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return '';
-                        }
-                        return null;
-                      },
-                      onCompleted: (value) async {},
                     ),
-                  ),
+                    /// Make Space
+                    SizedBox(height: 50.h),
+                    /// Counter Text
+                    TextRich2Widget(text1: 'Resend code in ', style: OStyles.bodyXLargeMedium.copyWith(color: OColors.primaryColor500)),
+                  ],
                 ),
-              ],
-            ),
-          ),
+              ),
 
-          const Spacer(),
+              const Spacer(),
 
-          /// Continue Button
-          MainButtonWidget(
-            buttonText: 'Continue',
-            // onTap: () => ODeviceUtils.showDialogFunction(context: context, imagePath: OImages.congratulationProfile),
-            onTap: () => context.pushNamed(ORoutesName.navigationMenuRoute),
-            margin: EdgeInsets.zero,
-            buttonColor: OColors.primaryColor500,
-            boxShadow: [AppBoxShadows.buttonShadowOne],
-          ),
+              /// Continue Button
+              MainButtonWidget(
+                centerWidgetInButton: state is VerifyOTPLoadingState ? Padding(padding: EdgeInsets.all(3.sp), child: LoadingWidget(iconColor: OColors.whiteColor)) : Text('Continue', style: OStyles.bodyLargeBold.copyWith(color: OColors.whiteColor)),
+                // onTap: () => ODeviceUtils.showDialogFunction(context: context, imagePath: OImages.congratulationProfile),
+                onTap: () => verifyOTPCubit.verifyOTPFunction(otp: pinputController.text, phoneNumber: widget.phoneNumber),
+                margin: EdgeInsets.zero,
+                buttonColor: OColors.primaryColor500,
+                boxShadow: [AppBoxShadows.buttonShadowOne],
+              ),
 
-          /// Make Space
-          SizedBox(height: 24.h),
-        ],
+              /// Make Space
+              SizedBox(height: 24.h),
+            ],
+          );
+        },
       ),
     );
   }

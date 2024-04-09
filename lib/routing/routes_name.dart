@@ -20,4 +20,15 @@ class ORoutesName {
   static const String inviteFriendsRoute = 'invite-friends-route';
   static const String notificationsRoute = 'notifications-route';
   static const String allServicesRoute = 'all-services-route';
+  static const String chatRoute = 'chat-route';
+  static const String cleanlinessAndGardensRoute = 'cleanliness-and-gardens-route';
+  static const String serviceTypeRoute = 'service-type-route';
+  static const String spaceRoute = 'space-route';
+  static const String electricityPlumbingAirConditionCarpentrySRoute = 'electricity-route';
+  static const String homeAppSatelliteChannelAndSurveillanceCamerasSRoute = 'homeAppSatellite-route';
+  static const String specificServicesRoute = 'specific-service-route';
+  static const String tilingAndPaintingRoute = 'tiling-and-painting-route';
+  static const String oneTimeServiceInHomeScreenRoute = 'one-time-service-route';
+  static const String orderDetailsRoute = 'order-details-route';
+  static const String addNewCardRoute = 'add-new-card-route';
 }

@@ -84,11 +84,11 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
 
           /// Next Button
           MainButtonWidget(
-            buttonText: currentIndex == OConstants.onBoardingImage.length-1 ? 'Continue' : 'Next',
+            centerWidgetInButton: Text(currentIndex == OConstants.onBoardingImage.length-1 ? 'Continue' : 'Next', style: OStyles.bodyLargeBold.copyWith(color: OColors.whiteColor)),
             onTap: () {
               if(currentIndex == OConstants.onBoardingImage.length - 1) {
                 /// Navigate to Check Screen
-                context.pushNamed(ORoutesName.choiceAuthRoute);
+                context.pushReplacementNamed(ORoutesName.loginAccountRoute);
               }
               controller!.nextPage(duration: const Duration(milliseconds: 500), curve: Curves.easeInOut);
             },

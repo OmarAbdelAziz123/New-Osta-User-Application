@@ -1,4 +1,3 @@
-import 'package:osta_user_app/common/widgets/checkbox/remember_me_widget.dart';
 import 'package:osta_user_app/utils/constants/exports.dart';
 
 class CreateAccountFormWidget extends StatefulWidget {
@@ -78,8 +77,8 @@ class _CreateAccountFormWidgetState extends State<CreateAccountFormWidget> {
 
         /// Sign up Button
         MainButtonWidget(
-          buttonText: 'Sign up',
-          onTap: () => context.pushNamed(ORoutesName.fillYourRoute),
+          centerWidgetInButton: Text('Continue', style: OStyles.bodyLargeBold.copyWith(color: OColors.whiteColor)),
+          onTap: () => context.pushNamed(ORoutesName.fillYourRoute, arguments: phoneController.text),
           margin: EdgeInsets.zero,
           buttonColor: phoneController.text.isEmpty || passwordController.text.isEmpty ? OColors.disabledButton : OColors.primaryColor500,
           boxShadow: phoneController.text.isEmpty || passwordController.text.isEmpty ? [] : [AppBoxShadows.buttonShadowOne],

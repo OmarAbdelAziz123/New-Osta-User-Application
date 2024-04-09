@@ -1,10 +1,10 @@
 import 'package:osta_user_app/utils/constants/exports.dart';
 
 class MainButtonWidget extends StatelessWidget {
-  const MainButtonWidget({super.key, this.onTap, required this.buttonText, required this.margin, required this.buttonColor, required this.boxShadow});
+  const MainButtonWidget({super.key, this.onTap, required this.centerWidgetInButton, required this.margin, required this.buttonColor, required this.boxShadow});
 
   final void Function()? onTap;
-  final String buttonText;
+  final Widget centerWidgetInButton;
   final Color buttonColor;
   final EdgeInsetsGeometry margin;
   final List<BoxShadow> boxShadow;
@@ -23,7 +23,7 @@ class MainButtonWidget extends StatelessWidget {
           boxShadow: boxShadow,
         ),
         child: Center(
-          child: Text(buttonText, style: OStyles.bodyLargeBold.copyWith(color: OColors.whiteColor)),
+          child: centerWidgetInButton,
         ),
       ),
     );

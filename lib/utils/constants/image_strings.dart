@@ -48,9 +48,12 @@ class OImages {
   static const String helpCenterIcon = 'assets/images/svgs/helpCenterIcon.svg';
   static const String inviteFriendsIcon = 'assets/images/svgs/inviteFriendsIcon.svg';
   static const String logoutIcon = 'assets/images/svgs/logoutIcon.svg';
+  static const String pressHere = 'assets/images/lotties/pressHere.json';
   static const String addressIcon = 'assets/images/svgs/addressIcon.svg';
+  static const String invitationCodeIcon = 'assets/images/svgs/invitationCodeIcon.svg';
   static const String congratulationProfile = 'assets/images/svgs/congratulation.svg';
   static const String congratulationUpdatePassword = 'assets/images/svgs/congratulationUpdatePassword.svg';
+  static const String waleetIcon = 'assets/images/svgs/waleetIcon.svg';
   static const String createNewPasswordLogo = 'assets/images/svgs/createNewPasswordLogo.svg';
   static const String arrowButton = 'assets/images/svgs/arrowButton.svg';
   static const String paypalIcon = 'assets/images/svgs/paypalIcon.svg';
@@ -78,10 +81,30 @@ class OImages {
   static const String massageIcon = 'assets/images/svgs/massageIcon.svg';
   static const String menIcon = 'assets/images/svgs/menIcon.svg';
   static const String ostaImage = 'assets/images/pngs/ostaImage.png';
+  static const String cardImage = 'assets/images/pngs/cardImage.png';
   static const String starIcon2 = 'assets/images/svgs/starIcon2.svg';
   static const String notFoundIcon = 'assets/images/svgs/notFoundIcon.svg';
   static const String foundIcon = 'assets/images/svgs/foundIcon.svg';
   static const String contractorRequestIcon = 'assets/images/svgs/contractorRequestIcon.svg';
+  static const String svg = 'assets/images/svgs/svg.svg';
   static const String marketIcon = 'assets/images/svgs/marketIcon.svg';
+  static const String chatIcon = 'assets/images/svgs/chatIcon.svg';
+  static const String searchIcon = 'assets/images/svgs/searchIcon.svg';
 
+  static const String myBooking1 = 'assets/images/pngs/myBooking1.png';
+  static const String myBooking2 = 'assets/images/pngs/myBooking2.png';
+  static const String myBooking3 = 'assets/images/pngs/myBooking3.png';
+
+  static const String map = 'assets/images/pngs/map.png';
+  static const String upcomingImage = 'assets/images/pngs/upcomingImage.png';
+  static const String callIcon = 'assets/images/svgs/callIcon.svg';
+
+  static const String inbox1 = 'assets/images/pngs/inbox1.png';
+  static const String inbox2 = 'assets/images/pngs/inbox2.png';
+  static const String inbox3 = 'assets/images/pngs/inbox3.png';
+  static const String arrowDownIOS = 'assets/images/svgs/arrowDownIOS.svg';
+  static const String arrowUpIOS = 'assets/images/svgs/arrowUpIOS.svg';
+  static const String remoteIcon = 'assets/images/svgs/remoteIcon.svg';
+  static const String inFactIcon = 'assets/images/svgs/inFactIcon.svg';
+  static const String imagePicker = 'assets/images/pngs/imagePicker.png';
 }

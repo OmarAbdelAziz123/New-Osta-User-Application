@@ -29,8 +29,8 @@ class PaymentScreen extends StatelessWidget {
 
             /// Add New Card Button
             MainButtonWidget(
-              buttonText: 'Add New Card',
-              onTap: () {},
+              centerWidgetInButton: Text('Add New Card', style: OStyles.bodyLargeBold.copyWith(color: OColors.whiteColor)),
+              onTap: () => context.pushNamed(ORoutesName.addNewCardRoute),
               margin: EdgeInsets.zero,
               buttonColor: OColors.primaryColor500,
               boxShadow: [AppBoxShadows.buttonShadowOne],

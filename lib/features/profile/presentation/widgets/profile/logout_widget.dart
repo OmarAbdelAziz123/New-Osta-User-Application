@@ -36,8 +36,11 @@ class LogoutWidget extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  SecondButtonWidget(bgColor: OColors.primaryColor100, widget: Text('Cancel', style: OStyles.bodyLargeBold.copyWith(color: OColors.primaryColor500))),
-                  SecondButtonWidget(bgColor: OColors.primaryColor500, widget: Text('Yes, Logout', style: OStyles.bodyLargeBold.copyWith(color: OColors.whiteColor))),
+                  SecondButtonWidget(bgColor: OColors.primaryColor100, widget: Text('Cancel', style: OStyles.bodyLargeBold.copyWith(color: OColors.primaryColor500)), onTap: () => context.pop()),
+                  SecondButtonWidget(bgColor: OColors.primaryColor500, widget: Text('Yes, Logout', style: OStyles.bodyLargeBold.copyWith(color: OColors.whiteColor)), onTap: () {
+                    OCacheHelper.removeFromShared(key: CacheKeys.token);
+                    context.pushNamedAndRemoveUntil(ORoutesName.onBoardingRoute, predicate: (Route<dynamic> route) => false);
+                  }),
                 ],
               ),
             ),
