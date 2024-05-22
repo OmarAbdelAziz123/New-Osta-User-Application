@@ -29,7 +29,7 @@ class WhatHappenedWithUsWidget extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   /// Services Icons
-                  ContainerIconsInServicesWidget(serviceIcon: OConstants.servicesIcons1[index]),
+                  ContainerIconsInServicesWidget(serviceIcon: OConstants.servicesIcons1[index], onTap: () {  },),
 
                   /// Make Space
                   SizedBox(height: 12.h),

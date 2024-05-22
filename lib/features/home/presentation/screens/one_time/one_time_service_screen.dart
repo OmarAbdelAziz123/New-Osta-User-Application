@@ -60,8 +60,10 @@ class OneTimeServiceInHomeScreen extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  AdvancedServicesWidget(image: OImages.svg, title: 'Contractor request', onTap: () => context.pushNamed(ORoutesName.orderDetailsRoute)),
-                  AdvancedServicesWidget(image: OImages.marketIcon, title: 'Market'),
+                  AdvancedServicesWidget(
+                      image: OImages.svg, title: 'Contractor request', onTap: () => context.pushNamed(ORoutesName.orderDetailsRoute)),
+                  AdvancedServicesWidget(
+                      image: OImages.marketIcon, title: 'Market'),
                 ],
               ),
 
@@ -96,7 +98,9 @@ class OneTimeServiceInHomeScreen extends StatelessWidget {
           ),
         ),
       ),
-      bottomNavigationBar: ContinueButtonInBottomWidget(onTap: () {}),
+      bottomNavigationBar: ContinueButtonInBottomWidget(
+          centerWidget: Text('Continue', style: OStyles.bodyLargeBold.copyWith(color: OColors.whiteColor)),
+          onTap: () {}),
     );
   }
 }

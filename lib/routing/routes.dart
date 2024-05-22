@@ -14,11 +14,15 @@ import 'package:osta_user_app/features/home/presentation/screens/services_detail
 import 'package:osta_user_app/features/home/presentation/screens/services_details/cleanliness_and_gardens/one_time/service_type_screen.dart';
 import 'package:osta_user_app/features/home/presentation/screens/services_details/cleanliness_and_gardens/one_time/spaces_screen.dart';
 import 'package:osta_user_app/features/home/presentation/screens/services_details/electricity_plumbing_aircondition_carpentry/electricity_plumbing_aircondition_carpentry_screen.dart';
+import 'package:osta_user_app/features/home/presentation/screens/services_details/electricity_plumbing_aircondition_carpentry/one_time/add_data_for_new_address_screen.dart';
+import 'package:osta_user_app/features/home/presentation/screens/services_details/electricity_plumbing_aircondition_carpentry/one_time/choice_your_location_screen.dart';
 import 'package:osta_user_app/features/home/presentation/screens/services_details/electricity_plumbing_aircondition_carpentry/one_time/one_time_screen_in_electricity.dart';
 import 'package:osta_user_app/features/home/presentation/screens/services_details/electricity_plumbing_aircondition_carpentry/one_time/specific_services_screen.dart';
 import 'package:osta_user_app/features/home/presentation/screens/services_details/home_app_satellite_channel_and_surveillance_cameras/home_app_satellite_channel_and_surveillance_cameras_screen.dart';
 import 'package:osta_user_app/features/home/presentation/screens/services_details/tiling_and_painting/tiling_and_painting_screen.dart';
 import 'package:osta_user_app/features/inbox/presentation/screens/chat_screen.dart';
+import 'package:osta_user_app/features/offer/presentation/screens/offers_screen.dart';
+import 'package:osta_user_app/features/offer/presentation/widgets/offers/offer_widget.dart';
 import 'package:osta_user_app/features/onboarding/screens/onboarding_screen.dart';
 import 'package:osta_user_app/features/profile/presentation/screens/change_password/change_password_screen.dart';
 import 'package:osta_user_app/features/profile/presentation/screens/customer_service/customer_service_screen.dart';
@@ -190,8 +194,10 @@ class RouteGenerator {
           reverseDuration: const Duration(milliseconds: 300),
         );
       case ORoutesName.cleanlinessAndGardensRoute:
+        final data = settings.arguments as Map;
+
         return PageTransition(
-          child: const CleanlinessAndGardensScreen(),
+          child: CleanlinessAndGardensScreen(data: data),
           type: PageTransitionType.fade,
           settings: settings,
           reverseDuration: const Duration(milliseconds: 300),
@@ -211,29 +217,38 @@ class RouteGenerator {
           reverseDuration: const Duration(milliseconds: 300),
         );
       case ORoutesName.electricityPlumbingAirConditionCarpentrySRoute:
+        // final serviceId = settings.arguments as int;
+        final data = settings.arguments as Map;
+
         return PageTransition(
-          child: const ElectricityPlumbingAirConditionCarpentryScreen(),
+          child: ElectricityPlumbingAirConditionCarpentryScreen(data: data),
           type: PageTransitionType.fade,
           settings: settings,
           reverseDuration: const Duration(milliseconds: 300),
         );
       case ORoutesName.homeAppSatelliteChannelAndSurveillanceCamerasSRoute:
+        final data = settings.arguments as Map;
+
         return PageTransition(
-          child: const HomeAppSatelliteChannelAndSurveillanceCameras(),
+          child: HomeAppSatelliteChannelAndSurveillanceCameras(data: data),
           type: PageTransitionType.fade,
           settings: settings,
           reverseDuration: const Duration(milliseconds: 300),
         );
       case ORoutesName.specificServicesRoute:
+        final serviceId = settings.arguments as int;
+
         return PageTransition(
-          child: const SpecificServicesScreen(),
+          child: SpecificServicesScreen(serviceId: serviceId),
           type: PageTransitionType.fade,
           settings: settings,
           reverseDuration: const Duration(milliseconds: 300),
         );
       case ORoutesName.tilingAndPaintingRoute:
+        final data = settings.arguments as Map;
+
         return PageTransition(
-          child: const TilingAndPaintingScreen(),
+          child: TilingAndPaintingScreen(data: data),
           type: PageTransitionType.fade,
           settings: settings,
           reverseDuration: const Duration(milliseconds: 300),
@@ -255,6 +270,31 @@ class RouteGenerator {
       case ORoutesName.addNewCardRoute:
         return PageTransition(
           child: const AddNewCardScreen(),
+          type: PageTransitionType.fade,
+          settings: settings,
+          reverseDuration: const Duration(milliseconds: 300),
+        );
+      case ORoutesName.choiceYourLocationRoute:
+        final data = settings.arguments as Map;
+
+        return PageTransition(
+            child: ChoiceYourLocationScreen(data: data),
+          type: PageTransitionType.fade,
+          settings: settings,
+          reverseDuration: const Duration(milliseconds: 300),
+        );
+      case ORoutesName.addDataForNewAddressRoute:
+        return PageTransition(
+          child: const AddDataForNewAddressScreen(),
+          type: PageTransitionType.fade,
+          settings: settings,
+          reverseDuration: const Duration(milliseconds: 300),
+        );
+      case ORoutesName.offersRoute:
+        final orderId = settings.arguments as int;
+
+        return PageTransition(
+          child: OffersScreen(orderId: orderId),
           type: PageTransitionType.fade,
           settings: settings,
           reverseDuration: const Duration(milliseconds: 300),

@@ -1,7 +1,14 @@
 import 'package:osta_user_app/utils/constants/exports.dart';
 
 class OfferWidget extends StatelessWidget {
-  const OfferWidget({super.key});
+  const OfferWidget({super.key, required this.priceOffer, required this.onTapOnRejectButton, required this.onTapOnAcceptButton, required this.widgetInRejectButton, required this.widgetInAcceptButton, required this.distance, required this.serviceName, required this.firstName, required this.lastName, required this.timingArrive, required this.containerGradient, required this.textsColor});
+
+  final int priceOffer;
+  final Color textsColor;
+  final void Function() onTapOnRejectButton, onTapOnAcceptButton;
+  final Widget widgetInRejectButton, widgetInAcceptButton;
+  final String serviceName, firstName, lastName, timingArrive, distance;
+  final Gradient containerGradient;
 
   @override
   Widget build(BuildContext context) {
@@ -9,9 +16,11 @@ class OfferWidget extends StatelessWidget {
       width: double.infinity,
       height: 230.h,
       padding: EdgeInsets.only(top: 13.h, bottom: 13.h, left: 20.w),
+      margin: EdgeInsets.only(bottom: 18.h),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(32.r),
         boxShadow: [AppBoxShadows.cardShadowTwo],
+        gradient: containerGradient,
       ),
       child: Column(
         children: [
@@ -28,15 +37,41 @@ class OfferWidget extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('House Cleaning', style: OStyles.h6Bold),
-                      Text('Jenny Wilson', style: OStyles.bodySmallMedium.copyWith(color: OColors.greyScale700)),
-                      Text('4.7 ✰', style: OStyles.bodySmallMedium.copyWith(color: OColors.greyScale700)),
-
+                      Text(serviceName, style: OStyles.h6Bold),
+                      Text('$firstName $lastName', style: OStyles.bodySmallMedium.copyWith(color: textsColor)),
+                      Text('4.7 ✰', style: OStyles.bodySmallMedium.copyWith(color: textsColor)),
                     ],
                   ),
-                  SizedBox(width: 30.w),
+                  const Spacer(),
 
-                  Text('The best offer', style: OStyles.bodySmallBold.copyWith(color: OColors.disabledButton, height: 2.5.h)),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text('The best offer', style: OStyles.bodySmallBold.copyWith(color: OColors.disabledButton, height: 2.5.h)),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          Container(
+                            padding: EdgeInsets.symmetric(vertical: 2.h, horizontal: 8.w),
+                            decoration: BoxDecoration(
+                              color: OColors.primaryColor500,
+                              borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(100.r),
+                                bottomLeft: Radius.circular(100.r),
+                              ),
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text('Will comes $timingArrive', style: OStyles.bodySmallBold.copyWith(color: OColors.whiteColor, height: 2.5.h))
+                              ],
+                            ),
+                          )
+                        ],
+                      ),
+                      Text('', style: OStyles.bodySmallMedium.copyWith(color: OColors.greyScale700)),
+                    ],
+                  ),
                 ],
               ),
             ),
@@ -49,7 +84,7 @@ class OfferWidget extends StatelessWidget {
               children: [
                 SizedBox(
                   width: ODeviceUtils.getScreenWidth(context) / 2.6,
-                  child: Text('Jenny has completed 11 orders away from you 7 km Jenny has completed 11 orders away from you 7 km', style: OStyles.bodySmallBold.copyWith(color: OColors.greyScale700), overflow: TextOverflow.ellipsis, maxLines: 3),
+                  child: Text('The distance between provider and you is $distance km', style: OStyles.bodySmallBold.copyWith(color: textsColor), overflow: TextOverflow.ellipsis, maxLines: 3),
                 ),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -58,7 +93,7 @@ class OfferWidget extends StatelessWidget {
                       width: ODeviceUtils.getScreenWidth(context) / 2.6,
                       child: Text('Jenny offers you an offer worth', style: OStyles.h6Bold, overflow: TextOverflow.ellipsis, maxLines: 2),
                     ),
-                    Text('200', style: OStyles.h6Bold.copyWith(color: OColors.gradientPurple1), overflow: TextOverflow.ellipsis, maxLines: 2),
+                    Text(priceOffer.toString(), style: OStyles.h6Bold.copyWith(color: OColors.gradientPurple1), overflow: TextOverflow.ellipsis, maxLines: 2),
                   ],
                 ),
               ],
@@ -69,8 +104,25 @@ class OfferWidget extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                ThirdButtonWidget(isRejected: true, buttonText: 'Reject', textStyle: OStyles.bodyXSmallSemiBold.copyWith(color: OColors.gradientRed1), containerColor: OColors.primaryColor100, width: 120.w, height: 26.h, borderRadius: 6.r),
-                ThirdButtonWidget(isRejected: false, buttonText: 'Accept', textStyle: OStyles.bodyXSmallSemiBold.copyWith(color: OColors.whiteColor), containerColor: OColors.primaryColor500, width: 120.w, height: 26.h, borderRadius: 6.r),
+                ThirdButtonWidget(
+                    isRejected: true,
+                  widgetInButton: widgetInRejectButton,
+                    textStyle: OStyles.bodyXSmallSemiBold.copyWith(color: OColors.gradientRed1),
+                    containerColor: OColors.primaryColor100, width: 120.w,
+                    height: 26.h,
+                    borderRadius: 6.r,
+                  onTap: onTapOnRejectButton,
+                ),
+                ThirdButtonWidget(
+                    isRejected: false,
+                    widgetInButton: widgetInAcceptButton,
+                    textStyle: OStyles.bodyXSmallSemiBold.copyWith(color: OColors.whiteColor),
+                    containerColor: OColors.primaryColor500,
+                    width: 120.w,
+                    height: 26.h,
+                    borderRadius: 6.r,
+                  onTap: onTapOnAcceptButton,
+                ),
               ],
             ),
           ),

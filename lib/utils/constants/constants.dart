@@ -103,7 +103,11 @@ class OConstants {
     OImages.applianceIcon,
     OImages.plumbingIcon,
     OImages.shiftingIcon,
-    OImages.moreIcon2,
+    OImages.shiftingIcon,
+    OImages.applianceIcon,
+    OImages.plumbingIcon,
+    OImages.shiftingIcon,
+    OImages.shiftingIcon,
   ];
   static List<String> servicesTexts2 = [
     'Appliance',
@@ -137,12 +141,18 @@ class OConstants {
     OImages.plumbingIcon,
     OImages.shiftingIcon,
     OImages.beautyIcon,
-
     OImages.acIcon,
     OImages.vehicleIcon,
     OImages.electronicsIcon,
     OImages.massageIcon,
     OImages.menIcon,
+    OImages.shiftingIcon,
+    OImages.shiftingIcon,
+    OImages.shiftingIcon,
+    OImages.shiftingIcon,
+    OImages.shiftingIcon,
+    OImages.shiftingIcon,
+    OImages.shiftingIcon,
   ];
   static List<String> allServicesIconsTexts = [
     'Cleaning',

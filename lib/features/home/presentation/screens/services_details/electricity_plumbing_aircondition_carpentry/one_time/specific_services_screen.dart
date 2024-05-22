@@ -2,7 +2,8 @@ import 'package:lottie/lottie.dart';
 import 'package:osta_user_app/utils/constants/exports.dart';
 
 class SpecificServicesScreen extends StatefulWidget {
-  const SpecificServicesScreen({super.key});
+  const SpecificServicesScreen({super.key, required this.serviceId});
+  final int serviceId;
 
   @override
   State<SpecificServicesScreen> createState() => _SpecificServicesScreenState();
@@ -274,7 +275,7 @@ class _SpecificServicesScreenState extends State<SpecificServicesScreen> {
           ],
         ),
       ),
-      bottomNavigationBar: ContinueButtonInBottomWidget(onTap: () {}),
+      // bottomNavigationBar: ContinueButtonInBottomWidget(onTap: () {}),
     );
   }
 }

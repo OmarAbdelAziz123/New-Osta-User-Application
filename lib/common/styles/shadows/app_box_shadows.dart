@@ -34,10 +34,10 @@ class AppBoxShadows {
   );
   /// Card Shadow Two
   static final BoxShadow cardShadowTwo = BoxShadow(
-    color: OColors.cardShadowTwo.withOpacity(.05),
+    color: OColors.cardShadowTwo.withOpacity(.02),
     spreadRadius: 0,
-    blurRadius: 60.r,
-    offset: Offset(0.w, 4.h),
+    blurRadius: 20.r,
+    offset: Offset(0.w, 1.h),
   );
   /// Card Shadow Three
   static final BoxShadow cardShadowThree = BoxShadow(

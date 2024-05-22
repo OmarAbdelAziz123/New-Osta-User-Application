@@ -16,9 +16,12 @@ class OImages {
   static const String privacyIcon = 'assets/images/svgs/privacyIcon.svg';
   static const String hideEyeIcon = 'assets/images/svgs/hideEyeIcon.svg';
   static const String showEyeIcon = 'assets/images/svgs/showEyeIcon.svg';
+  static const String addNewAddress = 'assets/images/svgs/addNewAddress.svg';
   static const String forgetPasswordImage = 'assets/images/svgs/forgetPasswordImage.svg';
   static const String smsLogo = 'assets/images/svgs/smsLogo.svg';
   static const String emailLogo = 'assets/images/svgs/emailLogo.svg';
+  static const String successImage = 'assets/images/lotties/success.json';
+  static const String loadingTwo = 'assets/images/lotties/loadingTwo.json';
   /// Navigation Menu Selected
   static const String homeIconSelected = 'assets/images/svgs/homeIconSelected.svg';
   static const String bookingIconSelected = 'assets/images/svgs/bookingIconSelected.svg';
@@ -49,7 +52,9 @@ class OImages {
   static const String inviteFriendsIcon = 'assets/images/svgs/inviteFriendsIcon.svg';
   static const String logoutIcon = 'assets/images/svgs/logoutIcon.svg';
   static const String pressHere = 'assets/images/lotties/pressHere.json';
+  static const String notFoundProfileImage = 'assets/images/lotties/notFoundProfileImage.json';
   static const String addressIcon = 'assets/images/svgs/addressIcon.svg';
+  static const String deleteIcon = 'assets/images/svgs/deleteIcon.svg';
   static const String invitationCodeIcon = 'assets/images/svgs/invitationCodeIcon.svg';
   static const String congratulationProfile = 'assets/images/svgs/congratulation.svg';
   static const String congratulationUpdatePassword = 'assets/images/svgs/congratulationUpdatePassword.svg';

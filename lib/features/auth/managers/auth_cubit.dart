@@ -37,7 +37,7 @@ class AuthCubit extends Cubit<AuthState> {
     emit(LoginLoadingState());
     await dioHelper.postData(endPoint: '${ApiConstants.loginUrl}?phone=$phoneNumber').then((response) {
       checkPhoneModel = CheckPhoneModel.fromJson(response.data);
-      log(response.data);
+      // log(response.data);
       emit(LoginSuccessState());
     }).catchError((error) {
       print(error);
@@ -54,7 +54,11 @@ class AuthCubit extends Cubit<AuthState> {
     }).then((response) {
       userDataAfterVerified = UserDataAfterVerified.fromJson(response.data);
       OCacheHelper.putString(key: CacheKeys.token, value: userDataAfterVerified.result!.token!);
-     emit(VerifyOTPSuccessState());
+      OCacheHelper.putString(key: CacheKeys.email, value: userDataAfterVerified.result!.email!);
+      OCacheHelper.putString(key: CacheKeys.fullName, value: userDataAfterVerified.result!.name!);
+      OCacheHelper.putString(key: CacheKeys.countryId, value: userDataAfterVerified.result!.countryId.toString());
+      log(userDataAfterVerified.result!.token!);
+      emit(VerifyOTPSuccessState());
     }).catchError((error) {
       log(error);
       emit(VerifyOTPErrorState());

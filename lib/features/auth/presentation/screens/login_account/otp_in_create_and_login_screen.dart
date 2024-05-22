@@ -89,7 +89,7 @@ class _OtpInCreateAndLoginScreenState extends State<OtpInCreateAndLoginScreen> {
                             }
                             return null;
                           },
-                          onCompleted: (value) async {},
+                          onCompleted: (value) async => verifyOTPCubit.verifyOTPFunction(otp: pinputController.text, phoneNumber: widget.phoneNumber),
                         ),
                       ),
                     ),

@@ -37,20 +37,20 @@
 import 'package:osta_user_app/utils/constants/exports.dart';
 
 class ThirdButtonWidget extends StatelessWidget {
-  const ThirdButtonWidget({super.key, required this.isRejected, required this.buttonText, required this.textStyle, required this.containerColor,required this .width,required this.height, required this.borderRadius});
+  const ThirdButtonWidget({super.key, required this.isRejected, required this.widgetInButton, required this.textStyle, required this.containerColor,required this .width,required this.height, required this.borderRadius, required this.onTap});
 
   final bool isRejected;
-  final String buttonText;
+  final Widget widgetInButton;
   final TextStyle textStyle;
   final Color containerColor;
   final double width;
   final double height;
   final double borderRadius;
-
+  final void Function() onTap;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return InkWellWidget(onTap: onTap, child: Container(
       width: width,
       height: height,
       decoration: BoxDecoration(color: containerColor, borderRadius: BorderRadius.circular(borderRadius)),
@@ -61,15 +61,9 @@ class ThirdButtonWidget extends StatelessWidget {
             tileMode: TileMode.mirror,
           ).createShader(bounds),
           blendMode: BlendMode.srcIn,
-          child: Text(
-            buttonText,
-            style: textStyle,
-          ),
-        ) : Text(
-          buttonText,
-          style: textStyle,
-        ),
+          child: widgetInButton,
+        ) : widgetInButton,
       ),
-    );
+    ));
   }
 }

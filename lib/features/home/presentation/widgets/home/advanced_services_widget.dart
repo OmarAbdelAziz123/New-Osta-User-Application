@@ -1,22 +1,24 @@
 import 'package:osta_user_app/utils/constants/exports.dart';
 
 class AdvancedServicesWidget extends StatelessWidget {
-  AdvancedServicesWidget({super.key, required this.image, required this.title, this.onTap});
+  AdvancedServicesWidget({super.key, required this.image, required this.title, this.onTap, this.border});
 
   final String image, title;
   void Function()? onTap;
+  final BoxBorder? border;
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: onTap,
       child: Container(
-        width: 190.w,
+        width: 175.w,
         height: 90.h,
         decoration: BoxDecoration(
-            color: OColors.whiteColor,
-            borderRadius: BorderRadius.circular(16.r),
-            boxShadow: [AppBoxShadows.cardShadowTwo]
+          border: border,
+          color: OColors.whiteColor,
+          borderRadius: BorderRadius.circular(16.r),
+          boxShadow: [AppBoxShadows.cardShadowTwo],
         ),
         child: Row(
           children: [

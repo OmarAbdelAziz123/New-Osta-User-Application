@@ -29,9 +29,10 @@ class Result {
   String? phone;
   String? email;
   String? gender;
+  int? countryId;
   String? token;
 
-  Result({this.id, this.name, this.phone, this.email, this.gender, this.token});
+  Result({this.id, this.name, this.phone, this.email, this.gender, this.token, this.countryId});
 
   Result.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -40,6 +41,7 @@ class Result {
     email = json['email'];
     gender = json['gender'];
     token = json['token'];
+    countryId = json['country_id'];
   }
 
   Map<String, dynamic> toJson() {
@@ -50,6 +52,7 @@ class Result {
     data['email'] = this.email;
     data['gender'] = this.gender;
     data['token'] = this.token;
+    data['country_id'] = this.countryId;
     return data;
   }
 }

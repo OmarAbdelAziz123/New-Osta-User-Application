@@ -31,4 +31,7 @@ class ORoutesName {
   static const String oneTimeServiceInHomeScreenRoute = 'one-time-service-route';
   static const String orderDetailsRoute = 'order-details-route';
   static const String addNewCardRoute = 'add-new-card-route';
+  static const String offersRoute = 'offers-route';
+  static const String choiceYourLocationRoute = 'choice-your-location-route';
+  static const String addDataForNewAddressRoute = 'addDataForNewAddress-route';
 }

@@ -32,16 +32,16 @@ class ProfileScreen extends StatelessWidget {
                       CircleAvatar(radius: 60.r, backgroundImage: const AssetImage(OImages.profileImage), backgroundColor: Colors.transparent,),
 
                       /// Edite Icon
-                      Positioned(bottom: 0, right: 0, child: SvgPicture.asset(OImages.editIcon),),
+                      Positioned(bottom: 0, right: 0, child: SvgPicture.asset(OImages.editIcon)),
                     ],
                   ),
 
                   /// Make Space
                   SizedBox(height: 12.h),
 
-                  Container(margin: EdgeInsets.only(bottom: 2.h), width: double.infinity, height: 29.h, child: Text('Andrew Ainsley', style: OStyles.h4Bold, textAlign: TextAlign.center)),
+                  Container(margin: EdgeInsets.only(bottom: 2.h), width: double.infinity, height: 29.h, child: Text(OCacheHelper.getString(key: CacheKeys.fullName).toString(), style: OStyles.h4Bold, textAlign: TextAlign.center)),
 
-                  SizedBox(width: double.infinity, height: 29.h, child: Text('andrew_ainsley@yourdomain.com', style: OStyles.bodyMediumSemiBold, textAlign: TextAlign.center)),
+                  SizedBox(width: double.infinity, height: 29.h, child: Text(OCacheHelper.getString(key: CacheKeys.email).toString(), style: OStyles.bodyMediumSemiBold, textAlign: TextAlign.center)),
                 ],
               ),
             ),

@@ -1,9 +1,10 @@
 import 'package:osta_user_app/utils/constants/exports.dart';
 
 class ContinueButtonInBottomWidget extends StatelessWidget {
-  const ContinueButtonInBottomWidget({super.key, required this.onTap});
+  const ContinueButtonInBottomWidget({super.key, required this.onTap, required this.centerWidget});
 
   final void Function() onTap;
+  final Widget centerWidget;
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +16,7 @@ class ContinueButtonInBottomWidget extends StatelessWidget {
         children: [
           /// Sign up Button
           MainButtonWidget(
-            centerWidgetInButton: Text('Continue', style: OStyles.bodyLargeBold.copyWith(color: OColors.whiteColor)),
+            centerWidgetInButton: centerWidget,
             onTap: onTap,
             margin: EdgeInsets.zero,
             buttonColor: OColors.primaryColor500,

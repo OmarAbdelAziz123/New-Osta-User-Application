@@ -56,7 +56,7 @@ class SpacesScreen extends StatelessWidget {
         ),
       ),
 
-      bottomNavigationBar: ContinueButtonInBottomWidget(onTap: () {}),
+      // bottomNavigationBar: ContinueButtonInBottomWidget(onTap: () {}),
     );
   }
 }

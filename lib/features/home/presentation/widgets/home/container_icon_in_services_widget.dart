@@ -1,13 +1,14 @@
 import 'package:osta_user_app/utils/constants/exports.dart';
 
 class ContainerIconsInServicesWidget extends StatelessWidget {
-  const ContainerIconsInServicesWidget({super.key, required this.serviceIcon});
+  const ContainerIconsInServicesWidget({super.key, required this.serviceIcon, required this.onTap});
 
   final String serviceIcon;
+  final void Function() onTap;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return InkWellWidget(onTap: onTap, child: Container(
       width: 60.w,
       height: 60.h,
       decoration: BoxDecoration(
@@ -17,6 +18,6 @@ class ContainerIconsInServicesWidget extends StatelessWidget {
       child: Center(
         child: SvgPicture.asset(serviceIcon),
       ),
-    );
+    ));
   }
 }

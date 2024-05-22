@@ -12,4 +12,5 @@ enum CacheKeys {
   lastName,
   phoneNumber,
   email,
+  countryId,
 }

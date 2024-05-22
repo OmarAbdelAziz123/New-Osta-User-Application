@@ -57,7 +57,7 @@ class ServiceTypeScreen extends StatelessWidget {
         ),
       ),
 
-      bottomNavigationBar: ContinueButtonInBottomWidget(onTap: () {}),
+      // bottomNavigationBar: ContinueButtonInBottomWidget(onTap: () {}),
     );
   }
 }

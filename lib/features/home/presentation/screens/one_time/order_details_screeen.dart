@@ -208,7 +208,9 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
           ),
         ),
       ),
-      bottomNavigationBar: ContinueButtonInBottomWidget(onTap: () {}),
+      bottomNavigationBar: ContinueButtonInBottomWidget(
+          centerWidget: Text('Continue', style: OStyles.bodyLargeBold.copyWith(color: OColors.whiteColor)),
+          onTap: () {}),
     );
   }
 }
