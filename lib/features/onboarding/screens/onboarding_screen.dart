@@ -88,7 +88,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
             onTap: () {
               if(currentIndex == OConstants.onBoardingImage.length - 1) {
                 /// Navigate to Check Screen
-                context.pushReplacementNamed(ORoutesName.loginAccountRoute);
+                context.pushNamed(ORoutesName.loginAccountRoute);
               }
               controller!.nextPage(duration: const Duration(milliseconds: 500), curve: Curves.easeInOut);
             },

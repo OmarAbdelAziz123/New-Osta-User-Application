@@ -150,8 +150,12 @@ class Data {
   String? warrantyId;
   String? status;
   String? desc;
-  String? price;
+  int? price;
+  int? unknownProblem;
   int? maxAllowedPrice;
+  String? location_latitude;
+  String? location_longitude;
+  String? location_desc;
   Service? service;
   List<SubServices>? subServices;
   List<String>? images;
@@ -165,7 +169,11 @@ class Data {
         this.status,
         this.desc,
         this.price,
+        this.unknownProblem,
         this.maxAllowedPrice,
+        this.location_latitude,
+        this.location_longitude,
+        this.location_desc,
         this.service,
         this.subServices,
         this.images,
@@ -179,7 +187,11 @@ class Data {
     status = json['status'];
     desc = json['desc'];
     price = json['price'];
+    unknownProblem = json['unknown_problem'];
     maxAllowedPrice = json['max_allowed_price'];
+    location_latitude = json['location_latitude'];
+    location_longitude = json['location_longitude'];
+    location_desc = json['location_desc'];
     service =
     json['service'] != null ? new Service.fromJson(json['service']) : null;
     if (json['sub_services'] != null) {
@@ -201,7 +213,11 @@ class Data {
     data['status'] = this.status;
     data['desc'] = this.desc;
     data['price'] = this.price;
+    data['unknown_problem'] = this.unknownProblem;
     data['max_allowed_price'] = this.maxAllowedPrice;
+    data['location_latitude'] = this.location_latitude;
+    data['location_longitude'] = this.location_longitude;
+    data['location_desc'] = this.location_desc;
     if (this.service != null) {
       data['service'] = this.service!.toJson();
     }

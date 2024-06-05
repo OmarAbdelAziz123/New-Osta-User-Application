@@ -22,7 +22,8 @@ class ProfileScreen extends StatelessWidget {
 
             SizedBox(
               width: double.infinity,
-              height: 189.h,
+              height: ODeviceUtils.getScreenHeight(context).h / 3.8,
+
               child: Column(
                 children: [
                   Stack(

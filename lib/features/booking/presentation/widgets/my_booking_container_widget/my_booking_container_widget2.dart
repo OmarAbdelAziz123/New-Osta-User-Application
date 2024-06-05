@@ -2,10 +2,12 @@ import '../../../../../utils/constants/exports.dart';
 import '../details_booking2.dart';
 
 class MyBookingContainerWidget2 extends StatefulWidget {
-  MyBookingContainerWidget2({Key? key, required this.bookingImage, required this.bookingJob, required this.bookingName, required this.containerColor, required this.buttonText}) : super(key: key);
-  final String bookingImage, bookingJob, bookingName, buttonText;
+  MyBookingContainerWidget2({Key? key, required this.providerImage, required this.bookingJob, required this.bookingName, required this.containerColor, required this.buttonText, required this.onTap}) : super(key: key);
+  final String bookingJob, bookingName, buttonText;
   final Color containerColor;
   bool showDetailsBooking = false;
+  Widget providerImage;
+  void Function() onTap;
 
   @override
   State<MyBookingContainerWidget2> createState() => _MyBookingContainerWidget2State();
@@ -15,13 +17,13 @@ class _MyBookingContainerWidget2State extends State<MyBookingContainerWidget2> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(bottom: 20.h),
+      margin: EdgeInsets.only(bottom: 10.h),
       padding: EdgeInsets.all(20.sp),
       width: double.infinity,
       height: widget.showDetailsBooking? 500:192,
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(32.r),
-          color: OColors.whiteColor,
+          color: OColors.greyScale100,
           boxShadow: [AppBoxShadows.cardShadowTwo]
       ),
       child: Column(
@@ -37,7 +39,7 @@ class _MyBookingContainerWidget2State extends State<MyBookingContainerWidget2> {
                   borderRadius: BorderRadius.circular(32.r),
 
                 ),
-                child: Image.asset(widget.bookingImage, fit: BoxFit.scaleDown),
+                child: widget.providerImage,
               ),
               SizedBox(width: 16.w),
               Column(
@@ -51,21 +53,24 @@ class _MyBookingContainerWidget2State extends State<MyBookingContainerWidget2> {
                 ],
               ),
               const Spacer(),
-              SvgPicture.asset(OImages.smsLogo, width: 100.w,height: 50,)
+              InkWellWidget(
+                onTap: widget.onTap,
+                child: SvgPicture.asset(OImages.smsLogo, width: 100.w,height: 50),
+              )
             ],
           ),
           SizedBox(height: 16.h),
           const Divider(thickness: 0.5),
           widget.showDetailsBooking?  SizedBox(height: 16.h):Container(),
           widget.showDetailsBooking? const DetailsBooking2():Container(),
-          SizedBox(height: 16.h),
-          GestureDetector(
-              onTap: (){
-                setState(() {
-                  widget.showDetailsBooking = !widget.showDetailsBooking;
-                });
-              },
-              child: SvgPicture.asset(widget.showDetailsBooking ? OImages.arrowUpIOS : OImages.arrowDownIOS)),
+          // SizedBox(height: 16.h),
+          // GestureDetector(
+          //     onTap: (){
+          //       setState(() {
+          //         widget.showDetailsBooking = !widget.showDetailsBooking;
+          //       });
+          //     },
+          //     child: SvgPicture.asset(widget.showDetailsBooking ? OImages.arrowUpIOS : OImages.arrowDownIOS)),
 
         ],
       ),

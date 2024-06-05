@@ -14,10 +14,12 @@ class OfferWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      height: 230.h,
+      // height: 230.h,
+      height: ODeviceUtils.getScreenHeight(context).h / 3,
       padding: EdgeInsets.only(top: 13.h, bottom: 13.h, left: 20.w),
       margin: EdgeInsets.only(bottom: 18.h),
       decoration: BoxDecoration(
+        // color: Colors.red,
         borderRadius: BorderRadius.circular(32.r),
         boxShadow: [AppBoxShadows.cardShadowTwo],
         gradient: containerGradient,

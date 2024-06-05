@@ -11,6 +11,7 @@ class ORoutesName {
   static const String otpInForgetPasswordRoute = 'otp-in-forget-password-route';
   static const String createNewPasswordRoute = 'create-new-password-route';
   static const String navigationMenuRoute = 'navigation-menu-route';
+  static const String chatForUserRoute = 'chatForUserRoute';
   static const String editProfileRoute = 'edit-profile-route';
   static const String paymentRoute = 'payment-route';
   static const String changePasswordRoute = 'change-password-route';
@@ -21,6 +22,7 @@ class ORoutesName {
   static const String notificationsRoute = 'notifications-route';
   static const String allServicesRoute = 'all-services-route';
   static const String chatRoute = 'chat-route';
+  static const String inboxRoute = 'inboxRoute';
   static const String cleanlinessAndGardensRoute = 'cleanliness-and-gardens-route';
   static const String serviceTypeRoute = 'service-type-route';
   static const String spaceRoute = 'space-route';

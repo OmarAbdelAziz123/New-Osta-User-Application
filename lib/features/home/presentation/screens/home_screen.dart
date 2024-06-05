@@ -1,6 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:osta_user_app/features/home/managers/home_cubit.dart';
-import 'package:osta_user_app/features/home/presentation/screens/services_details/cleanliness_and_gardens/cleanliness_and_gardens_screen.dart';
 import 'package:osta_user_app/utils/constants/exports.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -34,7 +33,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       children: [
                         /// App Bar
                         SizedBox(
-                          height: 52.h,
+                          height: ODeviceUtils.getScreenHeight(context).h / 10,
                           width: double.infinity,
                           child: Row(
                             children: [
@@ -47,7 +46,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               /// Text (Good Morning - User Name)
                               SizedBox(
                                 width: 230.w,
-                                height: 52.h,
+                                height: 56.h,
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
@@ -130,7 +129,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             physics: const NeverScrollableScrollPhysics(),
                             shrinkWrap: true,
                             itemCount: 8,
-                            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 4, mainAxisSpacing: 24.w, crossAxisSpacing: 24.h, childAspectRatio: ODeviceUtils.getScreenHeight(context) / 1200),
+                            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 4, mainAxisSpacing: 24.w, crossAxisSpacing: 24.h, childAspectRatio: ODeviceUtils.getScreenHeight(context) / 1000),
                             itemBuilder: (context, index) {
                               var servicesList = homeCubit.allServicesModel.result!.sublist(0, 8);
 

@@ -35,8 +35,14 @@ class OImages {
   static const String chatIconNotSelected = 'assets/images/svgs/chatIconNotSelected.svg';
   static const String profileIconNotSelected = 'assets/images/svgs/profileIconNotSelected.svg';
   static const String chartIconNotSelected = 'assets/images/svgs/chartIconNotSelected.svg';
-
-
+  static const String zoomIn = 'assets/images/pngs/zoom-in.png';
+  static const String headphoneIcon = 'assets/images/pngs/headphoneIcon.png';
+  static const String whatsappIcon = 'assets/images/pngs/whatsappIcon.png';
+  static const String facebookIcon2 = 'assets/images/pngs/facebookIcon2.png';
+  static const String websiteIcon = 'assets/images/pngs/websiteIcon.png';
+  static const String twitterIcon = 'assets/images/pngs/twitterIcon.png';
+  static const String instagramIcon = 'assets/images/pngs/instagramIcon.png';
+  static const String imageMessage = 'assets/images/pngs/imageMessage.png';
   static const String moreIcon2 = 'assets/images/svgs/moreIcon2.svg';
   static const String profileLogo = 'assets/images/svgs/profileLogo.svg';
   static const String arrowBack = 'assets/images/svgs/arrowBack.svg';
@@ -68,6 +74,9 @@ class OImages {
   static const String newCategoryIcon = 'assets/images/svgs/newCategoryIcon.svg';
   static const String todayIcon = 'assets/images/svgs/todayIcon.svg';
   static const String accountImage = 'assets/images/svgs/accountImage.svg';
+
+  static const String searchIcon2 = 'assets/images/pngs/Search.png';
+  static const String filterIcon = 'assets/images/pngs/filterIcon.png';
 
   static const String cleaningIcon = 'assets/images/svgs/cleaningIcon.svg';
   static const String repairingIcon = 'assets/images/svgs/repairingIcon.svg';
@@ -112,4 +121,8 @@ class OImages {
   static const String remoteIcon = 'assets/images/svgs/remoteIcon.svg';
   static const String inFactIcon = 'assets/images/svgs/inFactIcon.svg';
   static const String imagePicker = 'assets/images/pngs/imagePicker.png';
+
+
+  static const String loadingImages = 'assets/images/lotties/loadingImage.json';
+  static const String pinIcon = 'assets/images/lotties/pin.json';
 }

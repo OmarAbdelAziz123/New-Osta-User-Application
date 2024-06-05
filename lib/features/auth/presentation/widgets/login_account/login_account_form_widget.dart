@@ -47,12 +47,14 @@ class _LoginAccountFormWidgetState extends State<LoginAccountFormWidget> {
       listener: (context, state) {
         if(AuthCubit.get(context).checkPhoneModel.message == 'complete register process') {
           log('complete register process');
-          context.pushReplacementNamed(ORoutesName.fillYourRoute, arguments: phoneController.text);
+          context.pushNamed(ORoutesName.fillYourRoute, arguments: phoneController.text);
         } else if(AuthCubit.get(context).checkPhoneModel.message == 'OTP send') {
           log('OTP send');
-          context.pushReplacementNamed(ORoutesName.otpRoute, arguments: phoneController.text);
+          context.pushNamed(ORoutesName.otpRoute, arguments: phoneController.text);
         } else if(AuthCubit.get(context).checkPhoneModel.message == 'The phone field is required.') {
           ODeviceUtils.showSnackBar(context: context, message: 'The phone field is required', textStyle: OStyles.bodyLargeRegular, textColor: OColors.whiteColor, bgColor: OColors.error);
+        } else if(AuthCubit.get(context).checkPhoneModel.message == 'The selected country id is invalid.') {
+          ODeviceUtils.showSnackBar(context: context, message: 'The selected country id is invalid.', textStyle: OStyles.bodyLargeRegular, textColor: OColors.whiteColor, bgColor: OColors.error);
         } else if(state is LoginErrorState) {
           ODeviceUtils.showSnackBar(context: context, message: 'Authentication have an error', textStyle: OStyles.bodyLargeRegular, textColor: OColors.whiteColor, bgColor: OColors.error);
         }

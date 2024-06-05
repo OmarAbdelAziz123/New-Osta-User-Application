@@ -32,3 +32,17 @@ class RejectOffersLoadingState extends OffersOrdersState {}
 class RejectOffersSuccessState extends OffersOrdersState {}
 
 class RejectOffersErrorState extends OffersOrdersState {}
+
+/// Inbox States
+class InboxLoadingState extends OffersOrdersState {}
+
+class InboxSuccessState extends OffersOrdersState {}
+
+class InboxErrorState extends OffersOrdersState {}
+
+/// Get All Messages
+class GetAllMessagesLoadingState extends OffersOrdersState {}
+
+class GetAllMessagesSuccessState extends OffersOrdersState {}
+
+class GetAllMessagesErrorState extends OffersOrdersState {}

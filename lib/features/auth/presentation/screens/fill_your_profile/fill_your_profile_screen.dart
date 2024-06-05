@@ -27,27 +27,6 @@ class FillYourProfileScreen extends StatelessWidget {
                 // height: 622.h,
                 child: Column(
                   children: [
-                    Stack(
-                      children: [
-                        /// Image Profile
-                        CircleAvatar(
-                          radius: 60.r,
-                          backgroundImage: const AssetImage(OImages.avatarIcon),
-                          backgroundColor: Colors.transparent,
-                          // child: SvgPicture.asset(OImages.avatarIcon),
-                        ),
-                        /// Edite Icon
-                        Positioned(
-                          bottom: 0,
-                          right: 0,
-                          child: SvgPicture.asset(OImages.editIcon),
-                        ),
-                      ],
-                    ),
-
-                    /// Make Space
-                    SizedBox(height: 24.h),
-
                     FillYourProfileFormWidget(phoneNumber: phoneNumber),
                   ],
                 ),

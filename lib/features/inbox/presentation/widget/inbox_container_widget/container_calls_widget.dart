@@ -1,7 +1,7 @@
-import '../../../../utils/constants/exports.dart';
+import '../../../../../../utils/constants/exports.dart';
 
-class InboxWidget extends StatelessWidget {
-  const InboxWidget({Key? key, required this.profileImage, required this.profileName, required this.date, required this.profileDes, required this.onTap}) : super(key: key);
+class ContainerCallsWidget extends StatelessWidget {
+  const ContainerCallsWidget({Key? key, required this.profileImage, required this.profileName, required this.date, required this.profileDes, required this.onTap}) : super(key: key);
   final String profileImage,profileName, profileDes, date;
   final VoidCallback onTap;
   @override
@@ -52,8 +52,7 @@ class InboxWidget extends StatelessWidget {
                 ],
               ),
             ),
-            // SizedBox(width: 12.w),
-            Expanded(child: Container()),
+           const Expanded(child: SizedBox()),
             SvgPicture.asset(OImages.callIcon,fit: BoxFit.scaleDown,width: 28.w,height: 28.h,)
 
           ],

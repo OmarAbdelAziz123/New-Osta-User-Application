@@ -3,7 +3,7 @@ import 'package:osta_user_app/utils/constants/exports.dart';
 
 
 class DioHelper {
-  Dio dio = Dio();
+  static Dio dio = Dio();
 
   Future<Response> getData({required String endPoint}) async {
     Response response = await dio.get(
@@ -148,6 +148,28 @@ class DioHelper {
         options: Options(headers: {
           "authorization": "Bearer ${OCacheHelper.getString(key: CacheKeys.token)}",
         }));
+  }
+
+  /// Download Media
+  static Future<Response> downloadMedia({
+    required String url,
+    required String path,
+    Map<String, dynamic>? query,
+    Function(int, int)? onReceiveProgress,
+    String? token,
+  }) async {
+    if (token != null) {
+      dio.options.headers['Authorization'] = 'Bearer $token';
+    } else {
+      dio.options.headers['Authorization'] =
+      'Bearer ${OCacheHelper.getString(key: CacheKeys.token)}';
+    }
+    return await dio.download(
+      url,
+      path,
+      queryParameters: query,
+      onReceiveProgress: onReceiveProgress,
+    );
   }
 
   static void logout(BuildContext context) async {

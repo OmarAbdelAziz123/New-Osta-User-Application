@@ -1,4 +1,4 @@
-import '../../../../../utils/constants/exports.dart';
+import '../../../../../../utils/constants/exports.dart';
 
 class ContainerInfoWidget extends StatelessWidget {
   const ContainerInfoWidget({Key? key}) : super(key: key);

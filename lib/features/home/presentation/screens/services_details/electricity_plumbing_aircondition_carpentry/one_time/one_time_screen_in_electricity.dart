@@ -1,4 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:osta_user_app/common/widgets/bottom_sheet/show_location_bottom_sheet.dart';
 import 'package:osta_user_app/common/widgets/checkbox/remember_me_widget.dart';
 import 'package:osta_user_app/common/widgets/what_happened_with_us/what_happened_with_us_widget.dart';
 import 'package:osta_user_app/features/home/managers/home_cubit.dart';
@@ -341,7 +342,22 @@ class _OneTimeScreenInElectricityState extends State<OneTimeScreenInElectricity>
                     ODeviceUtils.showSnackBar(context: context, message: 'Please Choice Warranty', textStyle: OStyles.bodyLargeRegular, textColor: OColors.whiteColor, bgColor: OColors.warning)
                       : keyValueMap.isEmpty ?
                    ODeviceUtils.showSnackBar(context: context, message: 'Please Choice Specific Service', textStyle: OStyles.bodyLargeRegular, textColor: OColors.whiteColor, bgColor: OColors.warning)
-                      : context.pushNamed(ORoutesName.choiceYourLocationRoute, arguments: {
+                  //     : context.pushNamed(ORoutesName.choiceYourLocationRoute, arguments: {
+                  //       'category':  widget.category,
+                  //       'warrantyId':  selectedDays,
+                  //       'serviceId':  widget.serviceId,
+                  //       'description':  textInServicesController.text,
+                  //       'subServicesIds': subServiceIdsList,
+                  //       'subServiceQuantities': subServiceQuantitiesList,
+                  //       'unknownProblem': isChecked ? 1 : 0,
+                  //       'isSpace': false,
+                  //       'isSubServicesIds':  true,
+                  //       'isSubServiceQuantities':  true,
+                  //       'isWarrantyId':  true,
+                  // });
+                      : showLocationBottomSheet(
+                      context: context,
+                      map: {
                         'category':  widget.category,
                         'warrantyId':  selectedDays,
                         'serviceId':  widget.serviceId,
@@ -353,13 +369,25 @@ class _OneTimeScreenInElectricityState extends State<OneTimeScreenInElectricity>
                         'isSubServicesIds':  true,
                         'isSubServiceQuantities':  true,
                         'isWarrantyId':  true,
-                  });
+                      }
+                  );
                 },
               ),
             ],
           ),
         );
       }
+    );
+  }
+
+  /// Bottom Sheet
+  void showLocationBottomSheet({required BuildContext context, required Map map}) {
+    showModalBottomSheet(
+      backgroundColor: Colors.white,
+      context: context,
+      builder: (BuildContext context) {
+        return ShowLocationBottomSheet(map: map);
+      },
     );
   }
 }

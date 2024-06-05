@@ -1,7 +1,7 @@
 import 'package:osta_user_app/utils/constants/exports.dart';
 
 class TextFormFieldWidget extends StatelessWidget {
-  const TextFormFieldWidget({super.key, required this.controller, required this.focusNode, required this.hintText, this.prefixIcon, required this.fillColor, required this.borderSide, this.suffixIcon, required this.textInputType, this.validator, required this.obscureText, required this.hintColor, this.textAlign, this.inputFormatters, this.isEdit = false, this.maxLines});
+  const TextFormFieldWidget({super.key, required this.controller, required this.focusNode, required this.hintText, this.prefixIcon, required this.fillColor, required this.borderSide, this.suffixIcon, required this.textInputType, this.validator, required this.obscureText, required this.hintColor, this.textAlign, this.inputFormatters, this.isEdit = false, this.maxLines, this.onChanged});
 
   final TextEditingController controller;
   final FocusNode focusNode;
@@ -18,6 +18,7 @@ class TextFormFieldWidget extends StatelessWidget {
   final TextAlign? textAlign;
   final List<TextInputFormatter>? inputFormatters;
   final int? maxLines;
+  final void Function(String)? onChanged;
 
   @override
   Widget build(BuildContext context) {
@@ -31,6 +32,7 @@ class TextFormFieldWidget extends StatelessWidget {
       obscureText: obscureText,
       textAlign: textAlign ?? TextAlign.start,
       maxLines: maxLines,
+      onChanged: onChanged,
       decoration: InputDecoration(
         fillColor: fillColor,
         filled: true,

@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lottie/lottie.dart';
 import 'package:osta_user_app/features/offer/managers/offers_orders_cubit.dart';
@@ -22,6 +20,9 @@ class OffersScreen extends StatelessWidget {
           listener: (context, state) {
             if(state is AcceptOffersSuccessState) {
               OffersOrdersCubit.get(context).getAllOffersByMeFunction(orderId: orderId);
+              context.pushNamedAndRemoveUntil(ORoutesName.inboxRoute, predicate: (route) => false, arguments: {
+                'orderId': orderId,
+              });
             }
             if(state is RejectOffersSuccessState) {
               ODeviceUtils.showSnackBar(context: context, message: 'You have an error', textStyle: OStyles.bodyLargeRegular, textColor: OColors.whiteColor, bgColor: OColors.error);

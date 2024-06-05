@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:osta_user_app/common/widgets/drop_down/drop_down_widget.dart';
 import 'package:osta_user_app/features/auth/managers/auth_cubit.dart';
 import 'package:osta_user_app/utils/constants/exports.dart';
@@ -15,6 +16,8 @@ class FillYourProfileFormWidget extends StatefulWidget {
 }
 
 class _FillYourProfileFormWidgetState extends State<FillYourProfileFormWidget> {
+  XFile? _selectedImageToPerson;
+
   TextEditingController fullNameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController dateOfBirthController = TextEditingController();
@@ -70,7 +73,11 @@ class _FillYourProfileFormWidgetState extends State<FillYourProfileFormWidget> {
         if(AuthCubit.get(context).fillYourAccount.message == "registered successfully, and otp sent") {
           context.pushNamed(ORoutesName.otpRoute, arguments: widget.phoneNumber);
         } else if(AuthCubit.get(context).fillYourAccount.message == "The email has already been taken.") {
-          ODeviceUtils.showSnackBar(context: context, message: 'The email has already been taken', textStyle: OStyles.bodyLargeRegular, textColor: OColors.whiteColor, bgColor: OColors.warning);
+          ODeviceUtils.showSnackBar(context: context, message: 'The email has already been taken.', textStyle: OStyles.bodyLargeRegular, textColor: OColors.whiteColor, bgColor: OColors.warning);
+        } else if(AuthCubit.get(context).fillYourAccount.message == "The selected country id is invalid.") {
+          ODeviceUtils.showSnackBar(context: context, message: 'The selected country id is invalid.', textStyle: OStyles.bodyLargeRegular, textColor: OColors.whiteColor, bgColor: OColors.warning);
+        } else if(AuthCubit.get(context).fillYourAccount.message == "The email field must be a valid email address.") {
+          ODeviceUtils.showSnackBar(context: context, message: 'The email field must be a valid email address.', textStyle: OStyles.bodyLargeRegular, textColor: OColors.whiteColor, bgColor: OColors.warning);
         } else if(state is FillYourAccountErrorState) {
           ODeviceUtils.showSnackBar(context: context, message: 'You have an error', textStyle: OStyles.bodyLargeRegular, textColor: OColors.whiteColor, bgColor: OColors.error);
         }
@@ -82,11 +89,42 @@ class _FillYourProfileFormWidgetState extends State<FillYourProfileFormWidget> {
         String selectedGender = 'Male';
         int? idSelected;
 
+        int defaultCountryId = countryIndex.countryIndexModel.result![0].id!;
+
         return Container(
             width: double.infinity,
             // height: MediaQuery.of(context).size.height * 2,
             child: Column(
               children: [
+                Stack(
+                  children: [
+                    /// Image Profile
+                    CircleAvatar(
+                      radius: 60.r,
+                      backgroundImage: _selectedImageToPerson != null ? null : const AssetImage(OImages.avatarIcon),
+                      backgroundColor: Colors.transparent,
+                      // child: SvgPicture.asset(OImages.avatarIcon),
+                      child: _selectedImageToPerson != null ? ClipRRect(
+                        borderRadius: BorderRadius.circular(60.r),
+                        child: Image.file(
+                          File(_selectedImageToPerson!.path),
+                          fit: BoxFit.cover,
+                          width: double.infinity,
+                          height: double.infinity,
+                        ),
+                      ) : null,
+                    ),
+                    /// Edite Icon
+                    Positioned(
+                        bottom: 0,
+                        right: 0,
+                        child: InkWellWidget(onTap: _openImageGalleryToPerson, child: SvgPicture.asset(OImages.editIcon))),
+                  ],
+                ),
+
+                /// Make Space
+                SizedBox(height: 24.h),
+
                 /// Full Name
                 TextFormFieldWidget(
                   controller: fullNameController,
@@ -197,8 +235,14 @@ class _FillYourProfileFormWidgetState extends State<FillYourProfileFormWidget> {
                 MainButtonWidget(
                   centerWidgetInButton: state is FillYourAccountLoadingState ? Padding(padding: EdgeInsets.all(3.sp), child: LoadingWidget(iconColor: OColors.whiteColor)) : Text('Continue', style: OStyles.bodyLargeBold.copyWith(color: OColors.whiteColor)),
                   margin: EdgeInsets.zero,
-                  onTap: () => countryIndex.fillYourAccountFunction(name: fullNameController.text, email: emailController.text, countryId: idSelected.toString(), phone: widget.phoneNumber, gender: OConstants.selectedGender == 'Male' ? 'male' : 'female'),
-                  // onTap: () => log(selectedCountry + selectedGender + idSelected.toString()),
+                  onTap: () => countryIndex.fillYourAccountFunction(
+                      name: fullNameController.text,
+                      email: emailController.text,
+                      countryId: idSelected == null || idSelected.toString() == '' || idSelected.toString().isEmpty ? defaultCountryId.toString() : idSelected.toString(),
+                      phone: widget.phoneNumber,
+                      gender: OConstants.selectedGender == 'Male' ? 'male' : 'female',
+                  ),
+                  // onTap: () => log(idSelected.toString() + ' ' + defaultCountryId.toString()),
                   buttonColor: fullNameController.text.isEmpty || emailController.text.isEmpty ? OColors.disabledButton : OColors.primaryColor500,
                   boxShadow: fullNameController.text.isEmpty || emailController.text.isEmpty ? [] : [AppBoxShadows.buttonShadowOne],
                 ),
@@ -208,4 +252,17 @@ class _FillYourProfileFormWidgetState extends State<FillYourProfileFormWidget> {
       },
     );
   }
+
+  Future<void> _openImageGalleryToPerson() async {
+    final ImagePicker picker = ImagePicker();
+    final XFile? image = await picker.pickImage(source: ImageSource.gallery);
+    if (image != null) {
+      setState(() {
+        _selectedImageToPerson = image;
+      });
+    } else {
+      print('No image selected');
+    }
+  }
+
 }

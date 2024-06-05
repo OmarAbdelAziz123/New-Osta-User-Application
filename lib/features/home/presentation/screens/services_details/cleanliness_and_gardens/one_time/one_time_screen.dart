@@ -1,4 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:osta_user_app/common/widgets/bottom_sheet/show_location_bottom_sheet.dart';
 import 'package:osta_user_app/common/widgets/checkbox/remember_me_widget.dart';
 import 'package:osta_user_app/common/widgets/what_happened_with_us/what_happened_with_us_widget.dart';
 import 'package:osta_user_app/features/home/managers/home_cubit.dart';
@@ -33,9 +34,9 @@ class _OneTimeScreenState extends State<OneTimeScreen> {
 
   Map<String, String> keyValueMap = {};
 
-  int numberOfSelectedFromOne = 1;
+  // int numberOfSelectedFromOne = 1;
 
-  Set<int> selectedIndices = {};
+  // Set<int> selectedIndices = {};
 
   void addButtonPressed({required int subServiceId}) {
     // Generate a key based on the subServiceId
@@ -52,8 +53,6 @@ class _OneTimeScreenState extends State<OneTimeScreen> {
         // If the key does not exist, start with count 0
         keyValueMap[key] = '1';
       }
-
-      print('Number Of One Item: $numberOfSelectedFromOne');
 
       print(keyValueMap);
     });
@@ -75,12 +74,9 @@ class _OneTimeScreenState extends State<OneTimeScreen> {
         }
       }
 
-      print('Number Of One Item: $numberOfSelectedFromOne');
-
       print(keyValueMap);
     });
   }
-
 
   @override
   void initState() {
@@ -305,19 +301,35 @@ class _OneTimeScreenState extends State<OneTimeScreen> {
                   ODeviceUtils.showSnackBar(context: context, message: 'Please Choice Warranty', textStyle: OStyles.bodyLargeRegular, textColor: OColors.whiteColor, bgColor: OColors.warning)
                       : keyValueMap.isEmpty ?
                   ODeviceUtils.showSnackBar(context: context, message: 'Please Choice Specific Service', textStyle: OStyles.bodyLargeRegular, textColor: OColors.whiteColor, bgColor: OColors.warning)
-                      : context.pushNamed(ORoutesName.choiceYourLocationRoute, arguments: {
-                    'category':  widget.category,
-                    'warrantyId':  null,
-                    'serviceId':  widget.serviceId,
-                    'description':  textInServicesController.text,
-                    'subServicesIds': subServiceIdsList,
-                    'subServiceQuantities': subServiceQuantitiesList ,
-                    'unknownProblem': isChecked ? 1 : 0,
-                    'isSpace': true,
-                    'isSubServicesIds':  true,
-                    'isSubServiceQuantities':  true,
-                    'isWarrantyId':  false,
-                  });
+                  //     : context.pushNamed(ORoutesName.choiceYourLocationRoute, arguments: {
+                  //   'category':  widget.category,
+                  //   'warrantyId':  null,
+                  //   'serviceId':  widget.serviceId,
+                  //   'description':  textInServicesController.text,
+                  //   'subServicesIds': subServiceIdsList,
+                  //   'subServiceQuantities': subServiceQuantitiesList ,
+                  //   'unknownProblem': isChecked ? 1 : 0,
+                  //   'isSpace': true,
+                  //   'isSubServicesIds':  true,
+                  //   'isSubServiceQuantities':  true,
+                  //   'isWarrantyId':  false,
+                  // });
+                  : showLocationBottomSheet(
+                    context: context,
+                    map: {
+                      'category':  widget.category,
+                      'warrantyId':  null,
+                      'serviceId':  widget.serviceId,
+                      'description':  textInServicesController.text,
+                      'subServicesIds': subServiceIdsList,
+                      'subServiceQuantities': subServiceQuantitiesList ,
+                      'unknownProblem': isChecked ? 1 : 0,
+                      'isSpace': true,
+                      'isSubServicesIds':  true,
+                      'isSubServiceQuantities':  true,
+                      'isWarrantyId':  false,
+                    }
+                  );
 
                   // subServiceCubit.makeOrderFunction(
                   //   category: widget.category,
@@ -339,6 +351,17 @@ class _OneTimeScreenState extends State<OneTimeScreen> {
             ],
           ),
         );
+      },
+    );
+  }
+
+  /// Bottom Sheet
+  void showLocationBottomSheet({required BuildContext context, required Map map}) {
+    showModalBottomSheet(
+      backgroundColor: Colors.white,
+      context: context,
+      builder: (BuildContext context) {
+        return ShowLocationBottomSheet(map: map);
       },
     );
   }

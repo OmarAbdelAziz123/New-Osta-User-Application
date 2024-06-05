@@ -86,7 +86,7 @@ class _NavigationMenuState extends State<NavigationMenu> {
 
                         return Badge.count(
                           count: offerOrderCubit.getAllOrdersToMeModel == null ||
-                              offerOrderCubit.getAllOrdersToMeModel.result! == null ||
+                              offerOrderCubit.getAllOrdersToMeModel.result == null ||
                               offerOrderCubit.getAllOrdersToMeModel.result!.data == null ? 0 : offerOrderCubit.getAllOrdersToMeModel.result!.data!.length,
                           child: Icon(Icons.local_offer, size: 24.sp),
                         );

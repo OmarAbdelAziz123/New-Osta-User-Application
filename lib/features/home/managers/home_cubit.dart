@@ -117,7 +117,6 @@ class HomeCubit extends Cubit<HomeState> {
       'authorization': "Bearer ${OCacheHelper.getString(key: CacheKeys.token)}"
     });
 
-    // Check if images is not null before adding to the URL
     String url = '${ApiConstants
         .baseUrl}api/user/order';
     if (images != null) {

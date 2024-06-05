@@ -33,7 +33,10 @@ class DetailsBooking2 extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-             ButtonWithBorderWidget(textButton: "Cancel Booking",onTap: (){
+             ButtonWithBorderWidget(
+                 width: 164.w,
+                 height: 32.h,
+                 textButton: "Cancel Booking",onTap: (){
                ODeviceUtils.showCustomBottomSheet(context: context, widget: const ButtomNavigationBarCancelBooking());
             } ),
             ThirdButtonWidget(isRejected: false, widgetInButton: Text('View E-Receipt', style: OStyles.bodyXSmallSemiBold.copyWith(color: OColors.whiteColor)), textStyle: OStyles.bodyMediumSemiBold.copyWith(color: OColors.whiteColor), containerColor: OColors.primaryColor500, width: 164.w, height: 32.h,borderRadius: 20.r, onTap: () {  },),

@@ -37,7 +37,7 @@ class AuthCubit extends Cubit<AuthState> {
     emit(LoginLoadingState());
     await dioHelper.postData(endPoint: '${ApiConstants.loginUrl}?phone=$phoneNumber').then((response) {
       checkPhoneModel = CheckPhoneModel.fromJson(response.data);
-      // log(response.data);
+      log(response.data.toString());
       emit(LoginSuccessState());
     }).catchError((error) {
       print(error);

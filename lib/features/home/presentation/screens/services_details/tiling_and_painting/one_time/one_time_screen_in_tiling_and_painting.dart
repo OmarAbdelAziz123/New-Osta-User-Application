@@ -1,4 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:osta_user_app/common/widgets/bottom_sheet/show_location_bottom_sheet.dart';
 import 'package:osta_user_app/common/widgets/checkbox/remember_me_widget.dart';
 import 'package:osta_user_app/common/widgets/what_happened_with_us/what_happened_with_us_widget.dart';
 import 'package:osta_user_app/features/home/managers/home_cubit.dart';
@@ -280,26 +281,54 @@ class _OneTimeScreenInTilingAndPaintingState extends State<OneTimeScreenInTiling
                 onTap: () {
                   selectedSpace == 0 ?
                   ODeviceUtils.showSnackBar(context: context, message: 'Please Choice Warranty', textStyle: OStyles.bodyLargeRegular, textColor: OColors.whiteColor, bgColor: OColors.warning)
-                      :  context.pushNamed(ORoutesName.choiceYourLocationRoute, arguments: {
-                    'category':  widget.category,
-                    'warrantyId':  selectedSpace,
-                    'serviceId':  widget.serviceId,
-                    'description':  textInServicesController.text,
-                    'subServicesIds': [],
-                    'subServiceQuantities': [] ,
-                    'unknownProblem': isChecked ? 1 : 0,
-                    'space': selectedSpecificService.toString(),
-                    'isSpace': true,
-                    'isSubServicesIds':  false,
-                    'isSubServiceQuantities':  false,
-                    'isWarrantyId':  true,
-                  });
+                  //     :  context.pushNamed(ORoutesName.choiceYourLocationRoute, arguments: {
+                  //   'category':  widget.category,
+                  //   'warrantyId':  selectedSpace,
+                  //   'serviceId':  widget.serviceId,
+                  //   'description':  textInServicesController.text,
+                  //   'subServicesIds': [],
+                  //   'subServiceQuantities': [] ,
+                  //   'unknownProblem': isChecked ? 1 : 0,
+                  //   'space': selectedSpecificService.toString(),
+                  //   'isSpace': true,
+                  //   'isSubServicesIds':  false,
+                  //   'isSubServiceQuantities':  false,
+                  //   'isWarrantyId':  true,
+                  // });
+                      : showLocationBottomSheet(
+                      context: context,
+                      map: {
+                        'category':  widget.category,
+                        'warrantyId':  selectedSpace,
+                        'serviceId':  widget.serviceId,
+                        'description':  textInServicesController.text,
+                        'subServicesIds': [],
+                        'subServiceQuantities': [] ,
+                        'unknownProblem': isChecked ? 1 : 0,
+                        'space': selectedSpecificService.toString(),
+                        'isSpace': true,
+                        'isSubServicesIds':  false,
+                        'isSubServiceQuantities':  false,
+                        'isWarrantyId':  true,
+                      }
+                  );
                 },
               ),
 
             ],
           ),
         );
+      },
+    );
+  }
+
+  /// Bottom Sheet
+  void showLocationBottomSheet({required BuildContext context, required Map map}) {
+    showModalBottomSheet(
+      backgroundColor: Colors.white,
+      context: context,
+      builder: (BuildContext context) {
+        return ShowLocationBottomSheet(map: map);
       },
     );
   }

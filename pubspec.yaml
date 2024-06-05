@@ -16,8 +16,10 @@ dependencies:
 
   cupertino_icons: ^1.0.2
 
+  async: ^2.11.0
+
   # Utility Package
-  intl: ^0.18.1
+  intl: ^0.19.0
   logger: ^2.0.1
   url_launcher: ^6.1.12
   flutter_native_splash: ^2.3.2
@@ -54,16 +56,24 @@ dependencies:
   flutter_svg: ^2.0.9
 
   # Custom Field On OTP
-  pinput: ^3.0.1
+  pinput: ^4.0.0
 
   contacts_service: ^0.6.2
   permission_handler: any
   flutter_phone_direct_caller: any
   sim_data: any
 
-  # Get Location => Map Services
-#  geolocator: ^10.1.0
-#  geocoding:
+  audio_waveforms: ^1.0.5
+  path_provider: ^2.1.3
+  draggable_bottom_sheet: ^1.0.2
+  # Get Location
+  geolocator: ^10.1.0
+  location:
+  geocoding:
+  google_maps_flutter: ^2.5.0
+  maps_launcher: ^2.2.0
+  flutter_polyline_points: ^2.0.0
+  google_places_flutter: ^2.0.8
 
   # Animation
   lottie: ^3.1.0
@@ -71,13 +81,15 @@ dependencies:
   # Images
   image_picker: ^1.0.7
 
+  audioplayers: any
+
   #-------------------- PACKAGES End --------------------#
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
-  flutter_lints: ^2.0.0
+  flutter_lints: ^4.0.0
 
 flutter:
 
@@ -86,6 +98,7 @@ flutter:
   #-------------------- LOCAL ASSETS --------------------#
 
   assets:
+    - assets/images/jpg/
     - assets/images/pngs/
     - assets/images/svgs/
     - assets/images/lotties/

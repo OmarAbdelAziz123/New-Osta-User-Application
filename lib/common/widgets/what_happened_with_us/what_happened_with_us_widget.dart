@@ -18,9 +18,10 @@ class WhatHappenedWithUsWidget extends StatelessWidget {
 
         /// Services
         /// Row One
-        SizedBox(
-          height: 94.h,
+        Container(
+          height: ODeviceUtils.getScreenHeight(context).h / 7.5,
           width: double.infinity,
+          // color: Colors.red,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: List.generate(

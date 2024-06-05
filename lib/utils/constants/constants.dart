@@ -15,6 +15,14 @@ class OConstants {
     "Let's make awesome changes to your home",
   ];
 
+  /// Faq Text
+  static List<String> faqText = [
+    'General',
+    'Account',
+    'Service',
+    'Payment',
+  ];
+
   /// Companies Icon
   static List<String> choiceIcons = [
     OImages.facebookIcon,
@@ -53,6 +61,24 @@ class OConstants {
     'Help Center',
     'Invite Friends',
     'Logout',
+  ];
+  /// Contact Us Images
+  static List<String> contactUsIcon = [
+    OImages.headphoneIcon,
+    OImages.whatsappIcon,
+    OImages.websiteIcon,
+    OImages.facebookIcon2,
+    OImages.twitterIcon,
+    OImages.instagramIcon,
+  ];
+  /// Contact Text
+  static List<String> contactUsText = [
+    'Customer Service',
+    'WhatsApp',
+    'Website',
+    'Facebook',
+    'Twitter',
+    'Instagram',
   ];
 
   /// Edit Profile
@@ -117,9 +143,9 @@ class OConstants {
   ];
 
   static List<String> bannerImages = [
-    'assets/images/pngs/banner.avif',
-    'assets/images/pngs/banner.avif',
-    'assets/images/pngs/banner.avif',
+    'assets/images/jpg/ads.jpg',
+    'assets/images/jpg/ads.jpg',
+    'assets/images/jpg/ads.jpg',
   ];
 
   static List<String> mostPopularList = [
@@ -173,6 +199,9 @@ class OConstants {
 
   /// Bookings Image
   static List<String> bookingImage = [
+    OImages.myBooking1,
+    OImages.myBooking2,
+    OImages.myBooking3,
     OImages.myBooking1,
     OImages.myBooking2,
     OImages.myBooking3,

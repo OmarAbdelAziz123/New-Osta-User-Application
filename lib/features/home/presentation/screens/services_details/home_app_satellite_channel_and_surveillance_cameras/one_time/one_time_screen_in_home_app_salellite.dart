@@ -1,4 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:osta_user_app/common/widgets/bottom_sheet/show_location_bottom_sheet.dart';
 import 'package:osta_user_app/common/widgets/checkbox/remember_me_widget.dart';
 import 'package:osta_user_app/common/widgets/what_happened_with_us/what_happened_with_us_widget.dart';
 import 'package:osta_user_app/features/home/managers/home_cubit.dart';
@@ -348,6 +349,17 @@ class _OneTimeScreenInHomeAppState extends State<OneTimeScreenInHomeApp> {
             ],
           ),
         );
+      },
+    );
+  }
+
+  /// Bottom Sheet
+  void showLocationBottomSheet({required BuildContext context, required Map map}) {
+    showModalBottomSheet(
+      backgroundColor: Colors.white,
+      context: context,
+      builder: (BuildContext context) {
+        return ShowLocationBottomSheet(map: map);
       },
     );
   }

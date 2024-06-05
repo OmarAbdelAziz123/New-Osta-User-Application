@@ -15,18 +15,22 @@ import 'package:osta_user_app/features/home/presentation/screens/services_detail
 import 'package:osta_user_app/features/home/presentation/screens/services_details/cleanliness_and_gardens/one_time/spaces_screen.dart';
 import 'package:osta_user_app/features/home/presentation/screens/services_details/electricity_plumbing_aircondition_carpentry/electricity_plumbing_aircondition_carpentry_screen.dart';
 import 'package:osta_user_app/features/home/presentation/screens/services_details/electricity_plumbing_aircondition_carpentry/one_time/add_data_for_new_address_screen.dart';
-import 'package:osta_user_app/features/home/presentation/screens/services_details/electricity_plumbing_aircondition_carpentry/one_time/choice_your_location_screen.dart';
+import 'package:osta_user_app/features/home/presentation/screens/services_details/electricity_plumbing_aircondition_carpentry/one_time/choice_from_map/choice_your_location_screen.dart';
 import 'package:osta_user_app/features/home/presentation/screens/services_details/electricity_plumbing_aircondition_carpentry/one_time/one_time_screen_in_electricity.dart';
 import 'package:osta_user_app/features/home/presentation/screens/services_details/electricity_plumbing_aircondition_carpentry/one_time/specific_services_screen.dart';
 import 'package:osta_user_app/features/home/presentation/screens/services_details/home_app_satellite_channel_and_surveillance_cameras/home_app_satellite_channel_and_surveillance_cameras_screen.dart';
 import 'package:osta_user_app/features/home/presentation/screens/services_details/tiling_and_painting/tiling_and_painting_screen.dart';
+import 'package:osta_user_app/features/inbox/inbox_for_user/presentation/screens/chat_screen_for_user.dart';
 import 'package:osta_user_app/features/inbox/presentation/screens/chat_screen.dart';
+import 'package:osta_user_app/features/inbox/presentation/screens/inbox_screen.dart';
+import 'package:osta_user_app/features/offer/presentation/screens/inbox.dart';
 import 'package:osta_user_app/features/offer/presentation/screens/offers_screen.dart';
 import 'package:osta_user_app/features/offer/presentation/widgets/offers/offer_widget.dart';
 import 'package:osta_user_app/features/onboarding/screens/onboarding_screen.dart';
 import 'package:osta_user_app/features/profile/presentation/screens/change_password/change_password_screen.dart';
 import 'package:osta_user_app/features/profile/presentation/screens/customer_service/customer_service_screen.dart';
 import 'package:osta_user_app/features/profile/presentation/screens/edit_profile/edit_profile_screen.dart';
+import 'package:osta_user_app/features/profile/presentation/screens/help_center/help_center_screen.dart';
 import 'package:osta_user_app/features/profile/presentation/screens/invite_friends/invite_friends_screen.dart';
 import 'package:osta_user_app/features/profile/presentation/screens/payment/add_new_card_screen.dart';
 import 'package:osta_user_app/features/profile/presentation/screens/payment/payment_screen.dart';
@@ -122,6 +126,14 @@ class RouteGenerator {
           settings: settings,
           reverseDuration: const Duration(milliseconds: 300),
         );
+      case ORoutesName.chatForUserRoute:
+        final title = settings.arguments as String;
+        return PageTransition(
+          child:  ChatScreenForUser(title: title),
+          type: PageTransitionType.fade,
+          settings: settings,
+          reverseDuration: const Duration(milliseconds: 300),
+        );
       case ORoutesName.notificationsRoute:
         return PageTransition(
           child: const NotificationsScreen(),
@@ -164,13 +176,13 @@ class RouteGenerator {
           settings: settings,
           reverseDuration: const Duration(milliseconds: 300),
         );
-      // case ORoutesName.helpCenterRoute:
-      //   return PageTransition(
-      //     child: const NavigationMenu(),
-      //     type: PageTransitionType.fade,
-      //     settings: settings,
-      //     reverseDuration: const Duration(milliseconds: 300),
-      //   );
+      case ORoutesName.helpCenterRoute:
+        return PageTransition(
+          child: const HelpCenterScreen(),
+          type: PageTransitionType.fade,
+          settings: settings,
+          reverseDuration: const Duration(milliseconds: 300),
+        );
       case ORoutesName.customerServiceRoute:
         return PageTransition(
           child: const CustomerServiceScreen(),
@@ -189,6 +201,14 @@ class RouteGenerator {
         final title = settings.arguments as String;
         return PageTransition(
           child: ChatScreen(title: title),
+          type: PageTransitionType.fade,
+          settings: settings,
+          reverseDuration: const Duration(milliseconds: 300),
+        );
+      case ORoutesName.inboxRoute:
+        final data = settings.arguments as Map;
+        return PageTransition(
+          child: InboxScreen2(data: data),
           type: PageTransitionType.fade,
           settings: settings,
           reverseDuration: const Duration(milliseconds: 300),

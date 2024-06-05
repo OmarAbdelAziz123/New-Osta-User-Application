@@ -46,7 +46,6 @@ class _HomeAppSatelliteChannelAndSurveillanceCamerasState extends State<HomeAppS
               child: Column(
                 children: [
                   /// App Bar
-                  Text(widget.data['serviceId'].toString()),
                   AppBarWidget(
                     leading: InkWellWidget(onTap: () => context.pop(), child: const Icon((Icons.arrow_back))),
                     title: '',

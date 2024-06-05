@@ -1,4 +1,6 @@
-import 'package:osta_user_app/features/inbox/presentation/widgets/inbox_container_widget.dart';
+import 'package:osta_user_app/common/widgets/app_bar/app_bar_widget2.dart';
+import 'package:osta_user_app/features/inbox/inbox_for_delivery/presentation/widgets/calls_widget.dart';
+import 'package:osta_user_app/features/inbox/inbox_for_delivery/presentation/widgets/chats_widget.dart';
 import 'package:osta_user_app/utils/constants/exports.dart';
 
 class InboxScreen extends StatefulWidget {
@@ -30,20 +32,22 @@ class _InboxScreenState extends State<InboxScreen> with SingleTickerProviderStat
       child: Column(
         children: [
           /// App Bar
-          AppBarWidget(leading: SvgPicture.asset(OImages.profileLogo, fit: BoxFit.scaleDown), title: 'Inbox',
+          AppBarWidget2(leading: SvgPicture.asset(OImages.profileLogo, fit: BoxFit.scaleDown), title: 'Inbox',
               actions: Row(
                 children: [
-                  SvgPicture.asset(OImages.searchIcon, fit: BoxFit.scaleDown),
-                  // SizedBox(width: 20.w),
-                  // SvgPicture.asset(OImages.chatIcon, fit: BoxFit.scaleDown),
+                  SvgPicture.asset(OImages.searchIcon, fit: BoxFit.scaleDown,width: 25.w),
+                  SizedBox(width: 20.w),
+                  SvgPicture.asset(OImages.chatIcon, fit: BoxFit.scaleDown,width: 25.w),
                 ],),
-              widthOfText: 280.w),
+              widthOfText: 240.w),
 
           /// Make Space
           SizedBox(height: 24.h),
 
           /// TabBar
           TabBar(
+            indicatorSize: TabBarIndicatorSize.tab,
+            indicatorWeight: 4.h,
             indicatorColor: OColors.primaryColor500,
             controller: _tabController,
             labelColor: OColors.primaryColor500,
@@ -56,26 +60,11 @@ class _InboxScreenState extends State<InboxScreen> with SingleTickerProviderStat
           Expanded(
             child: TabBarView(
               controller: _tabController,
-              children:  [
+              children:  const [
                 /// Chat Screen
-              SizedBox(
-              width: double.infinity,
-              child: ListView.builder(
-                  itemCount: OConstants.inboxProfileImage.length,
-                  itemBuilder: (context,index){
-                    return InboxWidget(profileImage:OConstants.inboxProfileImage[index], profileName: OConstants.inboxProfileName[index],profileDes: OConstants.inboxProfileDes[index],date: " | Dec 19, 2024",onTap: (){context.pushNamed(ORoutesName.chatRoute,arguments:OConstants.inboxProfileName[index]);},);
-                  }),
-
-              // child Column(
-              //    children:
-              //    List.generate(3, (index) {
-              //      return  MyBookingContainerWidget(bookingImage: OConstants.bookingImage[index],bookingJob: OConstants.bookingJobs[index], bookingName: OConstants.bookingName[index], containerColor: OColors.primaryColor500, buttonText: 'Upcoming',);
-              //    },
-              //    ),
-              //  ),
-            ),
-               /// Calls
-             Container(),
+               ChatsWidget(),
+               /// Calls Screen
+               CallsWidget(),
               ],
             ),
           ),
