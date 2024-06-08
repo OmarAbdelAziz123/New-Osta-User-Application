@@ -30,7 +30,7 @@ class ContainerInfoWidget extends StatelessWidget {
                     children: [
                       SvgPicture.asset(OImages.profileLogo, fit: BoxFit.scaleDown),
                       SizedBox(width: 5.w),
-                      Text("Amira Adel",style: OStyles.h6Bold),
+                      Text("Omar",style: OStyles.h6Bold),
                       const Spacer(),
                       CircleAvatar(
                         radius: 20.r,

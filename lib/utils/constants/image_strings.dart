@@ -34,6 +34,7 @@ class OImages {
   static const String calendarIconNotSelected = 'assets/images/svgs/calendarIconNotSelected.svg';
   static const String chatIconNotSelected = 'assets/images/svgs/chatIconNotSelected.svg';
   static const String profileIconNotSelected = 'assets/images/svgs/profileIconNotSelected.svg';
+  static const String homeIcon = 'assets/images/svgs/homeIcon.svg';
   static const String chartIconNotSelected = 'assets/images/svgs/chartIconNotSelected.svg';
   static const String zoomIn = 'assets/images/pngs/zoom-in.png';
   static const String headphoneIcon = 'assets/images/pngs/headphoneIcon.png';

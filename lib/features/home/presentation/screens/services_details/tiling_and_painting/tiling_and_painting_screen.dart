@@ -31,7 +31,7 @@ class _TilingAndPaintingScreenState extends State<TilingAndPaintingScreen>  with
   Widget build(BuildContext context) {
     return Scaffold(
       body: BlocProvider(
-        create: (context) => HomeCubit()..getSubServicesFunction(serviceId: widget.data['serviceId']),
+        create: (context) => HomeCubit()..getSubServicesFunction(serviceId: widget.data['serviceId'])..getAllAddressesFunction(),
         child: BlocConsumer<HomeCubit, HomeState>(
           listener: (context, state) {
 
@@ -40,6 +40,7 @@ class _TilingAndPaintingScreenState extends State<TilingAndPaintingScreen>  with
 
             var subServiceCubit = HomeCubit.get(context);
             var subServicesList = subServiceCubit.subServiceModel.result;
+            var addressList = subServiceCubit.getAllAddressesModel.result;
 
             return Padding(
               padding: EdgeInsets.only(left: 24.w, right: 24.w, top: 68.h, bottom: 0.h),
@@ -70,7 +71,7 @@ class _TilingAndPaintingScreenState extends State<TilingAndPaintingScreen>  with
                       controller: _tabController,
                       children:  [
                         /// One Time Screen
-                        OneTimeScreenInTilingAndPainting(subServicesList: subServicesList, serviceId: widget.data['serviceId'], category: widget.data['category']),
+                        OneTimeScreenInTilingAndPainting(subServicesList: subServicesList, serviceId: widget.data['serviceId'], category: widget.data['category'], addressList: addressList),
                         /// Subscriptions Screen
                         Container(),
                       ],

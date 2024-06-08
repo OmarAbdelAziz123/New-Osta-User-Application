@@ -69,7 +69,7 @@ class HomeCubit extends Cubit<HomeState> {
     await dioHelper.getData(endPoint: '${ApiConstants
         .subServiceUrl}?service_id=$serviceId&group_by_type=type').then((
         response) {
-      print(response.data);
+      // print(response.data);
       subServiceInIdThreeModel =
           SubServiceInIdThreeModel.fromJson(response.data);
       // log(response.data);

@@ -32,7 +32,7 @@ class _HomeAppSatelliteChannelAndSurveillanceCamerasState extends State<HomeAppS
   Widget build(BuildContext context) {
     return Scaffold(
       body: BlocProvider(
-        create: (context) => HomeCubit()..getSubServicesInIdThreeFunction(serviceId: widget.data['serviceId']),
+        create: (context) => HomeCubit()..getSubServicesInIdThreeFunction(serviceId: widget.data['serviceId'])..getAllAddressesFunction(),
         child: BlocConsumer<HomeCubit, HomeState>(
           listener: (context, state) {
 
@@ -40,6 +40,7 @@ class _HomeAppSatelliteChannelAndSurveillanceCamerasState extends State<HomeAppS
           builder: (context, state) {
             var subServiceCubit = HomeCubit.get(context);
             var subServicesList = subServiceCubit.subServiceModel.result;
+            var addressList = subServiceCubit.getAllAddressesModel.result;
 
             return Padding(
               padding: EdgeInsets.only(left: 24.w, right: 24.w, top: 68.h, bottom: 0.h),
@@ -70,7 +71,7 @@ class _HomeAppSatelliteChannelAndSurveillanceCamerasState extends State<HomeAppS
                       controller: _tabController,
                       children:  [
                         /// One Time Screen
-                        OneTimeScreenInHomeApp(serviceId: widget.data['serviceId'], category: widget.data['category'], subServicesList: subServicesList),
+                        OneTimeScreenInHomeApp(serviceId: widget.data['serviceId'], category: widget.data['category'], subServicesList: subServicesList, addressList: addressList),
                         /// Subscriptions Screen
                         Container(),
                       ],

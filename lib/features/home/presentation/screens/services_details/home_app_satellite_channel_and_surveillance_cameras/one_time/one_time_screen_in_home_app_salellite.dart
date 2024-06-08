@@ -3,12 +3,14 @@ import 'package:osta_user_app/common/widgets/bottom_sheet/show_location_bottom_s
 import 'package:osta_user_app/common/widgets/checkbox/remember_me_widget.dart';
 import 'package:osta_user_app/common/widgets/what_happened_with_us/what_happened_with_us_widget.dart';
 import 'package:osta_user_app/features/home/managers/home_cubit.dart';
+import 'package:osta_user_app/features/home/models/address/get_all_addresses_model.dart';
 import 'package:osta_user_app/utils/constants/exports.dart';
 
 class OneTimeScreenInHomeApp extends StatefulWidget {
-  OneTimeScreenInHomeApp({super.key, required this.serviceId, required this.category, required this.subServicesList});
+  OneTimeScreenInHomeApp({super.key, required this.serviceId, required this.addressList, required this.category, required this.subServicesList});
 
   var subServicesList;
+  var addressList;
   final int serviceId;
   final String category;
 
@@ -330,19 +332,36 @@ class _OneTimeScreenInHomeAppState extends State<OneTimeScreenInHomeApp> {
                   List<int> subServiceIdsList = keyValueMap.keys.map((key) => int.parse(key)).toList();
                   List<int> subServiceQuantitiesList = keyValueMap.values.map((value) => int.parse(value)).toList();
 
-                  technologyCubit.makeOrderFunction(
-                    category: widget.category,
-                    warrantyId: selectedSpace == 0 ? null : selectedSpace,
-                    serviceId: widget.serviceId,
-                    locationId: 2,
-                    description: textInServicesController.text,
-                    subServicesIds: subServiceIdsList,
-                    subServiceQuantities: subServiceQuantitiesList,
-                    unknownProblem: isChecked ? 1 : 0,
-                    isSpace: false,
-                    isSubServicesIds: true,
-                    isSubServiceQuantities: true,
-                    isWarrantyId: true,
+
+                  selectedSpace == 0 ?
+                  ODeviceUtils.showSnackBar(context: context, message: 'Please Choice Warranty', textStyle: OStyles.bodyLargeRegular, textColor: OColors.whiteColor, bgColor: OColors.warning)
+                      : showLocationBottomSheet(
+                    context: context,
+                    map: {
+                      'category':  widget.category,
+                      'warrantyId':  selectedSpace,
+                      'serviceId':  widget.serviceId,
+                      'description':  textInServicesController.text,
+                      'subServicesIds': subServiceIdsList,
+                      'subServiceQuantities': subServiceQuantitiesList,
+                      'unknownProblem': isChecked ? 1 : 0,
+                      'isSpace': false,
+                      'isSubServicesIds':  true,
+                      'isSubServiceQuantities':  true,
+                      'isWarrantyId':  true,
+                    },
+                    historyAddressesWidget: widget.addressList == null
+                        ? LoadingWidget(iconColor: OColors.primaryColor500)
+                        : ListView.builder(
+                      itemCount: widget.addressList.length,
+                      itemBuilder:(context,index) {
+                        return PreviousAddressesWidget(
+                          icon: widget.addressList[index].name! == 'home' ? SvgPicture.asset(OImages.homeIcon) : widget.addressList[index].name! == 'work' ? Icon(Icons.work) : widget.addressList[index].name! == 'friend' ? Icon(Icons.person) : Icon(Icons.more_horiz),
+                          addressName: widget.addressList[index].name! == 'home' ? 'Home' : widget.addressList[index].name! == 'work' ? 'Work' : widget.addressList[index].name! == 'friend' ? 'Friend' : 'Other',
+                          location: widget.addressList[index].desc!,
+                        );
+                      },
+                    ),
                   );
                 },
               ),
@@ -354,12 +373,12 @@ class _OneTimeScreenInHomeAppState extends State<OneTimeScreenInHomeApp> {
   }
 
   /// Bottom Sheet
-  void showLocationBottomSheet({required BuildContext context, required Map map}) {
+  void showLocationBottomSheet({required BuildContext context, required Map map, required Widget historyAddressesWidget}) {
     showModalBottomSheet(
       backgroundColor: Colors.white,
       context: context,
       builder: (BuildContext context) {
-        return ShowLocationBottomSheet(map: map);
+        return ShowLocationBottomSheet(map: map, historyAddressesWidget: historyAddressesWidget);
       },
     );
   }

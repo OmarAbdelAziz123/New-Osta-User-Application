@@ -53,6 +53,7 @@ class AuthCubit extends Cubit<AuthState> {
       'phone': phoneNumber,
     }).then((response) {
       userDataAfterVerified = UserDataAfterVerified.fromJson(response.data);
+      OCacheHelper.putString(key: CacheKeys.userId, value: userDataAfterVerified.result!.id.toString());
       OCacheHelper.putString(key: CacheKeys.token, value: userDataAfterVerified.result!.token!);
       OCacheHelper.putString(key: CacheKeys.email, value: userDataAfterVerified.result!.email!);
       OCacheHelper.putString(key: CacheKeys.fullName, value: userDataAfterVerified.result!.name!);

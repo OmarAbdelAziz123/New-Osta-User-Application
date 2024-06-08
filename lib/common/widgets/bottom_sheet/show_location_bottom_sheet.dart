@@ -1,8 +1,9 @@
 import '../../../../utils/constants/exports.dart';
 
 class ShowLocationBottomSheet extends StatelessWidget {
-  const ShowLocationBottomSheet({super.key, required this.map});
+  const ShowLocationBottomSheet({super.key, required this.map, required this.historyAddressesWidget});
   final Map map;
+  final Widget historyAddressesWidget;
 
   @override
   Widget build(BuildContext context) {
@@ -25,12 +26,7 @@ class ShowLocationBottomSheet extends StatelessWidget {
             AddNewAddressWidget(onTap: () => context.pushNamed(ORoutesName.choiceYourLocationRoute, arguments: map)),
             SizedBox(height: 15.h),
             Expanded(
-              child: ListView.builder(
-                itemCount: 2,
-                itemBuilder:(context,index) {
-                  return const PreviousAddressesWidget(icon: Icons.work, addressName: "Job", location: "Airport,8745,King Khalid Airport,7894,RUK546");
-                },
-              ),
+              child: historyAddressesWidget,
             ),
           ],
         ),
@@ -79,7 +75,7 @@ class AddNewAddressWidget extends StatelessWidget {
 /// Previous Address Widget
 class PreviousAddressesWidget extends StatelessWidget {
   const PreviousAddressesWidget({super.key,required this.icon, required this.addressName, required this.location});
-  final IconData icon;
+  final Widget icon;
   final String addressName, location;
 
   @override
@@ -101,7 +97,7 @@ class PreviousAddressesWidget extends StatelessWidget {
           children: [
             Expanded(
               flex: 1,
-              child: Icon(icon),
+              child: icon,
             ),
             Expanded(
               flex: 7,

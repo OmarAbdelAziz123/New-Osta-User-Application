@@ -40,7 +40,7 @@ class UpcomingScreen extends StatelessWidget {
 
                     return MyBookingContainerWidget2(
                       // bookingImage: OConstants.bookingImage[index],
-                      providerImage: ordersList![index].images == null || ordersList[index].images!.isEmpty ? Lottie.asset(OImages.loadingImages) : ordersList[index].images![0].isEmpty ? Image.asset(OImages.myBooking1, fit: BoxFit.scaleDown) : Image.network(ordersList[index].images![0], fit: BoxFit.scaleDown),
+                      providerImage: ordersList![index].images == null || ordersList[index].images!.contains('https://osta.magdsofteg.xyz/storage/39/1.jpeg') || ordersList[index].images!.isEmpty ? Lottie.asset(OImages.loadingImages) : ordersList[index].images![0].isEmpty ? Image.asset(OImages.myBooking1, fit: BoxFit.scaleDown) : Image.network(ordersList[index].images![0], fit: BoxFit.scaleDown),
                       bookingJob: ordersList[index].service!.category!,
                       bookingName: ordersList[index].service!.name!,
                       containerColor: OColors.primaryColor500,

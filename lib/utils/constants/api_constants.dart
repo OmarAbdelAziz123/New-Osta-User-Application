@@ -1,5 +1,6 @@
 class ApiConstants {
   static const baseUrl = 'https://osta.magdsofteg.xyz/';
+  static const socketUrl = 'wss://socket.marathon.best';
 
   static const loginUrl = 'api/user/check-phone';
   static const verifyOTPUrl = 'api/user/login';

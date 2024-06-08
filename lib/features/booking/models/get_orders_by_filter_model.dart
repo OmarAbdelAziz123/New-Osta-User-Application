@@ -1,6 +1,6 @@
 class GetOrdersByFilterModel {
   bool? success;
-  Null? message;
+  String? message;
   Result? result;
 
   GetOrdersByFilterModel({this.success, this.message, this.result});
@@ -48,11 +48,12 @@ class Result {
 
 class Data {
   int? id;
-  Null? start;
-  Null? end;
   String? warrantyId;
   String? status;
-  Null? desc;
+  String? desc;
+  String? location_latitude;
+  String? location_longitude;
+  String? location_desc;
   int? price;
   int? unknownProblem;
   int? maxAllowedPrice;
@@ -63,12 +64,13 @@ class Data {
 
   Data(
       {this.id,
-        this.start,
-        this.end,
         this.warrantyId,
         this.status,
         this.desc,
         this.price,
+        this.location_latitude,
+        this.location_longitude,
+        this.location_desc,
         this.unknownProblem,
         this.maxAllowedPrice,
         this.service,
@@ -78,11 +80,12 @@ class Data {
 
   Data.fromJson(Map<String, dynamic> json) {
     id = json['id'];
-    start = json['start'];
-    end = json['end'];
     warrantyId = json['warranty_id'];
     status = json['status'];
     desc = json['desc'];
+    desc = json['location_latitude'];
+    desc = json['location_longitude'];
+    desc = json['location_desc'];
     price = json['price'];
     unknownProblem = json['unknown_problem'];
     maxAllowedPrice = json['max_allowed_price'];
@@ -101,10 +104,11 @@ class Data {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['id'] = this.id;
-    data['start'] = this.start;
-    data['end'] = this.end;
     data['warranty_id'] = this.warrantyId;
     data['status'] = this.status;
+    data['location_latitude'] = this.location_latitude;
+    data['location_longitude'] = this.location_longitude;
+    data['location_desc'] = this.location_desc;
     data['desc'] = this.desc;
     data['price'] = this.price;
     data['unknown_problem'] = this.unknownProblem;

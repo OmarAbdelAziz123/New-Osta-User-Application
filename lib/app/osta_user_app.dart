@@ -9,6 +9,7 @@ import 'package:osta_user_app/features/booking/managers/booking_cubit.dart';
 import 'package:osta_user_app/features/home/managers/home_cubit.dart';
 import 'package:osta_user_app/features/map1.dart';
 import 'package:osta_user_app/features/offer/managers/offers_orders_cubit.dart';
+import 'package:osta_user_app/features/offer/managers/socket_cubit/socket_cubit.dart';
 import 'package:osta_user_app/utils/constants/exports.dart';
 
 class OstaUserApp extends StatelessWidget {
@@ -27,6 +28,7 @@ class OstaUserApp extends StatelessWidget {
             BlocProvider(create: (context) => HomeCubit()..getAllServicesFunction()..getAllCountriesFunction()..getAllAddressesFunction()),
             BlocProvider(create: (context) => OffersOrdersCubit()..getAllOrdersByMeFunction()),
             BlocProvider(create: (context) => BookingCubit()),
+            BlocProvider(create: (context) => SocketCubit()),
           ],
           child: MaterialApp(
             debugShowCheckedModeBanner: false,

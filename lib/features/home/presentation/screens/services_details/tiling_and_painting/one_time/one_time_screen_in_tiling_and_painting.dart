@@ -1,14 +1,17 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:iconsax_flutter/iconsax_flutter.dart';
 import 'package:osta_user_app/common/widgets/bottom_sheet/show_location_bottom_sheet.dart';
 import 'package:osta_user_app/common/widgets/checkbox/remember_me_widget.dart';
 import 'package:osta_user_app/common/widgets/what_happened_with_us/what_happened_with_us_widget.dart';
 import 'package:osta_user_app/features/home/managers/home_cubit.dart';
+import 'package:osta_user_app/features/home/models/address/get_all_addresses_model.dart';
 import 'package:osta_user_app/utils/constants/exports.dart';
 
 class OneTimeScreenInTilingAndPainting extends StatefulWidget {
-  OneTimeScreenInTilingAndPainting({super.key, required this.subServicesList, required this.serviceId, required this.category});
+  OneTimeScreenInTilingAndPainting({super.key, required this.subServicesList, required this.addressList, required this.serviceId, required this.category});
 
   var subServicesList;
+  var addressList;
   int serviceId;
   String category;
 
@@ -310,7 +313,19 @@ class _OneTimeScreenInTilingAndPaintingState extends State<OneTimeScreenInTiling
                         'isSubServicesIds':  false,
                         'isSubServiceQuantities':  false,
                         'isWarrantyId':  true,
-                      }
+                      },
+                    historyAddressesWidget: widget.addressList == null
+                        ? LoadingWidget(iconColor: OColors.primaryColor500)
+                        : ListView.builder(
+                      itemCount: widget.addressList.length,
+                      itemBuilder:(context,index) {
+                        return PreviousAddressesWidget(
+                          icon: widget.addressList[index].name! == 'home' ? SvgPicture.asset(OImages.homeIcon) : widget.addressList[index].name! == 'work' ? Icon(Icons.work) : widget.addressList[index].name! == 'friend' ? Icon(Icons.person) : Icon(Icons.more_horiz),
+                          addressName: widget.addressList[index].name! == 'home' ? 'Home' : widget.addressList[index].name! == 'work' ? 'Work' : widget.addressList[index].name! == 'friend' ? 'Friend' : 'Other',
+                          location: widget.addressList[index].desc!,
+                        );
+                      },
+                    ),
                   );
                 },
               ),
@@ -323,12 +338,12 @@ class _OneTimeScreenInTilingAndPaintingState extends State<OneTimeScreenInTiling
   }
 
   /// Bottom Sheet
-  void showLocationBottomSheet({required BuildContext context, required Map map}) {
+  void showLocationBottomSheet({required BuildContext context, required Map map, required Widget historyAddressesWidget}) {
     showModalBottomSheet(
       backgroundColor: Colors.white,
       context: context,
       builder: (BuildContext context) {
-        return ShowLocationBottomSheet(map: map);
+        return ShowLocationBottomSheet(map: map, historyAddressesWidget: historyAddressesWidget);
       },
     );
   }

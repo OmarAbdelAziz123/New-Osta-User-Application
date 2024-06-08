@@ -1,6 +1,8 @@
 import 'package:osta_user_app/features/booking/presentation/screens/cancelled_screen.dart';
 import 'package:osta_user_app/features/booking/presentation/screens/upcoming_screen.dart';
+import 'package:osta_user_app/features/offer/managers/socket_cubit/socket_cubit.dart';
 import 'package:osta_user_app/utils/constants/exports.dart';
+import 'package:osta_user_app/utils/constants/log_util.dart';
 import 'completed_screen.dart';
 import 'empty_upcoming_screen.dart';
 
@@ -17,6 +19,17 @@ class _BookingScreenState extends State<BookingScreen> with SingleTickerProvider
   @override
   void initState() {
     _tabController = TabController(length: 3, vsync: this);
+
+    logSuccess('-------------------');
+    logSuccess(OCacheHelper.getString(key: CacheKeys.userId)!);
+
+    if(context.mounted) {
+      if(OCacheHelper.getString(key: CacheKeys.userId) != null) {
+        logSuccess('In Navigation Menu');
+        SocketCubit.get(context).socketFunc(userId: int.parse(OCacheHelper.getString(key: CacheKeys.userId)!));
+      }
+    }
+
     super.initState();
   }
 

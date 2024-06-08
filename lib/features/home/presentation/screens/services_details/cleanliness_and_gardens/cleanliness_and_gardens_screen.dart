@@ -30,7 +30,7 @@ class _CleanlinessAndGardensScreenState extends State<CleanlinessAndGardensScree
   Widget build(BuildContext context) {
     return Scaffold(
       body: BlocProvider(
-        create: (context) => HomeCubit()..getSubServicesFunction(serviceId: widget.data['serviceId']),
+        create: (context) => HomeCubit()..getSubServicesFunction(serviceId: widget.data['serviceId'])..getAllAddressesFunction(),
         child: BlocConsumer<HomeCubit, HomeState>(
           listener: (context, state) {
 
@@ -38,6 +38,7 @@ class _CleanlinessAndGardensScreenState extends State<CleanlinessAndGardensScree
           builder: (context, state) {
             var subServiceCubit = HomeCubit.get(context);
             var subServicesList = subServiceCubit.subServiceModel.result;
+            var addressList = subServiceCubit.getAllAddressesModel.result;
 
             return Padding(
               padding: EdgeInsets.only(left: 24.w, right: 24.w, top: 68.h, bottom: 0.h),
@@ -69,7 +70,7 @@ class _CleanlinessAndGardensScreenState extends State<CleanlinessAndGardensScree
                       controller: _tabController,
                       children:  [
                         /// One Time Screen
-                        OneTimeScreen(serviceId: widget.data['serviceId'], category: widget.data['category'], subServicesList: subServicesList),
+                        OneTimeScreen(serviceId: widget.data['serviceId'], category: widget.data['category'], subServicesList: subServicesList, addressList: addressList),
                         /// Scheduling Screen
                         Container(),
                         /// Subscriptions Screen

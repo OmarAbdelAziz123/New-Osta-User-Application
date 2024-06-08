@@ -73,25 +73,6 @@ class ChatScreenForUser extends StatelessWidget {
                       ContainerMessage1(message: "Thank you for confirming. You can now track the Osta", timeOfMessage: "10.00",haveButton: false,haveOneButton: false)
                     ],
                   ),
-                  // /// Make Space
-                  // SizedBox(height: 26.h),
-                  // /// Container Message
-                  // const Row(
-                  //   mainAxisAlignment: MainAxisAlignment.start,
-                  //   children: [
-                  //     ContainerMessage1(message: "Request to add an additional value of 20%", timeOfMessage: "10.00",haveButton: false,haveOneButton: true)
-                  //   ],
-                  // ),
-                  // /// Make Space
-                  // SizedBox(height: 27.h),
-                  // /// Container Message
-                  // const Row(
-                  //   mainAxisAlignment: MainAxisAlignment.end,
-                  //   children: [
-                  //     /// Container Message
-                  //     ContainerMessageWidget2(message: "Sure", timeOfMessage: "10.00")
-                  //   ],
-                  // ),
                   /// Container Message
                   const Row(
                     mainAxisAlignment: MainAxisAlignment.end,

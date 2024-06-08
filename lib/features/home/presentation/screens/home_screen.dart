@@ -116,7 +116,6 @@ class _HomeScreenState extends State<HomeScreen> {
                         // SizedBox(height: 24.h),
 
                         /// Services
-                        /// Row One
                         homeCubit.allServicesModel.result == null
                             ?  LoadingWidget(iconColor: OColors.primaryColor500) :
                         SizedBox(
@@ -170,82 +169,6 @@ class _HomeScreenState extends State<HomeScreen> {
                         ],
                             ),
                           ),
-                        //     children: [
-                        //       Column(
-                        //         children: [
-                        //           ContainerIconsInServicesWidget(serviceIcon: OImages.cleaningIcon, onTap: () => context.pushNamed(ORoutesName.cleanlinessAndGardensRoute)),
-                        //           SizedBox(height: 12.h),
-                        //           Text('Cleaning', style: OStyles.bodyLargeBold),
-                        //         ],
-                        //       ),
-                        //
-                        //       Column(
-                        //         children: [
-                        //           ContainerIconsInServicesWidget(serviceIcon: OImages.repairingIcon, onTap: () => context.pushNamed(ORoutesName.electricityPlumbingAirConditionCarpentrySRoute)),
-                        //           SizedBox(height: 12.h),
-                        //           Text('Repairing', style: OStyles.bodyLargeBold),
-                        //         ],
-                        //       ),
-                        //
-                        //       Column(
-                        //         children: [
-                        //           ContainerIconsInServicesWidget(serviceIcon: OImages.laundry, onTap: () => context.pushNamed(ORoutesName.tilingAndPaintingRoute)),
-                        //           SizedBox(height: 12.h),
-                        //           Text('Painting', style: OStyles.bodyLargeBold),
-                        //         ],
-                        //       ),
-                        //
-                        //       Column(
-                        //         children: [
-                        //           ContainerIconsInServicesWidget(serviceIcon: OImages.paintingIcon, onTap: () => context.pushNamed(ORoutesName.homeAppSatelliteChannelAndSurveillanceCamerasSRoute)),
-                        //           SizedBox(height: 12.h),
-                        //           Text('Laundry', style: OStyles.bodyLargeBold),
-                        //         ],
-                        //       ),
-                        //     ],
-                        //     children: List.generate(
-                        //       OConstants.servicesIcons1.length,
-                        //           (index) => Column(
-                        //         crossAxisAlignment: CrossAxisAlignment.center,
-                        //         children: [
-                        //           /// Services Icons
-                        //           ContainerIconsInServicesWidget(serviceIcon: OConstants.servicesIcons1[index], onTap: () {}),
-                        //
-                        //           /// Make Space
-                        //           SizedBox(height: 12.h),
-                        //
-                        //           /// Services Texts
-                        //           Text(OConstants.servicesTexts1[index], style: OStyles.bodyLargeBold),
-                        //         ],
-                        //       ),
-
-                        // ),
-                        // /// Make Space
-                        // SizedBox(height: 24.h),
-                        // /// Row Two
-                        // SizedBox(
-                        //   height: 94.h,
-                        //   width: double.infinity,
-                        //   child: Row(
-                        //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        //     children: List.generate(
-                        //       1,
-                        //           (index) => Column(
-                        //         crossAxisAlignment: CrossAxisAlignment.center,
-                        //         children: [
-                        //           /// Services Icons
-                        //           ContainerIconsInServicesWidget(serviceIcon: OConstants.servicesIcons2[3], onTap: () {  },),
-                        //
-                        //           /// Make Space
-                        //           SizedBox(height: 12.h),
-                        //
-                        //           /// Services Texts
-                        //           Text(OConstants.servicesTexts2[3], style: OStyles.bodyLargeBold),
-                        //         ],
-                        //       ),
-                        //     ),
-                        //   ),
-                        // ),
 
                         /// Make Space
                         SizedBox(height: 24.h),

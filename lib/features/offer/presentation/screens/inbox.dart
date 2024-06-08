@@ -5,11 +5,13 @@ import 'package:intl/intl.dart';
 import 'package:osta_user_app/features/offer/managers/offers_orders_cubit.dart';
 import 'package:osta_user_app/features/offer/models/inbox/get_all_messages_model.dart';
 import 'package:osta_user_app/features/offer/presentation/widgets/inbox/audio_message_bubble.dart';
+import 'package:osta_user_app/features/offer/presentation/widgets/inbox/audio_player_widget.dart';
 import 'package:osta_user_app/utils/constants/exports.dart';
 import 'package:osta_user_app/utils/constants/log_util.dart';
 import 'package:osta_user_app/utils/dio/dio_helper.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:audioplayers/audioplayers.dart';
 
 class InboxScreen2 extends StatefulWidget {
   const InboxScreen2({super.key, required this.data});
@@ -48,6 +50,11 @@ class _InboxScreen2State extends State<InboxScreen2> {
 
   int countPage = 1;
   List<MessageResult> messagesListLocally = [];
+
+  AudioPlayer player = AudioPlayer();
+  Duration? _duration;
+  Duration? _position;
+
 
   @override
   void initState() {
@@ -105,6 +112,9 @@ class _InboxScreen2State extends State<InboxScreen2> {
     focusNode.dispose();
     controller.dispose();
     scrollController.dispose();
+
+    /// Release all sources and dispose the player.
+    player.dispose();
     super.dispose();
   }
 
@@ -138,9 +148,6 @@ class _InboxScreen2State extends State<InboxScreen2> {
               perPage: 10,
               page: countPage,
             );
-            // setState(() {
-            //   countPage++;
-            // });
           }
           else if (state is InboxLoadingState) {
             controller.clear();
@@ -151,7 +158,6 @@ class _InboxScreen2State extends State<InboxScreen2> {
 
           return Stack(
             children: [
-
               Padding(
                 padding: EdgeInsets.only(left: 24.w, right: 24.w, top: 68.h),
                 child: Column(
@@ -164,7 +170,7 @@ class _InboxScreen2State extends State<InboxScreen2> {
                         context.pop();
                         messagesListLocally.clear();
                         inboxCubit.getAllMessagesModel = GetAllMessagesModel();
-                      }), title: 'Order number ${widget.data['orderId']}',
+                      }), title: 'Order number ${widget.data['orderId']} $countPage',
                       actions: Container(),
                       widthOfText: 260.w,
                     ),
@@ -216,21 +222,7 @@ class _InboxScreen2State extends State<InboxScreen2> {
                                   children: [
                                     messagesListLocally[index].content == null && messagesListLocally[index].media!.isNotEmpty ?
                                     messagesListLocally[index].media![0].url!.endsWith('opus') ?
-                                    FutureBuilder<File?>(
-                                        key: Key("${messagesListLocally[index].id}"),
-                                        future: _downloadMedia(
-                                          messagesListLocally[index].id!,
-                                          messagesListLocally[index].media![0].id!,
-                                        ),
-                                        builder: (context, snap) {
-                                          if (snap.data == null) {
-                                            return const SizedBox();
-                                          }
-                                          return AudioMessageBubble(
-                                            audioMessage: snap.data!,
-                                            isSender: messagesListLocally[index].isMe!,
-                                          );
-                                        }) :
+                                    AudioPlayerWidget(url: messagesListLocally[index].media![0].url!) :
                                     InkWell(
                                       onTap: () {
                                         setState(() {
@@ -251,11 +243,6 @@ class _InboxScreen2State extends State<InboxScreen2> {
                                             color: OColors.whiteColor)),
                                     Row(
                                       children: [
-                                        // Icon(Icons.check, color: inboxCubit
-                                        //     .getAllMessagesModel.result![index]
-                                        //     .isRead! ? Colors.blue : OColors
-                                        //     .greyScale300, size: 18.sp),
-                                        // SizedBox(width: 8.w),
                                         Text(formatTime(messagesListLocally[index].createdAt!), style: OStyles.bodyMediumRegular.copyWith(color: OColors.whiteColor))
                                       ],
                                     ),

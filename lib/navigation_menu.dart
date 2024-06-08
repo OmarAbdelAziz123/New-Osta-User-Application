@@ -4,9 +4,11 @@ import 'package:osta_user_app/features/home/managers/home_cubit.dart';
 import 'package:osta_user_app/features/home/presentation/screens/home_screen.dart';
 import 'package:osta_user_app/features/inbox/presentation/screens/inbox_screen.dart';
 import 'package:osta_user_app/features/offer/managers/offers_orders_cubit.dart';
+import 'package:osta_user_app/features/offer/managers/socket_cubit/socket_cubit.dart';
 import 'package:osta_user_app/features/offer/presentation/screens/get_all_orders_by_me_screen.dart';
 import 'package:osta_user_app/features/offer/presentation/screens/offers_screen.dart';
 import 'package:osta_user_app/utils/constants/exports.dart';
+import 'package:osta_user_app/utils/constants/log_util.dart';
 
 class NavigationMenu extends StatefulWidget {
   const NavigationMenu({super.key});
@@ -17,6 +19,8 @@ class NavigationMenu extends StatefulWidget {
 
 class _NavigationMenuState extends State<NavigationMenu> {
   int currentIndex = 0;
+
+
 
   @override
   Widget build(BuildContext context) {
