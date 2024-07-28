@@ -28,14 +28,14 @@ class FloatingSnackBarWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     // Using WidgetsBinding to show the snackbar after the build method has completed.
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      FloatingSnackBar(
-        message: 'Hi GeeksforGeeks, we are back',
-        context: context,
-        textColor: Colors.black,
-        textStyle: const TextStyle(color: Colors.green),
-        duration: const Duration(milliseconds: 4000),
-        backgroundColor: Color.fromARGB(255, 220, 234, 236),
-      );
+      // FloatingSnackBar(
+      //   message: 'Hi GeeksforGeeks, we are back',
+      //   context: context,
+      //   textColor: Colors.black,
+      //   textStyle: const TextStyle(color: Colors.green),
+      //   duration: const Duration(milliseconds: 4000),
+      //   backgroundColor: Color.fromARGB(255, 220, 234, 236),
+      // );
     });
 
     // Return a placeholder widget. Replace this with your actual widget tree.

@@ -7,11 +7,14 @@ import 'package:osta_user_app/features/offer/managers/offers_orders_cubit.dart';
 import 'package:osta_user_app/features/offer/managers/socket_cubit/socket_cubit.dart';
 import 'package:osta_user_app/features/offer/presentation/screens/get_all_orders_by_me_screen.dart';
 import 'package:osta_user_app/features/offer/presentation/screens/offers_screen.dart';
+import 'package:osta_user_app/features/profile/managers/profile_cubit.dart';
 import 'package:osta_user_app/utils/constants/exports.dart';
 import 'package:osta_user_app/utils/constants/log_util.dart';
 
 class NavigationMenu extends StatefulWidget {
-  const NavigationMenu({super.key});
+  const NavigationMenu({super.key, required this.index});
+
+  final int index;
 
   @override
   State<NavigationMenu> createState() => _NavigationMenuState();
@@ -20,21 +23,39 @@ class NavigationMenu extends StatefulWidget {
 class _NavigationMenuState extends State<NavigationMenu> {
   int currentIndex = 0;
 
-
+  @override
+  void initState() {
+    // if(ProfileCubit.get(context).getProfileDataModel.result == null) ProfileCubit.get(context).getAllProfileDataFunc();
+    ProfileCubit.get(context).getAllProfileDataFunc();
+    OffersOrdersCubit.get(context).getAllOrdersByMeFunction();
+    // OffersOrdersCubit.get(context).getAllOffersByMeFunction();
+    super.initState();
+    currentIndex = widget.index;
+    setState(() {});
+  }
 
   @override
   Widget build(BuildContext context) {
     List tabs = [
-      HomeScreen(),
-      BookingScreen(),
-      GetAllOrdersByMeScreen(),
-      InboxScreen(),
-      ProfileScreen(),
+      const HomeScreen(),
+      const BookingScreen(),
+      const GetAllOrdersByMeScreen(),
+      // InboxScreen(),
+      const ProfileScreen(),
     ];
 
     return Scaffold(
-      backgroundColor: OColors.whiteColor,
-      body: tabs[currentIndex],
+      backgroundColor: OColors.greyScale50,
+      body: AnimatedSwitcher(
+        duration: const Duration(milliseconds: 400),
+        transitionBuilder: (Widget child, Animation<double> animation) {
+          return FadeTransition(
+            opacity: animation,
+            child: child,
+          );
+        },
+        child: tabs[currentIndex],
+      ),
       bottomNavigationBar: SizedBox(
         width: double.infinity,
         height: 90.h,
@@ -87,11 +108,11 @@ class _NavigationMenuState extends State<NavigationMenu> {
                       },
                       builder: (context, state) {
                         var offerOrderCubit = OffersOrdersCubit.get(context);
+                        var orders = offerOrderCubit.getAllOrdersToMeModel?.result?.data ?? [];
+                        var pendingOrdersCount = orders.where((order) => order.status == 'pending').length;
 
                         return Badge.count(
-                          count: offerOrderCubit.getAllOrdersToMeModel == null ||
-                              offerOrderCubit.getAllOrdersToMeModel.result == null ||
-                              offerOrderCubit.getAllOrdersToMeModel.result!.data == null ? 0 : offerOrderCubit.getAllOrdersToMeModel.result!.data!.length,
+                          count: pendingOrdersCount,
                           child: Icon(Icons.local_offer, size: 24.sp),
                         );
                       },
@@ -104,11 +125,11 @@ class _NavigationMenuState extends State<NavigationMenu> {
 
                       builder: (context, state) {
                         var offerOrderCubit = OffersOrdersCubit.get(context);
+                        var orders = offerOrderCubit.getAllOrdersToMeModel?.result?.data ?? [];
+                        var pendingOrdersCount = orders.where((order) => order.status == 'pending').length;
 
                         return Badge.count(
-                         count: offerOrderCubit.getAllOrdersToMeModel == null ||
-                             offerOrderCubit.getAllOrdersToMeModel.result == null ||
-                             offerOrderCubit.getAllOrdersToMeModel.result!.data == null ? 0 : offerOrderCubit.getAllOrdersToMeModel.result!.data!.length,
+                         count: pendingOrdersCount,
                          child: Icon(Icons.local_offer_outlined, size: 24.sp),
                        );
                      },
@@ -116,19 +137,19 @@ class _NavigationMenuState extends State<NavigationMenu> {
                   ),
                   label: 'Offers',
                 ),
+                // BottomNavigationBarItem(
+                //   icon: SizedBox(
+                //     width: 57.6.w,
+                //     height: 38.h,
+                //     child: currentIndex == 3 ? Icon(Icons.chat, size: 24.sp) : Icon(Icons.chat_outlined, size: 24.sp),
+                //   ),
+                //   label: 'Inbox',
+                // ),
                 BottomNavigationBarItem(
                   icon: SizedBox(
                     width: 57.6.w,
                     height: 38.h,
-                    child: currentIndex == 3 ? Icon(Icons.chat, size: 24.sp) : Icon(Icons.chat_outlined, size: 24.sp),
-                  ),
-                  label: 'Inbox',
-                ),
-                BottomNavigationBarItem(
-                  icon: SizedBox(
-                    width: 57.6.w,
-                    height: 38.h,
-                    child: currentIndex == 4 ? SvgPicture.asset(OImages.profileIconSelected, colorFilter: ColorFilter.mode(OColors.primaryColor500, BlendMode.srcIn), fit: BoxFit.scaleDown) : SvgPicture.asset(OImages.profileIconNotSelected, colorFilter: ColorFilter.mode(OColors.greyScale500, BlendMode.srcIn), fit: BoxFit.scaleDown),
+                    child: currentIndex == 3 ? SvgPicture.asset(OImages.profileIconSelected, colorFilter: ColorFilter.mode(OColors.primaryColor500, BlendMode.srcIn), fit: BoxFit.scaleDown) : SvgPicture.asset(OImages.profileIconNotSelected, colorFilter: ColorFilter.mode(OColors.greyScale500, BlendMode.srcIn), fit: BoxFit.scaleDown),
                   ),
                   label: 'Profile',
                 ),

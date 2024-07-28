@@ -35,6 +35,9 @@ class OImages {
   static const String chatIconNotSelected = 'assets/images/svgs/chatIconNotSelected.svg';
   static const String profileIconNotSelected = 'assets/images/svgs/profileIconNotSelected.svg';
   static const String homeIcon = 'assets/images/svgs/homeIcon.svg';
+  static const String workIcon = 'assets/images/svgs/workIcon.svg';
+  static const String friendIcon = 'assets/images/svgs/friendIcon.svg';
+  static const String resturantIcon = 'assets/images/svgs/resturantIcon.svg';
   static const String chartIconNotSelected = 'assets/images/svgs/chartIconNotSelected.svg';
   static const String zoomIn = 'assets/images/pngs/zoom-in.png';
   static const String headphoneIcon = 'assets/images/pngs/headphoneIcon.png';
@@ -58,6 +61,7 @@ class OImages {
   static const String helpCenterIcon = 'assets/images/svgs/helpCenterIcon.svg';
   static const String inviteFriendsIcon = 'assets/images/svgs/inviteFriendsIcon.svg';
   static const String logoutIcon = 'assets/images/svgs/logoutIcon.svg';
+  static const String removeAccountIcon = 'assets/images/svgs/removeAccountIcon.svg';
   static const String pressHere = 'assets/images/lotties/pressHere.json';
   static const String notFoundProfileImage = 'assets/images/lotties/notFoundProfileImage.json';
   static const String addressIcon = 'assets/images/svgs/addressIcon.svg';
@@ -75,6 +79,10 @@ class OImages {
   static const String newCategoryIcon = 'assets/images/svgs/newCategoryIcon.svg';
   static const String todayIcon = 'assets/images/svgs/todayIcon.svg';
   static const String accountImage = 'assets/images/svgs/accountImage.svg';
+  static const String copyIcon = 'assets/images/svgs/copyIcon.svg';
+  static const String arrowBottom = 'assets/images/svgs/arrowBottom.svg';
+  static const String barcode = 'assets/images/svgs/barcode.svg';
+  static const String checkIcon = 'assets/images/svgs/checkIcon.svg';
 
   static const String searchIcon2 = 'assets/images/pngs/Search.png';
   static const String filterIcon = 'assets/images/pngs/filterIcon.png';
@@ -125,5 +133,8 @@ class OImages {
 
 
   static const String loadingImages = 'assets/images/lotties/loadingImage.json';
+  static const String noImage = 'assets/images/lotties/noImage.json';
+  static const String loadingInCenter = 'assets/images/lotties/loadingInCenter.json';
   static const String pinIcon = 'assets/images/lotties/pin.json';
+  static const String profileLoading = 'assets/images/lotties/profileLoading.json';
 }

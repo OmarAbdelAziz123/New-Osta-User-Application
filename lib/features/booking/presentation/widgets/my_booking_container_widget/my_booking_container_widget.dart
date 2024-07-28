@@ -1,11 +1,12 @@
 import '../../../../../utils/constants/exports.dart';
 
 class MyBookingContainerWidget extends StatefulWidget {
-  MyBookingContainerWidget({Key? key, required this.bookingImage, required this.bookingJob, required this.bookingName, required this.containerColor, required this.buttonText}) : super(key: key);
+  MyBookingContainerWidget({super.key, required this.providerImage, required this.bookingJob, required this.bookingName, required this.containerColor, required this.buttonText});
 
-  final String bookingImage, bookingJob, bookingName, buttonText;
+  final String bookingJob, bookingName, buttonText;
   final Color containerColor;
   bool showDetailsBooking = false;
+  Widget providerImage;
 
   @override
   State<MyBookingContainerWidget> createState() => _MyBookingContainerWidgetState();
@@ -18,10 +19,9 @@ class _MyBookingContainerWidgetState extends State<MyBookingContainerWidget> {
       margin: EdgeInsets.only(bottom: 20.h),
       padding: EdgeInsets.all(20.sp),
       width: double.infinity,
-      height: widget.showDetailsBooking? 541:192,
+      height: widget.showDetailsBooking ? 500:192,
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(32.r),
-        color: OColors.whiteColor,
+        borderRadius: BorderRadius.circular(32.r), color: OColors.greyScale100,
         boxShadow: [AppBoxShadows.cardShadowTwo]
       ),
       child: Column(
@@ -35,9 +35,8 @@ class _MyBookingContainerWidgetState extends State<MyBookingContainerWidget> {
                 width: 100.w,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(32.r),
-
                 ),
-                child: Image.asset(widget.bookingImage, fit: BoxFit.scaleDown),
+                child: widget.providerImage,
               ),
               SizedBox(width: 16.w),
               Column(
@@ -52,8 +51,8 @@ class _MyBookingContainerWidgetState extends State<MyBookingContainerWidget> {
                     textStyle: OStyles.bodyXSmallSemiBold.copyWith(color: OColors.whiteColor), containerColor: widget.containerColor, width: 76.w, height: 30.h,borderRadius: 6.r, onTap: () {  },),
                 ],
               ),
-             const Spacer(),
-              SvgPicture.asset(OImages.smsLogo, width: 100.w,height: 50,)
+             // const Spacer(),
+              // SvgPicture.asset(OImages.smsLogo, width: 100.w,height: 50,)
             ],
           ),
           SizedBox(height: 16.h),
@@ -61,13 +60,13 @@ class _MyBookingContainerWidgetState extends State<MyBookingContainerWidget> {
           SizedBox(height: 10.h),
           widget.showDetailsBooking? const DetailsBooking():Container(),
           SizedBox(height: 10.h),
-          GestureDetector(
-            onTap: (){
-              setState(() {
-                widget.showDetailsBooking = !widget.showDetailsBooking;
-              });
-            },
-              child: SvgPicture.asset(widget.showDetailsBooking ? OImages.arrowUpIOS : OImages.arrowDownIOS)),
+          // GestureDetector(
+          //   onTap: (){
+          //     setState(() {
+          //       widget.showDetailsBooking = !widget.showDetailsBooking;
+          //     });
+          //   },
+          //     child: SvgPicture.asset(widget.showDetailsBooking ? OImages.arrowUpIOS : OImages.arrowDownIOS)),
 
         ],
       ),

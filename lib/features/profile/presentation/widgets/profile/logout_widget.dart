@@ -6,7 +6,7 @@ class LogoutWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        height: 266.h,
+        height: ODeviceUtils.getScreenHeight(context) / 3.6,
         padding: EdgeInsets.symmetric(horizontal: 24.w),
         decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.only(topLeft: Radius.circular(40.r), topRight: Radius.circular(40.r))),
         child: Column(
@@ -14,7 +14,7 @@ class LogoutWidget extends StatelessWidget {
             /// Make Space
             SizedBox(height: 35.h),
 
-            SizedBox(width: double.infinity, height: 29.h, child: Text('Logout', style: OStyles.h4Bold.copyWith(color: OColors.alertsAndStatusError), textAlign: TextAlign.center)),
+            SizedBox(width: double.infinity, height: ODeviceUtils.getScreenHeight(context) / 26, child: Text('Logout', style: OStyles.h4Bold.copyWith(color: OColors.alertsAndStatusError), textAlign: TextAlign.center)),
 
             /// Make Space
             SizedBox(height: 24.h),
@@ -24,15 +24,15 @@ class LogoutWidget extends StatelessWidget {
             /// Make Space
             SizedBox(height: 24.h),
 
-            SizedBox(width: double.infinity, height: 24.h, child: Text('Are you sure you want to log out?', style: OStyles.h5Bold.copyWith(color: OColors.greyScale800), textAlign: TextAlign.center)),
+            SizedBox(width: double.infinity, height: ODeviceUtils.getScreenHeight(context) / 26, child: Text('Are you sure you want to log out?', style: OStyles.h5Bold.copyWith(color: OColors.greyScale800), textAlign: TextAlign.center)),
 
             /// Make Space
-            SizedBox(height: 24.h),
+            SizedBox(height: 12.h),
 
             /// Two Buttons (Cancel - Yes)
             SizedBox(
               width: double.infinity,
-              height: 58.h,
+              height: ODeviceUtils.getScreenHeight(context) / 13,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [

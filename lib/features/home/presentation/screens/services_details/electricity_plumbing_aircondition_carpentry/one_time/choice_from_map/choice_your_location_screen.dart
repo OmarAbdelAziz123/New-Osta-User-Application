@@ -1,12 +1,17 @@
+import 'dart:async';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:osta_user_app/common/widgets/loading_two.dart';
 import 'package:osta_user_app/features/home/managers/home_cubit.dart';
 import 'package:osta_user_app/features/home/presentation/screens/services_details/electricity_plumbing_aircondition_carpentry/one_time/choice_from_map/lottie_widget.dart';
+import 'package:osta_user_app/features/home/presentation/widgets/home/coice_your_location_widgets/component_save_this_location_for_later.dart';
 import 'package:osta_user_app/features/offer/managers/offers_orders_cubit.dart';
 import 'package:osta_user_app/utils/constants/exports.dart';
 import 'package:osta_user_app/utils/constants/log_util.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 extension LatLngExtension on Position {
   LatLng toLatLng() {
@@ -24,7 +29,11 @@ class ChoiceYourLocationScreen extends StatefulWidget {
 }
 
 class _ChoiceYourLocationScreenState extends State<ChoiceYourLocationScreen> {
+  String? _previousGovernment;
+  String? _previousAddress;
+
   String _currentAddress = '';
+  String _currentGovernment = '';
   Position? _currentPosition;
   final Set<Polyline> _polylines = {};
   Polyline? _routeLine;
@@ -33,7 +42,7 @@ class _ChoiceYourLocationScreenState extends State<ChoiceYourLocationScreen> {
   LatLng? _selectedLocation;
   GoogleMapController? _mapController;
   final TextEditingController _searchController = TextEditingController();
-
+  Completer<GoogleMapController> _controller = Completer();
 
   TextEditingController countryController = TextEditingController();
   TextEditingController cityController = TextEditingController();
@@ -56,8 +65,7 @@ class _ChoiceYourLocationScreenState extends State<ChoiceYourLocationScreen> {
   bool isAddLocation = false;
   bool isChecked = false;
   int selectedAddress = 0;
-
-
+  bool isMakeOrder = false;
 
   @override
   void dispose() {
@@ -71,47 +79,6 @@ class _ChoiceYourLocationScreenState extends State<ChoiceYourLocationScreen> {
     super.dispose();
   }
 
-  // Future<void> _getCurrentLocation() async {
-  //   try {
-  //     LocationPermission permission = await Geolocator.requestPermission();
-  //     if (permission == LocationPermission.denied) {
-  //       // Handle denied permission
-  //       return;
-  //     }
-  //
-  //     Position position = await Geolocator.getCurrentPosition(
-  //       desiredAccuracy: LocationAccuracy.high,
-  //     );
-  //
-  //     setState(() {
-  //       _currentPosition = position;
-  //     });
-  //
-  //     List<Placemark> placemarks = await placemarkFromCoordinates(
-  //       position.latitude,
-  //       position.longitude,
-  //     );
-  //
-  //     if (placemarks.isNotEmpty) {
-  //       Placemark placemark = placemarks.first;
-  //       setState(() {
-  //         _currentAddress =
-  //         '${placemark.name}, ${placemark.locality}, ${placemark.postalCode}, ${placemark.country}';
-  //       });
-  //     }
-  //
-  //     _mapController?.animateCamera(
-  //       CameraUpdate.newCameraPosition(
-  //         CameraPosition(
-  //           target: LatLng(position.latitude, position.longitude),
-  //           zoom: 15.0,
-  //         ),
-  //       ),
-  //     );
-  //   } catch (e) {
-  //     print(e.toString());
-  //   }
-  // }
   Future<void> _getCurrentLocation() async {
     try {
       LocationPermission permission = await Geolocator.requestPermission();
@@ -136,8 +103,10 @@ class _ChoiceYourLocationScreenState extends State<ChoiceYourLocationScreen> {
       if (placemarks.isNotEmpty) {
         Placemark placemark = placemarks.first;
         setState(() {
-          _currentAddress =
-          '${placemark.name}, ${placemark.locality}, ${placemark.postalCode}, ${placemark.country}';
+
+          _currentAddress = '${placemark.name}, ${placemark.locality}, ${placemark.postalCode}, ${placemark.country}';
+          _previousAddress = _currentAddress;
+          _previousGovernment = _currentGovernment;
         });
       }
 
@@ -150,7 +119,7 @@ class _ChoiceYourLocationScreenState extends State<ChoiceYourLocationScreen> {
         ),
       );
 
-      // Call updateLocationInformation with the new position
+      /// Call updateLocationInformation with the new position
       updateLocationInformation(newPosition);
     } catch (e) {
       print(e.toString());
@@ -166,6 +135,8 @@ class _ChoiceYourLocationScreenState extends State<ChoiceYourLocationScreen> {
     if (placemarks.isNotEmpty) {
       Placemark placemark = placemarks.first;
       setState(() {
+        _previousAddress = _currentAddress;
+        _previousGovernment = _currentGovernment;
         _currentAddress =
         '${placemark.name}, ${placemark.locality}, ${placemark.postalCode}, ${placemark.country}';
         _selectedLocation = position;
@@ -214,6 +185,8 @@ class _ChoiceYourLocationScreenState extends State<ChoiceYourLocationScreen> {
             ),
           );
           setState(() {
+            _previousAddress = _currentAddress;
+            _previousGovernment = _currentGovernment;
             _selectedLocation = destination;
             _currentAddress = placemark.street! +
                 placemark.locality! +
@@ -270,14 +243,10 @@ class _ChoiceYourLocationScreenState extends State<ChoiceYourLocationScreen> {
     });
   }
 
-  refreshLists() async {
-    await HomeCubit.get(context).getAllAddressesFunction();
-  }
-
   Future<String> getAddressFromCoordinates(double latitude, double longitude) async {
     try {
       List<Placemark> placemarks = await placemarkFromCoordinates(latitude, longitude);
-      if (placemarks != null && placemarks.isNotEmpty) {
+      if (placemarks.isNotEmpty) {
         Placemark placemark = placemarks[0];
         return '${placemark.name}, ${placemark.locality}, ${placemark.administrativeArea}, ${placemark.country}';
       } else {
@@ -289,11 +258,20 @@ class _ChoiceYourLocationScreenState extends State<ChoiceYourLocationScreen> {
     }
   }
 
+  double centerLat = 0;
+  double centerLng = 0;
+
   Future<LatLng> getCenterCoordinates() async {
     LatLngBounds bounds = await _mapController!.getVisibleRegion();
-    double centerLat = (bounds.northeast.latitude + bounds.southwest.latitude) / 2;
-    double centerLng = (bounds.northeast.longitude + bounds.southwest.longitude) / 2;
+    centerLat = (bounds.northeast.latitude + bounds.southwest.latitude) / 2;
+    centerLng = (bounds.northeast.longitude + bounds.southwest.longitude) / 2;
     String address = await getAddressFromCoordinates(centerLat, centerLng);
+    String government = await getGovernmentFromAddress(address);
+
+    setState(() {
+      _currentAddress = address;
+      _currentGovernment = government;
+    });
 
     print('-----------------');
     print('Center Coordinates: $centerLat, $centerLng');
@@ -306,38 +284,26 @@ class _ChoiceYourLocationScreenState extends State<ChoiceYourLocationScreen> {
     return LatLng(centerLat, centerLng);
   }
 
-  void _printCenterCoordinates() async {
-    LatLng center = await getCenterCoordinates();
-    print('Center Coordinates: ${center.latitude}, ${center.longitude}');
-  }
+  String? address;
   
   void updateLocationInformation(Position newPosition) async {
-    if (newPosition != null) {
-      double latitude = newPosition.latitude;
-      double longitude = newPosition.longitude;
+    double latitude = newPosition.latitude;
+    double longitude = newPosition.longitude;
 
-      // Retrieve the address from the coordinates
-      String address = await getAddressFromCoordinates(latitude, longitude);
+    // Retrieve the address from the coordinates
+    String address = await getAddressFromCoordinates(latitude, longitude);
 
-      // Retrieve the government from the address
-      String government = await getGovernmentFromAddress(address);
+    // Retrieve the government from the address
+    String government = await getGovernmentFromAddress(address);
 
-      print('===========================');
-      print(address);
+    setState(() {
+      _previousAddress = _currentAddress;
+      _previousGovernment = _currentGovernment;
+    });
 
-      showLocationBottomSheet(
-        context: context,
-        addressName: government,
-        location: address,
-      );
-      /// Show the bottom sheet with the government and address
-      // showDraggable(
-      //   context: context,
-      //   addressName: government,
-      //   location: address,
-      // );
+    print('===========================');
+    print(address);
     }
-  }
 
   Future<String> getGovernmentFromAddress(String address) async {
     List<String> addressParts = address.split(','); // Split the address by commas
@@ -349,63 +315,147 @@ class _ChoiceYourLocationScreenState extends State<ChoiceYourLocationScreen> {
   }
 
   LatLng? lastMapPosition;
-  
-  void _onCameraMove(CameraPosition position) {
+  bool isPinnedMoved = false;
+  int checkVal = -1;
+
+  Future<void> _onCameraMove(CameraPosition position) async {
     lastMapPosition = position.target;
     print('------=======');
     logSuccess(lastMapPosition!.latitude.toString() + " , " + lastMapPosition!.longitude.toString());
     print('------=======');
+    setState(() {
+      checkVal = 1;
+    });
+    if(checkVal == 1) {
+      setState(() {
+        checkVal = 2;
+      });
+    }
   }
-  
-  
 
+  Future<void> _animateCamera(Position position)async{
+    final GoogleMapController controller = await _controller.future;
+    CameraPosition _cameraPosition = CameraPosition(
+        target: LatLng(position.latitude, position.longitude),
+        zoom: 15,
+    );
+    controller.animateCamera(CameraUpdate.newCameraPosition(_cameraPosition));
+    setState(() {
+      isPinnedMoved = true;
+    });
+  }
+
+  bool showDetails = false;
+
+  Future<bool> handleLocationPermission() async {
+    bool serviceEnabled;
+    LocationPermission permission;
+    serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    if (!serviceEnabled) {
+      permission = await Geolocator.requestPermission();
+      return false;
+    }
+    permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.denied) {
+        permission = await Geolocator.requestPermission();
+        return false;
+      }
+    }
+    if (permission == LocationPermission.deniedForever) {
+      permission = await Geolocator.requestPermission();
+      return false;
+    }
+    return true;
+
+  }
 
 
   @override
   void initState() {
-    // print(HomeCubit.get(context).getAllAddressesModel.result!.length);
     super.initState();
-    refreshLists();
+    _previousGovernment = _currentGovernment;
+    _previousAddress = _currentAddress;
+
+    // _getCurrentLocation();
+    // handleLocationPermission().then((value) {
+    //   Geolocator.getCurrentPosition().then((value) {
+    //     setState(() {
+    //       _animateCamera(value);
+    //     });
+    //   });
+    // });
+    // Request location permission and get the current location if permission is granted
+    handleLocationPermission().then((permissionGranted) {
+      if (permissionGranted) {
+        _getCurrentLocation();
+      } else {
+        // Handle permission not granted scenario (optional)
+        print("Location permission not granted");
+        openLocationSettings();
+      }
+    });
     /// Add listener to focus node
     countryFocusNode.addListener(() => setState(() => isCountryFieldFocused = countryFocusNode.hasFocus));
     cityFocusNode.addListener(() => setState(() => isCityFieldFocused = cityFocusNode.hasFocus));
-    _getCurrentLocation();
     /// To Open In Open Screen
-    // _goToCurrentLocation();
-    // WidgetsBinding.instance.addPostFrameCallback((_) async {
-    //   if (_currentPosition != null) {
-    //     double latitude = _currentPosition!.latitude;
-    //     double longitude = _currentPosition!.longitude;
-    //
-    //     String address = await getAddressFromCoordinates(latitude, longitude);
-    //
-    //     print('===========================');
-    //     print(address);
-    //
-    //     showLocationBottomSheet(
-    //       context: context,
-    //       addressName: 'Current Location',
-    //       location: '$latitude, $longitude',
-    //     );
-    //   }
-    // });
+  }
 
-    // WidgetsBinding.instance.addPostFrameCallback((_) {
-    //   showLocationBottomSheet(context: context, addressName: '....', location: '....');
-    // });
+  bool _isAddressOrGovernmentChanged(String newGovernment, String newAddress) {
+    return newGovernment != _previousGovernment || newAddress != _previousAddress;
+  }
+
+  /// Function to open the location settings
+  void openLocationSettings() async {
+    await Geolocator.openLocationSettings().then((value) {
+      _getCurrentLocation();
+    });
   }
 
   @override
   Widget build(BuildContext context) {
+    String? locationDesc = '';
+    String? nameOfPlace = 'home';
+    bool? makeStore = true;
+
     return Scaffold(
       body: BlocConsumer<HomeCubit, HomeState>(
         listener: (context, state) {
           if(state is MakeOrderSuccessState) {
-            OffersOrdersCubit.get(context).getAllOrdersByMeFunction();
-            context.pushNamedAndRemoveUntil(ORoutesName.navigationMenuRoute, predicate: (route) => false);
-            ODeviceUtils.showSnackBar(context: context, message: 'Successfully', textStyle: OStyles.bodyLargeRegular, textColor: OColors.whiteColor, bgColor: OColors.success);
+            setState(() {
+              isMakeOrder = false;
+            });
+            if(state.message == 'order created successfully') {
+              OffersOrdersCubit.get(context).getAllOrdersByMeFunction();
+              ODeviceUtils.showDialogFunction(context: context, imagePath: OImages.congratulationProfile);
+              Future.delayed(const Duration(seconds: 2), () {
+                // context.pushNamed(ORoutesName.navigationMenuRoute);
+                context.pushNamedAndRemoveUntil(ORoutesName.navigationMenuRoute, arguments: 0, predicate: (route) => false);
+              });
+              ODeviceUtils.showSnackBar(context: context, message: 'Successfully', textStyle: OStyles.bodyLargeRegular, textColor: OColors.whiteColor, bgColor: OColors.success);
+            }
+            else {
+              ODeviceUtils.showSnackBar(
+                context: context,
+                message: state.message!,
+                textStyle: OStyles.bodyLargeRegular,
+                textColor: OColors.whiteColor,
+                bgColor: OColors.success,
+              );
+            }
           } else if (state is MakeOrderErrorState) {
-            ODeviceUtils.showSnackBar(context: context, message: 'You have an error in Make Order', textStyle: OStyles.bodyLargeRegular, textColor: OColors.whiteColor, bgColor: OColors.error);
+            setState(() {
+              isMakeOrder = false;
+            });
+            ODeviceUtils.showSnackBar(
+              context: context,
+              message: state.message!,
+              textStyle: OStyles.bodyLargeRegular,
+              textColor: OColors.whiteColor,
+              bgColor: OColors.error,
+            );
+            // ODeviceUtils.showSnackBar(context: context, message: 'You have an error in Make Order', textStyle: OStyles.bodyLargeRegular, textColor: OColors.whiteColor, bgColor: OColors.error);
           } if(state is AddDataForNewAddressesSuccessState) {
             setState(() {});
           }
@@ -425,287 +475,6 @@ class _ChoiceYourLocationScreenState extends State<ChoiceYourLocationScreen> {
             uniqueCities.insert(0, selectCity);
           }
 
-          // return Padding(
-          //   padding: EdgeInsets.only(left: 24.w, right: 24.w, top: 68.h),
-          //   child: Column(
-          //     children: [
-                /// App Bar
-                // AppBarWidget(leading: InkWellWidget(onTap: () => context.pop(), child: const Icon((Icons.arrow_back))), title: 'My Location', actions: SvgPicture.asset(OImages.moreIcon2), widthOfText: 280.w),
-          //
-          //       /// Make Space
-          //       SizedBox(height: 24.h),
-          //
-          //       RefreshIndicator(
-          //         onRefresh: () async {
-          //           await countryIndexToMakeOrder.getAllAddressesFunction();
-          //         },
-          //         child: Column(
-          //           children: [
-          //             SizedBox(
-          //               height: 41.h,
-          //               width: double.infinity,
-          //               child: Column(
-          //                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          //                 children: [
-          //                   Text('Choice Location for you', style: OStyles.bodyXLargeSemiBold.copyWith(color: OColors.primaryColor500)),
-          //                   Container(
-          //                     height: 4.h,
-          //                     width: double.infinity,
-          //                     decoration: BoxDecoration(
-          //                       color: OColors.primaryColor500,
-          //                       borderRadius: BorderRadius.circular(100.r),
-          //                     ),
-          //                   ),
-          //                 ],
-          //               ),
-          //             ),
-          //
-          //             /// Make Space
-          //             SizedBox(height: 34.h),
-          //
-          //
-          //
-          //             // Column(
-          //             //   children: [
-          //             //     InkWellWidget(
-          //             //       onTap: () {
-          //             //         context.pushNamed(ORoutesName.addDataForNewAddressRoute);
-          //             //       },
-          //             //       child: Container(
-          //             //         padding: EdgeInsets.symmetric(vertical: 16.h),
-          //             //         decoration: BoxDecoration(
-          //             //           color: OColors.greyScale100,
-          //             //           borderRadius: BorderRadius.circular(12.r),
-          //             //         ),
-          //             //         child: Row(
-          //             //           mainAxisAlignment: MainAxisAlignment.center,
-          //             //           children: [
-          //             //             Text('Add Location For You', style: OStyles.bodyXLargeSemiBold),
-          //             //             /// Make Space
-          //             //             SizedBox(width: 14.h),
-          //             //             SvgPicture.asset(OImages.addNewAddress),
-          //             //           ],
-          //             //         ),
-          //             //       ),
-          //             //     ),
-          //             //
-          //             //     /// Make Space
-          //             //     SizedBox(height: 24.h),
-          //             //
-          //             //     /// Add Location For You
-          //             //     AnimatedOpacity(
-          //             //       duration: const Duration(milliseconds: 300),
-          //             //       opacity: isAddLocation ? 1.0 : 0.0,
-          //             //       child: isAddLocation
-          //             //           ? Column(
-          //             //         children: [
-          //             //           /// County
-          //             //           DropDownWidget(
-          //             //             selectedItem: selectCountry,
-          //             //             items: uniqueCountries,
-          //             //             isInFillProfile: true,
-          //             //             onItemSelected: (selected) {
-          //             //               idSelectedForCountry = countryIndexToMakeOrder.countryNameToIdMap[selected];
-          //             //               HomeCubit.get(context).getAllCitiesFunction(countryId: idSelectedForCountry!);
-          //             //               selectCountry = selected!;
-          //             //               selectCity = 'Select City';
-          //             //               idSelectedForCity = 0;
-          //             //             },
-          //             //           ),
-          //             //
-          //             //           /// Make Space
-          //             //           SizedBox(height: 20.h),
-          //             //
-          //             //           /// City
-          //             //           Row(
-          //             //             children: [
-          //             //               Expanded(
-          //             //                 child: DropDownWidget(
-          //             //                   selectedItem: selectCity,
-          //             //                   items: uniqueCities,
-          //             //                   isInFillProfile: true,
-          //             //                   onItemSelected: (selected) {
-          //             //                     selectCity = selected!;
-          //             //                     idSelectedForCity = countryIndexToMakeOrder.cityNameToIdMap[selected];
-          //             //                     log('Selected Country ID: $idSelectedForCountry');
-          //             //                     log('Selected Country NAME: $selectCountry');
-          //             //                     log('Selected City ID: $idSelectedForCity');
-          //             //                     log('Selected City NAME: $selectCity');
-          //             //                   },
-          //             //                 ),
-          //             //               ),
-          //             //               state is CityIndexLoadingState
-          //             //                   ? LoadingWidget(iconColor: OColors.primaryColor500)
-          //             //                   : Lottie.asset(OImages.successImage, width: 50.w),
-          //             //             ],
-          //             //           ),
-          //             //         ],
-          //             //       )
-          //             //           : const SizedBox(),
-          //             //     ),
-          //             //
-          //             //     /// Make Space
-          //             //     SizedBox(height: 34.h),
-          //             //
-          //             //     Divider(thickness: .5.w),
-          //             //
-          //             //     /// Make Space
-          //             //     SizedBox(height: 24.h),
-          //             //
-          //             //     Column(
-          //             //       crossAxisAlignment: CrossAxisAlignment.start,
-          //             //       children: [
-          //             //         Row(
-          //             //           children: [
-          //             //             Text('Your Addresses', style: OStyles.bodyXLargeSemiBold),
-          //             //           ],
-          //             //         ),
-          //             //
-          //             //         countryIndexToMakeOrder.getAllAddressesModel == null || countryIndexToMakeOrder.getAllAddressesModel.result == null ?
-          //             //         LoadingWidget(iconColor: OColors.primaryColor500)
-          //             //             : countryIndexToMakeOrder.getAllAddressesModel.result!.isEmpty ?
-          //             //         Container(
-          //             //           padding: EdgeInsets.symmetric(vertical: 16.h, horizontal: 20.w),
-          //             //           margin: EdgeInsets.symmetric(vertical: 24.h),
-          //             //           decoration: BoxDecoration(
-          //             //             color: OColors.greyScale100,
-          //             //             borderRadius: BorderRadius.circular(12.r),
-          //             //           ),
-          //             //           child: Row(
-          //             //             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          //             //             children: [
-          //             //               SizedBox(
-          //             //                 width: ODeviceUtils.getScreenHeight(context)/3.5,
-          //             //                 child: Text('Don\'t have any Addresses yet', style: OStyles.bodyLargeRegular),
-          //             //               ),
-          //             //             ],
-          //             //           ),
-          //             //         )
-          //             //             : SizedBox(
-          //             //           width: double.infinity,
-          //             //           height: ODeviceUtils.getScreenHeight(context)/3,
-          //             //           // color: Colors.red,
-          //             //           child: ListView.builder(
-          //             //             shrinkWrap: true,
-          //             //             itemCount: countryIndexToMakeOrder.getAllAddressesModel.result!.length,
-          //             //             itemBuilder: (context, index) {
-          //             //               var addressesList = countryIndexToMakeOrder.getAllAddressesModel.result;
-          //             //
-          //             //
-          //             //               return Column(
-          //             //                 children: [
-          //             //                   InkWellWidget(
-          //             //                       onTap: () {
-          //             //                         setState(() {
-          //             //                           selectedAddress = index+1;
-          //             //                         });
-          //             //                         print(selectedAddress);
-          //             //                       },
-          //             //                       child: Container(
-          //             //                         padding: EdgeInsets.symmetric(vertical: 16.h, horizontal: 20.w),
-          //             //                         decoration: BoxDecoration(
-          //             //                           color: OColors.greyScale100,
-          //             //                           borderRadius: BorderRadius.circular(12.r),
-          //             //                           border: Border.all(
-          //             //                             color: selectedAddress == index+1 ? OColors.primaryColor500 : Colors.transparent,
-          //             //                           ),
-          //             //                         ),
-          //             //                         child: Row(
-          //             //                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          //             //                           children: [
-          //             //                             SizedBox(
-          //             //                               width: ODeviceUtils.getScreenHeight(context)/3.5,
-          //             //                               child: Text('${addressesList![index].apartmentNumber!}, ${addressesList![index].floorNumber}, ${addressesList![index].name!}, ${addressesList![index].street}, ${addressesList![index].city!.name!}', style: OStyles.bodyLargeRegular),
-          //             //                             ),
-          //             //                             /// Make Space
-          //             //                             SizedBox(width: 14.h),
-          //             //                             SvgPicture.asset(OImages.addressIcon, color: OColors.blackColor, width: 20.w),
-          //             //                           ],
-          //             //                         ),
-          //             //                       )),
-          //             //
-          //             //                   /// Make Space
-          //             //                   SizedBox(height: 24.h),
-          //             //
-          //             //                   Row(
-          //             //                     mainAxisAlignment: MainAxisAlignment.center,
-          //             //                     children: [
-          //             //                       InkWellWidget(
-          //             //                         onTap: () {},
-          //             //                         child: SvgPicture.asset(OImages.deleteIcon),
-          //             //                       ),
-          //             //                     ],
-          //             //                   ),
-          //             //
-          //             //                   /// Make Space
-          //             //                   SizedBox(height: 24.h),
-          //             //                 ],
-          //             //               );
-          //             //               // return AddressesWidget(
-          //             //               //   addressText: '${addressesList![index].apartmentNumber!}, ${addressesList![index].floorNumber}, ${addressesList![index].name!}, ${addressesList![index].street}, ${addressesList![index].city!.name!}',
-          //             //               //   onTap: () {
-          //             //               //
-          //             //               //   },
-          //             //               // );
-          //             //             },
-          //             //           ),
-          //             //         ),
-          //             //
-          //             //         // InkWellWidget(
-          //             //         //   onTap: () {},
-          //             //         //   child:
-          //             //         // ),
-          //             //         //
-          //             //         // /// Make Space
-          //             //         // SizedBox(height: 24.h),
-          //             //         //
-          //             //         // Row(
-          //             //         //   mainAxisAlignment: MainAxisAlignment.center,
-          //             //         //   children: [
-          //             //         //     InkWellWidget(
-          //             //         //       onTap: () {},
-          //             //         //       child: SvgPicture.asset(OImages.deleteIcon),
-          //             //         //     ),
-          //             //         //   ],
-          //             //         // ),
-          //             //
-          //             //         /// Make Space
-          //             //         SizedBox(height: 34.h),
-          //             //
-          //             //
-          //             //         ContinueButtonInBottomWidget(
-          //             //           onTap: () {
-          //             //             // print(selectedAddress);
-          //             //             countryIndexToMakeOrder.makeOrderFunction(
-          //             //               category: widget.data['category'],
-          //             //               warrantyId: widget.data['warrantyId'],
-          //             //               serviceId: widget.data['serviceId'],
-          //             //               locationId: selectedAddress,
-          //             //               isSpace: widget.data['isSpace'],
-          //             //               isSubServicesIds: widget.data['isSubServicesIds'],
-          //             //               isSubServiceQuantities: widget.data['isSubServiceQuantities'],
-          //             //               isWarrantyId: widget.data['isWarrantyId'],
-          //             //               description: widget.data['description'],
-          //             //               subServiceQuantities: widget.data['isSubServiceQuantities'] == false ? [] :  widget.data['subServiceQuantities'],
-          //             //               subServicesIds: widget.data['isSubServicesIds'] == false ? [] : widget.data['subServicesIds'],
-          //             //               unknownProblem: widget.data['unknownProblem'],
-          //             //               space: widget.data['space'],
-          //             //             );
-          //             //           },
-          //             //           centerWidget: state is MakeOrderLoadingState ? Padding(padding: EdgeInsets.all(3.sp), child: LoadingWidget(iconColor: OColors.whiteColor)) : Text('Continue', style: OStyles.bodyLargeBold.copyWith(color: OColors.whiteColor)),
-          //             //         ),
-          //             //
-          //             //       ],
-          //             //     ),
-          //             //
-          //             //   ],
-          //             // ),
-          //           ],
-          //         ),
-          //       )
-          //     ],
-          //   ),
-          // );
           return Stack(
             children: [
               Column(
@@ -746,6 +515,7 @@ class _ChoiceYourLocationScreenState extends State<ChoiceYourLocationScreen> {
                     child: Stack(
                       children: [
                         GoogleMap(
+                          mapToolbarEnabled: true,
                           onMapCreated: (controller) {
                             setState(() {
                               _mapController = controller;
@@ -756,221 +526,395 @@ class _ChoiceYourLocationScreenState extends State<ChoiceYourLocationScreen> {
                           initialCameraPosition: const CameraPosition(
                             target: LatLng(0, 0),
                           ),
-                          markers: const <Marker>{
-                            // if (_currentPosition != null)
-                            // Marker(
-                            //   markerId: const MarkerId('currentLocation'),
-                            //   position: LatLng(
-                            //     _currentPosition!.latitude,
-                            //     _currentPosition!.longitude,
-                            //   ),
-                            // ),
-                            // if (_selectedLocation != null)
-                            // Marker(
-                            //   markerId: const MarkerId('selectedLocation'),
-                            //   position: _selectedLocation!,
-                            //   icon: BitmapDescriptor.defaultMarkerWithHue(
-                            //       BitmapDescriptor.hueOrange),
-                            // ),
-                          },
+                          markers: const <Marker>{},
                           onTap: (LatLng position) {
                             _selectPlace(position);
                           },
                         ),
 
-
-                        if (_selectedLocation != null)
-                          Positioned(
-                            top: 16.0,
-                            right: 16.0,
-                            child: Container(
-                              padding: EdgeInsets.all(1.sp),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(50.r),
-                                color: OColors.primaryColor500.withOpacity(0.8),
-                              ),
-                              child: IconButton(
-                                onPressed: _goToCurrentLocation,
-                                icon: Icon(
-                                  Icons.location_searching,
-                                  color: OColors.whiteColor,
-                                  size: 20.sp,
-                                ),
-                              ),
-                            ),
-                          ),
-
-
-                        const Center(
-                          child: LottieWidget(),
-                        )
+                        const Center(child: LottieWidget())
                       ],
                     ),
                   ),
-                  // _selectedLocation == null
-                  //     ? Container()
-                  //     : Positioned(
-                  //   left: 20,
-                  //   bottom: 20,
-                  //   child: ThirdButtonWidget(
-                  //     isRejected: false,
-                  //     widgetInButton: const Text('Done'),
-                  //     textStyle: const TextStyle(),
-                  //     containerColor: OColors.primaryColor500,
-                  //     width: double.infinity,
-                  //     height: 40.h,
-                  //     borderRadius: 10.r,
-                  //     onTap: () {
-                  //
-                  //     },
-                  //   ),
-                  // ),
-                  ////////////////////////////////////////////////////////////////
-                  // _selectedLocation == null
-                  //     ? Container()
-                  //     : Container(
-                  //   padding: EdgeInsets.all(16.sp),
-                  //   decoration: BoxDecoration(
-                  //     border: Border.all(
-                  //       color: OColors.primaryColor500,
-                  //     ),
-                  //     borderRadius: BorderRadius.circular(8.r),
-                  //   ),
-                  //   child: Column(
-                  //     children: [
-                  //       const Row(
-                  //         children: [
-                  //           Text(
-                  //             'Current Location',
-                  //           ),
-                  //         ],
-                  //       ),
-                  //       Row(
-                  //         children: [
-                  //           Text(
-                  //             _currentPosition != null
-                  //                 ? 'Latitude: ${_currentPosition!.latitude}, Longitude: ${_currentPosition!.longitude}'
-                  //                 : 'Getting current location...',
-                  //             textAlign: TextAlign.center,
-                  //           ),
-                  //         ],
-                  //       ),
-                  //       SizedBox(height: 20.h),
-                  //       const Row(
-                  //         children: [
-                  //           Text(
-                  //               'Lat & lng: '
-                  //           ),
-                  //         ],
-                  //       ),
-                  //       Row(
-                  //         children: [
-                  //           Text(
-                  //             '${_selectedLocation?.latitude ?? ''}, ${_selectedLocation?.longitude ?? ''}',
-                  //           ),
-                  //         ],
-                  //       ),
-                  //       const Row(
-                  //         children: [
-                  //           Text(
-                  //               'Address: '
-                  //           ),
-                  //         ],
-                  //       ),
-                  //       Row(
-                  //         children: [
-                  //           Expanded(
-                  //             child: Text(
-                  //               _currentAddress,
-                  //             ),
-                  //           ),
-                  //         ],
-                  //       ),
-                  //     ],
-                  //   ),
-                  // ),
-
-
                 ],
               ),
-
-              // showDraggable(context: context, addressName: 'Cairo', location: 'Cairo'),
             ],
           );
         },
       ),
-    );
-  }
+      bottomSheet: BlocConsumer<HomeCubit, HomeState>(
+        listener: (context, state) {
+          if(state is SetValueState) {
+            locationDesc = state.locationDec;
+          }
+          if(state is SetNameOfPlaceValueState) {
+            nameOfPlace = state.nameOfPlace;
+          }
+          if(state is MakeStoreValueState) {
+            makeStore = state.makeStore;
+          }
+          if(state is MakeOrderSuccessState) {
 
-  Widget showDraggable({required BuildContext context, required String addressName, required String location}) {
-    return DraggableScrollableSheet(
-      initialChildSize: .3,
-      minChildSize: .1,
-      maxChildSize: .7,
-      builder: (context, scrollController) {
-        return ShowAddNewAddressBottomSheet(addressName: addressName, location: location);
-      },
-    );
-  }
+          }
+          },
+        builder: (context, state) {
+          var countryIndexToMakeOrder = HomeCubit.get(context);
+          return ShowAddNewAddressBottomSheet(
+            addressName: _currentGovernment == 'Unknown Government' ? '...' : _currentGovernment,
+            location: _currentAddress == 'Error retrieving address' ? '...' : _currentAddress,
+            isPinChanged: showDetails,
+            isSaveLocation: makeStore!,
+            onSubmitted: (val) {
+              locationDesc = val;
+            },
+            onTap:(_currentGovernment == 'Unknown Government' || _currentGovernment == '...' || _currentGovernment.isEmpty) && (_currentAddress == 'Error retrieving address' || _currentAddress == '...' || _currentAddress.isEmpty)
+                ? () {}
+                : showDetails
+                ? () {
+              setState(() {
+                getCenterCoordinates();
+              });
+              if(!isMakeOrder) {
+                if(makeStore!) {
+                  isMakeOrder = true;
+                  /// Is Make Edit to Location
+                  if(widget.data['isEdit'] == true) {
+                    logWarning(widget.data['isEdit'].toString());
+                    logError(makeStore.toString() + '===========================');
+                    countryIndexToMakeOrder.makeOrderFunction(
+                      category: "null",
+                      warrantyId: widget.data['warrantyId'] == '0' ? null : widget.data['warrantyId'],
+                      serviceId: widget.data['serviceId'],
+                      description: widget.data['description'],
+                      subServicesIds: widget.data['subServicesIds'],
+                      subServiceQuantities: widget.data['subServiceQuantities'],
+                      unknownProblem: widget.data['unknownProblem'],
+                      space: widget.data['space'],
+                      isSpace: widget.data['isSpace'],
+                      isSubServicesIds: widget.data['isSubServicesIds'],
+                      isSubServiceQuantities: widget.data['isSubServiceQuantities'],
+                      isWarrantyId: widget.data['isWarrantyId'],
+                      locationLatitude: centerLat,
+                      locationLongitude: centerLng,
+                      locationDesc: locationDesc,
+                      name: nameOfPlace,
+                      // id: widget.data['locationId'],
+                    );
 
-  void showLocationBottomSheet({required BuildContext context, required String addressName, required String location}) {
-    showModalBottomSheet(
-      backgroundColor: Colors.white,
-      barrierColor: Colors.white.withOpacity(0),
-      isDismissible: false,
-      enableDrag: false,
-      showDragHandle: false,
-      context: context,
-      builder: (BuildContext context) {
-        // return const ShowAddNewAddressBottomSheet(addressName: "Riyadh", location: "District 6960,RAJD6960,Ahmed bin Muhammad Al-Jazari,4214,Al-Narjis, Riyadh13339, Saudi Arabia");
-        return ShowAddNewAddressBottomSheet(addressName: addressName, location: location);
-      },
+                    countryIndexToMakeOrder.storeOrUpdateLocationFunction(
+                      id: widget.data['locationId'],
+                      name: nameOfPlace,
+                      locationLatitude: centerLat,
+                      locationLongitude: centerLng,
+                      locationDesc: locationDesc,
+                    );
+                  }
+                  /// Is Add New Location
+                  else {
+                    logWarning(widget.data['isEdit'].toString());
+                    logError(makeStore.toString() + '-------------------------------');
+                    countryIndexToMakeOrder.makeOrderFunction(
+                      category: widget.data['category'],
+                      warrantyId: widget.data['warrantyId'] == '0' ? null : widget.data['warrantyId'],
+                      serviceId: widget.data['serviceId'],
+                      description: widget.data['description'],
+                      subServicesIds: widget.data['subServicesIds'],
+                      subServiceQuantities: widget.data['subServiceQuantities'],
+                      unknownProblem: widget.data['unknownProblem'],
+                      space: widget.data['space'],
+                      isSpace: widget.data['isSpace'],
+                      isSubServicesIds: widget.data['isSubServicesIds'],
+                      isSubServiceQuantities: widget.data['isSubServiceQuantities'],
+                      isWarrantyId: widget.data['isWarrantyId'],
+                      locationLatitude: centerLat,
+                      locationLongitude: centerLng,
+                      locationDesc: locationDesc,
+                      name: nameOfPlace,
+                      // id: widget.data['locationId'],
+                    );
+
+                    countryIndexToMakeOrder.storeOrUpdateLocationFunction(
+                      // id: widget.data['locationId'],
+                      name: nameOfPlace,
+                      locationLatitude: centerLat,
+                      locationLongitude: centerLng,
+                      locationDesc: locationDesc,
+                    );
+                  }
+                }
+                else {
+                  logWarning('In Make Store Location Description: $locationDesc, Make Store is $makeStore');
+                  logError(makeStore.toString() + '000000000000000000000000000000000000000');
+                  isMakeOrder = true;
+                  countryIndexToMakeOrder.makeOrderFunction(
+                    category: widget.data['category'],
+                    warrantyId: widget.data['warrantyId'] == '0' ? null : widget.data['warrantyId'],
+                    serviceId: widget.data['serviceId'],
+                    description: widget.data['description'],
+                    subServicesIds: widget.data['subServicesIds'],
+                    subServiceQuantities: widget.data['subServiceQuantities'],
+                    unknownProblem: widget.data['unknownProblem'],
+                    space: widget.data['space'],
+                    isSpace: widget.data['isSpace'],
+                    isSubServicesIds: widget.data['isSubServicesIds'],
+                    isSubServiceQuantities: widget.data['isSubServiceQuantities'],
+                    isWarrantyId: widget.data['isWarrantyId'],
+                    locationLatitude: centerLat,
+                    locationLongitude: centerLng,
+                    locationDesc: locationDesc,
+                    name: nameOfPlace,
+                    // id: widget.data['locationId'],
+                  );
+                }
+              }
+            }
+            : () {
+              setState(() {
+                showDetails = true;
+                logWarning(nameOfPlace.toString());
+              });
+            },
+          );
+        },
+      ),
     );
   }
 }
 
 
 /// Show Address Bottom Sheet
-class ShowAddNewAddressBottomSheet extends StatelessWidget {
-  const ShowAddNewAddressBottomSheet({super.key, required this.addressName, required this.location});
-  final String addressName, location;
+class ShowAddNewAddressBottomSheet extends StatefulWidget {
+  ShowAddNewAddressBottomSheet({super.key, required this.addressName, required this.location, required this.isPinChanged, required this.isSaveLocation, required this.onTap, required this.onSubmitted});
+  final String addressName;
+  final String location;
+  final bool isPinChanged;
+  bool isSaveLocation;
+  final TextEditingController controller = TextEditingController();
+  final void Function() onTap;
+  final void Function(String val) onSubmitted;
+
+  @override
+  State<ShowAddNewAddressBottomSheet> createState() => _ShowAddNewAddressBottomSheetState();
+}
+
+class _ShowAddNewAddressBottomSheetState extends State<ShowAddNewAddressBottomSheet> {
+  int isChecked = 0;
+  bool isLoading = false;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: OColors.whiteColor,
+    return AnimatedContainer(
+      duration: const Duration(milliseconds: 300),
+      decoration: BoxDecoration(
+        color: OColors.whiteColor,
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(25.r),
+          topRight: Radius.circular(25.r),
+        ),
+      ),
       child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 20.w,vertical: 20.h),
+        padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
         child: SizedBox(
-          height: ODeviceUtils.getScreenHeight(context).h / 3.5,
-          child: Padding(
+          height: widget.isPinChanged
+              ? ODeviceUtils.getScreenHeight(context).h / 2.4
+              : ODeviceUtils.getScreenHeight(context).h / 3.5,
+          child: SingleChildScrollView(
+            child: Padding(
               padding: EdgeInsets.symmetric(horizontal: 10.w),
-              child:  Column(
+              child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text("Delivery location",style: OStyles.bodyLargeSemiBold.copyWith(color: OColors.greyScale500)),
+                  Text("Delivery location",
+                      style: OStyles.bodyLargeSemiBold
+                          .copyWith(color: OColors.greyScale500)),
                   SizedBox(height: 10.h),
-                  Text(addressName,style: OStyles.bodyLargeBold),
+                  Text(widget.addressName, style: OStyles.bodyLargeBold),
                   SizedBox(height: 10.h),
                   SizedBox(
                       width: 350.w,
-                      child: Text(location,style: OStyles.bodyMediumMedium,overflow: TextOverflow.clip,)),
-                  SizedBox(height: 20.h),
-                  ThirdButtonWidget(
-                    isRejected: false,
-                    widgetInButton: Text('Confirm location', style: OStyles.bodyLargeBold.copyWith(color: OColors.whiteColor)),
-                    textStyle: OStyles.bodyLargeBold.copyWith(color: OColors.whiteColor),
-                    containerColor: OColors.primaryColor500,
-                    width: double.infinity,
-                    height: 50.h,
-                    borderRadius: 12.r,
-                    onTap: () {},
+                      child: Text(widget.location,
+                          style: OStyles.bodyMediumMedium,
+                          overflow: TextOverflow.ellipsis,
+                          maxLines: 2)),
+                  SizedBox(height: 10.h),
+
+                  AnimatedOpacity(
+                    opacity: widget.isPinChanged ? 1 : 0.0,
+                    duration: const Duration(milliseconds: 550),
+                    child: Visibility(
+                      visible: widget.isPinChanged,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Divider(),
+                          SizedBox(height: 10.h),
+                          Text('Address details',
+                              style: OStyles.bodyLargeBold),
+                          SizedBox(height: 10.h),
+                          Text("Address details will help us reach you",
+                              style: OStyles.bodyLargeSemiBold
+                                  .copyWith(color: OColors.greyScale500)),
+                          SizedBox(height: 10.h),
+                          TextFormField(
+                            controller: widget.controller,
+                            // onFieldSubmitted: (value) {
+                            //   // value = widget.controller.text;
+                            //   HomeCubit.get(context).setValueFunc(value: value);
+                            // },
+                            onFieldSubmitted: widget.onSubmitted,
+                            decoration: InputDecoration(
+                              labelText:
+                              'Example: building number, villa number, apartment number',
+                              labelStyle: OStyles.bodyMediumMedium
+                                  .copyWith(color: OColors.greyScale400),
+                              enabledBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                  width: .4.w,
+                                  color: OColors.greyScale300,
+                                ),
+                                borderRadius: BorderRadius.circular(8.r),
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                  width: .4.w,
+                                  color: OColors.greyScale300,
+                                ),
+                                borderRadius: BorderRadius.circular(8.r),
+                              ),
+                              errorBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                  width: .4.w,
+                                  color: OColors.greyScale300,
+                                ),
+                                borderRadius: BorderRadius.circular(8.r),
+                              ),
+                              focusedErrorBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                  width: .4.w,
+                                  color: OColors.greyScale300,
+                                ),
+                                borderRadius: BorderRadius.circular(8.r),
+                              ),
+                              disabledBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                  width: .4.w,
+                                  color: OColors.greyScale300,
+                                ),
+                                borderRadius: BorderRadius.circular(8.r),
+                              ),
+                              contentPadding: EdgeInsets.symmetric(
+                                  horizontal: 16.w, vertical: 12.h),
+                            ),
+                          ),
+                          SizedBox(height: 20.h),
+                          const Divider(),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text("Save this site for later",
+                                  style: OStyles.bodyXLargeSemiBold),
+                              // SwitchWidget(valueData: widget.isSaveLocation)
+                              Switch(
+                                value: widget.isSaveLocation,
+                                onChanged: (bool value) {
+                                  setState(() => widget.isSaveLocation = value); // Call the onChanged callback
+                                  HomeCubit.get(context).setMakeStoreValueFunc(value: widget.isSaveLocation);
+                                },
+                                activeColor: OColors.primaryColor500,
+                                activeTrackColor: OColors.primaryColor500,
+                                inactiveTrackColor: OColors.greyScale200,
+                                trackOutlineWidth: MaterialStateProperty.all(0.w),
+                                trackColor: MaterialStateProperty.all(widget.isSaveLocation ? OColors.primaryColor500 : OColors.greyScale200),
+                                trackOutlineColor: MaterialStateProperty.all(widget.isSaveLocation ? OColors.primaryColor500 : OColors.greyScale200),
+                                thumbColor: MaterialStateProperty.all(OColors.whiteColor),
+                                thumbIcon: MaterialStateProperty.all(Icon(Icons.circle, color: OColors.whiteColor)),
+                              )
+                              // SwitchWidget(onChanged: (value) {
+                              //    widget.isSaveLocation = value;
+                              //   HomeCubit.get(context).setMakeStoreValueFunc(value: widget.isSaveLocation);
+                              // }, valueData:  widget.isSaveLocation),
+                            ],
+                          ),
+                          SizedBox(height: 10.h),
+
+                          SizedBox(
+                            width: ODeviceUtils.getScreenWidth(context).w,
+                            height: ODeviceUtils.getScreenHeight(context).h / 6,
+                            child: ListView.builder(
+                              scrollDirection: Axis.horizontal,
+                              shrinkWrap: true,
+                              itemCount: OConstants.placesIcons.length,
+                              itemBuilder: (context ,index) {
+                                return SizedBox(
+                                  width: ODeviceUtils.getScreenWidth(context).w / 4,
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Column(
+                                        children: [
+                                          GestureDetector(
+                                            onTap: () {
+                                              setState(() {
+                                                isChecked = index;
+                                              });
+                                              logWarning(isChecked.toString());
+                                              HomeCubit.get(context).setNameOfPlaceValueFunc(value: isChecked == 0 ? 'home' : isChecked == 1 ? 'work' : isChecked == 2 ? 'friend' : 'rest');
+                                            },
+                                            child: CircleAvatar(
+                                              radius: 25.r,
+                                              backgroundColor: isChecked == index ? OColors.primaryColor500 : OColors.greyScale100,
+                                              child: SvgPicture.asset(OConstants.placesIcons[index], color: isChecked == index ? OColors.whiteColor : OColors.blackColor, width: OConstants.placesIcons[index] == OImages.homeIcon ? 42.w : 35.w, height: OConstants.placesIcons[index] == OImages.homeIcon ? 32.h : 26.h),
+                                            ),
+                                          ),
+                                          SizedBox(height: 5.h),
+                                          Text(OConstants.placesNames[index],style: OStyles.bodyMediumRegular)
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                );
+                              },
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                  BlocListener<HomeCubit, HomeState>(
+                    listener: (context, state) {
+                      if(state is MakeOrderErrorState) {
+                        isLoading = false;
+                        setState(() {});
+                      }
+                    },
+                    child: ThirdButtonWidget(
+                      isRejected: false,
+                      widgetInButton: isLoading ? const Center(child: LoadingTwo()) : Text(widget.isPinChanged ? 'Save and continue' : 'Confirm location',
+                          style: OStyles.bodyLargeBold
+                              .copyWith(color: OColors.whiteColor)),
+                      textStyle: OStyles.bodyLargeBold
+                          .copyWith(color: OColors.whiteColor),
+                      containerColor: widget.addressName == '' && widget.location == '' ? OColors.disabledButton : OColors.primaryColor500,
+                      width: double.infinity,
+                      height: 50.h,
+                      borderRadius: 12.r,
+                      onTap: () {
+                        if(!isLoading) widget.onTap.call();
+                        if(widget.isPinChanged) {
+                          setState(() {
+                            isLoading = true;
+                          });
+                        }
+                      },
+                    ),
                   ),
                 ],
-              )
+              ),
+            ),
           ),
         ),
       ),
     );
   }
 }
+

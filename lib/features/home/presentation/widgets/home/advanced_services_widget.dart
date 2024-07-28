@@ -12,19 +12,24 @@ class AdvancedServicesWidget extends StatelessWidget {
     return InkWell(
       onTap: onTap,
       child: Container(
-        width: 175.w,
+        // width: 175.w,
         height: 90.h,
         decoration: BoxDecoration(
           border: border,
           color: OColors.whiteColor,
+          // color: Colors.red,
           borderRadius: BorderRadius.circular(16.r),
           boxShadow: [AppBoxShadows.cardShadowTwo],
         ),
         child: Row(
           children: [
-            SvgPicture.asset(image),
-            SizedBox(width: 10.w),
+            Padding(
+              padding: EdgeInsets.only(left: 6.w, top: 12.h, bottom: 12.h),
+              child: SvgPicture.asset(image, fit: BoxFit.scaleDown),
+            ),
+            SizedBox(width: 6.w),
             Expanded(child: Text(title, style: OStyles.h6Bold, overflow: TextOverflow.clip)),
+            SizedBox(width: 5.w),
           ],
         ),
       ),

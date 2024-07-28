@@ -5,6 +5,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:osta_user_app/common/widgets/drop_down/drop_down_widget.dart';
 import 'package:osta_user_app/features/auth/managers/auth_cubit.dart';
 import 'package:osta_user_app/utils/constants/exports.dart';
+import 'package:osta_user_app/utils/constants/log_util.dart';
 
 class FillYourProfileFormWidget extends StatefulWidget {
   const FillYourProfileFormWidget({super.key, required this.phoneNumber});
@@ -69,19 +70,30 @@ class _FillYourProfileFormWidgetState extends State<FillYourProfileFormWidget> {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<AuthCubit, AuthState>(
-      listener: (context, state) {
-        if(AuthCubit.get(context).fillYourAccount.message == "registered successfully, and otp sent") {
-          context.pushNamed(ORoutesName.otpRoute, arguments: widget.phoneNumber);
-        } else if(AuthCubit.get(context).fillYourAccount.message == "The email has already been taken.") {
-          ODeviceUtils.showSnackBar(context: context, message: 'The email has already been taken.', textStyle: OStyles.bodyLargeRegular, textColor: OColors.whiteColor, bgColor: OColors.warning);
-        } else if(AuthCubit.get(context).fillYourAccount.message == "The selected country id is invalid.") {
-          ODeviceUtils.showSnackBar(context: context, message: 'The selected country id is invalid.', textStyle: OStyles.bodyLargeRegular, textColor: OColors.whiteColor, bgColor: OColors.warning);
-        } else if(AuthCubit.get(context).fillYourAccount.message == "The email field must be a valid email address.") {
-          ODeviceUtils.showSnackBar(context: context, message: 'The email field must be a valid email address.', textStyle: OStyles.bodyLargeRegular, textColor: OColors.whiteColor, bgColor: OColors.warning);
-        } else if(state is FillYourAccountErrorState) {
-          ODeviceUtils.showSnackBar(context: context, message: 'You have an error', textStyle: OStyles.bodyLargeRegular, textColor: OColors.whiteColor, bgColor: OColors.error);
-        }
-      },
+        listener: (context, state) {
+          if (state is FillYourAccountLoadingState) {
+          } else if (state is FillYourAccountSuccessState) {
+            if (state.message == 'registered successfully, and otp sent') {
+              context.pushNamed(ORoutesName.otpRoute, arguments: widget.phoneNumber);
+            } else {
+              ODeviceUtils.showSnackBar(
+                context: context,
+                message: state.message!,
+                textStyle: OStyles.bodyLargeRegular,
+                textColor: OColors.whiteColor,
+                bgColor: OColors.success,
+              );
+            }
+          } else if (state is FillYourAccountErrorState) {
+            ODeviceUtils.showSnackBar(
+              context: context,
+              message: state.message!,
+              textStyle: OStyles.bodyLargeRegular,
+              textColor: OColors.whiteColor,
+              bgColor: OColors.error,
+            );
+          }
+        },
       builder: (context, state) {
         // var fillYourAccountCubit = AuthCubit.get(context);
         var countryIndex = AuthCubit.get(context);
@@ -161,9 +173,20 @@ class _FillYourProfileFormWidgetState extends State<FillYourProfileFormWidget> {
                   controller: dateOfBirthController,
                   textInputType: TextInputType.datetime,
                   focusNode: dateOfBirthFocusNode,
-                  hintText: 'Date Of Birth (Optional) - 2024-02-23',
+                  readOnly: true,
+                  hintText: 'Date Of Birth (Optional) - by click in button...',
                   hintColor: isDateOfBirthFieldFocused ? OColors.primaryColor500 : OColors.greyScale500,
-                  suffixIcon: SvgPicture.asset(OImages.calendarIconNotSelected, fit: BoxFit.scaleDown, colorFilter: ColorFilter.mode(isDateOfBirthFieldFocused ? OColors.primaryColor500 : dateOfBirthController.text.isNotEmpty ? OColors.greyScale900 : OColors.greyScale500, BlendMode.srcIn)),
+                  suffixIcon: InkWellWidget(
+                      onTap: () {
+                        showDatePicker(context: context, firstDate: DateTime(1900), lastDate: DateTime.now()).then((date) {
+                          if(date != null) {
+                            setState(() {
+                              dateOfBirthController.text = ODeviceUtils.formatDateString(date: date, dateFormat: 'yyyy-MM-dd', context: context);
+                            });
+                          }
+                        });
+                      },
+                      child: SvgPicture.asset(OImages.calendarIconNotSelected, fit: BoxFit.scaleDown, colorFilter: ColorFilter.mode(OColors.greyScale900, BlendMode.srcIn))),
                   fillColor: isDateOfBirthFieldFocused ? OColors.purpleTransparent.withOpacity(.08) : OColors.greyScale50,
                   borderSide: isDateOfBirthFieldFocused ? BorderSide(color: OColors.primaryColor500) : BorderSide.none,
                   obscureText: false,
@@ -235,13 +258,38 @@ class _FillYourProfileFormWidgetState extends State<FillYourProfileFormWidget> {
                 MainButtonWidget(
                   centerWidgetInButton: state is FillYourAccountLoadingState ? Padding(padding: EdgeInsets.all(3.sp), child: LoadingWidget(iconColor: OColors.whiteColor)) : Text('Continue', style: OStyles.bodyLargeBold.copyWith(color: OColors.whiteColor)),
                   margin: EdgeInsets.zero,
-                  onTap: () => countryIndex.fillYourAccountFunction(
-                      name: fullNameController.text,
-                      email: emailController.text,
-                      countryId: idSelected == null || idSelected.toString() == '' || idSelected.toString().isEmpty ? defaultCountryId.toString() : idSelected.toString(),
-                      phone: widget.phoneNumber,
-                      gender: OConstants.selectedGender == 'Male' ? 'male' : 'female',
-                  ),
+                  onTap: state is FillYourAccountLoadingState ? null : () {
+                    File? _selectedFile = _selectedImageToPerson != null ? File(_selectedImageToPerson!.path) : null;
+
+                    if(_selectedImageToPerson != null) {
+                      countryIndex.fillYourAccountFunction(
+                        name: fullNameController.text,
+                        email: emailController.text,
+                        countryId: idSelected == null ||
+                            idSelected.toString() == '' || idSelected
+                            .toString()
+                            .isEmpty ? defaultCountryId.toString() : idSelected
+                            .toString(),
+                        phone: widget.phoneNumber,
+                        gender: OConstants.selectedGender == 'Male'
+                            ? 'male'
+                            : 'female',
+                        dateOfBirth: dateOfBirthController.text,
+                        personal: _selectedImageToPerson!.path,
+                      );
+                      logSuccess(fullNameController.text);
+                      logSuccess(emailController.text);
+                      logSuccess(idSelected.toString());
+                      logSuccess(widget.phoneNumber.toString());
+                      logSuccess(OConstants.selectedGender == 'Male'
+                          ? 'male'
+                          : 'female',);
+                      logSuccess(_selectedImageToPerson!.path.toString());
+
+                    } else {
+                      ODeviceUtils.showSnackBar(context: context, message: 'Must choice profile photo', textStyle: OStyles.bodyLargeRegular, textColor: OColors.whiteColor, bgColor: OColors.warning);
+                    }
+                  },
                   // onTap: () => log(idSelected.toString() + ' ' + defaultCountryId.toString()),
                   buttonColor: fullNameController.text.isEmpty || emailController.text.isEmpty ? OColors.disabledButton : OColors.primaryColor500,
                   boxShadow: fullNameController.text.isEmpty || emailController.text.isEmpty ? [] : [AppBoxShadows.buttonShadowOne],

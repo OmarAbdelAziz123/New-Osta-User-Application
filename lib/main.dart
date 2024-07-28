@@ -9,9 +9,7 @@ void main() async {
   Bloc.observer = MyBlocObserver();
   ODeviceUtils.initCacheHelper();
   await OCacheHelper.init();
-  ODeviceUtils.setStatusBarColor(Colors.transparent);
+  ODeviceUtils.setStatusBarColor(Colors.white);
   ODeviceUtils.setPreferredOrientations([DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
   runApp(const OstaUserApp());
 }
-
-

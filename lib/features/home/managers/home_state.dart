@@ -5,6 +5,27 @@ abstract class HomeState {}
 
 class HomeInitialState extends HomeState {}
 
+/// Set Location Value State
+class SetValueState extends HomeState {
+  final String? locationDec;
+
+  SetValueState(this.locationDec);
+}
+
+/// Set Name Of Place Value State
+class SetNameOfPlaceValueState extends HomeState {
+  final String? nameOfPlace;
+
+  SetNameOfPlaceValueState(this.nameOfPlace);
+}
+
+/// Make Store State
+class MakeStoreValueState extends HomeState {
+  final bool? makeStore;
+
+  MakeStoreValueState(this.makeStore);
+}
+
 /// Services States
 class AllServicesLoadingState extends HomeState {}
 
@@ -31,9 +52,24 @@ class SubServicesInIdThreeErrorState extends HomeState {}
 /// Make Order
 class MakeOrderLoadingState extends HomeState {}
 
-class MakeOrderSuccessState extends HomeState {}
+class MakeOrderSuccessState extends HomeState {
+  final String? message;
 
-class MakeOrderErrorState extends HomeState {}
+  MakeOrderSuccessState(this.message);
+}
+
+class MakeOrderErrorState extends HomeState {
+  final String? message;
+
+  MakeOrderErrorState(this.message);
+}
+
+/// Store Location
+class StoreOrUpdateLocationLoadingState extends HomeState {}
+
+class StoreOrUpdateLocationSuccessState extends HomeState {}
+
+class StoreOrUpdateLocationErrorState extends HomeState {}
 
 /// Country Index
 class CountryIndexLoadingState extends HomeState {}
@@ -69,3 +105,10 @@ class AddDataForNewAddressesLoadingState extends HomeState {}
 class AddDataForNewAddressesSuccessState extends HomeState {}
 
 class AddDataForNewAddressesErrorState extends HomeState {}
+
+/// Get All Offers States
+class GetAllOffersLoadingState extends HomeState {}
+
+class GetAllOffersSuccessState extends HomeState {}
+
+class GetAllOffersErrorState extends HomeState {}

@@ -7,100 +7,90 @@ class OneTimeServiceInHomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: EdgeInsets.only(left: 24.w, right: 24.w, top: 68.h, bottom: 105.h),
-          child: Column(
-            children: [
-              /// App Bar
-              AppBarWidget(
-                leading: InkWellWidget(onTap: () => context.pop(), child: const Icon((Icons.arrow_back))),
-                title: '',
-                actions: Container(),
-                widthOfText: 282.w,
-              ),
-              /// Make Size
-              SizedBox(height: 23.h),
+      backgroundColor: OColors.greyScale50,
+      // backgroundColor: const Color(0xfffdfdfd),
+      body: Padding(
+        padding: EdgeInsets.only(left: 24.w, right: 24.w, top: 68.h, bottom: 0.h),
+        child: Column(
+          children: [
+            /// App Bar
+            AppBarWidget(
+              leading: InkWellWidget(onTap: () => context.pop(), child: const Icon((Icons.arrow_back))),
+              title: '',
+              actions: Container(),
+              widthOfText: 282.w,
+            ),
+            /// Make Size
+            SizedBox(height: 23.h),
 
-              Text('One time service', style: OStyles.bodyXLargeSemiBold.copyWith(color: OColors.primaryColor500)),
-              /// Make Size
-              SizedBox(height: 12.h),
+            Text('One time service', style: OStyles.bodyXLargeSemiBold.copyWith(color: OColors.primaryColor500)),
+            /// Make Size
+            SizedBox(height: 12.h),
 
-              /// Divider
-              Container(width: double.infinity, height: 4.h, decoration: BoxDecoration(color: OColors.primaryColor500, borderRadius: BorderRadius.circular(100.r))),
+            /// Divider
+            Container(width: double.infinity, height: 4.h, decoration: BoxDecoration(color: OColors.primaryColor500, borderRadius: BorderRadius.circular(100.r))),
 
-              /// Make Size
-              SizedBox(height: 18.h),
+            /// Make Size
+            SizedBox(height: 18.h),
 
-              const WhatHappenedWithUsWidget(),
+            const WhatHappenedWithUsWidget(),
 
-              /// Make Size
-              SizedBox(height: 23.h),
+            /// Make Size
+            SizedBox(height: 18.h),
 
-              /// Divider
-              Divider(color: OColors.greyScale200, thickness: 1.w),
+            /// Divider
+            Container(
+              width: double.infinity,
+              color: OColors.greyScale200,
+              height: 1.h,
+            ),
 
-              /// Make Size
-              SizedBox(height: 14.h),
+            /// Make Size
+            SizedBox(height: 36.h),
 
-              Container(
-                width: double.infinity,
-                height: 40.h,
-                decoration: BoxDecoration(
+            Container(
+              width: double.infinity,
+              padding: EdgeInsets.symmetric(vertical: 10.h),
+              decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(12.r),
                   color: OColors.greyScale50,
                   boxShadow: [AppBoxShadows.cardShadowFour]
-                ),
-                child: Center(child: Text('Sections', style: OStyles.bodyMediumRegular)),
               ),
+              child: Center(child: Text('Sections', style: OStyles.bodyMediumRegular.copyWith(color: const Color(0xff757575)))),
+            ),
 
-              /// Make Size
-              SizedBox(height: 23.h),
+            /// Make Size
+            SizedBox(height: 23.h),
 
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  AdvancedServicesWidget(
-                      image: OImages.svg, title: 'Contractor request', onTap: () => context.pushNamed(ORoutesName.orderDetailsRoute)),
-                  AdvancedServicesWidget(
-                      image: OImages.marketIcon, title: 'Market'),
-                ],
+            Expanded(
+                child: GridView.builder(
+              shrinkWrap: true,
+              padding: EdgeInsets.symmetric(vertical: 10.h),
+              itemCount: OConstants.contractorImages.length,
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                mainAxisSpacing: ODeviceUtils.getScreenWidth(context) / 20,
+                crossAxisSpacing: ODeviceUtils.getScreenHeight(context) / 30,
+                childAspectRatio: ODeviceUtils.getScreenWidth(context) / 180,
               ),
+              itemBuilder: (context, index) {
+                return AdvancedServicesWidget(
+                  image: OConstants.contractorImages[index],
+                  title: OConstants.contractorTexts[index],
+                  onTap: () {
+                    context.pushNamed(ORoutesName.orderDetailsRoute);
+                  },
+                );
+              },
+            )),
 
-              /// Make Size
-              SizedBox(height: 18.h),
-
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  AdvancedServicesWidget(image: OImages.contractorRequestIcon, title: 'Contractor request', onTap: () => context.pushNamed(ORoutesName.orderDetailsRoute)),
-                  AdvancedServicesWidget(image: OImages.waleetIcon, title: 'Market'),
-                ],
-              ),
-
-              /// Make Size
-              SizedBox(height: 18.h),
-
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  AdvancedServicesWidget(image: OImages.marketIcon, title: 'Market'),
-                  AdvancedServicesWidget(image: OImages.waleetIcon, title: 'Contractor request'),
-                ],
-              ),
-
-              /// Make Size
-              SizedBox(height: 18.h),
-
-
-
-            ],
-          ),
+            ContinueButtonInBottomWidget(
+              centerWidget: Text('Continue', style: OStyles.bodyLargeBold.copyWith(color: OColors.whiteColor)),
+              onTap: () {},
+            )
+          ],
         ),
       ),
-      bottomNavigationBar: ContinueButtonInBottomWidget(
-          centerWidget: Text('Continue', style: OStyles.bodyLargeBold.copyWith(color: OColors.whiteColor)),
-          onTap: () {}),
     );
   }
 }

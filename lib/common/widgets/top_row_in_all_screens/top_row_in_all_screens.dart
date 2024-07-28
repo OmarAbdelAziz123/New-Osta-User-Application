@@ -1,9 +1,10 @@
 import 'package:osta_user_app/utils/constants/exports.dart';
 
 class TopRowInAllScreens extends StatelessWidget {
-  const TopRowInAllScreens({super.key, this.titleOfScreenWidget});
+  const TopRowInAllScreens({super.key, this.titleOfScreenWidget, this.onTap});
 
   final Widget? titleOfScreenWidget;
+  final void Function()? onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -12,7 +13,7 @@ class TopRowInAllScreens extends StatelessWidget {
       height: 38.h,
       child: Row(
         children: [
-          InkWellWidget(onTap: () => context.pop(), child: const Icon((Icons.arrow_back))),
+          InkWellWidget(onTap: onTap ?? () => context.pop(), child: const Icon((Icons.arrow_back))),
           SizedBox(width: 16.w),
           titleOfScreenWidget ?? Container(),
         ],

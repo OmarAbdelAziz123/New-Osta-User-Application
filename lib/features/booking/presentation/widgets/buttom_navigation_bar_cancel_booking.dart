@@ -1,7 +1,10 @@
 import '../../../../utils/constants/exports.dart';
 
 class ButtomNavigationBarCancelBooking extends StatelessWidget {
-  const ButtomNavigationBarCancelBooking({Key? key}) : super(key: key);
+  ButtomNavigationBarCancelBooking({super.key, required this.onYesCancelButton, required this.onNoCancelButton});
+
+  void Function() onNoCancelButton;
+  void Function() onYesCancelButton;
 
   @override
   Widget build(BuildContext context) {
@@ -49,8 +52,8 @@ class ButtomNavigationBarCancelBooking extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  SecondButtonWidget(bgColor: OColors.primaryColor100, widget: Text('Cancel', style: OStyles.bodyLargeBold.copyWith(color: OColors.primaryColor500)), onTap: () {}),
-                  SecondButtonWidget(bgColor: OColors.primaryColor500, widget: Text('Yes, Cancel Booking', style: OStyles.bodyLargeBold.copyWith(color: OColors.whiteColor)), onTap: () {}),
+                  SecondButtonWidget(bgColor: OColors.primaryColor100, widget: Text('Cancel', style: OStyles.bodyLargeBold.copyWith(color: OColors.primaryColor500)), onTap: onNoCancelButton),
+                  SecondButtonWidget(bgColor: OColors.primaryColor500, widget: Text('Yes, Cancel Booking', style: OStyles.bodyLargeBold.copyWith(color: OColors.whiteColor)), onTap: onYesCancelButton),
                 ],
               ),
             ),

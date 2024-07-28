@@ -1,3 +1,5 @@
+import 'package:osta_user_app/utils/constants/exports.dart';
+
 class FillYourAccount {
   bool? success;
   String? message;
@@ -29,9 +31,21 @@ class Result {
   String? phone;
   String? email;
   String? gender;
-  Null? token;
+  String? dateOfBirth;
+  String? personalMediaUrl;
+  String? token;
+  String? countryId;
 
-  Result({this.id, this.name, this.phone, this.email, this.gender, this.token});
+  Result(
+      {this.id,
+        this.name,
+        this.phone,
+        this.email,
+        this.gender,
+        this.dateOfBirth,
+        this.personalMediaUrl,
+        this.token,
+        this.countryId});
 
   Result.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -39,7 +53,10 @@ class Result {
     phone = json['phone'];
     email = json['email'];
     gender = json['gender'];
+    dateOfBirth = json['date_of_birth'];
+    personalMediaUrl = json['personal_media_url'];
     token = json['token'];
+    countryId = json['country_id'];
   }
 
   Map<String, dynamic> toJson() {
@@ -49,7 +66,10 @@ class Result {
     data['phone'] = this.phone;
     data['email'] = this.email;
     data['gender'] = this.gender;
+    data['date_of_birth'] = this.dateOfBirth;
+    data['personal_media_url'] = this.personalMediaUrl;
     data['token'] = this.token;
+    data['country_id'] = this.countryId;
     return data;
   }
 }

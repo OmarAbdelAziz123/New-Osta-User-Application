@@ -6,6 +6,7 @@ import 'package:osta_user_app/features/auth/presentation/screens/password_config
 import 'package:osta_user_app/features/auth/presentation/screens/password_configuration/enter_function_connection_screen.dart';
 import 'package:osta_user_app/features/auth/presentation/screens/password_configuration/forget_password_screen.dart';
 import 'package:osta_user_app/features/auth/presentation/screens/password_configuration/otp_in_forget_password_screen.dart';
+import 'package:osta_user_app/features/booking/presentation/screens/receipt_screen.dart';
 import 'package:osta_user_app/features/home/presentation/screens/all_services/all_services_screen.dart';
 import 'package:osta_user_app/features/home/presentation/screens/notifications/notifications_screen.dart';
 import 'package:osta_user_app/features/home/presentation/screens/one_time/one_time_service_screen.dart';
@@ -30,6 +31,7 @@ import 'package:osta_user_app/features/onboarding/screens/onboarding_screen.dart
 import 'package:osta_user_app/features/profile/presentation/screens/change_password/change_password_screen.dart';
 import 'package:osta_user_app/features/profile/presentation/screens/customer_service/customer_service_screen.dart';
 import 'package:osta_user_app/features/profile/presentation/screens/edit_profile/edit_profile_screen.dart';
+import 'package:osta_user_app/features/profile/presentation/screens/help_center/customer_services_screen.dart';
 import 'package:osta_user_app/features/profile/presentation/screens/help_center/help_center_screen.dart';
 import 'package:osta_user_app/features/profile/presentation/screens/invite_friends/invite_friends_screen.dart';
 import 'package:osta_user_app/features/profile/presentation/screens/payment/add_new_card_screen.dart';
@@ -44,197 +46,242 @@ class RouteGenerator {
       case ORoutesName.splashRoute:
         return PageTransition(
           child: const SplashScreen(),
-          type: PageTransitionType.fade,
+          type: PageTransitionType.rightToLeft,
           settings: settings,
-          reverseDuration: const Duration(milliseconds: 300),
+          duration: const Duration(milliseconds: 500),
+          reverseDuration: const Duration(milliseconds: 500),
         );
       case ORoutesName.onBoardingRoute:
         return PageTransition(
           child: const OnBoardingScreen(),
-          type: PageTransitionType.fade,
+          type: PageTransitionType.rightToLeft,
           settings: settings,
-          reverseDuration: const Duration(milliseconds: 300),
+          duration: const Duration(milliseconds: 500),
+          reverseDuration: const Duration(milliseconds: 500),
         );
       case ORoutesName.createAccountRoute:
         return PageTransition(
           child: const CreateAccountScreen(),
-          type: PageTransitionType.fade,
+          type: PageTransitionType.rightToLeft,
           settings: settings,
-          reverseDuration: const Duration(milliseconds: 300),
+          duration: const Duration(milliseconds: 500),
+          reverseDuration: const Duration(milliseconds: 500),
         );
       case ORoutesName.fillYourRoute:
         String phoneNumber = settings.arguments as String;
 
         return PageTransition(
           child: FillYourProfileScreen(phoneNumber: phoneNumber),
-          type: PageTransitionType.fade,
+          type: PageTransitionType.rightToLeft,
           settings: settings,
-          reverseDuration: const Duration(milliseconds: 300),
+          duration: const Duration(milliseconds: 500),
+          reverseDuration: const Duration(milliseconds: 500),
         );
       case ORoutesName.loginAccountRoute:
         return PageTransition(
           child: const LoginAccountScreen(),
-          type: PageTransitionType.fade,
+          type: PageTransitionType.rightToLeft,
           settings: settings,
-          reverseDuration: const Duration(milliseconds: 300),
+          duration: const Duration(milliseconds: 500),
+          reverseDuration: const Duration(milliseconds: 500),
         );
       case ORoutesName.otpRoute:
         String phoneNumber = settings.arguments as String;
 
         return PageTransition(
           child: OtpInCreateAndLoginScreen(phoneNumber: phoneNumber),
-          type: PageTransitionType.fade,
+          type: PageTransitionType.rightToLeft,
           settings: settings,
-          reverseDuration: const Duration(milliseconds: 300),
+          duration: const Duration(milliseconds: 500),
+          reverseDuration: const Duration(milliseconds: 500),
         );
       // case ORoutesName.enterFunctionConnectionRoute:
       //   bool viaConnection = settings.arguments as bool;
       //
       //   return PageTransition(
       //     child: EnterFunctionConnectionScreen(viaConnection: viaConnection),
-      //     type: PageTransitionType.fade,
+      //     type: PageTransitionType.rightToLeft,
       //     settings: settings,
-      //     reverseDuration: const Duration(milliseconds: 300),
+      //     reverseDuration: const Duration(milliseconds: 500),
       //   );
       // case ORoutesName.otpInForgetPasswordRoute:
       //   final Map<String, dynamic> map = settings.arguments as Map<String, dynamic>;
       //
       //   return PageTransition(
       //     child: OtpInForgetPasswordScreen(map: map),
-      //     type: PageTransitionType.fade,
+      //     type: PageTransitionType.rightToLeft,
       //     settings: settings,
-      //     reverseDuration: const Duration(milliseconds: 300),
+      //     reverseDuration: const Duration(milliseconds: 500),
       //   );
       // case ORoutesName.forgetPasswordRoute:
       //   return PageTransition(
       //     child: const ForgetPasswordScreen(),
-      //     type: PageTransitionType.fade,
+      //     type: PageTransitionType.rightToLeft,
       //     settings: settings,
-      //     reverseDuration: const Duration(milliseconds: 300),
+      //     reverseDuration: const Duration(milliseconds: 500),
       //   );
       case ORoutesName.createNewPasswordRoute:
         return PageTransition(
           child: const CreateNewPasswordScreen(),
-          type: PageTransitionType.fade,
+          type: PageTransitionType.rightToLeft,
           settings: settings,
-          reverseDuration: const Duration(milliseconds: 300),
+          duration: const Duration(milliseconds: 500),
+          reverseDuration: const Duration(milliseconds: 500),
         );
       case ORoutesName.navigationMenuRoute:
+        final int index = settings.arguments as int;
+
         return PageTransition(
-          child: const NavigationMenu(),
-          type: PageTransitionType.fade,
+          child: NavigationMenu(index: index),
+          type: PageTransitionType.rightToLeft,
           settings: settings,
-          reverseDuration: const Duration(milliseconds: 300),
+          duration: const Duration(milliseconds: 500),
+          reverseDuration: const Duration(milliseconds: 500),
         );
       case ORoutesName.chatForUserRoute:
         final title = settings.arguments as String;
         return PageTransition(
           child:  ChatScreenForUser(title: title),
-          type: PageTransitionType.fade,
+          type: PageTransitionType.rightToLeft,
           settings: settings,
-          reverseDuration: const Duration(milliseconds: 300),
+          duration: const Duration(milliseconds: 500),
+          reverseDuration: const Duration(milliseconds: 500),
         );
       case ORoutesName.notificationsRoute:
         return PageTransition(
           child: const NotificationsScreen(),
-          type: PageTransitionType.fade,
+          type: PageTransitionType.rightToLeft,
           settings: settings,
-          reverseDuration: const Duration(milliseconds: 300),
+          duration: const Duration(milliseconds: 500),
+          reverseDuration: const Duration(milliseconds: 500),
         );
       case ORoutesName.allServicesRoute:
         return PageTransition(
           child: const AllServicesScreen(),
-          type: PageTransitionType.fade,
+          type: PageTransitionType.rightToLeft,
           settings: settings,
-          reverseDuration: const Duration(milliseconds: 300),
+          duration: const Duration(milliseconds: 500),
+          reverseDuration: const Duration(milliseconds: 500),
         );
       case ORoutesName.editProfileRoute:
         return PageTransition(
           child: const EditProfileScreen(),
-          type: PageTransitionType.fade,
+          type: PageTransitionType.rightToLeft,
           settings: settings,
-          reverseDuration: const Duration(milliseconds: 300),
+          duration: const Duration(milliseconds: 500),
+          reverseDuration: const Duration(milliseconds: 500),
         );
       case ORoutesName.paymentRoute:
         return PageTransition(
           child: const PaymentScreen(),
-          type: PageTransitionType.fade,
+          type: PageTransitionType.rightToLeft,
           settings: settings,
-          reverseDuration: const Duration(milliseconds: 300),
+          duration: const Duration(milliseconds: 500),
+          reverseDuration: const Duration(milliseconds: 500),
         );
       case ORoutesName.changePasswordRoute:
         return PageTransition(
           child: const ChangePasswordScreen(),
-          type: PageTransitionType.fade,
+          type: PageTransitionType.rightToLeft,
           settings: settings,
-          reverseDuration: const Duration(milliseconds: 300),
+          duration: const Duration(milliseconds: 500),
+          reverseDuration: const Duration(milliseconds: 500),
         );
       case ORoutesName.privacyPolicyRoute:
         return PageTransition(
           child: const PrivacyPolicyScreen(),
-          type: PageTransitionType.fade,
+          type: PageTransitionType.rightToLeft,
           settings: settings,
-          reverseDuration: const Duration(milliseconds: 300),
+          duration: const Duration(milliseconds: 500),
+          reverseDuration: const Duration(milliseconds: 500),
         );
       case ORoutesName.helpCenterRoute:
         return PageTransition(
           child: const HelpCenterScreen(),
-          type: PageTransitionType.fade,
+          type: PageTransitionType.rightToLeft,
           settings: settings,
-          reverseDuration: const Duration(milliseconds: 300),
+          duration: const Duration(milliseconds: 500),
+          reverseDuration: const Duration(milliseconds: 500),
         );
-      case ORoutesName.customerServiceRoute:
+      case ORoutesName.customerServicesRoute:
+        final data = settings.arguments as Map;
         return PageTransition(
-          child: const CustomerServiceScreen(),
-          type: PageTransitionType.fade,
+          child: CustomerServicesScreen(data: data),
+          type: PageTransitionType.rightToLeft,
           settings: settings,
-          reverseDuration: const Duration(milliseconds: 300),
+          duration: const Duration(milliseconds: 500),
+          reverseDuration: const Duration(milliseconds: 500),
         );
       case ORoutesName.inviteFriendsRoute:
         return PageTransition(
           child: const InviteFriendsScreen(),
-          type: PageTransitionType.fade,
+          type: PageTransitionType.rightToLeft,
           settings: settings,
-          reverseDuration: const Duration(milliseconds: 300),
+          duration: const Duration(milliseconds: 500),
+          reverseDuration: const Duration(milliseconds: 500),
         );
       case ORoutesName.chatRoute:
         final title = settings.arguments as String;
         return PageTransition(
           child: ChatScreen(title: title),
-          type: PageTransitionType.fade,
+          type: PageTransitionType.rightToLeft,
           settings: settings,
-          reverseDuration: const Duration(milliseconds: 300),
+          duration: const Duration(milliseconds: 500),
+          reverseDuration: const Duration(milliseconds: 500),
+        );
+      case ORoutesName.receiptRoute:
+        final data = settings.arguments as Map;
+
+        return PageTransition(
+          child: ReceiptScreen(data: data),
+          type: PageTransitionType.rightToLeft,
+          settings: settings,
+          duration: const Duration(milliseconds: 500),
+          reverseDuration: const Duration(milliseconds: 500),
+        );
+      case ORoutesName.imageDetailScreenRoute:
+        final data = settings.arguments as Map;
+
+        return PageTransition(
+          child: ImageDetailScreen(data: data),
+          type: PageTransitionType.rightToLeft,
+          settings: settings,
+          duration: const Duration(milliseconds: 500),
+          reverseDuration: const Duration(milliseconds: 500),
         );
       case ORoutesName.inboxRoute:
         final data = settings.arguments as Map;
         return PageTransition(
           child: InboxScreen2(data: data),
-          type: PageTransitionType.fade,
+          type: PageTransitionType.rightToLeft,
           settings: settings,
-          reverseDuration: const Duration(milliseconds: 300),
+          duration: const Duration(milliseconds: 500),
+          reverseDuration: const Duration(milliseconds: 500),
         );
       case ORoutesName.cleanlinessAndGardensRoute:
         final data = settings.arguments as Map;
 
         return PageTransition(
           child: CleanlinessAndGardensScreen(data: data),
-          type: PageTransitionType.fade,
+          type: PageTransitionType.rightToLeft,
           settings: settings,
-          reverseDuration: const Duration(milliseconds: 300),
+          duration: const Duration(milliseconds: 500),
+          reverseDuration: const Duration(milliseconds: 500),
         );
       case ORoutesName.serviceTypeRoute:
         return PageTransition(
           child: const ServiceTypeScreen(),
-          type: PageTransitionType.fade,
+          type: PageTransitionType.rightToLeft,
           settings: settings,
-          reverseDuration: const Duration(milliseconds: 300),
+          reverseDuration: const Duration(milliseconds: 500),
         );
       case ORoutesName.spaceRoute:
         return PageTransition(
           child: const SpacesScreen(),
-          type: PageTransitionType.fade,
+          type: PageTransitionType.rightToLeft,
           settings: settings,
-          reverseDuration: const Duration(milliseconds: 300),
+          duration: const Duration(milliseconds: 500),
+          reverseDuration: const Duration(milliseconds: 500),
         );
       case ORoutesName.electricityPlumbingAirConditionCarpentrySRoute:
         // final serviceId = settings.arguments as int;
@@ -242,82 +289,98 @@ class RouteGenerator {
 
         return PageTransition(
           child: ElectricityPlumbingAirConditionCarpentryScreen(data: data),
-          type: PageTransitionType.fade,
+          type: PageTransitionType.rightToLeft,
           settings: settings,
-          reverseDuration: const Duration(milliseconds: 300),
+          duration: const Duration(milliseconds: 500),
+          reverseDuration: const Duration(milliseconds: 500),
         );
       case ORoutesName.homeAppSatelliteChannelAndSurveillanceCamerasSRoute:
         final data = settings.arguments as Map;
 
         return PageTransition(
           child: HomeAppSatelliteChannelAndSurveillanceCameras(data: data),
-          type: PageTransitionType.fade,
+          type: PageTransitionType.rightToLeft,
           settings: settings,
-          reverseDuration: const Duration(milliseconds: 300),
+          duration: const Duration(milliseconds: 500),
+          reverseDuration: const Duration(milliseconds: 500),
         );
       case ORoutesName.specificServicesRoute:
         final serviceId = settings.arguments as int;
 
         return PageTransition(
           child: SpecificServicesScreen(serviceId: serviceId),
-          type: PageTransitionType.fade,
+          type: PageTransitionType.rightToLeft,
           settings: settings,
-          reverseDuration: const Duration(milliseconds: 300),
+          duration: const Duration(milliseconds: 500),
+          reverseDuration: const Duration(milliseconds: 500),
         );
       case ORoutesName.tilingAndPaintingRoute:
         final data = settings.arguments as Map;
 
         return PageTransition(
           child: TilingAndPaintingScreen(data: data),
-          type: PageTransitionType.fade,
+          type: PageTransitionType.rightToLeft,
           settings: settings,
-          reverseDuration: const Duration(milliseconds: 300),
+          duration: const Duration(milliseconds: 500),
+          reverseDuration: const Duration(milliseconds: 500),
         );
       case ORoutesName.oneTimeServiceInHomeScreenRoute:
         return PageTransition(
           child: const OneTimeServiceInHomeScreen(),
-          type: PageTransitionType.fade,
+          type: PageTransitionType.rightToLeft,
           settings: settings,
-          reverseDuration: const Duration(milliseconds: 300),
+          reverseDuration: const Duration(milliseconds: 500),
         );
       case ORoutesName.orderDetailsRoute:
         return PageTransition(
           child: const OrderDetailsScreen(),
-          type: PageTransitionType.fade,
+          type: PageTransitionType.rightToLeft,
           settings: settings,
-          reverseDuration: const Duration(milliseconds: 300),
+          reverseDuration: const Duration(milliseconds: 500),
+        );
+      case ORoutesName.orderDetailsRoute:
+        return PageTransition(
+          child: const OrderDetailsScreen(),
+          type: PageTransitionType.rightToLeft,
+          settings: settings,
+          duration: const Duration(milliseconds: 500),
+          reverseDuration: const Duration(milliseconds: 500),
         );
       case ORoutesName.addNewCardRoute:
         return PageTransition(
           child: const AddNewCardScreen(),
-          type: PageTransitionType.fade,
+          type: PageTransitionType.rightToLeft,
           settings: settings,
-          reverseDuration: const Duration(milliseconds: 300),
+          duration: const Duration(milliseconds: 500),
+          reverseDuration: const Duration(milliseconds: 500),
         );
       case ORoutesName.choiceYourLocationRoute:
         final data = settings.arguments as Map;
 
         return PageTransition(
             child: ChoiceYourLocationScreen(data: data),
-          type: PageTransitionType.fade,
+          type: PageTransitionType.rightToLeft,
           settings: settings,
-          reverseDuration: const Duration(milliseconds: 300),
+          duration: const Duration(milliseconds: 500),
+          reverseDuration: const Duration(milliseconds: 500),
         );
       case ORoutesName.addDataForNewAddressRoute:
         return PageTransition(
           child: const AddDataForNewAddressScreen(),
-          type: PageTransitionType.fade,
+          type: PageTransitionType.rightToLeft,
           settings: settings,
-          reverseDuration: const Duration(milliseconds: 300),
+          duration: const Duration(milliseconds: 500),
+          reverseDuration: const Duration(milliseconds: 500),
         );
       case ORoutesName.offersRoute:
         final orderId = settings.arguments as int;
 
         return PageTransition(
           child: OffersScreen(orderId: orderId),
-          type: PageTransitionType.fade,
+          type: PageTransitionType.rightToLeft,
           settings: settings,
-          reverseDuration: const Duration(milliseconds: 300),
+          duration: const Duration(milliseconds: 500),
+          reverseDuration: const Duration(milliseconds: 500),
         );
       default:
         return unDefinedRoute();

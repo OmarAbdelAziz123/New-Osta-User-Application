@@ -17,11 +17,13 @@ class ORoutesName {
   static const String changePasswordRoute = 'change-password-route';
   static const String privacyPolicyRoute = 'privacy-policy-route';
   static const String helpCenterRoute = 'help-center-route';
-  static const String customerServiceRoute = 'customer-service-route';
+  static const String customerServicesRoute = 'customer-service-route';
   static const String inviteFriendsRoute = 'invite-friends-route';
   static const String notificationsRoute = 'notifications-route';
   static const String allServicesRoute = 'all-services-route';
   static const String chatRoute = 'chat-route';
+  static const String receiptRoute = 'receiptRoute';
+  static const String imageDetailScreenRoute = 'imageDetailScreenRoute';
   static const String inboxRoute = 'inboxRoute';
   static const String cleanlinessAndGardensRoute = 'cleanliness-and-gardens-route';
   static const String serviceTypeRoute = 'service-type-route';

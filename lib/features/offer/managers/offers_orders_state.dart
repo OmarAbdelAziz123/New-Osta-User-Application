@@ -38,7 +38,11 @@ class InboxLoadingState extends OffersOrdersState {}
 
 class InboxSuccessState extends OffersOrdersState {}
 
-class InboxErrorState extends OffersOrdersState {}
+class InboxErrorState extends OffersOrdersState {
+  final String message;
+
+  InboxErrorState(this.message);
+}
 
 /// Get All Messages
 class GetAllMessagesLoadingState extends OffersOrdersState {}
@@ -46,3 +50,25 @@ class GetAllMessagesLoadingState extends OffersOrdersState {}
 class GetAllMessagesSuccessState extends OffersOrdersState {}
 
 class GetAllMessagesErrorState extends OffersOrdersState {}
+
+/// Make Order is Done States
+class MakeOrderIsDoneLoadingState extends OffersOrdersState {}
+
+class MakeOrderIsDoneSuccessState extends OffersOrdersState {}
+
+class MakeOrderIsDoneErrorState extends OffersOrdersState {
+  final String message;
+
+  MakeOrderIsDoneErrorState(this.message);
+}
+
+/// Make Action States
+class MakeActionLoadingState extends OffersOrdersState {}
+
+class MakeActionSuccessState extends OffersOrdersState {}
+
+class MakeActionErrorState extends OffersOrdersState {
+  final String message;
+
+  MakeActionErrorState(this.message);
+}

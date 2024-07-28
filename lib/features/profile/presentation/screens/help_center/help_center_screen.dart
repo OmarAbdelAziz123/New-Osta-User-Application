@@ -1,9 +1,11 @@
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:osta_user_app/features/profile/managers/profile_cubit.dart';
 import 'package:osta_user_app/features/profile/presentation/widgets/help_center/contact_us_widget.dart';
 import 'package:osta_user_app/features/profile/presentation/widgets/help_center/faq_widget.dart';
 import '../../../../../utils/constants/exports.dart';
 
 class HelpCenterScreen extends StatefulWidget {
-  const HelpCenterScreen({Key? key}) : super(key: key);
+  const HelpCenterScreen({super.key});
 
   @override
   State<HelpCenterScreen> createState() => _HelpCenterScreenState();
@@ -27,6 +29,7 @@ class _HelpCenterScreenState extends State<HelpCenterScreen> with SingleTickerPr
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: OColors.greyScale50,
       body: Padding(
         padding: EdgeInsets.only(left: 24.w, right: 24.w, top: 68.h),
         child: Column(

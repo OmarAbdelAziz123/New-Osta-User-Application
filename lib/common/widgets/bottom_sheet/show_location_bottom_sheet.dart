@@ -1,3 +1,5 @@
+import 'package:lottie/lottie.dart';
+
 import '../../../../utils/constants/exports.dart';
 
 class ShowLocationBottomSheet extends StatelessWidget {
@@ -74,15 +76,18 @@ class AddNewAddressWidget extends StatelessWidget {
 
 /// Previous Address Widget
 class PreviousAddressesWidget extends StatelessWidget {
-  const PreviousAddressesWidget({super.key,required this.icon, required this.addressName, required this.location});
+  const PreviousAddressesWidget({super.key,required this.icon, required this.addressName, required this.location, required this.onTap, required this.onTapInEdit});
   final Widget icon;
   final String addressName, location;
+  final void Function() onTap, onTapInEdit;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.only(bottom: 10.h),
-      child: Container(
+      child: InkWellWidget(
+        onTap: onTap,
+        child: Container(
         padding: EdgeInsets.symmetric(horizontal: 10.w,vertical: 15.h),
         decoration: BoxDecoration(
             color: OColors.whiteColor,
@@ -100,27 +105,32 @@ class PreviousAddressesWidget extends StatelessWidget {
               child: icon,
             ),
             Expanded(
-              flex: 7,
+              flex: 6,
               child: Container(
                 margin: EdgeInsets.only(left: 8.w),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                child: Row(
                   children: [
-                    Text(addressName,style: OStyles.bodyLargeBold.copyWith(color: OColors.greyScale800)),
-                    SizedBox(height: 4.h),
-                    Text(location, overflow: TextOverflow.ellipsis),
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(addressName,style: OStyles.bodyLargeBold.copyWith(color: OColors.greyScale800)),
+                        SizedBox(height: 4.h),
+                        Text(location, overflow: TextOverflow.ellipsis),
+                      ],
+                    ),
                   ],
                 ),
               ),
             ),
             Expanded(
               flex: 1,
-              child: Text('Edit',style: TextStyle(color: OColors.primaryColor500),),
+              child: InkWellWidget(onTap: onTapInEdit, child: Text('Edit',style: TextStyle(color: OColors.primaryColor500))),
             ),
           ],
         ),
 
+      ),
       ),
     );
   }

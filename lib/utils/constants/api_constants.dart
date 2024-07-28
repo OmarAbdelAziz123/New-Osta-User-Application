@@ -8,7 +8,13 @@ class ApiConstants {
   static const countryUrl = 'api/country';
   static const cityUrl = 'api/city';
   static const servicesUrl = 'api/service';
+  static const allOffersUrl = 'api/user/offer';
   static const getAllAddressesUrl = 'api/user/location';
   static const subServiceUrl = 'api/sub_service';
   static const orderUrl = 'api/user/order';
+  static const faqCategoryUrl = 'api/faq-category';
+  static const faqIndexUrl = 'api/faq';
+  static const getProfileDataUrl = 'api/user/profile';
+  static const profileDataUrl = 'api/user/update-profile';
+  static const customerServicesUrl = 'api/ticket';
 }

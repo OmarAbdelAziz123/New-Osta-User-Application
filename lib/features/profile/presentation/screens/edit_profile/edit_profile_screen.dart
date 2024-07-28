@@ -5,20 +5,27 @@ class EditProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: EdgeInsets.only(left: 24.w, right: 24.w, top: 75.h, bottom: 48.h),
-          child: Column(
-            children: [
-              /// Arrow Button
-              TopRowInAllScreens(titleOfScreenWidget: Text('Edit Profile', style: OStyles.h4Bold)),
+    return PopScope(
+      canPop: false,
+      onPopInvoked: (didPop) {
+        context.pushReplacementNamed(ORoutesName.navigationMenuRoute, arguments: 3);
+      },
+      child: Scaffold(
+        backgroundColor: Colors.white,
+        body: SingleChildScrollView(
+          child: Padding(
+            padding: EdgeInsets.only(left: 24.w, right: 24.w, top: 75.h, bottom: 48.h),
+            child: Column(
+              children: [
+                /// Arrow Button
+                TopRowInAllScreens(titleOfScreenWidget: Text('Edit Profile', style: OStyles.h4Bold), onTap: () => context.pushReplacementNamed(ORoutesName.navigationMenuRoute, arguments: 3)),
 
-              /// Make Space
-              SizedBox(height: 33.5.h),
+                /// Make Space
+                SizedBox(height: 33.5.h),
 
-              const EditProfileFormWidget(),
-            ],
+                const EditProfileFormWidget(),
+              ],
+            ),
           ),
         ),
       ),

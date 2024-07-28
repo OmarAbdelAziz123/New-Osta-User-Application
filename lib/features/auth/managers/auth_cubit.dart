@@ -7,6 +7,7 @@ import 'package:osta_user_app/features/auth/models/fill_your_account/fill_your_a
 import 'package:osta_user_app/features/auth/models/user_data.dart';
 import 'package:osta_user_app/features/auth/models/user_data_after_verified.dart';
 import 'package:osta_user_app/utils/constants/exports.dart';
+import 'package:osta_user_app/utils/constants/log_util.dart';
 import 'package:osta_user_app/utils/dio/dio_helper.dart';
 
 part 'auth_state.dart';
@@ -35,56 +36,161 @@ class AuthCubit extends Cubit<AuthState> {
   /// Login Function
   Future<void> loginFunction({required String phoneNumber}) async {
     emit(LoginLoadingState());
-    await dioHelper.postData(endPoint: '${ApiConstants.loginUrl}?phone=$phoneNumber').then((response) {
-      checkPhoneModel = CheckPhoneModel.fromJson(response.data);
-      log(response.data.toString());
-      emit(LoginSuccessState());
-    }).catchError((error) {
-      print(error);
+    // await dioHelper.postData(endPoint: '${ApiConstants.loginUrl}?phone=$phoneNumber').then((response) {
+    //   checkPhoneModel = CheckPhoneModel.fromJson(response.data);
+    //   log(response.data.toString());
+    //   emit(LoginSuccessState(message: checkPhoneModel.message));
+    // }).catchError((error) {
+    //   print(error);
+    //   emit(LoginErrorState());
+    // });
+    try {
+      final response = await dioHelper.postData(
+        endPoint:'${ApiConstants.loginUrl}?phone=$phoneNumber',
+      );
+
+      if(response.statusCode == 422) {
+        final errorMessage = response.data['message'] ?? 'Validation error';
+        emit(LoginSuccessState(message: errorMessage));
+      } else if (response.statusCode == 200) {
+        checkPhoneModel = CheckPhoneModel.fromJson(response.data);
+        emit(LoginSuccessState(message: checkPhoneModel.message));
+      } else {
+        emit(LoginErrorState());
+      }
+    } catch (error) {
       emit(LoginErrorState());
-    });
+    }
   }
 
   /// Verify OTP Function
+  // Future<void> verifyOTPFunction({required String otp, required String phoneNumber}) async {
+  //   emit(VerifyOTPLoadingState());
+  //   await dioHelper.postData(endPoint: ApiConstants.verifyOTPUrl, body: {
+  //     'otp': otp,
+  //     'phone': phoneNumber,
+  //   }).then((response) {
+  //     userDataAfterVerified = UserDataAfterVerified.fromJson(response.data);
+  //     OCacheHelper.putString(key: CacheKeys.userId, value: userDataAfterVerified.result!.id.toString());
+  //     OCacheHelper.putString(key: CacheKeys.token, value: userDataAfterVerified.result!.token!);
+  //     OCacheHelper.putString(key: CacheKeys.fullName, value: userDataAfterVerified.result!.name!);
+  //     OCacheHelper.putString(key: CacheKeys.email, value: userDataAfterVerified.result!.email ?? '');
+  //     // log(userDataAfterVerified.result!.token!);
+  //     if(response.statusCode == 422) {
+  //       final errorMessage = response.data['message'] ?? 'Validation error';
+  //       emit(VerifyOTPSuccessState(errorMessage));
+  //     }
+  //     emit(VerifyOTPSuccessState(response.data['message']));
+  //   }).catchError((error) {
+  //     if (error is DioError) {
+  //       if (error.response?.statusCode == 422) {
+  //         logError('-------------');
+  //         logError(error.response?.statusCode.toString() ?? 'ASDF');
+  //         logError('-------------');
+  //         final errorMessage = error.response?.data['message'] ?? 'Validation error';
+  //         emit(VerifyOTPErrorStateWithMessage(errorMessage));
+  //       } else {
+  //         logError('-------------');
+  //         logError(error.response?.statusCode.toString() ?? 'ASDF');
+  //         logError('-------------');
+  //         emit(VerifyOTPErrorState());
+  //       }
+  //     } else {
+  //       logError('-------------');
+  //       logError(error.response?.statusCode.toString() ?? 'ASDF');
+  //       logError('-------------');
+  //       emit(VerifyOTPErrorState());
+  //     }
+  //     // log(error.toString());
+  //   });
+  // }
   Future<void> verifyOTPFunction({required String otp, required String phoneNumber}) async {
     emit(VerifyOTPLoadingState());
-    await dioHelper.postData(endPoint: ApiConstants.verifyOTPUrl, body: {
-      'otp': '1234',
-      'phone': phoneNumber,
-    }).then((response) {
-      userDataAfterVerified = UserDataAfterVerified.fromJson(response.data);
-      OCacheHelper.putString(key: CacheKeys.userId, value: userDataAfterVerified.result!.id.toString());
-      OCacheHelper.putString(key: CacheKeys.token, value: userDataAfterVerified.result!.token!);
-      OCacheHelper.putString(key: CacheKeys.email, value: userDataAfterVerified.result!.email!);
-      OCacheHelper.putString(key: CacheKeys.fullName, value: userDataAfterVerified.result!.name!);
-      OCacheHelper.putString(key: CacheKeys.countryId, value: userDataAfterVerified.result!.countryId.toString());
-      log(userDataAfterVerified.result!.token!);
-      emit(VerifyOTPSuccessState());
-    }).catchError((error) {
-      log(error);
+    try {
+      final response = await dioHelper.postData(
+        endPoint: ApiConstants.verifyOTPUrl,
+        body: {'otp': otp, 'phone': phoneNumber},
+      );
+
+      if (response.statusCode == 422) {
+        final errorMessage = response.data['message'] ?? 'Validation error';
+        emit(VerifyOTPSuccessState(errorMessage));
+      } else if(response.statusCode == 401) {
+        final errorMessage = response.data['message'] ?? 'Validation error';
+        emit(VerifyOTPSuccessState(errorMessage));
+      } else {
+        userDataAfterVerified = UserDataAfterVerified.fromJson(response.data);
+        OCacheHelper.putString(key: CacheKeys.userId, value: userDataAfterVerified.result!.id.toString());
+        OCacheHelper.putString(key: CacheKeys.token, value: userDataAfterVerified.result!.token!);
+        OCacheHelper.putString(key: CacheKeys.fullName, value: userDataAfterVerified.result!.name!);
+        OCacheHelper.putString(key: CacheKeys.email, value: userDataAfterVerified.result!.email ?? '');
+        emit(VerifyOTPSuccessState(response.data['message']));
+      }
+    } catch (error) {
       emit(VerifyOTPErrorState());
-    });
+    }
   }
 
   /// Fill Your Account
-  Future<void> fillYourAccountFunction({required String name, required String email, required String countryId, required String phone, required String gender}) async {
+  Future<void> fillYourAccountFunction({
+    required String name,
+    required String email,
+    required String countryId,
+    required String phone,
+    required String gender,
+    required String personal,
+    required String dateOfBirth,
+  }) async {
     emit(FillYourAccountLoadingState());
-    await dioHelper.postData(endPoint: ApiConstants.fillYourAccountUrl, body: {
-      'name': name,
-      'email': email,
-      'phone': phone,
-      'country_id': countryId,
-      'gender': gender,
-    }).then((response) {
-      fillYourAccount = FillYourAccount.fromJson(response.data);
-      log(fillYourAccount.message.toString());
-      emit(FillYourAccountSuccessState());
-    }).catchError((error) {
-      log(error);
-      emit(FillYourAccountErrorState());
-    });
+
+    try {
+      FormData formData = FormData.fromMap({
+        'name': name,
+        'email': email,
+        'phone': phone,
+        'country_id': countryId,
+        'gender': gender,
+        'personal': await MultipartFile.fromFile(personal),
+        'date_of_birth': dateOfBirth,
+      });
+
+      Options options = Options(
+        headers: {
+          'authorization': "Bearer ${OCacheHelper.getString(key: CacheKeys.token)}",
+        },
+      );
+
+      final response = await Dio().post(
+        '${ApiConstants.baseUrl}${ApiConstants.fillYourAccountUrl}',
+        data: formData,
+        options: options,
+      );
+
+      if (response.statusCode == 422) {
+        final errorMessage = response.data['message'] ?? 'Validation error';
+        emit(FillYourAccountErrorState(errorMessage));
+      } else if (response.statusCode == 200) {
+        fillYourAccount = FillYourAccount.fromJson(response.data);
+        emit(FillYourAccountSuccessState(message: fillYourAccount.message));
+      } else {
+        final errorMessage = 'Unknown error occurred';
+        emit(FillYourAccountErrorState(errorMessage));
+      }
+    } on DioError catch (error) {
+      String errorMessage;
+      if (error.response?.statusCode == 422) {
+        errorMessage = error.response!.data['message'] ?? 'Validation error';
+      } else {
+        errorMessage = 'Network error occurred';
+      }
+      emit(FillYourAccountErrorState(errorMessage));
+    } catch (error) {
+      emit(FillYourAccountErrorState('Unexpected error occurred'));
+    }
   }
-  
+
+
+
   /// Country Index
   Future<void> getAllCountriesFunction() async {
     emit(CountryIndexLoadingState());

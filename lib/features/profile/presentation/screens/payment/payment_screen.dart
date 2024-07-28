@@ -6,6 +6,7 @@ class PaymentScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: OColors.greyScale50,
       body: Padding(
         padding: EdgeInsets.only(left: 24.w, right: 24.w, top: 75.h, bottom: 48.h),
         child: Column(

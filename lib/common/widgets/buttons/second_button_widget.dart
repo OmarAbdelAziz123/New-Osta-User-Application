@@ -1,10 +1,12 @@
 import 'package:osta_user_app/utils/constants/exports.dart';
 
 class SecondButtonWidget extends StatelessWidget {
-  const SecondButtonWidget({super.key, required this.bgColor, required this.widget, required this.onTap});
+  const SecondButtonWidget({super.key, required this.bgColor, required this.widget, required this.onTap, this.border, this.borderRadius});
 
   final Color bgColor;
   final Widget widget;
+  final BoxBorder? border;
+  final BorderRadius? borderRadius;
   final void Function() onTap;
 
   @override
@@ -16,7 +18,8 @@ class SecondButtonWidget extends StatelessWidget {
         height: 58.h,
         decoration: BoxDecoration(
           color: bgColor,
-          borderRadius: BorderRadius.circular(100.r),
+          borderRadius: borderRadius ?? BorderRadius.circular(100.r),
+          border: border,
         ),
         child: Center(child: widget),
       ),

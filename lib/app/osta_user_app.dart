@@ -7,9 +7,12 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:osta_user_app/features/auth/managers/auth_cubit.dart';
 import 'package:osta_user_app/features/booking/managers/booking_cubit.dart';
 import 'package:osta_user_app/features/home/managers/home_cubit.dart';
+import 'package:osta_user_app/features/inbox/inbox_for_delivery/presentation/screens/chat_screen.dart';
+import 'package:osta_user_app/features/inbox/inbox_for_user/presentation/screens/chat_screen_for_user.dart';
 import 'package:osta_user_app/features/map1.dart';
 import 'package:osta_user_app/features/offer/managers/offers_orders_cubit.dart';
 import 'package:osta_user_app/features/offer/managers/socket_cubit/socket_cubit.dart';
+import 'package:osta_user_app/features/profile/managers/profile_cubit.dart';
 import 'package:osta_user_app/utils/constants/exports.dart';
 
 class OstaUserApp extends StatelessWidget {
@@ -25,17 +28,18 @@ class OstaUserApp extends StatelessWidget {
         return MultiBlocProvider(
           providers: [
             BlocProvider(create: (context) => AuthCubit()..getAllCountriesFunction()),
-            BlocProvider(create: (context) => HomeCubit()..getAllServicesFunction()..getAllCountriesFunction()..getAllAddressesFunction()),
-            BlocProvider(create: (context) => OffersOrdersCubit()..getAllOrdersByMeFunction()),
+            BlocProvider(create: (context) => HomeCubit()..getAllCountriesFunction()..getAllAddressesFunction()),
+            BlocProvider(create: (context) => OffersOrdersCubit()),
             BlocProvider(create: (context) => BookingCubit()),
             BlocProvider(create: (context) => SocketCubit()),
+            BlocProvider(create: (context) => ProfileCubit()),
           ],
           child: MaterialApp(
             debugShowCheckedModeBanner: false,
             // theme: OAppTheme.lightTheme,
             // darkTheme: OAppTheme.darkTheme,
             navigatorKey: navigatorKey,
-            // home: LocationDetailsScreen(),
+            // home: ChatScreen(title: 'Provider chat'),
             onGenerateRoute: RouteGenerator.getRoute,
             initialRoute: ORoutesName.splashRoute,
             // initialRoute: ORoutesName.tilingAndPaintingRoute,

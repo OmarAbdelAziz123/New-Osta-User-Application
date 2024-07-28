@@ -19,6 +19,8 @@ class _ElectricityPlumbingAirConditionCarpentryScreenState extends State<Electri
   @override
   void initState() {
     _tabController = TabController(length: 2, vsync: this);
+    // if(HomeCubit.get(context).subServiceModel.result == null) HomeCubit.get(context).getSubServicesFunction(serviceId: widget.data['serviceId']);
+    // if(HomeCubit.get(context).getAllAddressesModel.result == null) HomeCubit.get(context).getAllAddressesFunction();
     super.initState();
   }
 
@@ -31,6 +33,7 @@ class _ElectricityPlumbingAirConditionCarpentryScreenState extends State<Electri
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: OColors.greyScale50,
       body: BlocProvider(
         create: (context) => HomeCubit()..getSubServicesFunction(serviceId: widget.data['serviceId'])..getAllAddressesFunction(),
         child: BlocConsumer<HomeCubit, HomeState>(
@@ -49,7 +52,7 @@ class _ElectricityPlumbingAirConditionCarpentryScreenState extends State<Electri
                   /// App Bar
                   AppBarWidget(
                     leading: InkWellWidget(onTap: () => context.pop(), child: const Icon((Icons.arrow_back))),
-                    title: '',
+                    title: ODeviceUtils.capitalizeFirstLetter('${widget.data['name']} (${widget.data['category']})'),
                     actions: Container(),
                     widthOfText: 282.w,
                   ),

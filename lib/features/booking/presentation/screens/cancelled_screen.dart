@@ -9,12 +9,12 @@ class CancelledScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
         width: double.infinity,
-        child:
-        ListView.builder(
-            itemCount: 3,
-            itemBuilder: (context,index){
-              return  MyBookingContainerWidget(bookingImage: OConstants.bookingImage[index],bookingJob: OConstants.bookingJobs[index], bookingName: OConstants.bookingName[index], containerColor: OColors.error, buttonText: 'Cancelled',);
-            })
+        // child:
+        // ListView.builder(
+        //     itemCount: 3,
+        //     itemBuilder: (context,index){
+        //       return  MyBookingContainerWidget(bookingImage: OConstants.bookingImage[index],bookingJob: OConstants.bookingJobs[index], bookingName: OConstants.bookingName[index], containerColor: OColors.error, buttonText: 'Cancelled',);
+        //     })
       // Column(
       //   children:
       //     List.generate(

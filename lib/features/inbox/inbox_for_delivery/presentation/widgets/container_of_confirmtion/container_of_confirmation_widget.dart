@@ -26,7 +26,7 @@ class ContainerOfConfirmationWidget extends StatelessWidget {
                   topLeft: Radius.circular(15.r),
                   bottomLeft: Radius.circular(15.r),
                   bottomRight: Radius.circular(15.r),
-                )
+                ),
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -34,9 +34,7 @@ class ContainerOfConfirmationWidget extends StatelessWidget {
                 SizedBox(
                     width: double.infinity,
                     child: Text(text1)),
-                isTrue==true?  Text("50 pound",
-                  style: TextStyle(color: OColors.primaryColor200),
-                ):const Text(""),
+                isTrue==true?  Text("50 pound", style: TextStyle(color: OColors.primaryColor200)) : const Text(""),
                 SizedBox(height: 5.h,),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -44,11 +42,14 @@ class ContainerOfConfirmationWidget extends StatelessWidget {
                     ThirdButtonWidget(
                       onTap: () {},
                       widgetInButton: Text(textBt1, style: OStyles.bodyMediumMedium.copyWith(color: OColors.whiteColor)),
-                        isRejected: false, textStyle: OStyles.bodyMediumMedium.copyWith(color: OColors.whiteColor), containerColor: OColors.primaryColor500, width: 130.w, height: 46.h, borderRadius: 15.r),
+                      isRejected: false, textStyle: OStyles.bodyMediumMedium.copyWith(color: OColors.whiteColor), containerColor: OColors.primaryColor500, width: 130.w, height: 46.h,
+                      borderRadius: 15.r,
+                    ),
                     SizedBox(width: 5.w),
                     ButtonWithBorderWidget(
                       onTap: () {},
-                      textButton: textBt2,width: 130.w,height: 46.h,)
+                      textButton: textBt2,width: 130.w,height: 46.h,
+                    ),
                   ],
                 )
               ],

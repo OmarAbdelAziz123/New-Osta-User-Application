@@ -5,7 +5,9 @@ import 'package:osta_user_app/common/widgets/checkbox/remember_me_widget.dart';
 import 'package:osta_user_app/common/widgets/what_happened_with_us/what_happened_with_us_widget.dart';
 import 'package:osta_user_app/features/home/managers/home_cubit.dart';
 import 'package:osta_user_app/features/home/models/address/get_all_addresses_model.dart';
+import 'package:osta_user_app/features/offer/managers/offers_orders_cubit.dart';
 import 'package:osta_user_app/utils/constants/exports.dart';
+import 'package:osta_user_app/utils/constants/log_util.dart';
 
 class OneTimeScreenInTilingAndPainting extends StatefulWidget {
   OneTimeScreenInTilingAndPainting({super.key, required this.subServicesList, required this.addressList, required this.serviceId, required this.category});
@@ -21,6 +23,7 @@ class OneTimeScreenInTilingAndPainting extends StatefulWidget {
 
 class _OneTimeScreenInTilingAndPaintingState extends State<OneTimeScreenInTilingAndPainting> {
   int selectedIndex = -1;
+  int selectedWarranty = -1;
   int selectedSpace = -1;
   int selectedSpecificService = -1;
   int selectedDays = 0;
@@ -43,6 +46,8 @@ class _OneTimeScreenInTilingAndPaintingState extends State<OneTimeScreenInTiling
   int numberOfSelectedFromOne = 1;
 
   Set<int> selectedIndices = {};
+  bool isMakeOrder = false;
+  List<File> _selectedImages = [];
 
   @override
   void initState() {
@@ -63,7 +68,19 @@ class _OneTimeScreenInTilingAndPaintingState extends State<OneTimeScreenInTiling
   Widget build(BuildContext context) {
     return BlocConsumer<HomeCubit, HomeState>(
       listener: (context, state) {
-
+        if(state is MakeOrderSuccessState) {
+          setState(() {
+            isMakeOrder = false;
+          });
+          OffersOrdersCubit.get(context).getAllOrdersByMeFunction();
+          context.pushNamedAndRemoveUntil(ORoutesName.navigationMenuRoute, arguments: 0, predicate: (route) => false);
+          ODeviceUtils.showSnackBar(context: context, message: 'Successfully', textStyle: OStyles.bodyLargeRegular, textColor: OColors.whiteColor, bgColor: OColors.success);
+        } else if (state is MakeOrderErrorState) {
+          setState(() {
+            isMakeOrder = false;
+          });
+          ODeviceUtils.showSnackBar(context: context, message: 'You have an error in Make Order', textStyle: OStyles.bodyLargeRegular, textColor: OColors.whiteColor, bgColor: OColors.error);
+        }
       },
       builder: (context, state) {
         var subServiceCubit = HomeCubit.get(context);
@@ -87,32 +104,32 @@ class _OneTimeScreenInTilingAndPaintingState extends State<OneTimeScreenInTiling
               const WhatHappenedWithUsWidget(),
 
               /// Make Size
-              SizedBox(height: 23.h),
+              // SizedBox(height: 23.h),
 
               /// Divider
-              Divider(color: OColors.greyScale200, thickness: 1.w),
+              // Divider(color: OColors.greyScale200, thickness: 1.w),
 
               /// Make Size
-              SizedBox(height: 24.h),
+              // SizedBox(height: 24.h),
 
-              /// Osta Extended Warranty
-              InkWellWidget(
-                onTap: () => setState(() => isExtended = !isExtended),
-                child: Container(
-                  width: double.infinity,
-                  height: 50.h,
-                  decoration: BoxDecoration(
-                      color: isExtended ? OColors.primaryColor500 : OColors.greyScale50,
-                      gradient: isExtended ? AppGradients.purpleGradient : null,
-                      borderRadius: BorderRadius.circular(12.r),
-                      boxShadow: [AppBoxShadows.cardShadowFour]
-                  ),
-                  child: Center(child: Text('Osta extended warranty', style: OStyles.bodyLargeSemiBold.copyWith(color: isExtended ? OColors.whiteColor : OColors.greyScale600))),
-                ),
-              ),
-
-              /// Make Size
-              SizedBox(height: isExtended ? 24.h : 0),
+              // /// Osta Extended Warranty
+              // InkWellWidget(
+              //   onTap: () => setState(() => isExtended = !isExtended),
+              //   child: Container(
+              //     width: double.infinity,
+              //     height: 50.h,
+              //     decoration: BoxDecoration(
+              //         color: isExtended ? OColors.primaryColor500 : OColors.greyScale50,
+              //         gradient: isExtended ? AppGradients.purpleGradient : null,
+              //         borderRadius: BorderRadius.circular(12.r),
+              //         boxShadow: [AppBoxShadows.cardShadowFour]
+              //     ),
+              //     child: Center(child: Text('Osta extended warranty', style: OStyles.bodyLargeSemiBold.copyWith(color: isExtended ? OColors.whiteColor : OColors.greyScale600))),
+              //   ),
+              // ),
+              //
+              // /// Make Size
+              // SizedBox(height: isExtended ? 24.h : 0),
 
               ///
               isExtended ? Column(
@@ -128,7 +145,7 @@ class _OneTimeScreenInTilingAndPaintingState extends State<OneTimeScreenInTiling
                       },
                       itemBuilder: (context, index) {
                         return GestureDetector(
-                          onTap: () => setState(() => selectedSpace = index+1),
+                          onTap: () => setState(() => selectedWarranty = index+1),
                           child: AnimatedContainer(
                             curve: Curves.easeInOut,
                             height: 35.h,
@@ -136,11 +153,11 @@ class _OneTimeScreenInTilingAndPaintingState extends State<OneTimeScreenInTiling
                             duration: const Duration(milliseconds: 300),
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(16.r),
-                              color: selectedSpace == index+1 ? OColors.primaryColor500 : OColors.whiteColor,
+                              color: selectedWarranty == index+1 ? OColors.primaryColor500 : OColors.whiteColor,
                               border: Border.all(color: OColors.primaryColor500, width: 2.w),
                             ),
                             child: Center(
-                              child: Text(OConstants.daysList[index], style: OStyles.bodyLargeBold.copyWith(color: selectedSpace == index+1 ?  OColors.whiteColor : OColors.primaryColor500)),
+                              child: Text(OConstants.daysList[index], style: OStyles.bodyLargeBold.copyWith(color: selectedWarranty == index+1 ?  OColors.whiteColor : OColors.primaryColor500)),
                             ),
                           ),
                         );
@@ -234,7 +251,7 @@ class _OneTimeScreenInTilingAndPaintingState extends State<OneTimeScreenInTiling
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Expanded(flex: 3, child: Text('Another service', style: OStyles.h5Bold)),
-                  Expanded(child: RememberMeWidget(isChecked: isChecked, onChanged: (p0) => setState(() =>isChecked = !isChecked), isRememberMe: false)),
+                  Expanded(child: RememberMeWidget(isChecked: isChecked, onChanged: (p0) => setState(() {isChecked = !isChecked; _selectedImages.clear();}), isRememberMe: false)),
                   Text('I don\'t know the problem', style: OStyles.bodyMediumSemiBold),
                 ],
               ),
@@ -242,48 +259,156 @@ class _OneTimeScreenInTilingAndPaintingState extends State<OneTimeScreenInTiling
               /// Make Size
               SizedBox(height: 18.h),
 
-              iNeedWrite
-                  ? Stack(
-                children: [
-                  TextFormFieldWidget(
-                    controller: textInServicesController,
-                    textInputType: TextInputType.text,
-                    focusNode: textInServicesFocusNode,
-                    hintText: 'Another Services',
-                    hintColor: isTextInServicesFieldFocused ? OColors.primaryColor500 : OColors.greyScale500,
-                    fillColor: isTextInServicesFieldFocused ? OColors.purpleTransparent.withOpacity(.08) : OColors.greyScale50,
-                    borderSide: isTextInServicesFieldFocused ? BorderSide(color: OColors.primaryColor500) : BorderSide.none,
-                    obscureText: false,
-                    maxLines: 4,
-                    // suffixIcon: ,
-                  ),
-                  Positioned(
-                    bottom: 12.h,
-                    right: 12.w,
-                    child: Image.asset(OImages.imagePicker, fit: BoxFit.scaleDown),
-                  ),
-                ],
-              )
-                  : GestureDetector(
-                onTap: () {
-                  setState(() => iNeedWrite = !iNeedWrite);
-                },
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
+              if (isChecked) ...[
+                Stack(
                   children: [
-                    Text('Click here to write details', textAlign: TextAlign.center, style: OStyles.bodyLargeBold.copyWith(color: OColors.primaryColor500)),
+                    TextFormFieldWidget(
+                      controller: textInServicesController,
+                      textInputType: TextInputType.text,
+                      focusNode: textInServicesFocusNode,
+                      hintText: 'Another Services',
+                      hintColor: isTextInServicesFieldFocused ? OColors.primaryColor500 : OColors.greyScale500,
+                      fillColor: isTextInServicesFieldFocused ? OColors.purpleTransparent.withOpacity(.08) : OColors.greyScale50,
+                      borderSide: isTextInServicesFieldFocused ? BorderSide(color: OColors.primaryColor500) : BorderSide.none,
+                      obscureText: false,
+                      maxLines: 4,
+                      textStyle: OStyles.bodyMediumSemiBold.copyWith(color: OColors.hintColor),
+                      // suffixIcon: ,
+                    ),
+                    Positioned(
+                      bottom: 12.h,
+                      right: 12.w,
+                      child: InkWellWidget(
+                        onTap: () async {
+                          final images  = await ODeviceUtils.pickImagesFromGallery();
+                          if (images  != null) {
+                            setState(() {
+                              _selectedImages.addAll(images);
+                            });
+                          }
+                        },
+                        child: Image.asset(OImages.imagePicker, fit: BoxFit.scaleDown),
+                      ),
+                    ),
                   ],
                 ),
-              ),
+              ] else ...[
+                if(iNeedWrite) ...[
+                  Stack(
+                    children: [
+                      TextFormFieldWidget(
+                        controller: textInServicesController,
+                        textInputType: TextInputType.text,
+                        focusNode: textInServicesFocusNode,
+                        hintText: 'Another Services',
+                        hintColor: isTextInServicesFieldFocused ? OColors.primaryColor500 : OColors.greyScale500,
+                        fillColor: isTextInServicesFieldFocused ? OColors.purpleTransparent.withOpacity(.08) : OColors.greyScale50,
+                        borderSide: isTextInServicesFieldFocused ? BorderSide(color: OColors.primaryColor500) : BorderSide.none,
+                        obscureText: false,
+                        maxLines: 4,
+                        textStyle: OStyles.bodyMediumSemiBold.copyWith(color: OColors.hintColor),
+                        // suffixIcon: ,
+                      ),
+                      Positioned(
+                        bottom: 12.h,
+                        right: 12.w,
+                        child: InkWellWidget(
+                          onTap: () async {
+                            final images  = await ODeviceUtils.pickImagesFromGallery();
+                            if (images  != null) {
+                              setState(() {
+                                _selectedImages.addAll(images);
+                              });
+                            }
+                          },
+                          child: Image.asset(OImages.imagePicker, fit: BoxFit.scaleDown),
+                        ),
+                      ),
+                    ],
+                  ),
+                  /// Make Size
+                  SizedBox(height: 12.h),
+                  GestureDetector(
+                    onTap: () {
+                      setState(() => iNeedWrite = !iNeedWrite);
+                      logError(iNeedWrite.toString());
+                    },
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          'Close this field',
+                          textAlign: TextAlign.center,
+                          style: OStyles.bodyLargeBold.copyWith(color: OColors.primaryColor500),
+                        ),
+                      ],
+                    ),
+                  ),
+                ] else ...[
+                  GestureDetector(
+                    onTap: () {
+                      setState(() => iNeedWrite = !iNeedWrite);
+                    },
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          'Click here to write details',
+                          textAlign: TextAlign.center,
+                          style: OStyles.bodyLargeBold.copyWith(color: OColors.primaryColor500),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ],
+
+              if (_selectedImages.isNotEmpty)
+                SizedBox(
+                  height: 100.h,
+                  child: ListView.separated(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: _selectedImages.length,
+                    separatorBuilder: (context, index) {
+                      return SizedBox(width: 8.w);
+                    },
+                    itemBuilder: (context, index) {
+                      return Image.file(_selectedImages[index], width: 60.w, height: 60.h, fit: BoxFit.cover);
+                    },
+                  ),
+                ),
+
+              if (_selectedImages.isNotEmpty && isChecked)
+              /// Make Size
+                SizedBox(height: 12.h),
+
+              if (_selectedImages.isNotEmpty && isChecked)
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    InkWellWidget(
+                      onTap: () {
+                        setState(() {
+                          _selectedImages.clear();
+                        });
+                      },
+                      child: CircleAvatar(
+                        radius: 18.r,
+                        backgroundColor: OColors.primaryColor500,
+                        child: Icon(Icons.close, color: Colors.white, size: 18.sp),
+                      ),
+                    ),
+                  ],
+                ),
 
               /// Make Size
-              SizedBox(height: 24.h),
+              SizedBox(height: _selectedImages.isNotEmpty || !isChecked ? 12.h : 24.h),
 
               ContinueButtonInBottomWidget(
                 centerWidget: state is MakeOrderLoadingState ? Center(child: LoadingWidget(iconColor: OColors.whiteColor)) : Text('Continue', style: OStyles.bodyLargeBold.copyWith(color: OColors.whiteColor)),
                 onTap: () {
-                  selectedSpace == 0 ?
-                  ODeviceUtils.showSnackBar(context: context, message: 'Please Choice Warranty', textStyle: OStyles.bodyLargeRegular, textColor: OColors.whiteColor, bgColor: OColors.warning)
+                  // selectedWarranty == 0 ?
+                  // ODeviceUtils.showSnackBar(context: context, message: 'Please Choice Warranty', textStyle: OStyles.bodyLargeRegular, textColor: OColors.whiteColor, bgColor: OColors.warning)
                   //     :  context.pushNamed(ORoutesName.choiceYourLocationRoute, arguments: {
                   //   'category':  widget.category,
                   //   'warrantyId':  selectedSpace,
@@ -298,11 +423,18 @@ class _OneTimeScreenInTilingAndPaintingState extends State<OneTimeScreenInTiling
                   //   'isSubServiceQuantities':  false,
                   //   'isWarrantyId':  true,
                   // });
-                      : showLocationBottomSheet(
+                  //
+                  // :
+                  selectedSpecificService == -1 ?
+                      ODeviceUtils.showSnackBar(context: context, message: 'Please Choice Space', textStyle: OStyles.bodyLargeRegular, textColor: OColors.whiteColor, bgColor: OColors.warning)
+                  :
+                  isChecked && textInServicesController.text.isEmpty ?
+                  ODeviceUtils.showSnackBar(context: context, message: 'Please Click to write details', textStyle: OStyles.bodyLargeRegular, textColor: OColors.whiteColor, bgColor: OColors.warning)
+                      : state is MakeOrderLoadingState ? null : showLocationBottomSheet(
                       context: context,
                       map: {
                         'category':  widget.category,
-                        'warrantyId':  selectedSpace,
+                        'warrantyId':  selectedWarranty == 0 ? null : selectedWarranty,
                         'serviceId':  widget.serviceId,
                         'description':  textInServicesController.text,
                         'subServicesIds': [],
@@ -313,6 +445,7 @@ class _OneTimeScreenInTilingAndPaintingState extends State<OneTimeScreenInTiling
                         'isSubServicesIds':  false,
                         'isSubServiceQuantities':  false,
                         'isWarrantyId':  true,
+                        'isEdit': false,
                       },
                     historyAddressesWidget: widget.addressList == null
                         ? LoadingWidget(iconColor: OColors.primaryColor500)
@@ -320,9 +453,49 @@ class _OneTimeScreenInTilingAndPaintingState extends State<OneTimeScreenInTiling
                       itemCount: widget.addressList.length,
                       itemBuilder:(context,index) {
                         return PreviousAddressesWidget(
-                          icon: widget.addressList[index].name! == 'home' ? SvgPicture.asset(OImages.homeIcon) : widget.addressList[index].name! == 'work' ? Icon(Icons.work) : widget.addressList[index].name! == 'friend' ? Icon(Icons.person) : Icon(Icons.more_horiz),
+                          icon: widget.addressList[index].name! == 'home' ? SvgPicture.asset(OImages.homeIcon) : widget.addressList[index].name! == 'work' ? SvgPicture.asset(OImages.workIcon) : widget.addressList[index].name! == 'friend' ? SvgPicture.asset(OImages.friendIcon, width: 32.w, height: 32.h) : SvgPicture.asset(OImages.resturantIcon),
                           addressName: widget.addressList[index].name! == 'home' ? 'Home' : widget.addressList[index].name! == 'work' ? 'Work' : widget.addressList[index].name! == 'friend' ? 'Friend' : 'Other',
-                          location: widget.addressList[index].desc!,
+                          location: widget.addressList[index].desc ?? '',
+                          onTap: () {
+                            if(!isMakeOrder) {
+                              isMakeOrder = true;
+                              subServiceCubit.makeOrderFunction(
+                                category: widget.category,
+                                warrantyId: selectedWarranty == 0 ? null : selectedWarranty,
+                                serviceId: widget.serviceId,
+                                description:  textInServicesController.text,
+                                subServicesIds: [],
+                                subServiceQuantities: [],
+                                unknownProblem: isChecked ? 1 : 0,
+                                space: selectedSpecificService.toString(),
+                                isSpace: true,
+                                isSubServicesIds: false,
+                                isSubServiceQuantities: false,
+                                isWarrantyId: true,
+                                locationId: widget.addressList[index].id,
+                                images: _selectedImages,
+                              );
+                              context.pop();
+                            }
+                          },
+                          onTapInEdit: () {
+                            context.pushNamed(ORoutesName.choiceYourLocationRoute, arguments: {
+                              'category':  widget.category,
+                              'warrantyId':  selectedWarranty == 0 ? null : selectedWarranty,
+                              'serviceId':  widget.serviceId,
+                              'description':  textInServicesController.text,
+                              'subServicesIds': [],
+                              'subServiceQuantities': [],
+                              'unknownProblem': isChecked ? 1 : 0,
+                              'space': selectedSpecificService.toString(),
+                              'isSpace': true,
+                              'isSubServicesIds':  false,
+                              'isSubServiceQuantities':  false,
+                              'isWarrantyId':  true,
+                              'locationId':  widget.addressList[index].id,
+                              'isEdit': true,
+                            });
+                          },
                         );
                       },
                     ),

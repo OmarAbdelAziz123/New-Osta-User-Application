@@ -41,26 +41,28 @@ class OConstants {
     OImages.profileIconNotSelected,
     OImages.notificationIcon,
     OImages.walletIcon,
-    OImages.privacyIcon,
+    // OImages.privacyIcon,
     OImages.languageIcon,
     OImages.showEyeIcon,
     OImages.privacyIcon,
     OImages.helpCenterIcon,
     OImages.inviteFriendsIcon,
     OImages.logoutIcon,
+    OImages.removeAccountIcon,
   ];
   /// ListTil in Profile Texts
   static List<String> listTilTextInProfile = [
     'Edit Profile',
     'Notification',
     'Payment',
-    'Change Password',
+    // 'Change Password',
     'Language',
     'Dark Mode',
     'Privacy Policy',
     'Help Center',
     'Invite Friends',
     'Logout',
+    'Remove account',
   ];
   /// Contact Us Images
   static List<String> contactUsIcon = [
@@ -82,7 +84,7 @@ class OConstants {
   ];
 
   /// Edit Profile
-  static List<String> genders = ['Male', 'Female'];
+  static const List<String> genders = ['male', 'female'];
   static List<String> states = ['Egypt', 'China', 'United States'];
   static String? selectedGender = 'Male';
   static String? selectedState = 'Egypt';
@@ -123,6 +125,19 @@ class OConstants {
     'Laundry',
   ];
 
+  static List<String> placesIcons = [
+    OImages.homeIcon,
+    OImages.workIcon,
+    OImages.friendIcon,
+    OImages.resturantIcon,
+  ];
+  static List<String> placesNames = [
+    'Home',
+    'Work',
+    'Friend',
+    'Restaurant',
+  ];
+
 
   /// Row Two
   static List<String> servicesIcons2 = [
@@ -139,7 +154,11 @@ class OConstants {
     'Appliance',
     'Plumbing',
     'Shifting',
-    'More',
+    'Appliance',
+    'Plumbing',
+    'Shifting',
+    'Plumbing',
+    'Shifting',
   ];
 
   static List<String> bannerImages = [
@@ -274,6 +293,34 @@ class OConstants {
     '60 sr',
     '90 sr',
     '120 sr',
+  ];
+
+  static List<String> providers = [
+    OImages.osta1,
+    OImages.ostaImage,
+  ];
+
+  /// Contractor Request
+  static List<String> contractorImages = [
+    OImages.marketIcon,
+    OImages.waleetIcon,
+    OImages.marketIcon,
+    OImages.waleetIcon,
+    OImages.marketIcon,
+    OImages.waleetIcon,
+    OImages.marketIcon,
+    OImages.waleetIcon,
+  ];
+
+  static List<String> contractorTexts = [
+    'Contractor request',
+    'market',
+    'Contractor request',
+    'market',
+    'Contractor request',
+    'market',
+    'Contractor request',
+    'market',
   ];
 
 

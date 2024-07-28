@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:osta_user_app/utils/constants/exports.dart';
 
 class DropDownWidget extends StatefulWidget {
@@ -15,6 +17,8 @@ class DropDownWidget extends StatefulWidget {
 class _DropDownWidgetState extends State<DropDownWidget> {
   @override
   Widget build(BuildContext context) {
+    String? validSelectedItem = widget.items.contains(widget.selectedItem) ? widget.selectedItem : widget.items[0];
+
     return Container(
       width: double.infinity,
       decoration: BoxDecoration(
@@ -23,12 +27,14 @@ class _DropDownWidgetState extends State<DropDownWidget> {
       ),
       padding: EdgeInsets.only(left: 14.w),
       child: DropdownButton(
-        value: widget.selectedItem,
+        value: validSelectedItem,
         onChanged: (gender) {
           setState(() => widget.selectedItem = gender!);
-          setState(() => widget.onItemSelected!(gender!));
+          if (widget.onItemSelected != null) {
+            widget.onItemSelected!(gender);
+          }
         },
-        items: widget.items.map((gender) => DropdownMenuItem(value: gender, child: Text(gender, style: OStyles.bodyMediumSemiBold.copyWith(color: widget.isInFillProfile ? OColors.greyScale500 : OColors.blackColor)))).toList(),
+        items: widget.items.map((gender) => DropdownMenuItem(value: gender, child: Text(gender, style: OStyles.bodyMediumSemiBold.copyWith(color: widget.isInFillProfile ? OColors.greyScale900 : OColors.blackColor)))).toList(),
         isExpanded: true,
         icon: IconButton(onPressed: null, icon: SvgPicture.asset(OImages.arrowButton, color: widget.isInFillProfile ? OColors.greyScale500 : OColors.blackColor), ),
         underline: Container(),

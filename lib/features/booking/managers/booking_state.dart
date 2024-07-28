@@ -11,3 +11,10 @@ class GetOrderByFilterLoadingState extends BookingState {}
 class GetOrderByFilterSuccessState extends BookingState {}
 
 class GetOrderByFilterErrorState extends BookingState {}
+
+/// Get Receipt States
+class GetReceiptLoadingState extends BookingState {}
+
+class GetReceiptSuccessState extends BookingState {}
+
+class GetReceiptErrorState extends BookingState {}

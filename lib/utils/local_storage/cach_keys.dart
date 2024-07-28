@@ -13,4 +13,5 @@ enum CacheKeys {
   phoneNumber,
   email,
   countryId,
+  buttonIndex,
 }

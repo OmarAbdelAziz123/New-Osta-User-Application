@@ -44,6 +44,9 @@ class OColors {
   static final greyScale100 = HexColor('F5F5F5');
   static final greyScale50 = HexColor('FAFAFA');
 
+  static final hintColor = HexColor('CCCCCC');
+
+
   /// ----------------------------------------------- \\\
 
   /// Gradients

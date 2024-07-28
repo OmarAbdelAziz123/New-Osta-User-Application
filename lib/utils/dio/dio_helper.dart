@@ -114,6 +114,35 @@ class DioHelper {
         ));
   }
 
+  Future<Response> putDataInFormData({
+    required String endPoint,
+    dynamic body, // Changed to dynamic to accept both Map and FormData
+  }) async {
+    return await dio.put(
+      '${ApiConstants.baseUrl}$endPoint',
+      data: body,
+      options: Options(
+        headers: {
+          "authorization": "Bearer ${OCacheHelper.getString(key: CacheKeys.token)}",
+        },
+      ),
+    );
+  }
+  Future<Response> postDataInFormData({
+    required String endPoint,
+    dynamic body, // Changed to dynamic to accept both Map and FormData
+  }) async {
+    return await dio.post(
+      '${ApiConstants.baseUrl}$endPoint',
+      data: body,
+      options: Options(
+        headers: {
+          "authorization": "Bearer ${OCacheHelper.getString(key: CacheKeys.token)}",
+        },
+      ),
+    );
+  }
+
   Future<Response> patchData({
     required String endPoint,
     Map<String, dynamic>? body,

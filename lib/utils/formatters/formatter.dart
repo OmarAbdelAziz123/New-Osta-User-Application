@@ -1,10 +1,33 @@
 import 'package:intl/intl.dart';
 
 class OFormatter {
+
+  static String formatTime(String time) {
+    // Assuming the time string is in the format "HH:mm"
+    final DateFormat inputFormat = DateFormat('HH:mm');
+    final DateFormat outputFormat = DateFormat('h:mm a');
+
+    final DateTime dateTime = inputFormat.parse(time);
+    final String formattedTime = outputFormat.format(dateTime);
+
+    return formattedTime;
+  }
+
   static String formatDate(DateTime? date) {
     date ??= DateTime.now();
     return DateFormat('dd-MMM-yyy').format(date);
   }
+
+  static String formatDateTime(String dateTimeString) {
+    // Parse the input date string
+    DateTime dateTime = DateTime.parse(dateTimeString);
+
+    // Format the date
+    String formattedDate = DateFormat('MMM dd, yyyy | hh:mm a').format(dateTime);
+
+    return formattedDate;
+  }
+
 
   static String? formatPhoneNumber(String? phoneNumber, String? selectedCountryCode) {
     if(phoneNumber!.isEmpty) {

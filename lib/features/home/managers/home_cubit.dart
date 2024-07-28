@@ -7,8 +7,10 @@ import 'package:osta_user_app/features/home/models/address/get_all_addresses_mod
 import 'package:osta_user_app/features/home/models/services/all_services_model.dart';
 import 'package:osta_user_app/features/home/models/services/sub_service_in_id_three_model.dart';
 import 'package:osta_user_app/features/home/models/services/sub_service_model.dart';
+import 'package:osta_user_app/features/offer/models/offers/get_all_offers_to_me_model.dart';
 import 'package:osta_user_app/utils/constants/api_constants.dart';
 import 'package:osta_user_app/utils/constants/exports.dart';
+import 'package:osta_user_app/utils/constants/log_util.dart';
 import 'package:osta_user_app/utils/dio/dio_helper.dart';
 part 'home_state.dart';
 
@@ -16,6 +18,30 @@ class HomeCubit extends Cubit<HomeState> {
   HomeCubit() : super(HomeInitialState());
 
   static HomeCubit get(context) => BlocProvider.of(context);
+
+
+
+  var description = '';
+  var nameOfPlace = '';
+  var makeStore = false;
+
+  void setValueFunc({required String value}){
+    description = value;
+    logWarning(value);
+    emit(SetValueState(description));
+  }
+  void setNameOfPlaceValueFunc({required String value}){
+    nameOfPlace = value;
+    logWarning(value);
+    emit(SetNameOfPlaceValueState(nameOfPlace));
+  }
+  void setMakeStoreValueFunc({required bool value}){
+    makeStore = value;
+    logWarning(value.toString());
+    emit(MakeStoreValueState(makeStore));
+  }
+
+
 
   DioHelper dioHelper = DioHelper();
 
@@ -36,6 +62,8 @@ class HomeCubit extends Cubit<HomeState> {
 
   GetAllAddressesModel getAllAddressesModel = GetAllAddressesModel();
 
+  GetAllOffersToMeModel getAllOffersToMeModel = GetAllOffersToMeModel();
+
   /// Services Function
   Future<void> getAllServicesFunction() async {
     emit(AllServicesLoadingState());
@@ -45,6 +73,18 @@ class HomeCubit extends Cubit<HomeState> {
       emit(AllServicesSuccessState());
     }).catchError((error) {
       emit(AllServicesErrorState());
+    });
+  }
+
+  /// Get All Offers Function
+  Future<void> getAllOffersFunction() async {
+    emit(GetAllOffersLoadingState());
+    await dioHelper.getData(endPoint: ApiConstants.allOffersUrl).then((
+        response) {
+      getAllOffersToMeModel = GetAllOffersToMeModel.fromJson(response.data);
+      emit(GetAllOffersSuccessState());
+    }).catchError((error) {
+      emit(GetAllOffersErrorState());
     });
   }
 
@@ -88,10 +128,15 @@ class HomeCubit extends Cubit<HomeState> {
     String? description,
     required int serviceId,
     int? unknownProblem,
-    required int locationId,
+    int? locationId,
     List<int>? subServicesIds,
     List<int>? subServiceQuantities,
     List<File>? images,
+    double? locationLatitude,
+    double? locationLongitude,
+    String? locationDesc,
+    String? name,
+    int? id,
     required bool isSpace,
     required bool isSubServicesIds,
     required bool isSubServiceQuantities,
@@ -99,9 +144,15 @@ class HomeCubit extends Cubit<HomeState> {
   }) async {
     emit(MakeOrderLoadingState());
 
-    String imagesString = images?.map((image) => 'images[]=${image.path}').join('&') ?? '';
+      List<MultipartFile> imageFiles = [];
+      if (images != null) {
+        for (var image in images) {
+          imageFiles.add(await MultipartFile.fromFile(image.path, filename: image.path.split('/').last));
+        }
+      }
 
-    FormData formData = FormData.fromMap({
+
+    Map<String, dynamic> data = {
       'sub_services_ids[]': subServicesIds,
       'sub_service_quantities[]': subServiceQuantities,
       'category': category,
@@ -109,33 +160,167 @@ class HomeCubit extends Cubit<HomeState> {
       'warranty_id': warrantyId,
       'desc': description,
       'service_id': serviceId,
-      'location_id': locationId,
       'unknown_problem': unknownProblem,
-    });
+      'images[]': imageFiles,
+    };
+
+    if (locationId != null) {
+      data['location_id'] = locationId;
+    }
+    else {
+      if (locationLatitude != null && locationLongitude != null && locationDesc != null && name != null || id != null) {
+        data['location_latitude'] = locationLatitude;
+        data['location_longitude'] = locationLongitude;
+        data['location_desc'] = locationDesc;
+        data['name'] = name;
+        data['id'] = id;
+      } else {
+        emit(MakeOrderErrorState('Location information is missing'));
+        print("Location information is missing");
+        return;
+      }
+    }
+
+    FormData formData = FormData.fromMap(data);
 
     Options options = Options(headers: {
       'authorization': "Bearer ${OCacheHelper.getString(key: CacheKeys.token)}"
     });
 
-    String url = '${ApiConstants
-        .baseUrl}api/user/order';
-    if (images != null) {
-      url += '&$imagesString';
+    String url = '${ApiConstants.baseUrl}api/user/order';
+
+    try {
+      final response = await Dio().post(
+        url,
+        data: formData,
+        options: options,
+      );
+      // print(response.data);
+      // emit(MakeOrderSuccessState());
+
+      logWarning(response.statusCode.toString());
+      if (response.statusCode == 422) {
+        final errorMessage = response.data['message'] ?? 'Validation error';
+        emit(MakeOrderErrorState(errorMessage));
+      } else if (response.statusCode == 200) {
+        emit(MakeOrderSuccessState(response.data['message']));
+      } else {
+        const errorMessage = 'Unknown error occurred';
+        emit(MakeOrderErrorState(errorMessage));
+      }
+    } on DioError catch (error) {
+      String errorMessage;
+      if (error.response?.statusCode == 422) {
+        errorMessage = error.response?.data['message'] ?? 'Validation error';
+      } else {
+        errorMessage = 'Network error occurred';
+      }
+      emit(MakeOrderErrorState(errorMessage));
+    } catch (error) {
+      emit(MakeOrderErrorState('Unexpected error occurred'));
+    }
+  }
+
+  // Future<void> storeOrUpdateLocationFunction({
+  //   String? name,
+  //   double? locationLatitude,
+  //   double? locationLongitude,
+  //   String? locationDesc,
+  //   int? id,
+  // }) async {
+  //   emit(StoreLocationLoadingState());
+  //
+  //   await dioHelper.postData(endPoint: 'api/user/location?name=$name&latitude=$locationLatitude&longitude=$locationLongitude&desc=$locationDesc').then((response) {
+  //     logSuccess(response.data.toString());
+  //     emit(StoreLocationSuccessState());
+  //   }).catchError((error) {
+  //   log(error);
+  //   emit(StoreLocationErrorState());
+  //   });
+  // }
+
+  Future<void> storeOrUpdateLocationFunction({
+    String? name,
+    double? locationLatitude,
+    double? locationLongitude,
+    String? locationDesc,
+    int? id,
+  }) async {
+    emit(StoreOrUpdateLocationLoadingState());
+
+    // Build the base URL
+    String url = 'api/user/location?name=$name&latitude=$locationLatitude&longitude=$locationLongitude&desc=$locationDesc';
+
+    // Append id parameter if it exists
+    if (id != null) {
+      url += '&id=$id';
     }
 
-    await Dio()
-        .post(
-      url,
-      data: formData,
-      options: options,
-    ).then((response) {
-      print(response.data);
-      emit(MakeOrderSuccessState());
+    await dioHelper.postData(endPoint: url).then((response) {
+      logSuccess(response.data.toString());
+      emit(StoreOrUpdateLocationSuccessState());
     }).catchError((error) {
-      print(error);
-      emit(MakeOrderErrorState());
+      log(error);
+      emit(StoreOrUpdateLocationErrorState());
     });
   }
+
+
+  // Future<void> makeOrderFunction({
+  //   required String category,
+  //   int? warrantyId,
+  //   String? space,
+  //   String? description,
+  //   required int serviceId,
+  //   int? unknownProblem,
+  //   required int locationId,
+  //   List<int>? subServicesIds,
+  //   List<int>? subServiceQuantities,
+  //   List<File>? images,
+  //   required bool isSpace,
+  //   required bool isSubServicesIds,
+  //   required bool isSubServiceQuantities,
+  //   required bool isWarrantyId,
+  // }) async {
+  //   emit(MakeOrderLoadingState());
+  //
+  //   String imagesString = images?.map((image) => 'images[]=${image.path}').join('&') ?? '';
+  //
+  //   FormData formData = FormData.fromMap({
+  //     'sub_services_ids[]': subServicesIds,
+  //     'sub_service_quantities[]': subServiceQuantities,
+  //     'category': category,
+  //     'space': space,
+  //     'warranty_id': warrantyId,
+  //     'desc': description,
+  //     'service_id': serviceId,
+  //     'location_id': locationId,
+  //     'unknown_problem': unknownProblem,
+  //   });
+  //
+  //   Options options = Options(headers: {
+  //     'authorization': "Bearer ${OCacheHelper.getString(key: CacheKeys.token)}"
+  //   });
+  //
+  //   String url = '${ApiConstants
+  //       .baseUrl}api/user/order';
+  //   if (images != null) {
+  //     url += '&$imagesString';
+  //   }
+  //
+  //   await Dio()
+  //       .post(
+  //     url,
+  //     data: formData,
+  //     options: options,
+  //   ).then((response) {
+  //     print(response.data);
+  //     emit(MakeOrderSuccessState());
+  //   }).catchError((error) {
+  //     print(error);
+  //     emit(MakeOrderErrorState());
+  //   });
+  // }
 
   /// Country Index
   Future<void> getAllCountriesFunction() async {

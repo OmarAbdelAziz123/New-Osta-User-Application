@@ -2,6 +2,7 @@ export 'dart:io';
 export 'dart:convert';
 export 'package:dio/dio.dart';
 export 'package:pinput/pinput.dart';
+export 'package:shimmer/shimmer.dart';
 export 'package:flutter_svg/svg.dart';
 export 'package:flutter/material.dart';
 export 'package:flutter/services.dart';

@@ -23,10 +23,20 @@ class _OtpInCreateAndLoginScreenState extends State<OtpInCreateAndLoginScreen> {
           if(state is VerifyOTPErrorState) {
             ODeviceUtils.showSnackBar(context: context, message: 'The otp have a problem', textStyle: OStyles.bodyLargeRegular, textColor: OColors.whiteColor, bgColor: OColors.error);
           } else if(state is VerifyOTPSuccessState) {
-            ODeviceUtils.showDialogFunction(context: context, imagePath: OImages.congratulationProfile);
-            Future.delayed(const Duration(seconds: 2), () {
-              if (context.mounted) context.pushNamed(ORoutesName.navigationMenuRoute);
-            });
+              if(state.message == 'login successfully') {
+                ODeviceUtils.showDialogFunction(context: context, imagePath: OImages.congratulationProfile);
+                Future.delayed(const Duration(seconds: 2), () {
+                  if (context.mounted) context.pushNamedAndRemoveUntil(ORoutesName.navigationMenuRoute, arguments: 0, predicate: (route) => false);
+                });
+              } else {
+                ODeviceUtils.showSnackBar(
+                  context: context,
+                  message: state.message,
+                  textStyle: OStyles.bodyLargeRegular,
+                  textColor: OColors.whiteColor,
+                  bgColor: OColors.error,
+                );
+              }
           }
         },
         builder: (context, state) {
@@ -123,7 +133,7 @@ class _OtpInCreateAndLoginScreenState extends State<OtpInCreateAndLoginScreen> {
                           'Continue',
                           style: OStyles.bodyLargeBold.copyWith(color: OColors.whiteColor),
                         ),
-                        onTap: () => verifyOTPCubit.verifyOTPFunction(otp: pinputController.text, phoneNumber: widget.phoneNumber),
+                        onTap: state is VerifyOTPLoadingState ? null : () => verifyOTPCubit.verifyOTPFunction(otp: pinputController.text, phoneNumber: widget.phoneNumber),
                         margin: EdgeInsets.zero,
                         buttonColor: OColors.primaryColor500,
                         boxShadow: [AppBoxShadows.buttonShadowOne],

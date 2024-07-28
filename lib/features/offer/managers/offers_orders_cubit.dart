@@ -2,9 +2,12 @@ import 'dart:developer';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meta/meta.dart';
 import 'package:osta_user_app/features/offer/models/inbox/get_all_messages_model.dart';
+import 'package:osta_user_app/features/offer/models/inbox/make_order_is_done.dart';
+import 'package:osta_user_app/features/offer/models/inbox/send_message_response.dart';
 import 'package:osta_user_app/features/offer/models/offers/get_all_offers_to_me_model.dart';
 import 'package:osta_user_app/features/offer/models/orders/get_all_orders_by_me.dart';
 import 'package:osta_user_app/utils/constants/exports.dart';
+import 'package:osta_user_app/utils/constants/log_util.dart';
 import 'package:osta_user_app/utils/dio/dio_helper.dart';
 
 part 'offers_orders_state.dart';
@@ -21,12 +24,18 @@ class OffersOrdersCubit extends Cubit<OffersOrdersState> {
   GetAllOffersToMeModel getAllOffersToMeModel = GetAllOffersToMeModel();
 
   GetAllMessagesModel getAllMessagesModel = GetAllMessagesModel();
-  List<MessageResult> messagesList = [];
+  List<Messages> messagesList = [];
+
+  SendMessageResponseModel sendMessageResponse = SendMessageResponseModel();
+
+
+  MakeOrderIsDoneModel makeOrderIsDone = MakeOrderIsDoneModel();
+
 
   /// Get All Orders Function
   Future<void> getAllOrdersByMeFunction() async {
     emit(GetAllOrdersLoadingState());
-    await dioHelper.getData(endPoint: ApiConstants.orderUrl).then((
+    await dioHelper.getData(endPoint: '${ApiConstants.orderUrl}?status=pending').then((
         response) {
       getAllOrdersToMeModel = GetAllOrdersToMeModel.fromJson(response.data);
       emit(GetAllOrdersSuccessState());
@@ -37,10 +46,17 @@ class OffersOrdersCubit extends Cubit<OffersOrdersState> {
   }
 
   /// Get All Offers Function
-  Future<void> getAllOffersByMeFunction({required int orderId}) async {
+  Future<void> getAllOffersByMeFunction({int? orderId}) async {
     emit(GetAllOffersLoadingState());
-    await dioHelper.getData(endPoint: 'api/user/order/$orderId/offer').then((
-        response) {
+
+    String endPoint;
+    if (orderId != null) {
+      endPoint = 'api/user/order/$orderId/offer';
+    } else {
+      endPoint = 'api/user/order/offers';
+    }
+
+    await dioHelper.getData(endPoint: endPoint).then((response) {
       getAllOffersToMeModel = GetAllOffersToMeModel.fromJson(response.data);
       emit(GetAllOffersSuccessState());
     }).catchError((error) {
@@ -48,6 +64,7 @@ class OffersOrdersCubit extends Cubit<OffersOrdersState> {
       emit(GetAllOffersErrorState());
     });
   }
+
 
   /// Accept to Specific Offers Function
   Future<void> acceptOffersByMeFunction({required int offerId}) async {
@@ -68,58 +85,162 @@ class OffersOrdersCubit extends Cubit<OffersOrdersState> {
         response) {
       emit(RejectOffersSuccessState());
     }).catchError((error) {
-      log(error);
+      // log(error);
       emit(RejectOffersErrorState());
     });
   }
 
   /// Inbox Function
   Future<void> inboxFunction({
-    required String orderId,
+    String? orderId,
+    String? conversationId,
     String? content,
     List<String>? mediaList,
   }) async {
     emit(InboxLoadingState());
 
     MultipartFile? image;
-    if(mediaList != null) image = await MultipartFile.fromFile(mediaList[0]);
+    if (mediaList != null && mediaList.isNotEmpty) {
+      image = await MultipartFile.fromFile(mediaList[0]);
+    }
 
     FormData formData = FormData.fromMap({
-      'order_id': orderId,
-      if(content != null && content.isNotEmpty) 'content': content,
-      if(mediaList != null && mediaList.isNotEmpty) 'media[]' : [image]
+      if (orderId != null && orderId.isNotEmpty) 'order_id': orderId,
+      if (conversationId != null && conversationId.isNotEmpty) 'conversation_id': conversationId,
+      if (content != null && content.isNotEmpty) 'content': content,
+      if (mediaList != null && mediaList.isNotEmpty) 'media[]': [image],
     });
 
     Options options = Options(headers: {
-      'authorization': "Bearer ${OCacheHelper.getString(key: CacheKeys.token)}"
+      'authorization': "Bearer ${OCacheHelper.getString(key: CacheKeys.token)}",
     });
 
-    await Dio()
-        .post(
-      '${ApiConstants.baseUrl}api/message',
-      data: formData,
-      options: options,
-    ).then((response) {
-      print(response.data);
-      emit(InboxSuccessState());
-    }).catchError((error) {
-      print('error in send messages in $error');
-      emit(InboxErrorState());
-    });
+    try {
+      final response = await Dio().post(
+        '${ApiConstants.baseUrl}api/message',
+        data: formData,
+        options: options,
+      );
+
+      if (response.statusCode == 422) {
+        final errorMessage = response.data['message'] ?? 'Validation error';
+        emit(InboxErrorState(errorMessage));
+      } else if (response.statusCode == 200) {
+        sendMessageResponse = SendMessageResponseModel.fromJson(response.data);
+        logWarning(sendMessageResponse.toJson().toString());
+        emit(InboxSuccessState());
+      } else {
+        const errorMessage = 'Unknown error occurred';
+        emit(InboxErrorState(errorMessage));
+      }
+    } on DioError catch (error) {
+      String errorMessage;
+      if (error.response?.statusCode == 422) {
+        errorMessage = error.response?.data['message'] ?? 'Validation error';
+      } else {
+        errorMessage = 'Network error occurred';
+      }
+      emit(InboxErrorState(errorMessage));
+    } catch (error) {
+      emit(InboxErrorState('Unexpected error occurred'));
+    }
   }
 
+  Future<void> makeOrderIsDoneFunc({required int orderId, required String paymentMethod}) async {
+    emit(MakeOrderIsDoneLoadingState());
+
+    logWarning(OCacheHelper.getString(key: CacheKeys.token).toString());
+
+    try {
+      final response = await dioHelper.postData(endPoint: 'api/provider/order/$orderId/make-done?payment_method=$paymentMethod');
+
+      if(response.statusCode == 422) {
+        final errorMessage = response.data['message'] ?? 'Validation error';
+        emit(MakeOrderIsDoneErrorState(errorMessage));
+      } else if(response.statusCode == 200) {
+        makeOrderIsDone = MakeOrderIsDoneModel.fromJson(response.data);
+        emit(MakeOrderIsDoneSuccessState());
+      } else if(response.statusCode == 401) {
+        final errorMessage = response.data['message'] ?? 'Unauthenticated or Token Expired, Please Login';
+        emit(MakeOrderIsDoneErrorState(errorMessage));
+      } else {
+        const errorMessage = 'Unknown error occurred';
+        emit(MakeOrderIsDoneErrorState(errorMessage));
+      }
+    } on DioError catch (error) {
+      String errorMessage;
+      if (error.response?.statusCode == 422) {
+        errorMessage = error.response?.data['message'] ?? 'Validation error';
+      } else {
+        errorMessage = 'Network error occurred';
+      }
+      emit(MakeOrderIsDoneErrorState(errorMessage));
+    } catch (error) {
+      emit(MakeOrderIsDoneErrorState('Unexpected error occurred'));
+    }
+  }
+  Future<void> makeActionFunc({required int messageId, required String responseValue}) async {
+    emit(MakeActionLoadingState());
+
+    try {
+      final response = await dioHelper.postData(endPoint: 'api/message/response-action', body: {
+        'message_id': messageId,
+        'response_value': responseValue,
+      });
+
+      if(response.statusCode == 422) {
+        final errorMessage = response.data['message'] ?? 'Validation error';
+        emit(MakeActionErrorState(errorMessage));
+      } else if(response.statusCode == 200) {
+        // getAllMessagesModel = GetAllMessagesModel.fromJson(response.data);
+        sendMessageResponse = SendMessageResponseModel.fromJson(response.data);
+        emit(MakeActionSuccessState());
+      } else if(response.statusCode == 401) {
+        final errorMessage = response.data['message'] ?? 'Unauthenticated or Token Expired, Please Login';
+        emit(MakeActionErrorState(errorMessage));
+      } else {
+        const errorMessage = 'Unknown error occurred';
+        emit(MakeActionErrorState(errorMessage));
+      }
+    } on DioError catch (error) {
+      String errorMessage;
+      if (error.response?.statusCode == 422) {
+        errorMessage = error.response?.data['message'] ?? 'Validation error';
+      } else {
+        errorMessage = 'Network error occurred';
+      }
+      emit(MakeActionErrorState(errorMessage));
+    } catch (error) {
+      emit(MakeActionErrorState('Unexpected error occurred'));
+    }
+  }
+
+
   /// Get All Messages
-  Future<void> getAllMessagesFunction({String? orderId, int? perPage, int? page}) async {
+  Future<void> getAllMessagesFunction({
+    String? orderId,
+    String? conversationId,
+    int? perPage,
+    int? page,
+  }) async {
     // getAllMessagesModel = GetAllMessagesModel();
     emit(GetAllMessagesLoadingState());
     log('Before Comes Data');
-    await dioHelper.getData(endPoint: 'api/message?order_id=$orderId&per_page=10&page=$page').then((
-        response) {
+
+    String url = '';
+
+    if(orderId != null) {
+      url = 'api/message?order_id=$orderId';
+    } else if(conversationId != null) {
+      url = 'api/message?conversation_id=$conversationId';
+    }
+
+    await dioHelper.getData(endPoint: url).then((response) {
       log('After Comes Data $response');
       getAllMessagesModel = GetAllMessagesModel.fromJson(response.data);
       // messagesList.addAll(getAllMessagesModel.result!);
-      if(getAllMessagesModel.result!.isNotEmpty) {
-        getAllMessagesModel.result!.forEach((element) {
+      if(getAllMessagesModel.result!.messages!.isNotEmpty) {
+        getAllMessagesModel.result!.messages!.forEach((element) {
           messagesList.add(element);
         });
       }

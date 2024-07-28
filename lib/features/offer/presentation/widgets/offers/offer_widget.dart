@@ -15,7 +15,7 @@ class OfferWidget extends StatelessWidget {
     return Container(
       width: double.infinity,
       // height: 230.h,
-      height: ODeviceUtils.getScreenHeight(context).h / 3,
+      height: ODeviceUtils.getScreenHeight(context).h / 3.4,
       padding: EdgeInsets.only(top: 13.h, bottom: 13.h, left: 20.w),
       margin: EdgeInsets.only(bottom: 18.h),
       decoration: BoxDecoration(
@@ -25,108 +25,200 @@ class OfferWidget extends StatelessWidget {
         gradient: containerGradient,
       ),
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          Expanded(
-            flex: 3,
-            child: Container(
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Image.asset(OImages.ostaImage),
-                  SizedBox(width: 20.w),
-
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(serviceName, style: OStyles.h6Bold),
-                      Text('$firstName $lastName', style: OStyles.bodySmallMedium.copyWith(color: textsColor)),
-                      Text('4.7 ✰', style: OStyles.bodySmallMedium.copyWith(color: textsColor)),
-                    ],
-                  ),
-                  const Spacer(),
-
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text('The best offer', style: OStyles.bodySmallBold.copyWith(color: OColors.disabledButton, height: 2.5.h)),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          Container(
-                            padding: EdgeInsets.symmetric(vertical: 2.h, horizontal: 8.w),
-                            decoration: BoxDecoration(
-                              color: OColors.primaryColor500,
-                              borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(100.r),
-                                bottomLeft: Radius.circular(100.r),
-                              ),
-                            ),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text('Will comes $timingArrive', style: OStyles.bodySmallBold.copyWith(color: OColors.whiteColor, height: 2.5.h))
-                              ],
-                            ),
-                          )
-                        ],
-                      ),
-                      Text('', style: OStyles.bodySmallMedium.copyWith(color: OColors.greyScale700)),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-          ),
-
-          Expanded(
-            flex: 3,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                SizedBox(
-                  width: ODeviceUtils.getScreenWidth(context) / 2.6,
-                  child: Text('The distance between provider and you is $distance km', style: OStyles.bodySmallBold.copyWith(color: textsColor), overflow: TextOverflow.ellipsis, maxLines: 3),
-                ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+          // Expanded(
+          //   flex: 3,
+          //   child: Container(
+          //     child: Row(
+          //       crossAxisAlignment: CrossAxisAlignment.start,
+          //       children: [
+          //         Image.asset(OImages.ostaImage),
+          //         SizedBox(width: 20.w),
+          //
+          //         Container(
+          //           width: ODeviceUtils.getScreenWidth(context) / 3,
+          //           color: Colors.red,
+          //           child: Column(
+          //             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          //             crossAxisAlignment: CrossAxisAlignment.start,
+          //             children: [
+          //               Text(serviceName, style: OStyles.h6Bold, overflow: TextOverflow.ellipsis),
+          //               Text('$firstName $lastName', style: OStyles.bodySmallMedium.copyWith(color: textsColor)),
+          //               Text('4.7 ✰', style: OStyles.bodySmallMedium.copyWith(color: textsColor)),
+          //             ],
+          //           ),
+          //         ),
+          //         const Spacer(),
+          //
+          //         Container(
+          //           color: Colors.green,
+          //           child: Column(
+          //             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          //             children: [
+          //               Text('The best offer', style: OStyles.bodySmallBold.copyWith(color: OColors.disabledButton, height: 2.5.h)),
+          //
+          //               Column(
+          //                 crossAxisAlignment: CrossAxisAlignment.start,
+          //                 children: [
+          //                   SizedBox(
+          //                     width: ODeviceUtils.getScreenWidth(context) / 2.6,
+          //                     child: Text('Jenny offers you an offer worth', style: OStyles.h6Bold, overflow: TextOverflow.ellipsis, maxLines: 2),
+          //                   ),
+          //                   Text(priceOffer.toString(), style: OStyles.h6Bold.copyWith(color: OColors.gradientPurple1), overflow: TextOverflow.ellipsis, maxLines: 2),
+          //                 ],
+          //               ),
+          //               Text('', style: OStyles.bodySmallMedium.copyWith(color: OColors.greyScale700)),
+          //             ],
+          //           ),
+          //         )
+          //       ],
+          //     ),
+          //   ),
+          // ),
+          //
+          // Expanded(
+          //   flex: 3,
+          //   child: Row(
+          //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          //     children: [
+          //       SizedBox(
+          //         width: ODeviceUtils.getScreenWidth(context) / 2.6,
+          //         child: Text('The distance between provider and you is $distance km', style: OStyles.bodySmallBold.copyWith(color: textsColor), overflow: TextOverflow.ellipsis, maxLines: 3),
+          //       ),
+          //       Row(
+          //         mainAxisAlignment: MainAxisAlignment.end,
+          //         children: [
+          //           Container(
+          //             padding: EdgeInsets.symmetric(vertical: 2.h, horizontal: 8.w),
+          //             decoration: BoxDecoration(
+          //               color: OColors.primaryColor500,
+          //               borderRadius: BorderRadius.only(
+          //                 topLeft: Radius.circular(100.r),
+          //                 bottomLeft: Radius.circular(100.r),
+          //               ),
+          //             ),
+          //             child: Row(
+          //               mainAxisAlignment: MainAxisAlignment.center,
+          //               children: [
+          //                 Text('Will comes $timingArrive', style: OStyles.bodySmallBold.copyWith(color: OColors.whiteColor, height: 2.5.h))
+          //               ],
+          //             ),
+          //           )
+          //         ],
+          //       ),
+          //     ],
+          //   ),
+          // ),
+          //
+          Row(
+            children: [
+              Expanded(child: Container(
+                // color: Colors.red,
+                height: ODeviceUtils.getScreenHeight(context) / 6,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    SizedBox(
-                      width: ODeviceUtils.getScreenWidth(context) / 2.6,
-                      child: Text('Jenny offers you an offer worth', style: OStyles.h6Bold, overflow: TextOverflow.ellipsis, maxLines: 2),
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Image.asset(OImages.ostaImage),
+                        SizedBox(width: 20.w),
+
+                        SizedBox(
+                          width: ODeviceUtils.getScreenWidth(context)/ 5,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(serviceName, style: OStyles.h6Bold, overflow: TextOverflow.ellipsis),
+                              Text('$firstName $lastName', style: OStyles.bodySmallMedium.copyWith(color: textsColor)),
+                              Text('4.7 ✰', style: OStyles.bodySmallMedium.copyWith(color: textsColor)),
+                            ],
+                          ),
+                        ),
+                      ],
                     ),
-                    Text(priceOffer.toString(), style: OStyles.h6Bold.copyWith(color: OColors.gradientPurple1), overflow: TextOverflow.ellipsis, maxLines: 2),
+
+                    Row(
+                      children: [
+                        SizedBox(
+                          width: ODeviceUtils.getScreenWidth(context) / 2.6,
+                          child: Text('The distance between provider and you is $distance km', style: OStyles.bodySmallBold.copyWith(color: textsColor), overflow: TextOverflow.ellipsis, maxLines: 3),
+                        ),
+                      ],
+                    ),
                   ],
                 ),
-              ],
-            ),
+              )),
+              SizedBox(width: 10.w),
+              Expanded(child: Container(
+                // color: Colors.green,
+                height: ODeviceUtils.getScreenHeight(context) / 6,
+                padding: EdgeInsets.only(top: 10.h),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text('The best offer', style: OStyles.bodySmallBold.copyWith(color: OColors.disabledButton, height: 2.5.h, overflow: TextOverflow.ellipsis)),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SizedBox(
+                          width: ODeviceUtils.getScreenWidth(context) / 2.6,
+                          child: Text('Jenny offers you an offer worth', style: OStyles.h6Bold, overflow: TextOverflow.ellipsis, maxLines: 2),
+                        ),
+                        Text(priceOffer.toString(), style: OStyles.h6Bold.copyWith(color: OColors.gradientPurple1), overflow: TextOverflow.ellipsis, maxLines: 2),
+                      ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        Container(
+                          padding: EdgeInsets.symmetric(vertical: 0.h, horizontal: 18.w),
+                          decoration: BoxDecoration(
+                            color: OColors.primaryColor500,
+                            borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(100.r),
+                              bottomLeft: Radius.circular(100.r),
+                            ),
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text('Will comes $timingArrive', style: OStyles.bodyXSmallBold.copyWith(color: OColors.whiteColor, height: 2.5.h))
+                            ],
+                          ),
+                        )
+                      ],
+                    ),
+                  ],
+                ),
+              )),
+            ],
           ),
-          Expanded(
-            flex: 2,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                ThirdButtonWidget(
-                    isRejected: true,
-                  widgetInButton: widgetInRejectButton,
-                    textStyle: OStyles.bodyXSmallSemiBold.copyWith(color: OColors.gradientRed1),
-                    containerColor: OColors.primaryColor100, width: 120.w,
-                    height: 26.h,
-                    borderRadius: 6.r,
-                  onTap: onTapOnRejectButton,
-                ),
-                ThirdButtonWidget(
-                    isRejected: false,
-                    widgetInButton: widgetInAcceptButton,
-                    textStyle: OStyles.bodyXSmallSemiBold.copyWith(color: OColors.whiteColor),
-                    containerColor: OColors.primaryColor500,
-                    width: 120.w,
-                    height: 26.h,
-                    borderRadius: 6.r,
-                  onTap: onTapOnAcceptButton,
-                ),
-              ],
-            ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              ThirdButtonWidget(
+                isRejected: true,
+                widgetInButton: widgetInRejectButton,
+                textStyle: OStyles.bodyXSmallSemiBold.copyWith(color: OColors.gradientRed1),
+                containerColor: OColors.primaryColor100, width: 120.w,
+                height: 26.h,
+                borderRadius: 6.r,
+                onTap: onTapOnRejectButton,
+              ),
+              ThirdButtonWidget(
+                isRejected: false,
+                widgetInButton: widgetInAcceptButton,
+                textStyle: OStyles.bodyXSmallSemiBold.copyWith(color: OColors.whiteColor),
+                containerColor: OColors.primaryColor500,
+                width: 120.w,
+                height: 26.h,
+                borderRadius: 6.r,
+                onTap: onTapOnAcceptButton,
+              ),
+            ],
           ),
         ],
       ),

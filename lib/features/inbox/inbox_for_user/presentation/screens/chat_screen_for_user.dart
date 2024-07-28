@@ -44,7 +44,7 @@ class ChatScreenForUser extends StatelessWidget {
                   /// Make Space
                   SizedBox(height: 24.h),
                   /// Container Number Of Order
-                  const ContainerNumberOfOrderWidget(numberOfOrder: 12345),
+                  const ContainerNumberOfOrderWidget(numberOfOrder: '12345'),
                   /// Make Space
                   SizedBox(height: 26.h),
                   /// Container Message
