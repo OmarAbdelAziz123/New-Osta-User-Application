@@ -15,7 +15,7 @@ class LoadingServicesWidget extends StatelessWidget {
             child: GridView.builder(
               physics: const NeverScrollableScrollPhysics(),
               shrinkWrap: true,
-              itemCount: 8,
+              itemCount: 7,
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 4,
                   mainAxisSpacing: 24.w,
@@ -32,6 +32,7 @@ class LoadingServicesWidget extends StatelessWidget {
                       ContainerIconsInServicesWidget(
                         serviceIcon: OConstants.servicesIcons2[index],
                         onTap: () {},
+                        servicesBgColors: OColors.purpleTransparent.withOpacity(.08),
                       ),
                       SizedBox(height: 12.h),
                       Text('', style: OStyles.bodyLargeBold, overflow: TextOverflow.ellipsis,),

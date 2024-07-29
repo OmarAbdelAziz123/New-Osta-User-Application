@@ -111,13 +111,23 @@ flutter:
 
   #-------------------- LOCAL FONTS --------------------#
   fonts:
-    - family: Urbanist
+#    - family: Urbanist
+#      fonts:
+#        - asset: assets/fonts/Urbanist-Regular.ttf
+#          weight: 400
+#        - asset: assets/fonts/Urbanist-Medium.ttf
+#          weight: 500
+#        - asset: assets/fonts/Urbanist-SemiBold.ttf
+#          weight: 600
+#        - asset: assets/fonts/Urbanist-Bold.ttf
+#          weight: 800
+    - family: CenturyGothicPaneuropean
       fonts:
-        - asset: assets/fonts/Urbanist-Regular.ttf
+        - asset: assets/fonts/CenturyGothicPaneuropeanRegular.ttf
           weight: 400
-        - asset: assets/fonts/Urbanist-Medium.ttf
+        - asset: assets/fonts/CenturyGothicPaneuropeanLight.ttf
           weight: 500
-        - asset: assets/fonts/Urbanist-SemiBold.ttf
+        - asset: assets/fonts/CenturyGothicPaneuropeanSemiBold.ttf
           weight: 600
-        - asset: assets/fonts/Urbanist-Bold.ttf
+        - asset: assets/fonts/CenturyGothicPaneuropeanBold.ttf
           weight: 800

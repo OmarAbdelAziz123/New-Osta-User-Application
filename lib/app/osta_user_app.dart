@@ -13,6 +13,7 @@ import 'package:osta_user_app/features/map1.dart';
 import 'package:osta_user_app/features/offer/managers/offers_orders_cubit.dart';
 import 'package:osta_user_app/features/offer/managers/socket_cubit/socket_cubit.dart';
 import 'package:osta_user_app/features/profile/managers/profile_cubit.dart';
+import 'package:osta_user_app/features/profile/managers/theme/theme_cubit.dart';
 import 'package:osta_user_app/utils/constants/exports.dart';
 
 class OstaUserApp extends StatelessWidget {
@@ -38,6 +39,7 @@ class OstaUserApp extends StatelessWidget {
             debugShowCheckedModeBanner: false,
             // theme: OAppTheme.lightTheme,
             // darkTheme: OAppTheme.darkTheme,
+            // theme: BlocProvider.of<ThemingCubit>(context).themeData,
             navigatorKey: navigatorKey,
             // home: ChatScreen(title: 'Provider chat'),
             onGenerateRoute: RouteGenerator.getRoute,

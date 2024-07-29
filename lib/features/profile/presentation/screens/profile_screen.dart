@@ -7,6 +7,7 @@ import 'package:osta_user_app/common/widgets/cach_network_images/cach_network_im
 import 'package:osta_user_app/features/profile/managers/profile_cubit.dart';
 import 'package:osta_user_app/features/profile/presentation/widgets/remove_account_widget.dart';
 import 'package:osta_user_app/utils/constants/exports.dart';
+import 'package:osta_user_app/utils/device/device_utility.dart';
 
 // class ProfileScreen extends StatelessWidget {
 //   const ProfileScreen({super.key});
@@ -186,114 +187,209 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 /// Make Space
                 SizedBox(height: 24.h),
 
-                SizedBox(
-                  width: double.infinity,
-                  // color: Colors.red,
-                  height: _selectedImageToPerson != null ? ODeviceUtils.getScreenHeight(context).h / 3 : ODeviceUtils.getScreenHeight(context).h / 3.8,
+                // SizedBox(
+                //   width: double.infinity,
+                //   // color: Colors.red,
+                //   height: _selectedImageToPerson != null ? ODeviceUtils.getScreenHeight(context).h / 3 : ODeviceUtils.getScreenHeight(context).h / 3.8,
+                //
+                //   child: Column(
+                //     children: [
+                //       Stack(
+                //         children: [
+                //           // /// Image Profile
+                //           // CircleAvatar(
+                //           //   radius: 60.r,
+                //           //   backgroundImage: ProfileCubit.get(context).getProfileDataModel.result != null ? NetworkImage( ProfileCubit.get(context).getProfileDataModel.result!.personalMediaUrl!) : null,
+                //           //   backgroundColor: Colors.transparent,
+                //           //   child: ProfileCubit.get(context).getProfileDataModel.result == null ? Lottie.asset(OImages.loadingImages) : null,
+                //           // ),
+                //           // Image Profile
+                //           CircleAvatar(
+                //             radius: 62.r,
+                //             backgroundColor: OColors.primaryColor100,
+                //             child: CircleAvatar(
+                //               radius: 58.r,
+                //               backgroundImage: _selectedImageToPerson != null
+                //                   ? FileImage(File(_selectedImageToPerson!.path))
+                //                   : null,
+                //               child: _selectedImageToPerson == null
+                //                   ? (ProfileCubit.get(context).getProfileDataModel.result == null
+                //                   ? Lottie.asset(OImages.profileLoading)
+                //                   : CachNetworkImages(
+                //                 bottomLeftRadius: 100.r,
+                //                 bottomRightRadius: 100.r,
+                //                 topLeftRadius: 100.r,
+                //                 topRightRadius: 100.r,
+                //                 imageUrl: ProfileCubit.get(context).getProfileDataModel.result!.personalMediaUrl ?? '',
+                //                 width: ODeviceUtils.getScreenWidth(context) / 2,
+                //                 height: ODeviceUtils.getScreenHeight(context) / 2,
+                //               ))
+                //                   : null,
+                //             ),
+                //           ),
+                //           // CircleAvatar(
+                //           //   radius: 60.r,
+                //           //   child: ClipOval(
+                //           //     child: CachedNetworkImage(
+                //           //       imageUrl: ProfileCubit.get(context).getProfileDataModel.result != null
+                //           //           ? ProfileCubit.get(context).getProfileDataModel.result!.personalMediaUrl!
+                //           //           : '',
+                //           //       fit: BoxFit.cover,
+                //           //       width: 120.r,
+                //           //       height: 120.r,
+                //           //       placeholder: (context, url) => Lottie.asset(OImages.profileLoading),
+                //           //       errorWidget: (context, url, error) => Lottie.asset(OImages.profileLoading),
+                //           //     ),
+                //           //   ),
+                //           // ),
+                //
+                //           /// Edite Icon
+                //           Positioned(bottom: 0, right: 0, child: InkWellWidget(onTap: _openImageGalleryToPerson, child: SvgPicture.asset(OImages.editIcon))),
+                //         ],
+                //       ),
+                //
+                //       /// Make Space
+                //       SizedBox(height: 12.h),
+                //
+                //       Container(
+                //         margin: EdgeInsets.only(bottom: 2.h),
+                //         width: double.infinity,
+                //         // height: 29.h,
+                //         child: Text(
+                //           OCacheHelper.getString(key: CacheKeys.fullName).toString(),
+                //           style: OStyles.h4Bold, textAlign: TextAlign.center,
+                //           overflow: TextOverflow.ellipsis,
+                //         ),
+                //       ),
+                //
+                //       SizedBox(
+                //           width: double.infinity,
+                //           // height: 29.h,
+                //           child: Text(
+                //             OCacheHelper.getString(key: CacheKeys.email).toString(),
+                //             style: OStyles.bodyMediumSemiBold, textAlign: TextAlign.center,
+                //             overflow: TextOverflow.ellipsis,
+                //           ),
+                //       ),
+                //       SizedBox(height: _selectedImageToPerson != null ? 12.h : 0.h),
+                //       if(_selectedImageToPerson != null) ThirdButtonWidget(
+                //         isRejected: false,
+                //         widgetInButton: state is UpdateProfileDataLoadingState
+                //           ? Lottie.asset(OImages.loadingTwo)
+                //             : Text('Save', style: OStyles.bodyXSmallSemiBold.copyWith(color: OColors.whiteColor)),
+                //         textStyle: OStyles.bodySmallBold,
+                //         containerColor: OColors.primaryColor500,
+                //         width: ODeviceUtils.getScreenWidth(context) / 3,
+                //         height: 38.h,
+                //         borderRadius: 20.r,
+                //         onTap: state is UpdateProfileDataLoadingState ? () {} : () {
+                //           profileCubit.updateProfileDataFunc(personal: _selectedImageToPerson!.path);
+                //         },
+                //       ),
+                //     ],
+                //   ),
+                // ),
+                //
+                // /// Make Space
+                // SizedBox(height: _selectedImageToPerson != null ? 0.h : 0.h),
+                //
+                // /// Divider
+                // Container(width: double.infinity, height: 1.h, color: OColors.greyScale200),
 
+                Stack(
+                  children: [
+                    Image.asset(OImages.profileImage2, height: 182.h),
+                    Positioned(
+                      bottom: 12,
+                      left: 30,
+                      child: Card(
+                        elevation: 2,
+                        color: OColors.whiteColor,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(100.r),
+                        ),
+                        child: CircleAvatar(
+                          radius: 20.r,
+                          backgroundColor:  OColors.whiteColor,
+                          child: Center(
+                              child: Icon(Icons.add, size: 20.sp)
+                          ),
+                        ),
+                      ),
+                    )
+                  ],
+                ),
+
+                /// Make Space
+                SizedBox(height: 30.h),
+
+                Container(
+                  // color: Colors.red,
+                  width: ODeviceUtils.getScreenWidth(context) / 1.5,
                   child: Column(
                     children: [
-                      Stack(
-                        children: [
-                          // /// Image Profile
-                          // CircleAvatar(
-                          //   radius: 60.r,
-                          //   backgroundImage: ProfileCubit.get(context).getProfileDataModel.result != null ? NetworkImage( ProfileCubit.get(context).getProfileDataModel.result!.personalMediaUrl!) : null,
-                          //   backgroundColor: Colors.transparent,
-                          //   child: ProfileCubit.get(context).getProfileDataModel.result == null ? Lottie.asset(OImages.loadingImages) : null,
-                          // ),
-                          // Image Profile
-                          CircleAvatar(
-                            radius: 62.r,
-                            backgroundColor: OColors.primaryColor100,
-                            child: CircleAvatar(
-                              radius: 58.r,
-                              backgroundImage: _selectedImageToPerson != null
-                                  ? FileImage(File(_selectedImageToPerson!.path))
-                                  : null,
-                              child: _selectedImageToPerson == null
-                                  ? (ProfileCubit.get(context).getProfileDataModel.result == null
-                                  ? Lottie.asset(OImages.profileLoading)
-                                  : CachNetworkImages(
-                                bottomLeftRadius: 100.r,
-                                bottomRightRadius: 100.r,
-                                topLeftRadius: 100.r,
-                                topRightRadius: 100.r,
-                                imageUrl: ProfileCubit.get(context).getProfileDataModel.result!.personalMediaUrl ?? '',
-                                width: ODeviceUtils.getScreenWidth(context) / 2,
-                                height: ODeviceUtils.getScreenHeight(context) / 2,
-                              ))
-                                  : null,
-                            ),
-                          ),
-                          // CircleAvatar(
-                          //   radius: 60.r,
-                          //   child: ClipOval(
-                          //     child: CachedNetworkImage(
-                          //       imageUrl: ProfileCubit.get(context).getProfileDataModel.result != null
-                          //           ? ProfileCubit.get(context).getProfileDataModel.result!.personalMediaUrl!
-                          //           : '',
-                          //       fit: BoxFit.cover,
-                          //       width: 120.r,
-                          //       height: 120.r,
-                          //       placeholder: (context, url) => Lottie.asset(OImages.profileLoading),
-                          //       errorWidget: (context, url, error) => Lottie.asset(OImages.profileLoading),
-                          //     ),
-                          //   ),
-                          // ),
+                      /// Name of User
+                      Text("Amira Adel",style: OStyles.h4Bold.copyWith(color: OColors.primaryColor500)),
 
-                          /// Edite Icon
-                          Positioned(bottom: 0, right: 0, child: InkWellWidget(onTap: _openImageGalleryToPerson, child: SvgPicture.asset(OImages.editIcon))),
-                        ],
+                      /// Make Space
+                      SizedBox(height: 18.h),
+
+                      /// text
+                      RichText(
+                        text:  TextSpan(children: [
+                          TextSpan(
+                              text: 'Total of my request  ',
+                              style: OStyles.bodyLargeRegular),
+                          TextSpan(
+                              text: '5 orders ',
+                              style: OStyles.bodyLargeRegular.copyWith(color: OColors.primaryColor500)),
+                        ]),
                       ),
 
                       /// Make Space
                       SizedBox(height: 12.h),
-
-                      Container(
-                        margin: EdgeInsets.only(bottom: 2.h),
-                        width: double.infinity,
-                        // height: 29.h,
-                        child: Text(
-                          OCacheHelper.getString(key: CacheKeys.fullName).toString(),
-                          style: OStyles.h4Bold, textAlign: TextAlign.center,
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                      ),
-
-                      SizedBox(
-                          width: double.infinity,
-                          // height: 29.h,
-                          child: Text(
-                            OCacheHelper.getString(key: CacheKeys.email).toString(),
-                            style: OStyles.bodyMediumSemiBold, textAlign: TextAlign.center,
-                            overflow: TextOverflow.ellipsis,
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Row(
+                                children: [
+                                  ODeviceUtils.buildRatingStars(1),
+                                  Text("4.8 | 5.253 reviews",style: OStyles.h3Bold.copyWith(color: OColors.greyText,fontSize: 11.sp)),
+                                ],
+                              ),
+                              SizedBox(height: 12.h),
+                              Row(
+                                children: [
+                                  Icon(Icons.phone_iphone_outlined,color: OColors.primaryColor500, size: 20.sp),
+                                  SizedBox(width: 6.w),
+                                  Text("09966000000",style: OStyles.h3Bold.copyWith(fontSize: 14.sp)),
+                                ],
+                              ),
+                            ],
                           ),
-                      ),
-                      SizedBox(height: _selectedImageToPerson != null ? 12.h : 0.h),
-                      if(_selectedImageToPerson != null) ThirdButtonWidget(
-                        isRejected: false,
-                        widgetInButton: state is UpdateProfileDataLoadingState 
-                          ? Lottie.asset(OImages.loadingTwo)
-                            : Text('Save', style: OStyles.bodyXSmallSemiBold.copyWith(color: OColors.whiteColor)),
-                        textStyle: OStyles.bodySmallBold,
-                        containerColor: OColors.primaryColor500,
-                        width: ODeviceUtils.getScreenWidth(context) / 3,
-                        height: 38.h,
-                        borderRadius: 20.r,
-                        onTap: state is UpdateProfileDataLoadingState ? () {} : () {
-                          profileCubit.updateProfileDataFunc(personal: _selectedImageToPerson!.path);
-                        },
-                      ),
+
+                          /// Make Space
+                          // SizedBox(height: 12.h),
+
+                          // Row(
+                          //   mainAxisAlignment: MainAxisAlignment.center,
+                          //   children: [
+                              // Icon(Icons.phone_iphone_outlined,color: OColors.primaryColor500, size: 20.sp),
+                              // SizedBox(width: 6.w),
+                              // Text("09966000000",style: OStyles.h3Bold.copyWith(fontSize: 14.sp)),
+                              SizedBox(width: 5.w),
+                              Icon(Icons.edit_outlined,color: OColors.greyScale400, size: 18.sp),
+                            // ],
+                          // ),
+                        ],
+                      )
                     ],
                   ),
                 ),
-
-                /// Make Space
-                SizedBox(height: _selectedImageToPerson != null ? 0.h : 0.h),
-
-                /// Divider
-                Container(width: double.infinity, height: 1.h, color: OColors.greyScale200),
 
                 /// Make Space
                 SizedBox(height: 24.h),

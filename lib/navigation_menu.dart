@@ -8,6 +8,7 @@ import 'package:osta_user_app/features/offer/managers/socket_cubit/socket_cubit.
 import 'package:osta_user_app/features/offer/presentation/screens/get_all_orders_by_me_screen.dart';
 import 'package:osta_user_app/features/offer/presentation/screens/offers_screen.dart';
 import 'package:osta_user_app/features/profile/managers/profile_cubit.dart';
+import 'package:osta_user_app/features/wallet/presentation/screens/wallet_screen.dart';
 import 'package:osta_user_app/utils/constants/exports.dart';
 import 'package:osta_user_app/utils/constants/log_util.dart';
 
@@ -39,13 +40,15 @@ class _NavigationMenuState extends State<NavigationMenu> {
     List tabs = [
       const HomeScreen(),
       const BookingScreen(),
-      const GetAllOrdersByMeScreen(),
-      // InboxScreen(),
+      // const GetAllOrdersByMeScreen(),
+      const WalletScreen(),
+      const InboxScreen(),
       const ProfileScreen(),
     ];
 
     return Scaffold(
-      backgroundColor: OColors.greyScale50,
+      // backgroundColor: OColors.greyScale50,
+      backgroundColor: Theme.of(context).colorScheme.surface,
       body: AnimatedSwitcher(
         duration: const Duration(milliseconds: 400),
         transitionBuilder: (Widget child, Animation<double> animation) {
@@ -68,7 +71,7 @@ class _NavigationMenuState extends State<NavigationMenu> {
             data: ThemeData(splashColor: Colors.transparent),
             child: BottomNavigationBar(
               elevation: 0,
-              backgroundColor: OColors.whiteColor,
+              backgroundColor: Theme.of(context).bottomNavigationBarTheme.backgroundColor,
               iconSize: 24.sp,
               type: BottomNavigationBarType.fixed,
               currentIndex: currentIndex,
@@ -96,60 +99,68 @@ class _NavigationMenuState extends State<NavigationMenu> {
                   ),
                   label: 'Booking',
                 ),
-                BottomNavigationBarItem(
-                  icon: SizedBox(
-                    width: 57.6.w,
-                    height: 38.h,
-                    child: currentIndex == 2 ? BlocConsumer<OffersOrdersCubit, OffersOrdersState>(
-                      listener: (context, state) async {
-                        if(state is MakeOrderSuccessState) {
-                          await OffersOrdersCubit.get(context).getAllOrdersByMeFunction();
-                        }
-                      },
-                      builder: (context, state) {
-                        var offerOrderCubit = OffersOrdersCubit.get(context);
-                        var orders = offerOrderCubit.getAllOrdersToMeModel?.result?.data ?? [];
-                        var pendingOrdersCount = orders.where((order) => order.status == 'pending').length;
-
-                        return Badge.count(
-                          count: pendingOrdersCount,
-                          child: Icon(Icons.local_offer, size: 24.sp),
-                        );
-                      },
-                    ) : BlocConsumer<OffersOrdersCubit, OffersOrdersState>(
-                      listener: (context, state) async {
-                        if(state is MakeOrderSuccessState) {
-                          await OffersOrdersCubit.get(context).getAllOrdersByMeFunction();
-                        }
-                      },
-
-                      builder: (context, state) {
-                        var offerOrderCubit = OffersOrdersCubit.get(context);
-                        var orders = offerOrderCubit.getAllOrdersToMeModel?.result?.data ?? [];
-                        var pendingOrdersCount = orders.where((order) => order.status == 'pending').length;
-
-                        return Badge.count(
-                         count: pendingOrdersCount,
-                         child: Icon(Icons.local_offer_outlined, size: 24.sp),
-                       );
-                     },
-                    ),
-                  ),
-                  label: 'Offers',
-                ),
                 // BottomNavigationBarItem(
                 //   icon: SizedBox(
                 //     width: 57.6.w,
                 //     height: 38.h,
-                //     child: currentIndex == 3 ? Icon(Icons.chat, size: 24.sp) : Icon(Icons.chat_outlined, size: 24.sp),
+                //     child: currentIndex == 2 ? BlocConsumer<OffersOrdersCubit, OffersOrdersState>(
+                //       listener: (context, state) async {
+                //         if(state is MakeOrderSuccessState) {
+                //           await OffersOrdersCubit.get(context).getAllOrdersByMeFunction();
+                //         }
+                //       },
+                //       builder: (context, state) {
+                //         var offerOrderCubit = OffersOrdersCubit.get(context);
+                //         var orders = offerOrderCubit.getAllOrdersToMeModel?.result?.data ?? [];
+                //         var pendingOrdersCount = orders.where((order) => order.status == 'pending').length;
+                //
+                //         return Badge.count(
+                //           count: pendingOrdersCount,
+                //           child: Icon(Icons.local_offer, size: 24.sp),
+                //         );
+                //       },
+                //     ) : BlocConsumer<OffersOrdersCubit, OffersOrdersState>(
+                //       listener: (context, state) async {
+                //         if(state is MakeOrderSuccessState) {
+                //           await OffersOrdersCubit.get(context).getAllOrdersByMeFunction();
+                //         }
+                //       },
+                //
+                //       builder: (context, state) {
+                //         var offerOrderCubit = OffersOrdersCubit.get(context);
+                //         var orders = offerOrderCubit.getAllOrdersToMeModel?.result?.data ?? [];
+                //         var pendingOrdersCount = orders.where((order) => order.status == 'pending').length;
+                //
+                //         return Badge.count(
+                //          count: pendingOrdersCount,
+                //          child: Icon(Icons.local_offer_outlined, size: 24.sp),
+                //        );
+                //      },
+                //     ),
                 //   ),
-                //   label: 'Inbox',
+                //   label: 'Offers',
                 // ),
                 BottomNavigationBarItem(
                   icon: SizedBox(
                     width: 57.6.w,
                     height: 38.h,
-                    child: currentIndex == 3 ? SvgPicture.asset(OImages.profileIconSelected, colorFilter: ColorFilter.mode(OColors.primaryColor500, BlendMode.srcIn), fit: BoxFit.scaleDown) : SvgPicture.asset(OImages.profileIconNotSelected, colorFilter: ColorFilter.mode(OColors.greyScale500, BlendMode.srcIn), fit: BoxFit.scaleDown),
+                    child: currentIndex == 2 ? SvgPicture.asset(OImages.waleetIconB, colorFilter: ColorFilter.mode(OColors.primaryColor500, BlendMode.srcIn), fit: BoxFit.scaleDown) : SvgPicture.asset(OImages.waleetIconB, colorFilter: ColorFilter.mode(OColors.greyScale500, BlendMode.srcIn), fit: BoxFit.scaleDown),
+                  ),
+                  label: 'Wallet',
+                ),
+                BottomNavigationBarItem(
+                  icon: SizedBox(
+                    width: 57.6.w,
+                    height: 38.h,
+                    child: currentIndex == 3 ? SvgPicture.asset(OImages.inboxIcon, colorFilter: ColorFilter.mode(OColors.primaryColor500, BlendMode.srcIn), fit: BoxFit.scaleDown) : SvgPicture.asset(OImages.inboxIcon, colorFilter: ColorFilter.mode(OColors.greyScale500, BlendMode.srcIn), fit: BoxFit.scaleDown),
+                  ),
+                  label: 'Inbox',
+                ),
+                BottomNavigationBarItem(
+                  icon: SizedBox(
+                    width: 57.6.w,
+                    height: 38.h,
+                    child: currentIndex == 4 ? SvgPicture.asset(OImages.profileIconSelected, colorFilter: ColorFilter.mode(OColors.primaryColor500, BlendMode.srcIn), fit: BoxFit.scaleDown) : SvgPicture.asset(OImages.profileIconNotSelected, colorFilter: ColorFilter.mode(OColors.greyScale500, BlendMode.srcIn), fit: BoxFit.scaleDown),
                   ),
                   label: 'Profile',
                 ),
@@ -158,6 +169,12 @@ class _NavigationMenuState extends State<NavigationMenu> {
           ),
         ),
       ),
+      floatingActionButton: currentIndex == 3 ? FloatingActionButton(
+        backgroundColor: OColors.primaryColor500,
+        shape: const CircleBorder(),
+        onPressed: () {},
+        child: const Icon(Icons.add, color: Colors.white),
+      ) : null,
     );
   }
 }

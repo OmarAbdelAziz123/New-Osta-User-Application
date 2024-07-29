@@ -4,6 +4,7 @@ import 'package:osta_user_app/common/widgets/loading_widget/loading_services_wid
 import 'package:osta_user_app/features/home/managers/home_cubit.dart';
 import 'package:osta_user_app/features/profile/managers/profile_cubit.dart';
 import 'package:osta_user_app/utils/constants/exports.dart';
+import 'package:osta_user_app/utils/constants/log_util.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -18,6 +19,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
   bool isLoadingPersonalImage = false;
 
+  bool showServices = false;
+
   @override
   void initState() {
     if(HomeCubit.get(context).allServicesModel.result == null) HomeCubit.get(context).getAllServicesFunction();
@@ -31,6 +34,10 @@ class _HomeScreenState extends State<HomeScreen> {
       child: BlocBuilder<HomeCubit, HomeState>(
         builder: (context, state) {
           var homeCubit = HomeCubit.get(context);
+          var servicesList = homeCubit.allServicesModel.result ?? [];
+
+          var displayedServices = showServices ? servicesList : servicesList.sublist(0, servicesList.length > 7 ? 7 : servicesList.length);
+
 
           return Padding(
             padding: EdgeInsets.only(right: 0.w, top: 68.h),
@@ -85,7 +92,10 @@ class _HomeScreenState extends State<HomeScreen> {
                             ),
 
                             /// Notification Icon
-                            InkWellWidget(onTap: () => context.pushNamed(ORoutesName.notificationsRoute), child: SvgPicture.asset(OImages.notificationIcon)),
+                            InkWellWidget(
+                              onTap: () => context.pushNamed(ORoutesName.notificationsRoute),
+                              child: SvgPicture.asset(OImages.notificationIcon, color: Theme.of(context).colorScheme.primary),
+                            ),
 
                             /// Make Space
                             // SizedBox(width: 16.w),
@@ -140,7 +150,29 @@ class _HomeScreenState extends State<HomeScreen> {
                       SizedBox(height: 25.h),
 
                       /// Row (Services - See All)
-                      RowSeeAllWidget(mainText: 'Daily services', seeAllText: 'See All', onTap: () => context.pushNamed(ORoutesName.allServicesRoute)),
+                      RowSeeAllWidget(
+                        mainText: 'Daily services',
+                        seeAllText: '', 
+                        iconWidget: InkWellWidget(
+                          onTap: () {
+                            setState(() {
+                              showServices = !showServices;
+                            });
+                          },
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            children: [
+                              Text('Minimize',  style: OStyles.bodyLargeBold.copyWith(
+                                color: Theme.of(context).primaryColor,
+                                height: 2.3.h,
+                              )),
+                              SvgPicture.asset(OImages.minIcon, width: 22.w, color: OColors.primaryColor500),
+                            ],
+                          ),
+                        ),
+                        isOpen: showServices,
+                        onTap: () {},
+                      ),
 
                       /// Make Space
                       // SizedBox(height: 24.h),
@@ -148,72 +180,247 @@ class _HomeScreenState extends State<HomeScreen> {
                       /// Services
                       homeCubit.allServicesModel.result == null
                           ?  const LoadingServicesWidget()
-                          : SizedBox(
-                        height: ODeviceUtils.getScreenHeight(context) / 3.4,
+                      : Container(
                         width: double.infinity,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        child: Column(
                           children: [
-                            Expanded(
-                              child: GridView.builder(
-                                physics: const NeverScrollableScrollPhysics(),
-                                shrinkWrap: true,
-                                itemCount: 8,
-                                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                                    crossAxisCount: 4,
-                                    mainAxisSpacing: 24.w,
-                                    crossAxisSpacing: ODeviceUtils.getScreenHeight(context) / 90,
-                                    childAspectRatio: ODeviceUtils.getScreenHeight(context) / 1000,
-                                ),
-                                itemBuilder: (context, index) {
-                                  var servicesList = homeCubit.allServicesModel.result!.sublist(0, 8);
-
-                                  return Column(
-                                    children: [
-                                      ContainerIconsInServicesWidget(
-                                        serviceIcon: OConstants.servicesIcons2[index],
-                                        onTap: () {
-                                          if(servicesList[index].category == 'basic') {
-                                            context.pushNamed(ORoutesName.electricityPlumbingAirConditionCarpentrySRoute, arguments: {
-                                              'serviceId': servicesList[index].id,
-                                              'category': servicesList[index].category,
-                                              'name': servicesList[index].name,
-                                            });
-                                          } else if(servicesList[index].category == 'space_based') {
-                                            context.pushNamed(ORoutesName.tilingAndPaintingRoute, arguments: {
-                                              'serviceId': servicesList[index].id,
-                                              'category': servicesList[index].category,
-                                              'name': servicesList[index].name,
-                                            });
-                                          } else if(servicesList[index].category == 'technical') {
-                                            context.pushNamed(ORoutesName.homeAppSatelliteChannelAndSurveillanceCamerasSRoute, arguments: {
-                                              'serviceId': servicesList[index].id,
-                                              'category': servicesList[index].category,
-                                              'name': servicesList[index].name,
-                                            });
-                                          } else if(servicesList[index].category == 'other') {
-                                            context.pushNamed(ORoutesName.cleanlinessAndGardensRoute,arguments: {
-                                              'serviceId': servicesList[index].id,
-                                              'category': servicesList[index].category,
-                                              'name': servicesList[index].name,
-                                            });
-                                          }
-                                        },
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Expanded(
+                                  child: AnimatedSwitcher(
+                                    duration: const Duration(milliseconds: 500),
+                                    child: GridView.builder(
+                                      key: ValueKey<bool>(showServices),
+                                      physics: const NeverScrollableScrollPhysics(),
+                                      shrinkWrap: true,
+                                      // itemCount: showServices ? displayedServices.length : displayedServices.length < 7 ? displayedServices.length : 8,
+                                      itemCount: showServices ? displayedServices.length : displayedServices.length < 7 ? displayedServices.length : 8,
+                                      // itemCount: showServices ? displayedServices.length : (displayedServices.length > 7 ? 7 : displayedServices.length),
+                                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                                        crossAxisCount: 4,
+                                        mainAxisSpacing: 24.w,
+                                        crossAxisSpacing: ODeviceUtils.getScreenHeight(context) / 90,
+                                        childAspectRatio: ODeviceUtils.getScreenHeight(context) / 1000,
                                       ),
-                                      SizedBox(height: 12.h),
-                                      Text(ODeviceUtils.capitalizeFirstLetter(servicesList[index].name!), style: OStyles.bodyLargeBold, overflow: TextOverflow.ellipsis,),
-                                      // Text(servicesList[index].name.toString(), style: OStyles.bodyLargeBold, overflow: TextOverflow.ellipsis,),
-                                    ],
-                                  );
-                                },
-                              ),
+                                      itemBuilder: (context, index) {
+                                        if (index < 7 || showServices) {
+                                          var service = displayedServices[index];
+                                          var serviceIcon = OConstants.servicesIcons2[index % OConstants.servicesIcons2.length];
+                                          var serviceColor = OConstants.servicesColorsWhite[index % OConstants.servicesColorsWhite.length];
+
+                                          return Column(
+                                            children: [
+                                              ContainerIconsInServicesWidget(
+                                                serviceIcon: serviceIcon,
+                                                servicesBgColors: serviceColor,
+                                                onTap: () {
+                                                  var routeName;
+                                                  var arguments = {
+                                                    'serviceId': service.id,
+                                                    'category': service.category,
+                                                    'name': service.name,
+                                                    'serviceIcon': serviceIcon,
+                                                    'serviceColor': serviceColor,
+                                                  };
+                                                  switch (service.category) {
+                                                    case 'basic':
+                                                      routeName = ORoutesName.electricityPlumbingAirConditionCarpentrySRoute;
+                                                      break;
+                                                    case 'space_based':
+                                                      routeName = ORoutesName.tilingAndPaintingRoute;
+                                                      break;
+                                                    case 'technical':
+                                                      routeName = ORoutesName.homeAppSatelliteChannelAndSurveillanceCamerasSRoute;
+                                                      break;
+                                                    case 'other':
+                                                      routeName = ORoutesName.cleanlinessAndGardensRoute;
+                                                      break;
+                                                    default:
+                                                      return;
+                                                  }
+                                                  context.pushNamed(routeName, arguments: arguments);
+                                                },
+                                              ),
+                                              SizedBox(height: 12.h),
+                                              Text(
+                                                ODeviceUtils.capitalizeFirstLetter(service.name!),
+                                                style: OStyles.bodyLargeBold,
+                                                overflow: TextOverflow.ellipsis,
+                                              ),
+                                            ],
+                                          );
+                                        } else {
+                                          return Column(
+                                            children: [
+                                              ContainerIconsInServicesWidget(serviceIcon: OImages.moreIcon3, onTap: () {
+                                                setState(() {
+                                                  showServices = !showServices;
+                                                });
+                                              }, servicesBgColors: OColors.purpleBg),
+                                              SizedBox(height: 12.h),
+                                              Text(
+                                                'More',
+                                                // style: OStyles.bodyLargeBold.copyWith(color: Theme.of(context).colorScheme.primary),
+                                                style: OStyles.bodyLargeBold,
+                                                overflow: TextOverflow.ellipsis,
+                                              ),
+
+                                            ],
+                                          );
+                                        }
+                                      },
+                                    ),
+                                  ),
+                                ),
+                              ],
                             ),
+
+                            // var service = displayedServices[index];
+                            // var serviceIcon = OConstants.servicesIcons2[index % OConstants.servicesIcons2.length];
+                            // var serviceColor = OConstants.servicesColors[index % OConstants.servicesColors.length];
+                            //
+                            // return Column(
+                            //   children: [
+                            //     ContainerIconsInServicesWidget(
+                            //       serviceIcon: serviceIcon,
+                            //       servicesBgColors: serviceColor,
+                            //       onTap: () {
+                            //         var routeName;
+                            //         var arguments = {
+                            //           'serviceId': service.id,
+                            //           'category': service.category,
+                            //           'name': service.name,
+                            //           'serviceIcon': serviceIcon,
+                            //           'serviceColor': serviceColor,
+                            //         };
+                            //         switch (service.category) {
+                            //           case 'basic':
+                            //             routeName = ORoutesName.electricityPlumbingAirConditionCarpentrySRoute;
+                            //             break;
+                            //           case 'space_based':
+                            //             routeName = ORoutesName.tilingAndPaintingRoute;
+                            //             break;
+                            //           case 'technical':
+                            //             routeName = ORoutesName.homeAppSatelliteChannelAndSurveillanceCamerasSRoute;
+                            //             break;
+                            //           case 'other':
+                            //             routeName = ORoutesName.cleanlinessAndGardensRoute;
+                            //             break;
+                            //           default:
+                            //             return;
+                            //         }
+                            //         context.pushNamed(routeName, arguments: arguments);
+                            //       },
+                            //     ),
+                            //     SizedBox(height: 12.h),
+                            //     Text(
+                            //       ODeviceUtils.capitalizeFirstLetter(service.name!),
+                            //       style: OStyles.bodyLargeBold,
+                            //       overflow: TextOverflow.ellipsis,
+                            //     ),
+                            //   ],
+                            // );
+
+                            /// Make Space
+                            // SizedBox(height: 12.h),
+                            //
+                            // InkWellWidget(
+                            //   onTap: () {
+                            //     setState(() {
+                            //       showServices = !showServices;
+                            //     });
+                            //   },
+                            //   child: Text(showServices ? '🔼' : '🔽', style: OStyles.bodyLargeBold.copyWith(fontSize: 26.sp)),
+                            // ),
+                            // IconButton(
+                            //   onPressed: () {
+                            //     setState(() {
+                            //       showServices = !showServices;
+                            //     });
+                            //   },
+                            //   icon: Icon(showServices ? Icons.arrow_upward : Icons.arrow_downward),
+                            // ),
                           ],
                         ),
                       ),
+                      //     : Container(
+                      //   // height: ODeviceUtils.getScreenHeight(context) / 3.4,
+                      //   width: double.infinity,
+                      //   color: Colors.blueGrey,
+                      //   child: Column(
+                      //     children: [
+                      //       Row(
+                      //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      //         children: [
+                      //           Expanded(
+                      //             child: GridView.builder(
+                      //               physics: const NeverScrollableScrollPhysics(),
+                      //               shrinkWrap: true,
+                      //               itemCount: 8,
+                      //               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      //                 crossAxisCount: 4,
+                      //                 mainAxisSpacing: 24.w,
+                      //                 crossAxisSpacing: ODeviceUtils.getScreenHeight(context) / 90,
+                      //                 childAspectRatio: ODeviceUtils.getScreenHeight(context) / 1000,
+                      //               ),
+                      //               itemBuilder: (context, index) {
+                      //                 // var servicesList = homeCubit.allServicesModel.result!.sublist(0, 8);
+                      //                 var servicesList = homeCubit.allServicesModel.result!;
+                      //                 var displayedServices = showServices ? servicesList : servicesList.sublist(0, 8);
+                      //
+                      //                 return Column(
+                      //                   children: [
+                      //                     ContainerIconsInServicesWidget(
+                      //                       serviceIcon: OConstants.servicesIcons2[index],
+                      //                       onTap: () {
+                      //                         if(servicesList[index].category == 'basic') {
+                      //                           context.pushNamed(ORoutesName.electricityPlumbingAirConditionCarpentrySRoute, arguments: {
+                      //                             'serviceId': servicesList[index].id,
+                      //                             'category': servicesList[index].category,
+                      //                             'name': servicesList[index].name,
+                      //                           });
+                      //                         } else if(servicesList[index].category == 'space_based') {
+                      //                           context.pushNamed(ORoutesName.tilingAndPaintingRoute, arguments: {
+                      //                             'serviceId': servicesList[index].id,
+                      //                             'category': servicesList[index].category,
+                      //                             'name': servicesList[index].name,
+                      //                           });
+                      //                         } else if(servicesList[index].category == 'technical') {
+                      //                           context.pushNamed(ORoutesName.homeAppSatelliteChannelAndSurveillanceCamerasSRoute, arguments: {
+                      //                             'serviceId': servicesList[index].id,
+                      //                             'category': servicesList[index].category,
+                      //                             'name': servicesList[index].name,
+                      //                           });
+                      //                         } else if(servicesList[index].category == 'other') {
+                      //                           context.pushNamed(ORoutesName.cleanlinessAndGardensRoute,arguments: {
+                      //                             'serviceId': servicesList[index].id,
+                      //                             'category': servicesList[index].category,
+                      //                             'name': servicesList[index].name,
+                      //                           });
+                      //                         }
+                      //                       },
+                      //                     ),
+                      //                     SizedBox(height: 12.h),
+                      //                     Text(ODeviceUtils.capitalizeFirstLetter(servicesList[index].name!), style: OStyles.bodyLargeBold, overflow: TextOverflow.ellipsis,),
+                      //                     // Text(servicesList[index].name.toString(), style: OStyles.bodyLargeBold, overflow: TextOverflow.ellipsis,),
+                      //                   ],
+                      //                 );
+                      //               },
+                      //             ),
+                      //           ),
+                      //
+                      //         ],
+                      //       ),
+                      //
+                      //       IconButton(onPressed: () {}, icon: const Icon(Icons.arrow_downward))
+                      //
+                      //     ],
+                      //   ),
+                      // ),
 
                       /// Make Space
-                      SizedBox(height: 24.h),
+                      SizedBox(height: 12.h),
 
                       /// Divider
                       Divider(color: OColors.greyScale200, thickness: 1.w),

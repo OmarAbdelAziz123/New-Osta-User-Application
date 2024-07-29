@@ -38,10 +38,10 @@ class AllServicesScreen extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             /// Services Icons
-                            ContainerIconsInServicesWidget(
-                              serviceIcon: OConstants.allServicesIcons[index],
-                              onTap: () {},
-                            ),
+                            // ContainerIconsInServicesWidget(
+                            //   serviceIcon: OConstants.allServicesIcons[index],
+                            //   onTap: () {},
+                            // ),
 
                             /// Make Space
                             SizedBox(height: 12.h),
@@ -83,36 +83,36 @@ class AllServicesScreen extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                               /// Services Icons
-                              ContainerIconsInServicesWidget(
-                                serviceIcon: OConstants.allServicesIcons[index],
-                                onTap: () {
-                                  if(servicesList.category == 'basic') {
-                                    context.pushNamed(ORoutesName.electricityPlumbingAirConditionCarpentrySRoute, arguments: {
-                                      'serviceId': servicesList.id,
-                                      'category': servicesList.category,
-                                      'name': servicesList.name,
-                                    });
-                                  } else if(servicesList.category == 'space_based') {
-                                    context.pushNamed(ORoutesName.tilingAndPaintingRoute, arguments: {
-                                      'serviceId': servicesList.id,
-                                      'category': servicesList.category,
-                                      'name': servicesList.name,
-                                    });
-                                  } else if(servicesList.category == 'technical') {
-                                    context.pushNamed(ORoutesName.homeAppSatelliteChannelAndSurveillanceCamerasSRoute, arguments: {
-                                      'serviceId': servicesList.id,
-                                      'category': servicesList.category,
-                                      'name': servicesList.name,
-                                    });
-                                  } else if(servicesList.category == 'other') {
-                                    context.pushNamed(ORoutesName.cleanlinessAndGardensRoute,arguments: {
-                                      'serviceId': servicesList.id,
-                                      'category': servicesList.category,
-                                      'name': servicesList.name,
-                                    });
-                                  }
-                                },
-                              ),
+                              // ContainerIconsInServicesWidget(
+                              //   serviceIcon: OConstants.allServicesIcons[index],
+                              //   onTap: () {
+                              //     if(servicesList.category == 'basic') {
+                              //       context.pushNamed(ORoutesName.electricityPlumbingAirConditionCarpentrySRoute, arguments: {
+                              //         'serviceId': servicesList.id,
+                              //         'category': servicesList.category,
+                              //         'name': servicesList.name,
+                              //       });
+                              //     } else if(servicesList.category == 'space_based') {
+                              //       context.pushNamed(ORoutesName.tilingAndPaintingRoute, arguments: {
+                              //         'serviceId': servicesList.id,
+                              //         'category': servicesList.category,
+                              //         'name': servicesList.name,
+                              //       });
+                              //     } else if(servicesList.category == 'technical') {
+                              //       context.pushNamed(ORoutesName.homeAppSatelliteChannelAndSurveillanceCamerasSRoute, arguments: {
+                              //         'serviceId': servicesList.id,
+                              //         'category': servicesList.category,
+                              //         'name': servicesList.name,
+                              //       });
+                              //     } else if(servicesList.category == 'other') {
+                              //       context.pushNamed(ORoutesName.cleanlinessAndGardensRoute,arguments: {
+                              //         'serviceId': servicesList.id,
+                              //         'category': servicesList.category,
+                              //         'name': servicesList.name,
+                              //       });
+                              //     }
+                              //   },
+                              // ),
 
                               /// Make Space
                               SizedBox(height: 12.h),

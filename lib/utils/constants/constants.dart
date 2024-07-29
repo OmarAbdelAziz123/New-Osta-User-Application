@@ -54,7 +54,7 @@ class OConstants {
   static List<String> listTilTextInProfile = [
     'Edit Profile',
     'Notification',
-    'Payment',
+    'Wallet',
     // 'Change Password',
     'Language',
     'Dark Mode',
@@ -116,13 +116,19 @@ class OConstants {
     OImages.cleaningIcon,
     OImages.repairingIcon,
     OImages.paintingIcon,
-    OImages.laundry,
   ];
   static List<String> servicesTexts1 = [
-    'Cleaning',
-    'Repairing',
-    'Painting',
-    'Laundry',
+    'Quality',
+    'A guarantee',
+    'Comfort',
+  ];
+
+  static List<String> transactionsIcons = [
+    OImages.sendMoneyIcon,
+    OImages.sendMoneyIcon,
+    OImages.postMoneyIcon,
+    OImages.sendMoneyIcon,
+    OImages.sendMoneyIcon,
   ];
 
   static List<String> placesIcons = [
@@ -141,24 +147,24 @@ class OConstants {
 
   /// Row Two
   static List<String> servicesIcons2 = [
+    OImages.cleaningIcon,
+    OImages.repairingIcon,
+    OImages.paintingIcon,
+    OImages.laundry,
     OImages.applianceIcon,
     OImages.plumbingIcon,
-    OImages.shiftingIcon,
-    OImages.shiftingIcon,
-    OImages.applianceIcon,
-    OImages.plumbingIcon,
-    OImages.shiftingIcon,
     OImages.shiftingIcon,
   ];
   static List<String> servicesTexts2 = [
     'Appliance',
-    'Plumbing',
-    'Shifting',
     'Appliance',
     'Plumbing',
     'Shifting',
-    'Plumbing',
+    'Appliance',
+    // 'Plumbing',
     'Shifting',
+    'Plumbing',
+    // 'Shifting',
   ];
 
   static List<String> bannerImages = [
@@ -324,5 +330,24 @@ class OConstants {
   ];
 
 
-
+  /// Services Colors
+  static List<Color> servicesColorsWhite = [
+    OColors.purpleBg,
+    OColors.yellow2Bg,
+    OColors.lightBlueBg,
+    OColors.lightYellowBg,
+    OColors.lightRedBg,
+    OColors.lightGreenBg,
+    OColors.lightBlue2Bg,
+  ];
+  //
+  // static List<Color> servicesColorsBlack = [
+  //   OColors.purpleTransparent.withOpacity(.08),
+  //   OColors.orangeTransparent.withOpacity(.08),
+  //   OColors.blueTransparent.withOpacity(.08),
+  //   OColors.yellowTransparent.withOpacity(.08),
+  //   OColors.redTransparent.withOpacity(.08),
+  //   OColors.greenTransparent.withOpacity(.08),
+  //   OColors.cyanTransparent.withOpacity(.08),
+  // ];
 }

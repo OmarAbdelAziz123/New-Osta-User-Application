@@ -19,7 +19,7 @@ class AppBarWidget extends StatelessWidget {
           /// Make Space
           SizedBox(width: 16.w),
 
-          SizedBox(width: widthOfText, child: Text(title, style: OStyles.h4Bold, overflow: TextOverflow.ellipsis)),
+          SizedBox(width: widthOfText, child: Text(title, style: OStyles.h4Bold.copyWith(color: Theme.of(context).colorScheme.primary), overflow: TextOverflow.ellipsis)),
 
           /// Make Space
           SizedBox(width: 12.w),

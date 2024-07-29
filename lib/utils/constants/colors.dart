@@ -115,6 +115,12 @@ class OColors {
 
   /// Background
   static final purpleBg = HexColor('F4ECFF');
+  static final yellow2Bg = HexColor('FFF7EB');
+  static final lightYellowBg = HexColor('FFFBED');
+  static final lightBlueBg = HexColor('EFF3FF');
+  static final lightBlue2Bg = HexColor('EBFAFC');
+  static final lightRedBg = HexColor('FFF2F2');
+  static final lightGreenBg = HexColor('F1F9F1');
   static final blueBg = HexColor('F6FAFD');
   static final greenBg = HexColor('F2FFFC');
   static final orangeBg = HexColor('FFF8ED');
@@ -141,5 +147,5 @@ class OColors {
   /// ----------------------------------------------- \\\
   static final alertsAndStatusError = HexColor('F75555');
 
-
+  static final greyText = HexColor('888888');
 }

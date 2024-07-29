@@ -7,6 +7,7 @@ class OImages {
   static const String logoInChoiceScreen = 'assets/images/svgs/logoInChoiceScreen.svg';
   static const String facebookIcon = 'assets/images/svgs/facebookIcon.svg';
   static const String googleIcon = 'assets/images/svgs/googleIcon.svg';
+  static const String minIcon = 'assets/images/svgs/minIcon.svg';
   static const String appleIcon = 'assets/images/svgs/appleIcon.svg';
   static const String emailIcon = 'assets/images/svgs/emailIcon.svg';
   static const String email2Icon = 'assets/images/svgs/email2Icon.svg';
@@ -28,6 +29,8 @@ class OImages {
   static const String calendarIconSelected = 'assets/images/svgs/calendarIconSelected.svg';
   static const String chatIconSelected = 'assets/images/svgs/chatIconSelected.svg';
   static const String profileIconSelected = 'assets/images/svgs/profileIconSelected.svg';
+  static const String inboxIcon = 'assets/images/svgs/inboxIcon.svg';
+  static const String waleetIconB = 'assets/images/svgs/waleetIconB.svg';
   /// Navigation Menu Not Selected
   static const String homeIconNotSelected = 'assets/images/svgs/homeIconNotSelected.svg';
   static const String bookingIconNotSelected = 'assets/images/svgs/bookingIconNotSelected.svg';
@@ -42,12 +45,16 @@ class OImages {
   static const String zoomIn = 'assets/images/pngs/zoom-in.png';
   static const String headphoneIcon = 'assets/images/pngs/headphoneIcon.png';
   static const String whatsappIcon = 'assets/images/pngs/whatsappIcon.png';
+  static const String profileImage2 = 'assets/images/pngs/profileImage2.png';
   static const String facebookIcon2 = 'assets/images/pngs/facebookIcon2.png';
+  static const String sendMoneyIcon = 'assets/images/pngs/sendMoneyIcon.png';
+  static const String postMoneyIcon = 'assets/images/pngs/postMoneyIcon.png';
   static const String websiteIcon = 'assets/images/pngs/websiteIcon.png';
   static const String twitterIcon = 'assets/images/pngs/twitterIcon.png';
   static const String instagramIcon = 'assets/images/pngs/instagramIcon.png';
   static const String imageMessage = 'assets/images/pngs/imageMessage.png';
   static const String moreIcon2 = 'assets/images/svgs/moreIcon2.svg';
+  static const String moreIcon3 = 'assets/images/svgs/moreIcon3.svg';
   static const String profileLogo = 'assets/images/svgs/profileLogo.svg';
   static const String arrowBack = 'assets/images/svgs/arrowBack.svg';
   static const String profileImage = 'assets/images/pngs/profileImage.png';
