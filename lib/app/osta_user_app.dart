@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -12,9 +13,12 @@ import 'package:osta_user_app/features/inbox/inbox_for_user/presentation/screens
 import 'package:osta_user_app/features/map1.dart';
 import 'package:osta_user_app/features/offer/managers/offers_orders_cubit.dart';
 import 'package:osta_user_app/features/offer/managers/socket_cubit/socket_cubit.dart';
+import 'package:osta_user_app/features/profile/managers/localizations/localizations_cubit.dart';
 import 'package:osta_user_app/features/profile/managers/profile_cubit.dart';
 import 'package:osta_user_app/features/profile/managers/theme/theme_cubit.dart';
 import 'package:osta_user_app/utils/constants/exports.dart';
+import 'package:osta_user_app/utils/language/app_localizations.dart';
+import 'package:osta_user_app/utils/language/app_localizations_setup.dart';
 
 class OstaUserApp extends StatelessWidget {
   const OstaUserApp({super.key});
@@ -34,18 +38,24 @@ class OstaUserApp extends StatelessWidget {
             BlocProvider(create: (context) => BookingCubit()),
             BlocProvider(create: (context) => SocketCubit()),
             BlocProvider(create: (context) => ProfileCubit()),
+            BlocProvider(create: (context) => LocaleCubit()),
           ],
-          child: MaterialApp(
-            debugShowCheckedModeBanner: false,
-            // theme: OAppTheme.lightTheme,
-            // darkTheme: OAppTheme.darkTheme,
-            // theme: BlocProvider.of<ThemingCubit>(context).themeData,
-            navigatorKey: navigatorKey,
-            // home: ChatScreen(title: 'Provider chat'),
-            onGenerateRoute: RouteGenerator.getRoute,
-            initialRoute: ORoutesName.splashRoute,
-            // initialRoute: ORoutesName.tilingAndPaintingRoute,
-            // initialRoute: ORoutesName.homeAppSatelliteChannelAndSurveillanceCamerasSRoute,
+          child: BlocBuilder<LocaleCubit, LocaleState>(
+            builder: (context, localeState) {
+              return MaterialApp(
+                debugShowCheckedModeBanner: false,
+                navigatorKey: navigatorKey,
+                supportedLocales: AppLocalizationsSetup.supportedLocale,
+                localizationsDelegates: AppLocalizationsSetup.localizationsDelegates,
+                localeListResolutionCallback: AppLocalizationsSetup.localeResolutionCallback,
+                locale: localeState.locale,
+                // home: ChatScreen(title: 'Provider chat'),
+                onGenerateRoute: RouteGenerator.getRoute,
+                initialRoute: ORoutesName.splashRoute,
+                // initialRoute: ORoutesName.tilingAndPaintingRoute,
+                // initialRoute: ORoutesName.homeAppSatelliteChannelAndSurveillanceCamerasSRoute,
+              );
+            },
           ),
         );
       },

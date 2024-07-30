@@ -4,10 +4,12 @@ import 'package:iconsax_flutter/iconsax_flutter.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:lottie/lottie.dart';
 import 'package:osta_user_app/common/widgets/cach_network_images/cach_network_images.dart';
+import 'package:osta_user_app/features/profile/managers/localizations/localizations_cubit.dart';
 import 'package:osta_user_app/features/profile/managers/profile_cubit.dart';
 import 'package:osta_user_app/features/profile/presentation/widgets/remove_account_widget.dart';
 import 'package:osta_user_app/utils/constants/exports.dart';
 import 'package:osta_user_app/utils/device/device_utility.dart';
+import 'package:osta_user_app/utils/language/app_localizations.dart';
 
 // class ProfileScreen extends StatelessWidget {
 //   const ProfileScreen({super.key});
@@ -427,7 +429,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               mainAxisAlignment: MainAxisAlignment.end,
                               children: [
                                 index == 3
-                                    ? Text('English (US)',
+                                    ? Text(AppLocalizations.of(context)!.isEnLocale ? 'English (US)' : 'العربية',
                                     style: OStyles.bodyXLargeSemiBold)
                                     : const SizedBox.shrink(),
                                 index == 3 ? SizedBox(width: 20.w) : const SizedBox
@@ -529,23 +531,51 @@ class _ChangeLanguageWidgetState extends State<ChangeLanguageWidget> {
           /// Make Space
           SizedBox(height: 12.h),
 
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              SizedBox(height: ODeviceUtils.getScreenHeight(context) / 26, child: Text('Arabic', style: OStyles.h5Bold.copyWith(color: OColors.greyScale800))),
-              SvgPicture.asset(OImages.checkIcon, height: 18.h),
-            ],
+          InkWellWidget(
+            onTap: () {
+              OCacheHelper.putString(key: CacheKeys.lang, value: 'ar');
+              BlocProvider.of<LocaleCubit>(context).toArabic();
+              context.pop();
+            },
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                SizedBox(height: ODeviceUtils.getScreenHeight(context) / 26, child: Text('Arabic', style: OStyles.h5Bold.copyWith(color: AppLocalizations.of(context)!.isEnLocale ? OColors.greyScale800 : OColors.primaryColor500))),
+                SvgPicture.asset(
+                  OImages.checkIcon,
+                  height: 18.h,
+                  colorFilter: ColorFilter.mode(
+                    AppLocalizations.of(context)!.isEnLocale ? OColors.greyScale900 : OColors.primaryColor500,
+                    BlendMode.srcIn,
+                  ),
+                ),
+              ],
+            ),
           ),
 
           /// Make Space
           SizedBox(height: 12.h),
 
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              SizedBox(height: ODeviceUtils.getScreenHeight(context) / 26, child: Text('English', style: OStyles.h5Bold.copyWith(color: OColors.greyScale800))),
-              SvgPicture.asset(OImages.checkIcon, height: 18.h),
-            ],
+          InkWellWidget(
+            onTap: () {
+              OCacheHelper.putString(key: CacheKeys.lang, value: 'en');
+              BlocProvider.of<LocaleCubit>(context).toEnglish();
+              context.pop();
+            },
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                SizedBox(height: ODeviceUtils.getScreenHeight(context) / 26, child: Text('English', style: OStyles.h5Bold.copyWith(color: AppLocalizations.of(context)!.isEnLocale ? OColors.primaryColor500 : OColors.greyScale800))),
+                SvgPicture.asset(
+                  OImages.checkIcon,
+                  height: 18.h,
+                  colorFilter: ColorFilter.mode(
+                    AppLocalizations.of(context)!.isEnLocale ? OColors.primaryColor500 : OColors.greyScale900,
+                    BlendMode.srcIn,
+                  ),
+                ),
+              ],
+            ),
           ),
         ],
       ),

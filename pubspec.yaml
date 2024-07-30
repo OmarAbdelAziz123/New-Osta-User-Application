@@ -88,6 +88,10 @@ dependencies:
   socket_io_client: ^2.0.3+1
   shimmer: ^3.0.0
 
+  # Translation
+  flutter_localizations:
+    sdk: flutter
+
   #-------------------- PACKAGES End --------------------#
 
 dev_dependencies:
@@ -107,6 +111,7 @@ flutter:
     - assets/images/jpg/
     - assets/images/pngs/
     - assets/images/svgs/
+    - lang/
     - assets/images/lotties/
 
   #-------------------- LOCAL FONTS --------------------#
