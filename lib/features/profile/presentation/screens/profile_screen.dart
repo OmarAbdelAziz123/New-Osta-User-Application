@@ -164,14 +164,18 @@ class _ProfileScreenState extends State<ProfileScreen> {
     bool isDarkModeEnabled = false;
     bool isOnNotificationEnabled = false;
 
+    List<String> listTilTextInProfile = OConstants.listTilKeysInProfile.map((key) {
+      return AppLocalizations.of(context)!.translate(key)!;
+    }).toList();
+
     return BlocConsumer<ProfileCubit, ProfileState>(
       listener: (context, state) {
         if(state is UpdateProfileDataSuccessState) {
           // context.pushNamedAndRemoveUntil(ORoutesName.navigationMenuRoute, arguments: 3, predicate: (route) => false);
           _selectedImageToPerson = null;
-          ODeviceUtils.showSnackBar(context: context, message: 'Update profile data successfully', textStyle: OStyles.bodyLargeRegular, textColor: OColors.whiteColor, bgColor: OColors.success);
+          ODeviceUtils.showSnackBar(context: context, message: AppLocalizations.of(context)!.translate('updateProfileDateSuccessfully')!, textStyle: OStyles.bodyLargeRegular, textColor: OColors.whiteColor, bgColor: OColors.success);
         } else if(state is UpdateProfileDataErrorState) {
-          ODeviceUtils.showSnackBar(context: context, message: 'Update profile data have an a problem.', textStyle: OStyles.bodyLargeRegular, textColor: OColors.whiteColor, bgColor: OColors.error);
+          ODeviceUtils.showSnackBar(context: context, message: AppLocalizations.of(context)!.translate('updateProfileDateHaveAProblem')!, textStyle: OStyles.bodyLargeRegular, textColor: OColors.whiteColor, bgColor: OColors.error);
         }
       },
       builder: (context, state) {
@@ -184,7 +188,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               children: [
 
                 /// App Bar
-                AppBarWidget(leading: SvgPicture.asset(OImages.profileLogo, fit: BoxFit.scaleDown), title: 'Profile', actions: SvgPicture.asset(OImages.moreIcon2), widthOfText: 280.w),
+                AppBarWidget(leading: SvgPicture.asset(OImages.profileLogo, fit: BoxFit.scaleDown), title: AppLocalizations.of(context)!.translate('profile')!, actions: SvgPicture.asset(OImages.moreIcon2), widthOfText: 280.w),
 
                 /// Make Space
                 SizedBox(height: 24.h),
@@ -298,29 +302,34 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 // /// Divider
                 // Container(width: double.infinity, height: 1.h, color: OColors.greyScale200),
 
-                Stack(
-                  children: [
-                    Image.asset(OImages.profileImage2, height: 182.h),
-                    Positioned(
-                      bottom: 12,
-                      left: 30,
-                      child: Card(
-                        elevation: 2,
-                        color: OColors.whiteColor,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(100.r),
-                        ),
-                        child: CircleAvatar(
-                          radius: 20.r,
-                          backgroundColor:  OColors.whiteColor,
-                          child: Center(
-                              child: Icon(Icons.add, size: 20.sp)
+                // Container(
+                //   width: double.infinity,
+                  // height: _selectedImageToPerson != null ? ODeviceUtils.getScreenHeight(context).h / 3 : ODeviceUtils.getScreenHeight(context).h / 3.8,
+                  // child:
+                  Stack(
+                    children: [
+                      Image.asset(OImages.profileImage2, height: 182.h),
+                      Positioned(
+                        bottom: 12,
+                        left: 30,
+                        child: Card(
+                          elevation: 2,
+                          color: OColors.whiteColor,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(100.r),
+                          ),
+                          child: CircleAvatar(
+                            radius: 20.r,
+                            backgroundColor:  OColors.whiteColor,
+                            child: Center(
+                                child: Icon(Icons.add, size: 20.sp)
+                            ),
                           ),
                         ),
-                      ),
-                    )
-                  ],
-                ),
+                      )
+                    ],
+                  ),
+                // ),
 
                 /// Make Space
                 SizedBox(height: 30.h),
@@ -340,7 +349,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       RichText(
                         text:  TextSpan(children: [
                           TextSpan(
-                              text: 'Total of my request  ',
+                              text: '${AppLocalizations.of(context)!.translate('totalOfMyOrders')!}  ',
                               style: OStyles.bodyLargeRegular),
                           TextSpan(
                               text: '5 orders ',
@@ -401,7 +410,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   width: double.infinity,
                   child: Column(
                     children: List.generate(
-                      OConstants.listTilIconsInProfile.length,
+                      listTilTextInProfile.length,
                           (index) {
                         return ListTile(
                           onTap: index == 4 || index == 1 ? null : () =>
@@ -411,7 +420,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               OConstants.listTilIconsInProfile[index], width: 28.w,
                               height: OConstants.listTilIconsInProfile[index] == OImages.removeAccountIcon ? 30.h : 28.h,
                               fit: BoxFit.scaleDown),
-                          title: Text(OConstants.listTilTextInProfile[index],
+                          title: Text(listTilTextInProfile[index],
                               style: OStyles.bodyXLargeSemiBold),
                           trailing: index == 4 ?
                           // SwitchWidget(valueData: isDarkModeEnabled) :
@@ -434,7 +443,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                     : const SizedBox.shrink(),
                                 index == 3 ? SizedBox(width: 20.w) : const SizedBox
                                     .shrink(),
-                                SvgPicture.asset(OImages.arrowRightIOS, width: 20.w,
+                                SvgPicture.asset(AppLocalizations.of(context)!.isEnLocale ? OImages.arrowRightIOS2 : OImages.arrowLeftIOS2, width: 20.w,
                                     height: 20.h),
                               ],
                             ),
@@ -470,7 +479,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         context.pushReplacementNamed(ORoutesName.editProfileRoute);
         break;
       case 2:
-        context.pushNamed(ORoutesName.paymentRoute);
+        context.pushNamed(ORoutesName.walletRoute);
         break;
       case 3:
         ODeviceUtils.showCustomBottomSheet(context: context, widget: const ChangeLanguageWidget());
@@ -516,7 +525,7 @@ class _ChangeLanguageWidgetState extends State<ChangeLanguageWidget> {
           /// Make Space
           SizedBox(height: 35.h),
 
-          SizedBox(width: double.infinity, height: ODeviceUtils.getScreenHeight(context) / 26, child: Text('Change language', style: OStyles.h4Bold.copyWith(color: OColors.alertsAndStatusError), textAlign: TextAlign.center)),
+          SizedBox(width: double.infinity, height: ODeviceUtils.getScreenHeight(context) / 26, child: Text(AppLocalizations.of(context)!.translate('changeLanguage')!, style: OStyles.h4Bold.copyWith(color: OColors.alertsAndStatusError), textAlign: TextAlign.center)),
 
           /// Make Space
           SizedBox(height: 24.h),
@@ -526,7 +535,7 @@ class _ChangeLanguageWidgetState extends State<ChangeLanguageWidget> {
           /// Make Space
           SizedBox(height: 24.h),
 
-          SizedBox(width: double.infinity, height: ODeviceUtils.getScreenHeight(context) / 26, child: Text('Choice from two languages?', style: OStyles.h5Bold.copyWith(color: OColors.greyScale800), textAlign: TextAlign.center)),
+          SizedBox(width: double.infinity, height: ODeviceUtils.getScreenHeight(context) / 26, child: Text(AppLocalizations.of(context)!.translate('choiceFromTwoLanguages')!, style: OStyles.h5Bold.copyWith(color: OColors.greyScale800), textAlign: TextAlign.center)),
 
           /// Make Space
           SizedBox(height: 12.h),
@@ -540,7 +549,7 @@ class _ChangeLanguageWidgetState extends State<ChangeLanguageWidget> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                SizedBox(height: ODeviceUtils.getScreenHeight(context) / 26, child: Text('Arabic', style: OStyles.h5Bold.copyWith(color: AppLocalizations.of(context)!.isEnLocale ? OColors.greyScale800 : OColors.primaryColor500))),
+                SizedBox(height: ODeviceUtils.getScreenHeight(context) / 26, child: Text(AppLocalizations.of(context)!.translate('arabic')!, style: OStyles.h5Bold.copyWith(color: AppLocalizations.of(context)!.isEnLocale ? OColors.greyScale800 : OColors.primaryColor500))),
                 SvgPicture.asset(
                   OImages.checkIcon,
                   height: 18.h,
@@ -565,7 +574,7 @@ class _ChangeLanguageWidgetState extends State<ChangeLanguageWidget> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                SizedBox(height: ODeviceUtils.getScreenHeight(context) / 26, child: Text('English', style: OStyles.h5Bold.copyWith(color: AppLocalizations.of(context)!.isEnLocale ? OColors.primaryColor500 : OColors.greyScale800))),
+                SizedBox(height: ODeviceUtils.getScreenHeight(context) / 26, child: Text(AppLocalizations.of(context)!.translate('english')!, style: OStyles.h5Bold.copyWith(color: AppLocalizations.of(context)!.isEnLocale ? OColors.primaryColor500 : OColors.greyScale800))),
                 SvgPicture.asset(
                   OImages.checkIcon,
                   height: 18.h,

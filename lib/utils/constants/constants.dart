@@ -10,9 +10,9 @@ class OConstants {
   ];
   /// OnBoarding Texts
   static List<String> onBoardingTexts = [
-    'We provide professional service at a friendly price',
-    'The best results and your satisfaction is our top priority',
-    "Let's make awesome changes to your home",
+    'weProvideProfessionalServices',
+    'theBestResultsAndYourSatisfaction',
+    'letsMakeAwesomeChangesToYourHome',
   ];
 
   /// Faq Text
@@ -51,19 +51,32 @@ class OConstants {
     OImages.removeAccountIcon,
   ];
   /// ListTil in Profile Texts
-  static List<String> listTilTextInProfile = [
-    'Edit Profile',
-    'Notification',
-    'Wallet',
-    // 'Change Password',
-    'Language',
-    'Dark Mode',
-    'Privacy Policy',
-    'Help Center',
-    'Invite Friends',
-    'Logout',
-    'Remove account',
+  // static List<String> listTilTextInProfile = [
+  //   AppLocalizations.of(context)!.translate('editProfile')!,
+  //   AppLocalizations.of(context)!.translate('notification')!,
+  //   AppLocalizations.of(context)!.translate('wallet')!,
+  //   // 'Change Password',
+  //   AppLocalizations.of(context)!.translate('language')!,
+  //   AppLocalizations.of(context)!.translate('darkMode')!,
+  //   AppLocalizations.of(context)!.translate('privacyPolicy')!,
+  //   AppLocalizations.of(context)!.translate('helpCenter')!,
+  //   AppLocalizations.of(context)!.translate('inviteFriends')!,
+  //   AppLocalizations.of(context)!.translate('logout')!,
+  //   AppLocalizations.of(context)!.translate('removeAccount')!,
+  // ];
+  static List<String> listTilKeysInProfile = [
+    'editProfile',
+    'notification',
+    'wallet',
+    'language',
+    'darkMode',
+    'privacyPolicy',
+    'helpCenter',
+    'inviteFriends',
+    'logout',
+    'removeAccount',
   ];
+
   /// Contact Us Images
   static List<String> contactUsIcon = [
     OImages.headphoneIcon,

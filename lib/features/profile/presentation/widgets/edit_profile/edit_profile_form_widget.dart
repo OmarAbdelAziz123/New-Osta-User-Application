@@ -86,10 +86,10 @@ class _EditProfileFormWidgetState extends State<EditProfileFormWidget> {
           selectedGender = OConstants.genders.firstWhere((element) => element == ProfileCubit.get(context).getProfileDataModel.result!.gender!);
           // selectedGender = ProfileCubit.get(context).getProfileDataModel.result!.gender!;
           // context.pushNamedAndRemoveUntil(ORoutesName.navigationMenuRoute, arguments: 3, predicate: (route) => false);
-          ODeviceUtils.showSnackBar(context: context, message: 'Update profile data successfully', textStyle: OStyles.bodyLargeRegular, textColor: OColors.whiteColor, bgColor: OColors.success);
+          ODeviceUtils.showSnackBar(context: context, message: AppLocalizations.of(context)!.translate('updateProfileDateSuccessfully')!, textStyle: OStyles.bodyLargeRegular, textColor: OColors.whiteColor, bgColor: OColors.success);
         }
         else if(state is UpdateProfileDataErrorState) {
-          ODeviceUtils.showSnackBar(context: context, message: 'Update profile data have an a problem.', textStyle: OStyles.bodyLargeRegular, textColor: OColors.whiteColor, bgColor: OColors.error);
+          ODeviceUtils.showSnackBar(context: context, message: AppLocalizations.of(context)!.translate('updateProfileDateSuccessfully')!, textStyle: OStyles.bodyLargeRegular, textColor: OColors.whiteColor, bgColor: OColors.error);
         }
         if(state is GetProfileDataSuccessState) {
           selectCountry = ProfileCubit.get(context).getProfileDataModel.result!.country!.name!;
@@ -130,7 +130,7 @@ class _EditProfileFormWidgetState extends State<EditProfileFormWidget> {
               textInputType: TextInputType.datetime,
               focusNode: dateOfBirthFocusNode,
               readOnly: true,
-              hintText: profileCubit.getProfileDataModel.result!.dateOfBirth == null  ? 'Enter date of birth by click in button...' : profileCubit.getProfileDataModel.result!.dateOfBirth!,
+              hintText: profileCubit.getProfileDataModel.result!.dateOfBirth == null  ? AppLocalizations.of(context)!.translate('enterDateOfBirth')! : profileCubit.getProfileDataModel.result!.dateOfBirth!,
               hintColor: isDateOfBirthFieldFocused ? OColors.primaryColor500 : OColors.greyScale900,
               suffixIcon: InkWellWidget(
                 onTap: () {
@@ -249,7 +249,7 @@ class _EditProfileFormWidgetState extends State<EditProfileFormWidget> {
               child: MainButtonWidget(
                 centerWidgetInButton: state is UpdateProfileDataLoadingState
                   ? LoadingWidget(iconColor: OColors.whiteColor)
-                  : Text('Update', style: OStyles.bodyLargeBold.copyWith(color: OColors.whiteColor)),
+                  : Text(AppLocalizations.of(context)!.translate('update')!, style: OStyles.bodyLargeBold.copyWith(color: OColors.whiteColor)),
                 onTap: state is UpdateProfileDataLoadingState ? null : () {
                   String? profileDateOfBirth = profileCubit.getProfileDataModel.result?.dateOfBirth;
 
@@ -262,7 +262,7 @@ class _EditProfileFormWidgetState extends State<EditProfileFormWidget> {
                     email: emailController.text.isEmpty ? profileCubit.getProfileDataModel.result!.email! : emailController.text,
                     countryId: idSelectedForCountry.toString().isEmpty || idSelectedForCountry == null ? profileCubit.getProfileDataModel.result!.countryId!.toString() : idSelectedForCountry.toString(),
                     phone: phoneController.text.isEmpty ? profileCubit.getProfileDataModel.result!.phone! : phoneController.text,
-                    gender: selectedGender == 'Male' || selectedGender == 'male' ? 'male' : selectedGender == 'Female' || selectedGender == 'female' ? 'female' : 'other',
+                    gender: selectedGender == 'Male' || selectedGender == 'male' ? AppLocalizations.of(context)!.translate('male')! : selectedGender == 'Female' || selectedGender == 'female' ? AppLocalizations.of(context)!.translate('female')! : AppLocalizations.of(context)!.translate('other')!,
                   );
                 },
                 margin: EdgeInsets.zero,

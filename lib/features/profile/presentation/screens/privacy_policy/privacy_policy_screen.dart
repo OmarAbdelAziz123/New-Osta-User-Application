@@ -6,6 +6,7 @@ class PrivacyPolicyScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: OColors.greyScale50,
       body: SingleChildScrollView(
         child: Padding(
           padding: EdgeInsets.only(left: 24.w, right: 24.w, top: 75.h, bottom: 48.h),
@@ -13,7 +14,7 @@ class PrivacyPolicyScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               /// Arrow Button
-              TopRowInAllScreens(titleOfScreenWidget: Text('Privacy Policy', style: OStyles.h4Bold)),
+              TopRowInAllScreens(titleOfScreenWidget: Text(AppLocalizations.of(context)!.translate('privacyPolicy')!, style: OStyles.h4Bold)),
 
               /// Make Space
               SizedBox(height: 33.5.h),

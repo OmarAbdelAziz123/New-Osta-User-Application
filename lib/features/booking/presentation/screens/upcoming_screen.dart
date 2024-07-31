@@ -49,9 +49,9 @@ class _UpcomingScreenState extends State<UpcomingScreen> {
               acceptedOrdersCubit.getOrdersByFilterModel.result == null ||
               acceptedOrdersCubit.getOrdersByFilterModel.result!.data == null ||
               acceptedOrdersCubit.getOrdersByFilterModel.result!.data!.isEmpty
-              ? const EmptyUpcomingScreen(
-            title: 'You have no complete booking',
-            description: 'You do not have a counter booking. Make a new booking by clicking the button home',
+              ? EmptyUpcomingScreen(
+            title: AppLocalizations.of(context)!.translate('youHaveNoCompleteBooking')!,
+            description: AppLocalizations.of(context)!.translate('youDoNotHaveACounterBooking')!,
           )
               : RefreshIndicator(
             onRefresh: () => BookingCubit.get(context).getOrdersByFilterFunction(status: 'accepted'),
@@ -70,7 +70,7 @@ class _UpcomingScreenState extends State<UpcomingScreen> {
                   containerColor: OColors.primaryColor500,
                   buttonText: ordersList[index].status! == 'accepted' ? 'Accepted' : 'accepted',
                   showDetailsBooking: isExpanded,
-                  locationDescription: ordersList[index].locationDesc ?? 'Location description is empty',
+                  locationDescription: ordersList[index].locationDesc ?? AppLocalizations.of(context)!.translate('locationDescriptionIsEmpty')!,
                   price: ordersList[index].price == 0 ? 0 : ordersList[index].price?.toDouble(),
                   mapWidget: ShowLocationForUserScreen(map: {
                     'lat': ordersList[index].locationLatitude == '0' ? '0' : ordersList[index].locationLatitude,

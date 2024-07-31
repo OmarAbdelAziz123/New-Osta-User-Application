@@ -100,14 +100,14 @@ class _MyBookingContainerWidget2State extends State<MyBookingContainerWidget2> {
               firstChild: Container(),
               secondChild: !widget.isCompleted! 
                   ?  DetailsBooking2(
-                locationDescription: widget.locationDescription ?? 'Location description is empty',
+                locationDescription: widget.locationDescription ?? AppLocalizations.of(context)!.translate('locationDescriptionIsEmpty')!,
                 price: widget.price ?? 0,
                 onYesCancelButton: widget.onYesCancelButton,
                 mapWidget: widget.mapWidget,
                 viewReceiptTap: widget.viewReceiptTap,
               )
                   : DetailsBooking2(
-                locationDescription: widget.locationDescription ?? 'Location description is empty',
+                locationDescription: widget.locationDescription ?? AppLocalizations.of(context)!.translate('locationDescriptionIsEmpty')!,
                 price: widget.price ?? 0,
                 onYesCancelButton: widget.onYesCancelButton,
                 thirdButtonWidget: widget.thirdButtonWidget,

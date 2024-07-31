@@ -42,7 +42,7 @@ class OrderWidget extends StatelessWidget {
             RichText(
               text: TextSpan(
                   children: [
-                    TextSpan(text: 'Order Ref: ', style: OStyles.bodyLargeBold),
+                    TextSpan(text: '${AppLocalizations.of(context)!.translate('orderRef')!} ', style: OStyles.bodyLargeBold),
                     TextSpan(text: orderRef.toString(), style: OStyles.bodyLargeRegular.copyWith(color: OColors.primaryColor500)),
                   ]
               ),
@@ -51,7 +51,7 @@ class OrderWidget extends StatelessWidget {
             RichText(
               text: TextSpan(
                   children: [
-                    TextSpan(text: 'Number of offers: ', style: OStyles.bodyLargeBold),
+                    TextSpan(text: '${AppLocalizations.of(context)!.translate('numberOfOffers')!} ', style: OStyles.bodyLargeBold),
                     TextSpan(text: totalPendingOffers.toString(), style: OStyles.bodyLargeRegular.copyWith(color: OColors.primaryColor500)),
                   ]
               ),
@@ -79,7 +79,7 @@ class OrderWidget extends StatelessWidget {
                       RichText(
                         text: TextSpan(
                             children: [
-                              TextSpan(text: 'Warranty: ', style: OStyles.bodyLargeSemiBold),
+                              TextSpan(text: '${AppLocalizations.of(context)!.translate('warrant')!} ', style: OStyles.bodyLargeSemiBold),
                               TextSpan(text: warranty, style: OStyles.bodyLargeRegular.copyWith(color: OColors.primaryColor500)),
                             ]
                         ),
@@ -88,7 +88,7 @@ class OrderWidget extends StatelessWidget {
                       RichText(
                         text: TextSpan(
                             children: [
-                              TextSpan(text: 'Service name: ', style: OStyles.bodyLargeSemiBold),
+                              TextSpan(text: '${AppLocalizations.of(context)!.translate('serviceName')!} ', style: OStyles.bodyLargeSemiBold),
                               TextSpan(text: serviceName, style: OStyles.bodyLargeRegular.copyWith(color: OColors.primaryColor500)),
                             ]
                         ),
@@ -103,7 +103,7 @@ class OrderWidget extends StatelessWidget {
                       RichText(
                         text: TextSpan(
                             children: [
-                              TextSpan(text: 'Status: ', style: OStyles.bodyLargeSemiBold),
+                              TextSpan(text: '${AppLocalizations.of(context)!.translate('status')!} ', style: OStyles.bodyLargeSemiBold),
                               TextSpan(text: status, style: OStyles.bodyLargeRegular.copyWith(color: OColors.primaryColor500)),
                             ],
                         ),
@@ -112,7 +112,7 @@ class OrderWidget extends StatelessWidget {
                       RichText(
                         text: TextSpan(
                             children: [
-                              TextSpan(text: 'Max allowed price: ', style: OStyles.bodyLargeSemiBold),
+                              TextSpan(text: '${AppLocalizations.of(context)!.translate('maxAllowedPrice')!} ', style: OStyles.bodyLargeSemiBold),
                               TextSpan(text: maxAllowedPrice, style: OStyles.bodyLargeRegular.copyWith(color: OColors.primaryColor500)),
                             ]
                         ),
@@ -125,7 +125,7 @@ class OrderWidget extends StatelessWidget {
                   description == null ? SizedBox() :RichText(
                     text: TextSpan(
                         children: [
-                          TextSpan(text: 'Description: ', style: OStyles.bodyLargeBold),
+                          TextSpan(text: '${AppLocalizations.of(context)!.translate('description')!} ', style: OStyles.bodyLargeBold),
                           TextSpan(text: description, style: OStyles.bodyLargeRegular.copyWith(color: OColors.primaryColor500)),
                         ]
                     ),

@@ -181,8 +181,7 @@ class _InboxScreen2State extends State<InboxScreen2> {
     } else {
       // Handle the case when microphone permission is not granted
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-            content: Text('Microphone permission is required to record')),
+        SnackBar(content: Text(AppLocalizations.of(context)!.translate('microPhonePermissionIsRequired')!)),
       );
     }
   }
@@ -345,7 +344,7 @@ class _InboxScreen2State extends State<InboxScreen2> {
                   arguments: 1, predicate: (route) => false);
               ODeviceUtils.showSnackBar(
                   context: context,
-                  message: 'Successfully',
+                  message: AppLocalizations.of(context)!.translate('successfully')!,
                   textStyle: OStyles.bodyLargeRegular,
                   textColor: OColors.whiteColor,
                   bgColor: OColors.success);
@@ -455,7 +454,7 @@ class _InboxScreen2State extends State<InboxScreen2> {
                                 : inboxCubit.getAllMessagesModel.result!
                                             .messages!.isEmpty &&
                                         value.isEmpty
-                                    ? const Text('Empty Messages')
+                                    ? Text(AppLocalizations.of(context)!.translate('emptyMessages')!)
                                     : ListView.separated(
                                         controller: scrollController,
                                         shrinkWrap: true,
@@ -889,7 +888,7 @@ class _InboxScreen2State extends State<InboxScreen2> {
                                             textInputType:
                                                 TextInputType.emailAddress,
                                             focusNode: focusNode,
-                                            hintText: 'Message',
+                                            hintText: AppLocalizations.of(context)!.translate('message')!,
                                       onChanged: (value) {
                                         logWarning(value);
                                         if(value != '') {
@@ -1189,14 +1188,14 @@ class _InboxScreen2State extends State<InboxScreen2> {
           actions: [
             TextButton(
               onPressed: () => Navigator.of(context).pop(),
-              child: const Text('Cancel'),
+              child: Text(AppLocalizations.of(context)!.translate('cancel')!),
             ),
             TextButton(
               onPressed: () {
                 openAppSettings();
                 Navigator.of(context).pop();
               },
-              child: const Text('Open Settings'),
+              child: Text(AppLocalizations.of(context)!.translate('openSettings')!),
             ),
           ],
         );

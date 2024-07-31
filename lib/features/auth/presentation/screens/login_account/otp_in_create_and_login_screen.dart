@@ -18,10 +18,11 @@ class _OtpInCreateAndLoginScreenState extends State<OtpInCreateAndLoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: OColors.whiteColor,
       body: BlocConsumer<AuthCubit, AuthState>(
         listener: (context, state) {
           if(state is VerifyOTPErrorState) {
-            ODeviceUtils.showSnackBar(context: context, message: 'The otp have a problem', textStyle: OStyles.bodyLargeRegular, textColor: OColors.whiteColor, bgColor: OColors.error);
+            ODeviceUtils.showSnackBar(context: context, message: AppLocalizations.of(context)!.translate('theOTPHaveAProblem')!, textStyle: OStyles.bodyLargeRegular, textColor: OColors.whiteColor, bgColor: OColors.error);
           } else if(state is VerifyOTPSuccessState) {
               if(state.message == 'login successfully') {
                 ODeviceUtils.showDialogFunction(context: context, imagePath: OImages.congratulationProfile);
@@ -59,7 +60,7 @@ class _OtpInCreateAndLoginScreenState extends State<OtpInCreateAndLoginScreen> {
                       SizedBox(
                         height: 50.h,
                         width: double.infinity,
-                        child: Text('Code has been sent to: ${widget.phoneNumber}', style: OStyles.bodyXLargeRegular, textAlign: TextAlign.center),
+                        child: Text('${AppLocalizations.of(context)!.translate('codeHasBeenSentTo: ')!}${widget.phoneNumber}', style: OStyles.bodyXLargeRegular, textAlign: TextAlign.center),
                       ),
 
                       /// Make Space
@@ -115,7 +116,7 @@ class _OtpInCreateAndLoginScreenState extends State<OtpInCreateAndLoginScreen> {
 
                       /// Counter Text
                       TextRich2Widget(
-                        text1: 'Resend code in ',
+                        text1: '${AppLocalizations.of(context)!.translate('resendCodeIn')!} ',
                         style: OStyles.bodyXLargeMedium.copyWith(color: OColors.primaryColor500),
                       ),
 
@@ -130,7 +131,7 @@ class _OtpInCreateAndLoginScreenState extends State<OtpInCreateAndLoginScreen> {
                           child: LoadingWidget(iconColor: OColors.whiteColor),
                         )
                             : Text(
-                          'Continue',
+                          AppLocalizations.of(context)!.translate('continue')!,
                           style: OStyles.bodyLargeBold.copyWith(color: OColors.whiteColor),
                         ),
                         onTap: state is VerifyOTPLoadingState ? null : () => verifyOTPCubit.verifyOTPFunction(otp: pinputController.text, phoneNumber: widget.phoneNumber),

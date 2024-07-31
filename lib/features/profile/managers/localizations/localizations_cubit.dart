@@ -1,8 +1,6 @@
-import 'package:bloc/bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meta/meta.dart';
-
 import '../../../../utils/constants/exports.dart';
-
 part 'localizations_state.dart';
 
 class LocaleCubit extends Cubit<LocaleState> {

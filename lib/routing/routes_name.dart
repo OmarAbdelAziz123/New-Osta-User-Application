@@ -7,6 +7,7 @@ class ORoutesName {
   static const String loginAccountRoute = 'login-account-route';
   static const String forgetPasswordRoute = 'forget-password-route';
   static const String otpRoute = 'otp-route';
+  static const String walletRoute = 'walletRoute';
   static const String enterFunctionConnectionRoute = 'enter-function-connection-route';
   static const String otpInForgetPasswordRoute = 'otp-in-forget-password-route';
   static const String createNewPasswordRoute = 'create-new-password-route';

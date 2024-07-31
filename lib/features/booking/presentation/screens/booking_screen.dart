@@ -39,7 +39,7 @@ class _BookingScreenState extends State<BookingScreen> with SingleTickerProvider
       child: Column(
         children: [
           /// App Bar
-          AppBarWidget(leading: SvgPicture.asset(OImages.profileLogo, fit: BoxFit.scaleDown), title: 'My Bookings',
+          AppBarWidget(leading: SvgPicture.asset(OImages.profileLogo, fit: BoxFit.scaleDown), title: AppLocalizations.of(context)!.translate('myBooking')!,
               actions: Container(
                 child:
                 Row(
@@ -59,10 +59,10 @@ class _BookingScreenState extends State<BookingScreen> with SingleTickerProvider
             controller: _tabController,
             labelColor: OColors.primaryColor500,
             unselectedLabelColor: OColors.greyScale500,
-            tabs: const [
-              Tab(text:  "Upcoming"),
-              Tab(text:  "Completed"),
-              Tab(text:  "Cancelled"),
+            tabs: [
+              Tab(text: AppLocalizations.of(context)!.translate('upComing')!),
+              Tab(text: AppLocalizations.of(context)!.translate('completed')!),
+              Tab(text: AppLocalizations.of(context)!.translate('cancelled')!),
             ],
           ),
           Expanded(

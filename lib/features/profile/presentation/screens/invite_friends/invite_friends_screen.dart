@@ -39,12 +39,13 @@ class _InviteFriendsScreenState extends State<InviteFriendsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: OColors.greyScale50,
       body: Padding(
         padding: EdgeInsets.only(left: 24.w, right: 24.w, top: 75.h, bottom: 48.h),
         child: Column(
           children: [
             /// Arrow Button
-            TopRowInAllScreens(titleOfScreenWidget: Text('Invite Friends', style: OStyles.h4Bold)),
+            TopRowInAllScreens(titleOfScreenWidget: Text(AppLocalizations.of(context)!.translate('inviteFriends')!, style: OStyles.h4Bold)),
 
             _isLoading
                 ? Expanded(child: Center(child: LoadingWidget(iconColor: OColors.primaryColor500)))
@@ -125,7 +126,7 @@ class _ContactContainerWidgetState extends State<ContactContainerWidget> {
               border: Border.all(color: OColors.primaryColor500, width: 2.w),
               borderRadius: BorderRadius.circular(100.r),
             ),
-            child: Center(child: Text(isInvite ? 'Invited' : 'Invite', style: OStyles.bodyMediumSemiBold.copyWith(color: isInvite ? OColors.primaryColor500 : OColors.whiteColor))),
+            child: Center(child: Text(isInvite ? AppLocalizations.of(context)!.translate('invited')! : AppLocalizations.of(context)!.translate('invite')!, style: OStyles.bodyMediumSemiBold.copyWith(color: isInvite ? OColors.primaryColor500 : OColors.whiteColor))),
           ),
         )
     );

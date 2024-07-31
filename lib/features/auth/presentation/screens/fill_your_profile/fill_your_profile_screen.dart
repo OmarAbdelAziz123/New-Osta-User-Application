@@ -10,13 +10,14 @@ class FillYourProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: OColors.whiteColor,
       body: SingleChildScrollView(
         child: Padding(
           padding: EdgeInsets.only(left: 24.w, right: 24.w, top: 75.h, bottom: 48.h),
           child: Column(
             children: [
               /// Arrow Button
-              TopRowInAllScreens(titleOfScreenWidget: Text('Fill Your Profile', style: OStyles.h4Bold)),
+              TopRowInAllScreens(titleOfScreenWidget: Text(AppLocalizations.of(context)!.translate('fillYourAccount')!, style: OStyles.h4Bold)),
 
               /// Make Space
               SizedBox(height: 24.h),

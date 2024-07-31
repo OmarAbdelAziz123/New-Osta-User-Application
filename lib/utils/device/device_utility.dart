@@ -84,12 +84,11 @@ class ODeviceUtils {
                         SvgPicture.asset(imagePath,
                             fit: BoxFit.scaleDown, width: 186.w, height: 180.h),
                         SizedBox(height: 32.h),
-                        Text('Congratulations!',
+                        Text(AppLocalizations.of(context)!.translate('congratulations')!,
                             style: OStyles.h4Bold, textAlign: TextAlign.center),
                         SizedBox(height: 16.h),
-                        Text(
-                            'Your account is ready to use. You will be redirected to the Home page in a few seconds..',
-                            style: OStyles.bodyLargeRegular,
+                        Text(AppLocalizations.of(context)!.translate('yourAccountIsReady')!,
+                           style: OStyles.bodyLargeRegular,
                             textAlign: TextAlign.center),
                         SizedBox(height: 32.h),
 

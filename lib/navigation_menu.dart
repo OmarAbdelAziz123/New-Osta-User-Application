@@ -48,7 +48,8 @@ class _NavigationMenuState extends State<NavigationMenu> {
 
     return Scaffold(
       // backgroundColor: OColors.greyScale50,
-      backgroundColor: Theme.of(context).colorScheme.surface,
+      // backgroundColor: Theme.of(context).colorScheme.surface,
+      backgroundColor: OColors.greyScale50,
       body: AnimatedSwitcher(
         duration: const Duration(milliseconds: 400),
         transitionBuilder: (Widget child, Animation<double> animation) {
@@ -71,7 +72,8 @@ class _NavigationMenuState extends State<NavigationMenu> {
             data: ThemeData(splashColor: Colors.transparent),
             child: BottomNavigationBar(
               elevation: 0,
-              backgroundColor: Theme.of(context).bottomNavigationBarTheme.backgroundColor,
+              // backgroundColor: Theme.of(context).bottomNavigationBarTheme.backgroundColor,
+              backgroundColor: OColors.greyScale50,
               iconSize: 24.sp,
               type: BottomNavigationBarType.fixed,
               currentIndex: currentIndex,
@@ -89,7 +91,7 @@ class _NavigationMenuState extends State<NavigationMenu> {
                     height: 38.h,
                     child: currentIndex == 0 ? SvgPicture.asset(OImages.homeIconSelected, colorFilter: ColorFilter.mode(OColors.primaryColor500, BlendMode.srcIn), fit: BoxFit.scaleDown) : SvgPicture.asset(OImages.homeIconNotSelected, colorFilter: ColorFilter.mode(OColors.greyScale500, BlendMode.srcIn), fit: BoxFit.scaleDown),
                   ),
-                  label: 'Home',
+                  label: AppLocalizations.of(context)!.translate('home')!,
                 ),
                 BottomNavigationBarItem(
                   icon: SizedBox(
@@ -97,7 +99,7 @@ class _NavigationMenuState extends State<NavigationMenu> {
                     height: 38.h,
                     child: currentIndex == 1 ? SvgPicture.asset(OImages.bookingIconSelected, colorFilter: ColorFilter.mode(OColors.primaryColor500, BlendMode.srcIn), fit: BoxFit.scaleDown) : SvgPicture.asset(OImages.bookingIconNotSelected, colorFilter: ColorFilter.mode(OColors.greyScale500, BlendMode.srcIn), fit: BoxFit.scaleDown),
                   ),
-                  label: 'Booking',
+                  label: AppLocalizations.of(context)!.translate('booking')!,
                 ),
                 // BottomNavigationBarItem(
                 //   icon: SizedBox(
@@ -146,7 +148,7 @@ class _NavigationMenuState extends State<NavigationMenu> {
                     height: 38.h,
                     child: currentIndex == 2 ? SvgPicture.asset(OImages.waleetIconB, colorFilter: ColorFilter.mode(OColors.primaryColor500, BlendMode.srcIn), fit: BoxFit.scaleDown) : SvgPicture.asset(OImages.waleetIconB, colorFilter: ColorFilter.mode(OColors.greyScale500, BlendMode.srcIn), fit: BoxFit.scaleDown),
                   ),
-                  label: 'Wallet',
+                  label: AppLocalizations.of(context)!.translate('wallet')!,
                 ),
                 BottomNavigationBarItem(
                   icon: SizedBox(
@@ -154,7 +156,7 @@ class _NavigationMenuState extends State<NavigationMenu> {
                     height: 38.h,
                     child: currentIndex == 3 ? SvgPicture.asset(OImages.inboxIcon, colorFilter: ColorFilter.mode(OColors.primaryColor500, BlendMode.srcIn), fit: BoxFit.scaleDown) : SvgPicture.asset(OImages.inboxIcon, colorFilter: ColorFilter.mode(OColors.greyScale500, BlendMode.srcIn), fit: BoxFit.scaleDown),
                   ),
-                  label: 'Inbox',
+                  label: AppLocalizations.of(context)!.translate('inbox')!,
                 ),
                 BottomNavigationBarItem(
                   icon: SizedBox(
@@ -162,7 +164,7 @@ class _NavigationMenuState extends State<NavigationMenu> {
                     height: 38.h,
                     child: currentIndex == 4 ? SvgPicture.asset(OImages.profileIconSelected, colorFilter: ColorFilter.mode(OColors.primaryColor500, BlendMode.srcIn), fit: BoxFit.scaleDown) : SvgPicture.asset(OImages.profileIconNotSelected, colorFilter: ColorFilter.mode(OColors.greyScale500, BlendMode.srcIn), fit: BoxFit.scaleDown),
                   ),
-                  label: 'Profile',
+                  label: AppLocalizations.of(context)!.translate('profile')!,
                 ),
               ],
             ),

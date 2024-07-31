@@ -37,6 +37,7 @@ import 'package:osta_user_app/features/profile/presentation/screens/invite_frien
 import 'package:osta_user_app/features/profile/presentation/screens/payment/add_new_card_screen.dart';
 import 'package:osta_user_app/features/profile/presentation/screens/payment/payment_screen.dart';
 import 'package:osta_user_app/features/profile/presentation/screens/privacy_policy/privacy_policy_screen.dart';
+import 'package:osta_user_app/features/profile/presentation/screens/wallet/wallet_screen.dart';
 import 'package:osta_user_app/navigation_menu.dart';
 import 'package:osta_user_app/utils/constants/exports.dart';
 
@@ -150,6 +151,14 @@ class RouteGenerator {
       case ORoutesName.notificationsRoute:
         return PageTransition(
           child: const NotificationsScreen(),
+          type: PageTransitionType.rightToLeft,
+          settings: settings,
+          duration: const Duration(milliseconds: 500),
+          reverseDuration: const Duration(milliseconds: 500),
+        );
+      case ORoutesName.walletRoute:
+        return PageTransition(
+          child: const WalletScreenInProfile(),
           type: PageTransitionType.rightToLeft,
           settings: settings,
           duration: const Duration(milliseconds: 500),

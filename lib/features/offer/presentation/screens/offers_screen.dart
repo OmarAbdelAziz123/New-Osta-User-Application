@@ -186,13 +186,13 @@ class _OffersScreenState extends State<OffersScreen> {
               'orderId': widget.orderId,
             });
           } else if(state is AcceptOffersErrorState) {
-            ODeviceUtils.showSnackBar(context: context, message: 'You have an a problem', textStyle: OStyles.bodyLargeRegular, textColor: OColors.whiteColor, bgColor: OColors.error);
+            ODeviceUtils.showSnackBar(context: context, message: AppLocalizations.of(context)!.translate('youHaveAnAProblem')!, textStyle: OStyles.bodyLargeRegular, textColor: OColors.whiteColor, bgColor: OColors.error);
           } else if(state is RejectOffersSuccessState) {
             OffersOrdersCubit.get(context).getAllOffersByMeFunction(orderId: widget.orderId);
             context.pushReplacementNamed(ORoutesName.navigationMenuRoute, arguments: 2);
           }
           if(state is RejectOffersErrorState) {
-            ODeviceUtils.showSnackBar(context: context, message: 'You have an a problem', textStyle: OStyles.bodyLargeRegular, textColor: OColors.whiteColor, bgColor: OColors.error);
+            ODeviceUtils.showSnackBar(context: context, message: AppLocalizations.of(context)!.translate('youHaveAnAProblem')!, textStyle: OStyles.bodyLargeRegular, textColor: OColors.whiteColor, bgColor: OColors.error);
           }
         },
         builder: (context, state) {
@@ -203,7 +203,7 @@ class _OffersScreenState extends State<OffersScreen> {
             child: Column(
               children: [
                 /// App Bar
-                AppBarWidget(leading: InkWellWidget(onTap: () => context.pop(), child: const Icon((Icons.arrow_back))), title: 'Offers', actions: SvgPicture.asset(OImages.moreIcon2), widthOfText: 280.w),
+                AppBarWidget(leading: InkWellWidget(onTap: () => context.pop(), child: const Icon((Icons.arrow_back))), title: AppLocalizations.of(context)!.translate('offers')!, actions: SvgPicture.asset(OImages.moreIcon2), widthOfText: 280.w),
 
                 /// Make Space
                 SizedBox(height: 24.h),
@@ -214,7 +214,7 @@ class _OffersScreenState extends State<OffersScreen> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text('Offers for you', style: OStyles.bodyXLargeSemiBold.copyWith(color: OColors.primaryColor500)),
+                      Text(AppLocalizations.of(context)!.translate('offersForYou')!, style: OStyles.bodyXLargeSemiBold.copyWith(color: OColors.primaryColor500)),
                       Container(
                         height: 4.h,
                         width: double.infinity,
@@ -231,7 +231,7 @@ class _OffersScreenState extends State<OffersScreen> {
                 LoadingWidget(iconColor: OColors.primaryColor500) :
                 // const Center(child: NotFoundAndFoundOffersWidget(emoji: OImages.foundIcon, title: 'Waiting for offers', description: 'Don\'t worry, we will find you Osta as soon as possible. Receive the offers and choose the most suitable for you. We wish you an enjoyable experience')) :
                 offersOrdersCubit.getAllOffersToMeModel.result!.isEmpty || state is GetAllOrdersErrorState ?
-                const NotFoundAndFoundOffersWidget(emoji: OImages.notFoundIcon, title: 'Not Found', description: 'Sorry, the keyword you entered cannot be found, please check again or search with another keyword.')
+                NotFoundAndFoundOffersWidget(emoji: OImages.notFoundIcon, title: AppLocalizations.of(context)!.translate('notFound')!, description: AppLocalizations.of(context)!.translate('sorryTheKeyWord')!)
                     : Expanded(
                   child: ListView.builder(
                     itemCount: offersOrdersCubit.getAllOffersToMeModel.result!.length,
@@ -255,8 +255,8 @@ class _OffersScreenState extends State<OffersScreen> {
                         onTapOnAcceptButton: () {
                           offersOrdersCubit.acceptOffersByMeFunction(offerId: offerList[index].id!);
                         },
-                        widgetInRejectButton: state is RejectOffersLoadingState ? Lottie.asset(OImages.loadingTwo) : Text('Reject', style: OStyles.bodyXSmallSemiBold.copyWith(color: OColors.whiteColor)),
-                        widgetInAcceptButton: state is AcceptOffersLoadingState ? Lottie.asset(OImages.loadingTwo) : Text('Accept', style: OStyles.bodyXSmallSemiBold.copyWith(color: OColors.whiteColor)),
+                        widgetInRejectButton: state is RejectOffersLoadingState ? Lottie.asset(OImages.loadingTwo) : Text(AppLocalizations.of(context)!.translate('reject')!, style: OStyles.bodyXSmallSemiBold.copyWith(color: OColors.whiteColor)),
+                        widgetInAcceptButton: state is AcceptOffersLoadingState ? Lottie.asset(OImages.loadingTwo) : Text(AppLocalizations.of(context)!.translate('accept')!, style: OStyles.bodyXSmallSemiBold.copyWith(color: OColors.whiteColor)),
                         distance: offerList[index].distance!,
                         serviceName: serviceNames,
                         firstName: offerList[index].provider!.firstName!,

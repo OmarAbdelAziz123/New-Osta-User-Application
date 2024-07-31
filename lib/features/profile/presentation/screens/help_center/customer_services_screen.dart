@@ -208,7 +208,7 @@ class _CustomerServicesScreenState extends State<CustomerServicesScreen> {
           const Icon(Icons.fiber_manual_record, color: Colors.white),
           const SizedBox(width: 8.0),
           Text(
-            'Recording: ${_formatDuration(_recordingDuration)}',
+            '${AppLocalizations.of(context)!.translate('invite')!} ${_formatDuration(_recordingDuration)}',
             style: const TextStyle(color: Colors.white),
           ),
         ],
@@ -285,7 +285,7 @@ class _CustomerServicesScreenState extends State<CustomerServicesScreen> {
                           context.pop();
                           messagesListLocally.clear();
                           inboxCubit.getAllMessagesModel = GetAllMessagesModel();
-                        }), title: 'Ticket number ${widget.data['title']}',
+                        }), title: '${AppLocalizations.of(context)!.translate('ticketNumber')!} ${widget.data['title']}',
                         actions: Container(),
                         widthOfText: 260.w,
                       ),
@@ -299,7 +299,7 @@ class _CustomerServicesScreenState extends State<CustomerServicesScreen> {
                             inboxCubit.getAllMessagesModel.result == null ?
                         LoadingWidget(iconColor: OColors.primaryColor500) :
                         inboxCubit.getAllMessagesModel.result!.messages!.isEmpty && messagesListLocally.isEmpty ?
-                        const Text('No Messages') :
+                        Text(AppLocalizations.of(context)!.translate('noMessages')!) :
                         ListView.separated(
                           controller: scrollController,
                           shrinkWrap: true,
@@ -411,7 +411,7 @@ class _CustomerServicesScreenState extends State<CustomerServicesScreen> {
                                     controller: controller,
                                     textInputType: TextInputType.emailAddress,
                                     focusNode: focusNode,
-                                    hintText: 'Message',
+                                    hintText: AppLocalizations.of(context)!.translate('message')!,
                                     onChanged: (p0) => setState(() {}),
                                     hintColor: isFieldFocused ? OColors
                                         .primaryColor500 : OColors.greyScale500,
@@ -683,14 +683,14 @@ class _CustomerServicesScreenState extends State<CustomerServicesScreen> {
           actions: [
             TextButton(
               onPressed: () => Navigator.of(context).pop(),
-              child: const Text('Cancel'),
+              child: Text(AppLocalizations.of(context)!.translate('cancel')!),
             ),
             TextButton(
               onPressed: () {
                 openAppSettings();
                 Navigator.of(context).pop();
               },
-              child: const Text('Open Settings'),
+              child: Text(AppLocalizations.of(context)!.translate('openSettings')!),
             ),
           ],
         );

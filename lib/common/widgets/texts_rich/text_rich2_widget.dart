@@ -62,7 +62,7 @@ class _TextRich2WidgetState extends State<TextRich2Widget> {
           children: <TextSpan>[
             TextSpan(text: widget.text1, style: OStyles.bodyXLargeMedium),
             TextSpan(
-              text: _isCounting ? ' $_start s' : ' Resend',
+              text: _isCounting ? ' $_start s' : ' ${AppLocalizations.of(context)!.translate('message')!}',
               style: widget.style,
             ),
           ],

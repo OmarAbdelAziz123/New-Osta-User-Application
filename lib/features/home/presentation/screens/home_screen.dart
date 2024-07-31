@@ -5,6 +5,7 @@ import 'package:osta_user_app/features/home/managers/home_cubit.dart';
 import 'package:osta_user_app/features/profile/managers/profile_cubit.dart';
 import 'package:osta_user_app/utils/constants/exports.dart';
 import 'package:osta_user_app/utils/constants/log_util.dart';
+import 'package:osta_user_app/utils/language/app_localizations.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -82,7 +83,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   child: Column(
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
-                                      Text('Good Morning 👋', style: OStyles.bodyLargeRegular.copyWith(color: OColors.greyScale600)),
+                                      Text('${AppLocalizations.of(context)!.translate('goodMorning')!} 👋', style: OStyles.bodyLargeRegular.copyWith(color: OColors.greyScale600)),
                                       Text(OCacheHelper.getString(key: CacheKeys.fullName).toString(), style: OStyles.h5Bold, overflow: TextOverflow.ellipsis),
                                       // Text('Andrew Ainsley', style: OStyles.h5Bold),
                                     ],
@@ -151,7 +152,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
                       /// Row (Services - See All)
                       RowSeeAllWidget(
-                        mainText: 'Daily services',
+                        mainText: AppLocalizations.of(context)!.translate('daily')!,
                         seeAllText: '', 
                         iconWidget: InkWellWidget(
                           onTap: () {
@@ -162,7 +163,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           child: Row(
                             crossAxisAlignment: CrossAxisAlignment.end,
                             children: [
-                              Text('Minimize',  style: OStyles.bodyLargeBold.copyWith(
+                              Text(AppLocalizations.of(context)!.translate('minimize')!,  style: OStyles.bodyLargeBold.copyWith(
                                 color: Theme.of(context).primaryColor,
                                 height: 2.3.h,
                               )),
@@ -260,7 +261,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                               }, servicesBgColors: OColors.purpleBg),
                                               SizedBox(height: 12.h),
                                               Text(
-                                                'More',
+                                                AppLocalizations.of(context)!.translate('more')!,
                                                 // style: OStyles.bodyLargeBold.copyWith(color: Theme.of(context).colorScheme.primary),
                                                 style: OStyles.bodyLargeBold,
                                                 overflow: TextOverflow.ellipsis,
@@ -431,7 +432,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       /// Row (Advanced Services)
                       Row(
                         children: [
-                          Text('Advanced services', style: OStyles.h5Bold),
+                          Text(AppLocalizations.of(context)!.translate('advancedServices')!, style: OStyles.h5Bold),
                         ],
                       ),
 
@@ -442,9 +443,9 @@ class _HomeScreenState extends State<HomeScreen> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           // Expanded(flex: 10, child: AdvancedServicesWidget(image: OImages.contractorRequestIcon, title: 'Contractor request', onTap: () => context.pushNamed(ORoutesName.contructorRequests))),
-                          Expanded(flex: 10, child: AdvancedServicesWidget(image: OImages.contractorRequestIcon, title: 'Contractor request', onTap: () => context.pushNamed(ORoutesName.oneTimeServiceInHomeScreenRoute))),
+                          Expanded(flex: 10, child: AdvancedServicesWidget(image: OImages.contractorRequestIcon, title: AppLocalizations.of(context)!.translate('contractorRequest')!, onTap: () => context.pushNamed(ORoutesName.oneTimeServiceInHomeScreenRoute))),
                           const Expanded(child: SizedBox()),
-                          Expanded(flex: 10, child: AdvancedServicesWidget(image: OImages.marketIcon, title: 'Market')),
+                          Expanded(flex: 10, child: AdvancedServicesWidget(image: OImages.marketIcon, title: AppLocalizations.of(context)!.translate('market')!)),
                         ],
                       ),
 

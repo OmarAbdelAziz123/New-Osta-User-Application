@@ -25,6 +25,7 @@ export 'package:osta_user_app/utils/device/device_utility.dart';
 export 'package:osta_user_app/utils/constants/api_constants.dart';
 export 'package:osta_user_app/utils/local_storage/cach_keys.dart';
 export 'package:osta_user_app/utils/constants/image_strings.dart';
+export 'package:osta_user_app/utils/language/app_localizations.dart';
 export 'package:osta_user_app/utils/local_storage/cache_helper.dart';
 export 'package:osta_user_app/common/widgets/or_widget/or_widget.dart';
 export 'package:osta_user_app/utils/helpers/navigation_extension.dart';

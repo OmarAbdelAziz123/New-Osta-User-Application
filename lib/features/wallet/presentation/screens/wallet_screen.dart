@@ -19,7 +19,7 @@ class _WalletScreenState extends State<WalletScreen> {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text('Wallet', style: OStyles.bodySmallBold.copyWith(fontSize: 15.sp, color: HexColor('212121'))),
+              Text(AppLocalizations.of(context)!.translate('wallet')!, style: OStyles.bodySmallBold.copyWith(fontSize: 15.sp, color: HexColor('212121'))),
             ],
           ),
 
@@ -108,8 +108,8 @@ class _WalletScreenState extends State<WalletScreen> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text('Previous payments', style: OStyles.bodySmallBold.copyWith(fontSize: 21.sp, color: HexColor('212121'))),
-                Text('All', style: OStyles.bodySmallBold.copyWith(fontSize: 11.sp, color: HexColor('AA70FF'))),
+                Text(AppLocalizations.of(context)!.translate('previousPayment')!, style: OStyles.bodySmallBold.copyWith(fontSize: 21.sp, color: HexColor('212121'))),
+                Text(AppLocalizations.of(context)!.translate('all')!, style: OStyles.bodySmallBold.copyWith(fontSize: 11.sp, color: HexColor('AA70FF'))),
               ],
             ),
           ),
@@ -144,7 +144,7 @@ class _WalletScreenState extends State<WalletScreen> {
           SizedBox(height: 20.h),
 
           MainButtonWidget(
-            centerWidgetInButton: Text('Recharge balance', style: OStyles.bodySmallBold.copyWith(fontSize: 15.sp, color: Colors.white)),
+            centerWidgetInButton: Text(AppLocalizations.of(context)!.translate('rechargeBalance')!, style: OStyles.bodySmallBold.copyWith(fontSize: 15.sp, color: Colors.white)),
             margin: EdgeInsets.zero,
             buttonColor: OColors.primaryColor500,
             boxShadow: [AppBoxShadows.buttonShadowOne],
@@ -184,8 +184,8 @@ class TransactionWidget extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('Balance has been charged', style: OStyles.bodyXLargeBold.copyWith(fontSize: 14.sp, color: HexColor('212121'))),
-                Text('Trial content that can be redeemed later', style: OStyles.bodyXLargeBold.copyWith(fontSize: 10.sp, color: HexColor('212121'))),
+                Text(AppLocalizations.of(context)!.translate('balanceHasBeenCharged')!, style: OStyles.bodyXLargeBold.copyWith(fontSize: 14.sp, color: HexColor('212121'))),
+                Text(AppLocalizations.of(context)!.translate('trialContent')!, style: OStyles.bodyXLargeBold.copyWith(fontSize: 10.sp, color: HexColor('212121'))),
               ],
             ),
           ),

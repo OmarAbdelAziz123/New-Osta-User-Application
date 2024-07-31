@@ -98,7 +98,7 @@ class _FillYourProfileFormWidgetState extends State<FillYourProfileFormWidget> {
         // var fillYourAccountCubit = AuthCubit.get(context);
         var countryIndex = AuthCubit.get(context);
         String selectedCountry = countryIndex.countryIndexModel.result![0].name!;
-        String selectedGender = 'Male';
+        String selectedGender = AppLocalizations.of(context)!.translate('male')!;
         int? idSelected;
 
         int defaultCountryId = countryIndex.countryIndexModel.result![0].id!;
@@ -142,7 +142,7 @@ class _FillYourProfileFormWidgetState extends State<FillYourProfileFormWidget> {
                   controller: fullNameController,
                   textInputType: TextInputType.name,
                   focusNode: fullNameFocusNode,
-                  hintText: 'Full Name',
+                  hintText: AppLocalizations.of(context)!.translate('fullName')!,
                   hintColor: isFullNameFieldFocused ? OColors.primaryColor500 : OColors.greyScale500,
                   fillColor: isFullNameFieldFocused ? OColors.purpleTransparent.withOpacity(.08) : OColors.greyScale50,
                   borderSide: isFullNameFieldFocused ? BorderSide(color: OColors.primaryColor500) : BorderSide.none,
@@ -157,7 +157,7 @@ class _FillYourProfileFormWidgetState extends State<FillYourProfileFormWidget> {
                   controller: emailController,
                   textInputType: TextInputType.emailAddress,
                   focusNode: emailFocusNode,
-                  hintText: 'Email',
+                  hintText: AppLocalizations.of(context)!.translate('email')!,
                   hintColor: isEmailFieldFocused ? OColors.primaryColor500 : OColors.greyScale500,
                   prefixIcon: SvgPicture.asset(OImages.email2Icon, fit: BoxFit.scaleDown, colorFilter: ColorFilter.mode(isEmailFieldFocused ? OColors.primaryColor500 : emailController.text.isNotEmpty ? OColors.greyScale900 : OColors.greyScale500, BlendMode.srcIn)),
                   fillColor: isEmailFieldFocused ? OColors.purpleTransparent.withOpacity(.08) : OColors.greyScale50,
@@ -174,7 +174,7 @@ class _FillYourProfileFormWidgetState extends State<FillYourProfileFormWidget> {
                   textInputType: TextInputType.datetime,
                   focusNode: dateOfBirthFocusNode,
                   readOnly: true,
-                  hintText: 'Date Of Birth (Optional) - by click in button...',
+                  hintText: AppLocalizations.of(context)!.translate('dateOfBirth')!,
                   hintColor: isDateOfBirthFieldFocused ? OColors.primaryColor500 : OColors.greyScale500,
                   suffixIcon: InkWellWidget(
                       onTap: () {
@@ -220,7 +220,6 @@ class _FillYourProfileFormWidgetState extends State<FillYourProfileFormWidget> {
                   onItemSelected: (selected) {
                     selectedCountry = selected!;
                     idSelected = countryIndex.countryNameToIdMap[selected];
-                    log('Selected Country ID: $idSelected');
                   },
                 ),
                 // DropDownWidget(selectedItem: OConstants.states[0], items: OConstants.states, isInFillProfile: true),
@@ -256,7 +255,7 @@ class _FillYourProfileFormWidgetState extends State<FillYourProfileFormWidget> {
                 SizedBox(height: 46.h),
 
                 MainButtonWidget(
-                  centerWidgetInButton: state is FillYourAccountLoadingState ? Padding(padding: EdgeInsets.all(3.sp), child: LoadingWidget(iconColor: OColors.whiteColor)) : Text('Continue', style: OStyles.bodyLargeBold.copyWith(color: OColors.whiteColor)),
+                  centerWidgetInButton: state is FillYourAccountLoadingState ? Padding(padding: EdgeInsets.all(3.sp), child: LoadingWidget(iconColor: OColors.whiteColor)) : Text(AppLocalizations.of(context)!.translate('continue')!, style: OStyles.bodyLargeBold.copyWith(color: OColors.whiteColor)),
                   margin: EdgeInsets.zero,
                   onTap: state is FillYourAccountLoadingState ? null : () {
                     File? _selectedFile = _selectedImageToPerson != null ? File(_selectedImageToPerson!.path) : null;
@@ -272,8 +271,8 @@ class _FillYourProfileFormWidgetState extends State<FillYourProfileFormWidget> {
                             .toString(),
                         phone: widget.phoneNumber,
                         gender: OConstants.selectedGender == 'Male'
-                            ? 'male'
-                            : 'female',
+                            ? AppLocalizations.of(context)!.translate('male')!
+                            : AppLocalizations.of(context)!.translate('female')!,
                         dateOfBirth: dateOfBirthController.text,
                         personal: _selectedImageToPerson!.path,
                       );
@@ -281,13 +280,10 @@ class _FillYourProfileFormWidgetState extends State<FillYourProfileFormWidget> {
                       logSuccess(emailController.text);
                       logSuccess(idSelected.toString());
                       logSuccess(widget.phoneNumber.toString());
-                      logSuccess(OConstants.selectedGender == 'Male'
-                          ? 'male'
-                          : 'female',);
                       logSuccess(_selectedImageToPerson!.path.toString());
 
                     } else {
-                      ODeviceUtils.showSnackBar(context: context, message: 'Must choice profile photo', textStyle: OStyles.bodyLargeRegular, textColor: OColors.whiteColor, bgColor: OColors.warning);
+                      ODeviceUtils.showSnackBar(context: context, message: AppLocalizations.of(context)!.translate('mustChoiceProfilePhoto')!, textStyle: OStyles.bodyLargeRegular, textColor: OColors.whiteColor, bgColor: OColors.warning);
                     }
                   },
                   // onTap: () => log(idSelected.toString() + ' ' + defaultCountryId.toString()),

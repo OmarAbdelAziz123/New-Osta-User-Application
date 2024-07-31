@@ -136,3 +136,13 @@ flutter:
           weight: 600
         - asset: assets/fonts/CenturyGothicPaneuropeanBold.ttf
           weight: 800
+    - family: Cairo
+      fonts:
+        - asset: assets/fonts/Cairo-Regular.ttf
+          weight: 400
+        - asset: assets/fonts/Cairo-Light.ttf
+          weight: 500
+        - asset: assets/fonts/Cairo-SemiBold.ttf
+          weight: 600
+        - asset: assets/fonts/Cairo-Bold.ttf
+          weight: 800

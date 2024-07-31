@@ -61,6 +61,8 @@ class OImages {
   static const String avatarIcon = 'assets/images/pngs/avatarIcon.png';
   static const String editIcon = 'assets/images/svgs/editIcon.svg';
   static const String arrowRightIOS = 'assets/images/svgs/arrowRightIOS.svg';
+  static const String arrowLeftIOS2 = 'assets/images/svgs/arrowRightIOS2.svg';
+  static const String arrowRightIOS2 = 'assets/images/svgs/arrowRightIOS22.svg';
   static const String notificationIcon = 'assets/images/svgs/notificationIcon.svg';
   static const String walletIcon = 'assets/images/svgs/walletIcon.svg';
   static const String securityIcon = 'assets/images/svgs/securityIcon.svg';

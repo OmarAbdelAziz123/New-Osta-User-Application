@@ -159,13 +159,13 @@ class OfferWidget extends StatelessWidget {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text('The best offer', style: OStyles.bodySmallBold.copyWith(color: OColors.disabledButton, height: 2.5.h, overflow: TextOverflow.ellipsis)),
+                    Text(AppLocalizations.of(context)!.translate('theBestOffer')!, style: OStyles.bodySmallBold.copyWith(color: OColors.disabledButton, height: 2.5.h, overflow: TextOverflow.ellipsis)),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         SizedBox(
                           width: ODeviceUtils.getScreenWidth(context) / 2.6,
-                          child: Text('Jenny offers you an offer worth', style: OStyles.h6Bold, overflow: TextOverflow.ellipsis, maxLines: 2),
+                          child: Text(AppLocalizations.of(context)!.translate('jennyOffers')!, style: OStyles.h6Bold, overflow: TextOverflow.ellipsis, maxLines: 2),
                         ),
                         Text(priceOffer.toString(), style: OStyles.h6Bold.copyWith(color: OColors.gradientPurple1), overflow: TextOverflow.ellipsis, maxLines: 2),
                       ],

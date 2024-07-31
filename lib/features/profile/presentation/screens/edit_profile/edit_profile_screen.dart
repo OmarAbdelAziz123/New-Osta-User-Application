@@ -18,7 +18,7 @@ class EditProfileScreen extends StatelessWidget {
             child: Column(
               children: [
                 /// Arrow Button
-                TopRowInAllScreens(titleOfScreenWidget: Text('Edit Profile', style: OStyles.h4Bold), onTap: () => context.pushReplacementNamed(ORoutesName.navigationMenuRoute, arguments: 3)),
+                TopRowInAllScreens(titleOfScreenWidget: Text(AppLocalizations.of(context)!.translate('editProfile')!, style: OStyles.h4Bold), onTap: () => context.pushReplacementNamed(ORoutesName.navigationMenuRoute, arguments: 4)),
 
                 /// Make Space
                 SizedBox(height: 33.5.h),

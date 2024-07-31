@@ -25,7 +25,12 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
 
   @override
   Widget build(BuildContext context) {
+    List<String> onBoardingTexts = OConstants.onBoardingTexts.map((key) {
+      return AppLocalizations.of(context)!.translate(key)!;
+    }).toList();
+
     return Scaffold(
+      backgroundColor: OColors.greyScale50,
       body: Column(
         children: [
           /// OnBoarding Body
@@ -56,7 +61,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                             width: 380.w,
                             margin: EdgeInsets.only(left: 24.w, right: 24.w, top: 48.h),
                             child: Text(
-                              OConstants.onBoardingTexts[index],
+                              onBoardingTexts[index],
                               style: OStyles.h2Bold,
                               textAlign: TextAlign.center,
                             ),
@@ -74,7 +79,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: List.generate(
-                OConstants.onBoardingTexts.length,
+              onBoardingTexts.length,
                 (index) => ODeviceUtils.buildDotWidget(index, currentIndex, context, BoxDecoration(gradient: AppGradients.purpleGradient, borderRadius: BorderRadius.circular(100.r))),
               ),
           ),
@@ -84,7 +89,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
 
           /// Next Button
           MainButtonWidget(
-            centerWidgetInButton: Text(currentIndex == OConstants.onBoardingImage.length-1 ? 'Continue' : 'Next', style: OStyles.bodyLargeBold.copyWith(color: OColors.whiteColor)),
+            centerWidgetInButton: Text(currentIndex == OConstants.onBoardingImage.length-1 ? AppLocalizations.of(context)!.translate('continue')! : AppLocalizations.of(context)!.translate('next')!, style: OStyles.bodyLargeBold.copyWith(color: OColors.whiteColor)),
             onTap: () {
               if(currentIndex == OConstants.onBoardingImage.length - 1) {
                 /// Navigate to Check Screen

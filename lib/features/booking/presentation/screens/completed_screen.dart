@@ -54,10 +54,9 @@ class _CompletedScreenState extends State<CompletedScreen> {
                           null ||
                       acceptedOrdersCubit
                           .getOrdersByFilterModel.result!.data!.isEmpty
-                  ? const EmptyUpcomingScreen(
-                      title: 'You have no upcoming booking',
-                      description:
-                          'You do not have a upcoming booking. Make a new booking by clicking the button home',
+                  ? EmptyUpcomingScreen(
+                      title: AppLocalizations.of(context)!.translate('youHaveNoUpComingBooking')!,
+                      description: AppLocalizations.of(context)!.translate('youDoNotHaveAUpcomingBooking')!,
                     )
                   : RefreshIndicator(
                       child: ListView.builder(
@@ -102,7 +101,7 @@ class _CompletedScreenState extends State<CompletedScreen> {
                                   : 'Done',
                               showDetailsBooking: isExpanded,
                               locationDescription:
-                                  ordersList[index].locationDesc ?? 'Location description is empty',
+                                  ordersList[index].locationDesc ?? AppLocalizations.of(context)!.translate('locationDescriptionIsEmpty')!,
                               price: ordersList[index].price == 0
                                   ? 0
                                   : ordersList[index].price?.toDouble(),
@@ -135,7 +134,7 @@ class _CompletedScreenState extends State<CompletedScreen> {
                               isCompleted: true,
                               thirdButtonWidget: ThirdButtonWidget(
                                 isRejected: false,
-                                widgetInButton: Text('View E-Receipts', style: OStyles.bodyMediumSemiBold.copyWith(color: Colors.white)),
+                                widgetInButton: Text(AppLocalizations.of(context)!.translate('viewEReceipts')!, style: OStyles.bodyMediumSemiBold.copyWith(color: Colors.white)),
                                 textStyle: OStyles.bodyMediumSemiBold,
                                 containerColor: OColors.primaryColor500,
                                 width: double.infinity,

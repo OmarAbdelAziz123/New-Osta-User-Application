@@ -41,7 +41,7 @@ class _HelpCenterScreenState extends State<HelpCenterScreen> with SingleTickerPr
                     onPressed: () {
                       context.pop();
                     }),
-                title: "Help Center",
+                title: AppLocalizations.of(context)!.translate('helpCenter')!,
                 actions: SvgPicture.asset(OImages.chatIcon,
                     fit: BoxFit.scaleDown, width: 25.w),
                 widthOfText: 266.w),
@@ -57,9 +57,9 @@ class _HelpCenterScreenState extends State<HelpCenterScreen> with SingleTickerPr
               controller: _tabController,
               labelColor: OColors.primaryColor500,
               unselectedLabelColor: OColors.greyScale500,
-              tabs: const [
-                Tab(text:  "FAQ"),
-                Tab(text:  "Contact us"),
+              tabs: [
+                Tab(text: AppLocalizations.of(context)!.translate('faq')!),
+                Tab(text: AppLocalizations.of(context)!.translate('contactUs')!),
               ],
             ),
             Expanded(

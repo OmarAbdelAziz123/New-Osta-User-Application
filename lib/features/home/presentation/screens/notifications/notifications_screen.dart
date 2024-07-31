@@ -14,7 +14,7 @@ class NotificationsScreen extends StatelessWidget {
             padding: EdgeInsets.only(left: 24.w, right: 24.w, top: 68.h, bottom: 0.h),
             child: AppBarWidget(
               leading: InkWellWidget(onTap: () => context.pop(), child: const Icon((Icons.arrow_back))),
-              title: 'Notification',
+              title: AppLocalizations.of(context)!.translate('notification')!,
               actions: SvgPicture.asset(OImages.moreIcon),
               widthOfText: 282.w,
             ),
@@ -42,13 +42,13 @@ class NotificationsScreen extends StatelessWidget {
                         SizedBox(height: 24.h),
 
                         /// Notification Container Component
-                        const NotificationContainerWidget(image: OImages.waleetImage, title: 'Payment Successful!', description: 'You have made a services payment'),
+                        NotificationContainerWidget(image: OImages.waleetImage, title: AppLocalizations.of(context)!.translate('paymentSuccessful')!, description: AppLocalizations.of(context)!.translate('youHaveModeAServicesPayment')!),
 
                         /// Make Space
                         SizedBox(height: 24.h),
 
                         /// Notification Container Component
-                        const NotificationContainerWidget(image: OImages.newCategoryIcon, title: 'New Category Services!', description: 'Now the plumbing service is available'),
+                        NotificationContainerWidget(image: OImages.newCategoryIcon, title: AppLocalizations.of(context)!.translate('newCategoryServices')!, description: AppLocalizations.of(context)!.translate('nowThePlumingServiceIsAvailable')!),
 
                         /// Make Space
                         SizedBox(height: 24.h),

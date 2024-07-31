@@ -49,6 +49,13 @@ class OstaUserApp extends StatelessWidget {
                 localizationsDelegates: AppLocalizationsSetup.localizationsDelegates,
                 localeListResolutionCallback: AppLocalizationsSetup.localeResolutionCallback,
                 locale: localeState.locale,
+                // theme: ThemeData(
+                //   fontFamily: AppLocalizations.of(context)!.isEnLocale ? 'CenturyGothicPaneuropean' : 'Cairo',
+                // ),
+                theme: ThemeData(
+                  // Set fontFamily conditionally
+                  fontFamily: localeState.locale.languageCode == 'en' ? 'CenturyGothicPaneuropean' : 'Cairo',
+                ),
                 // home: ChatScreen(title: 'Provider chat'),
                 onGenerateRoute: RouteGenerator.getRoute,
                 initialRoute: ORoutesName.splashRoute,

@@ -6,6 +6,7 @@ class LoginAccountScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: OColors.whiteColor,
       body: SingleChildScrollView(
         child: Padding(
           padding: EdgeInsets.only(left: 24.w, right: 24.w, top: 75.h, bottom: 48.h),
@@ -18,7 +19,7 @@ class LoginAccountScreen extends StatelessWidget {
               SizedBox(height: 31.h),
 
               /// Create Account Text
-              Text('Login to your Account', style: OStyles.h1Bold.copyWith(color: OColors.greyScale900)),
+              Text(AppLocalizations.of(context)!.translate('loginToYourAccount')!, style: OStyles.h1Bold.copyWith(color: OColors.greyScale900)),
 
               /// Make Space
               SizedBox(height: 45.25.h),

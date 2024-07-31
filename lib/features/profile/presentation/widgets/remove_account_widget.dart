@@ -14,7 +14,7 @@ class RemoveAccountWidget extends StatelessWidget {
             /// Make Space
             SizedBox(height: 35.h),
 
-            SizedBox(width: double.infinity, height: ODeviceUtils.getScreenHeight(context) / 26, child: Text('Remove account', style: OStyles.h4Bold.copyWith(color: OColors.alertsAndStatusError), textAlign: TextAlign.center)),
+            SizedBox(width: double.infinity, height: ODeviceUtils.getScreenHeight(context) / 26, child: Text(AppLocalizations.of(context)!.translate('removeAccount')!, style: OStyles.h4Bold.copyWith(color: OColors.alertsAndStatusError), textAlign: TextAlign.center)),
 
             /// Make Space
             SizedBox(height: 24.h),
@@ -24,7 +24,7 @@ class RemoveAccountWidget extends StatelessWidget {
             /// Make Space
             SizedBox(height: 24.h),
 
-            SizedBox(width: double.infinity, height: ODeviceUtils.getScreenHeight(context) / 26, child: Text('Are you sure you want to remove?', style: OStyles.h5Bold.copyWith(color: OColors.greyScale800), textAlign: TextAlign.center)),
+            SizedBox(width: double.infinity, height: ODeviceUtils.getScreenHeight(context) / 26, child: Text(AppLocalizations.of(context)!.translate('areYouSureYouWantToRemove')!, style: OStyles.h5Bold.copyWith(color: OColors.greyScale800), textAlign: TextAlign.center)),
 
             /// Make Space
             SizedBox(height: 12.h),
@@ -36,8 +36,8 @@ class RemoveAccountWidget extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  SecondButtonWidget(bgColor: OColors.primaryColor100, widget: Text('Cancel', style: OStyles.bodyLargeBold.copyWith(color: OColors.primaryColor500)), onTap: () => context.pop()),
-                  SecondButtonWidget(bgColor: OColors.primaryColor500, widget: Text('Yes, Remove', style: OStyles.bodyLargeBold.copyWith(color: OColors.whiteColor)), onTap: () {
+                  SecondButtonWidget(bgColor: OColors.primaryColor100, widget: Text(AppLocalizations.of(context)!.translate('cancel')!, style: OStyles.bodyLargeBold.copyWith(color: OColors.primaryColor500)), onTap: () => context.pop()),
+                  SecondButtonWidget(bgColor: OColors.primaryColor500, widget: Text(AppLocalizations.of(context)!.translate('yesRemove')!, style: OStyles.bodyLargeBold.copyWith(color: OColors.whiteColor)), onTap: () {
                     OCacheHelper.removeFromShared(key: CacheKeys.token);
                     context.pushNamedAndRemoveUntil(ORoutesName.onBoardingRoute, predicate: (Route<dynamic> route) => false);
                   }),

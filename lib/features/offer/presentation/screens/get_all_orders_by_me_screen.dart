@@ -34,7 +34,7 @@ class _GetAllOrdersByMeScreenState extends State<GetAllOrdersByMeScreen> {
                 /// App Bar
                 AppBarWidget(
                     leading: SvgPicture.asset(OImages.profileLogo, fit: BoxFit.scaleDown),
-                    title: 'My Orders', actions: Container(),
+                    title: AppLocalizations.of(context)!.translate('myOrders')!, actions: Container(),
                     widthOfText: 280.w),
 
                 /// Make Space
@@ -46,7 +46,7 @@ class _GetAllOrdersByMeScreenState extends State<GetAllOrdersByMeScreen> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text('Orders for you', style: OStyles.bodyXLargeSemiBold.copyWith(color: OColors.primaryColor500)),
+                      Text(AppLocalizations.of(context)!.translate('ordersForYou')!, style: OStyles.bodyXLargeSemiBold.copyWith(color: OColors.primaryColor500)),
                       Container(
                         height: 4.h,
                         width: double.infinity,
@@ -64,7 +64,7 @@ class _GetAllOrdersByMeScreenState extends State<GetAllOrdersByMeScreen> {
                     || offersOrdersCubit.getAllOrdersToMeModel.result!.data == null
                     ? Center(child: LoadingWidget(iconColor: OColors.primaryColor500))
                     :  offersOrdersCubit.getAllOrdersToMeModel.result!.data!.isEmpty ?
-                const NotFoundAndFoundOffersWidget(emoji: OImages.notFoundIcon, title: 'Not Found', description: 'Sorry, the keyword you entered cannot be found, please check again or search with another keyword.')
+                NotFoundAndFoundOffersWidget(emoji: OImages.notFoundIcon, title: AppLocalizations.of(context)!.translate('notFound')!, description: AppLocalizations.of(context)!.translate('sorryTheKeyWord')!)
                     : Expanded(
                   child: RefreshIndicator(
                     onRefresh: () {
@@ -91,7 +91,7 @@ class _GetAllOrdersByMeScreenState extends State<GetAllOrdersByMeScreen> {
                           orderRef: orderList[index].id!,
                           onTap: () => context.pushNamed(ORoutesName.offersRoute, arguments: orderList[index].id),
                           totalPendingOffers: orderList[index].totalPendingOffers!,
-                        ) : const NotFoundAndFoundOffersWidget(emoji: OImages.notFoundIcon, title: 'Not Found pending orders', description: 'Sorry, the keyword you entered cannot be found, please check again or search with another keyword.');
+                        ) : NotFoundAndFoundOffersWidget(emoji: OImages.notFoundIcon, title: AppLocalizations.of(context)!.translate('notFoundPendingOrders')!, description: AppLocalizations.of(context)!.translate('sorryTheKeyWord')!);
                       },
                     ),
                   ),

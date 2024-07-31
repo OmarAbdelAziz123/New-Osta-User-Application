@@ -92,7 +92,7 @@ class _LoginAccountFormWidgetState extends State<LoginAccountFormWidget> {
         } else if (state is LoginErrorState) {
           ODeviceUtils.showSnackBar(
               context: context,
-              message: 'Authentication have an error',
+              message: AppLocalizations.of(context)!.translate('authHaveAnError')!,
               textStyle: OStyles.bodyLargeRegular,
               textColor: OColors.whiteColor,
               bgColor: OColors.error);
@@ -111,7 +111,7 @@ class _LoginAccountFormWidgetState extends State<LoginAccountFormWidget> {
                 controller: phoneController,
                 textInputType: TextInputType.phone,
                 focusNode: phoneFocusNode,
-                hintText: 'Phone Number',
+                hintText: AppLocalizations.of(context)!.translate('phoneNumber')!,
                 hintColor: isPhoneFieldFocused
                     ? OColors.primaryColor500
                     : OColors.greyScale500,
@@ -179,7 +179,7 @@ class _LoginAccountFormWidgetState extends State<LoginAccountFormWidget> {
                     ? Padding(
                         padding: EdgeInsets.all(3.sp),
                         child: LoadingWidget(iconColor: OColors.whiteColor))
-                    : Text('Continue',
+                    : Text(AppLocalizations.of(context)!.translate('continue')!,
                         style: OStyles.bodyLargeBold
                             .copyWith(color: OColors.whiteColor)),
                 onTap: state is LoginLoadingState
