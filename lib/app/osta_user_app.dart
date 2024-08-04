@@ -16,6 +16,7 @@ import 'package:osta_user_app/features/offer/managers/socket_cubit/socket_cubit.
 import 'package:osta_user_app/features/profile/managers/localizations/localizations_cubit.dart';
 import 'package:osta_user_app/features/profile/managers/profile_cubit.dart';
 import 'package:osta_user_app/features/profile/managers/theme/theme_cubit.dart';
+import 'package:osta_user_app/features/wallet/managers/wallet_cubit.dart';
 import 'package:osta_user_app/utils/constants/exports.dart';
 import 'package:osta_user_app/utils/language/app_localizations.dart';
 import 'package:osta_user_app/utils/language/app_localizations_setup.dart';
@@ -39,6 +40,7 @@ class OstaUserApp extends StatelessWidget {
             BlocProvider(create: (context) => SocketCubit()),
             BlocProvider(create: (context) => ProfileCubit()),
             BlocProvider(create: (context) => LocaleCubit()),
+            BlocProvider(create: (context) => WalletCubit()),
           ],
           child: BlocBuilder<LocaleCubit, LocaleState>(
             builder: (context, localeState) {

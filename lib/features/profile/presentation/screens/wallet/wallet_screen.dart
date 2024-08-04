@@ -136,6 +136,7 @@ class _WalletScreenInProfileState extends State<WalletScreenInProfile> {
                   return TransactionWidget(
                     imageTransaction: OConstants.transactionsIcons[index],
                     price: '1150',
+                    description: AppLocalizations.of(context)!.translate('trialContent')!,
                   );
                 },
                 separatorBuilder: (context, index) {
