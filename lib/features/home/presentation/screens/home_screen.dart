@@ -443,9 +443,9 @@ class _HomeScreenState extends State<HomeScreen> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           // Expanded(flex: 10, child: AdvancedServicesWidget(image: OImages.contractorRequestIcon, title: 'Contractor request', onTap: () => context.pushNamed(ORoutesName.contructorRequests))),
-                          Expanded(flex: 10, child: AdvancedServicesWidget(image: OImages.contractorRequestIcon, title: AppLocalizations.of(context)!.translate('contractorRequest')!, onTap: () => context.pushNamed(ORoutesName.oneTimeServiceInHomeScreenRoute))),
+                          Expanded(flex: 15, child: AdvancedServicesWidget(image: OImages.contractorRequestIcon, title: AppLocalizations.of(context)!.translate('contractorRequest')!, onTap: () => context.pushNamed(ORoutesName.oneTimeServiceInHomeScreenRoute))),
                           const Expanded(child: SizedBox()),
-                          Expanded(flex: 10, child: AdvancedServicesWidget(image: OImages.marketIcon, title: AppLocalizations.of(context)!.translate('market')!)),
+                          Expanded(flex: 15, child: AdvancedServicesWidget(image: OImages.marketIcon, title: AppLocalizations.of(context)!.translate('market')!)),
                         ],
                       ),
 

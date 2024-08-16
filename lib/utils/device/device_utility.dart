@@ -10,6 +10,14 @@ class ODeviceUtils {
   //   return image;
   // }
 
+  static String formatTime(String createdAt) {
+    DateTime dateTime = DateTime.parse(createdAt);
+
+    String formattedTime = DateFormat('HH.mm').format(dateTime);
+
+    return formattedTime;
+  }
+
   static buildRatingStars(int rating){
     String stars ='';
     for(int i=0;i<rating ;i++){

@@ -8,6 +8,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:osta_user_app/features/auth/managers/auth_cubit.dart';
 import 'package:osta_user_app/features/booking/managers/booking_cubit.dart';
 import 'package:osta_user_app/features/home/managers/home_cubit.dart';
+import 'package:osta_user_app/features/inbox/inbox_for_delivery/managers/inbox_cubit.dart';
 import 'package:osta_user_app/features/inbox/inbox_for_delivery/presentation/screens/chat_screen.dart';
 import 'package:osta_user_app/features/inbox/inbox_for_user/presentation/screens/chat_screen_for_user.dart';
 import 'package:osta_user_app/features/map1.dart';
@@ -41,6 +42,7 @@ class OstaUserApp extends StatelessWidget {
             BlocProvider(create: (context) => ProfileCubit()),
             BlocProvider(create: (context) => LocaleCubit()),
             BlocProvider(create: (context) => WalletCubit()),
+            BlocProvider(create: (context) => InboxCubit()),
           ],
           child: BlocBuilder<LocaleCubit, LocaleState>(
             builder: (context, localeState) {

@@ -203,12 +203,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 //       Stack(
                 //         children: [
                 //           // /// Image Profile
-                //           // CircleAvatar(
-                //           //   radius: 60.r,
-                //           //   backgroundImage: ProfileCubit.get(context).getProfileDataModel.result != null ? NetworkImage( ProfileCubit.get(context).getProfileDataModel.result!.personalMediaUrl!) : null,
-                //           //   backgroundColor: Colors.transparent,
-                //           //   child: ProfileCubit.get(context).getProfileDataModel.result == null ? Lottie.asset(OImages.loadingImages) : null,
-                //           // ),
+                //           CircleAvatar(
+                //             radius: 60.r,
+                //             backgroundImage: ProfileCubit.get(context).getProfileDataModel.result != null ? NetworkImage( ProfileCubit.get(context).getProfileDataModel.result!.personalMediaUrl!) : null,
+                //             backgroundColor: Colors.transparent,
+                //             child: ProfileCubit.get(context).getProfileDataModel.result == null ? Lottie.asset(OImages.loadingImages) : null,
+                //           ),
                 //           // Image Profile
                 //           CircleAvatar(
                 //             radius: 62.r,
@@ -306,12 +306,18 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 //   width: double.infinity,
                   // height: _selectedImageToPerson != null ? ODeviceUtils.getScreenHeight(context).h / 3 : ODeviceUtils.getScreenHeight(context).h / 3.8,
                   // child:
-                  Stack(
+                Stack(
                     children: [
-                      Image.asset(OImages.profileImage2, height: 182.h),
+                      CircleAvatar(
+                        radius: 60.r,
+                        backgroundImage: ProfileCubit.get(context).getProfileDataModel.result != null ? NetworkImage(ProfileCubit.get(context).getProfileDataModel.result!.personalMediaUrl!) : null,
+                        backgroundColor: Colors.transparent,
+                        child: ProfileCubit.get(context).getProfileDataModel.result == null ? Lottie.asset(OImages.loadingImages) : null,
+                      ),
+                      // Image.asset(OImages.profileImage2, height: 182.h),
                       Positioned(
-                        bottom: 12,
-                        left: 30,
+                        bottom: 0,
+                        left: 0,
                         child: Card(
                           elevation: 2,
                           color: OColors.whiteColor,
@@ -329,7 +335,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       )
                     ],
                   ),
-                // ),
 
                 /// Make Space
                 SizedBox(height: 30.h),
@@ -340,7 +345,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   child: Column(
                     children: [
                       /// Name of User
-                      Text("Amira Adel",style: OStyles.h4Bold.copyWith(color: OColors.primaryColor500)),
+                      // Text("Amira Adel",style: OStyles.h4Bold.copyWith(color: OColors.primaryColor500)),
+                      Text(profileCubit.getProfileDataModel.result!.name ?? '', style: OStyles.h4Bold.copyWith(color: OColors.primaryColor500), textAlign: TextAlign.center, maxLines: 2, overflow: TextOverflow.ellipsis),
 
                       /// Make Space
                       SizedBox(height: 18.h),
@@ -377,7 +383,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 children: [
                                   Icon(Icons.phone_iphone_outlined,color: OColors.primaryColor500, size: 20.sp),
                                   SizedBox(width: 6.w),
-                                  Text("09966000000",style: OStyles.h3Bold.copyWith(fontSize: 14.sp)),
+                                  // Text("09966000000",style: OStyles.h3Bold.copyWith(fontSize: 14.sp)),
+                                  Text(profileCubit.getProfileDataModel.result!.phone ?? '', style: OStyles.h3Bold.copyWith(fontSize: 14.sp)),
                                 ],
                               ),
                             ],

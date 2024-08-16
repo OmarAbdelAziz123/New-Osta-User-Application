@@ -70,7 +70,7 @@ class OneTimeServiceInHomeScreen extends StatelessWidget {
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
                 mainAxisSpacing: ODeviceUtils.getScreenWidth(context) / 20,
-                crossAxisSpacing: ODeviceUtils.getScreenHeight(context) / 30,
+                crossAxisSpacing: ODeviceUtils.getScreenHeight(context) / 100,
                 childAspectRatio: ODeviceUtils.getScreenWidth(context) / 180,
               ),
               itemBuilder: (context, index) {
