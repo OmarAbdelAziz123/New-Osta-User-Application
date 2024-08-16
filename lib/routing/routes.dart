@@ -140,9 +140,9 @@ class RouteGenerator {
           reverseDuration: const Duration(milliseconds: 500),
         );
       case ORoutesName.chatForUserRoute:
-        final title = settings.arguments as String;
+        final data = settings.arguments as Map;
         return PageTransition(
-          child:  ChatScreenForUser(title: title),
+          child:  ChatScreenForUser(data: data),
           type: PageTransitionType.rightToLeft,
           settings: settings,
           duration: const Duration(milliseconds: 500),
@@ -248,16 +248,16 @@ class RouteGenerator {
           duration: const Duration(milliseconds: 500),
           reverseDuration: const Duration(milliseconds: 500),
         );
-      case ORoutesName.imageDetailScreenRoute:
-        final data = settings.arguments as Map;
-
-        return PageTransition(
-          child: ImageDetailScreen(data: data),
-          type: PageTransitionType.rightToLeft,
-          settings: settings,
-          duration: const Duration(milliseconds: 500),
-          reverseDuration: const Duration(milliseconds: 500),
-        );
+      // case ORoutesName.imageDetailScreenRoute:
+      //   final data = settings.arguments as Map;
+      //
+      //   return PageTransition(
+      //     child: ImageDetailScreen(data: data),
+      //     type: PageTransitionType.rightToLeft,
+      //     settings: settings,
+      //     duration: const Duration(milliseconds: 500),
+      //     reverseDuration: const Duration(milliseconds: 500),
+      //   );
       case ORoutesName.inboxRoute:
         final data = settings.arguments as Map;
         return PageTransition(

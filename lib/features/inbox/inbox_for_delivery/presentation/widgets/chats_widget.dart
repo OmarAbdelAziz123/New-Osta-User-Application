@@ -80,8 +80,13 @@ class _ChatsWidgetState extends State<ChatsWidget> {
                 profileMessage: conversation.lastMessage!.content == null ? '' : conversation.lastMessage!.content.toString(),
                 // profileMessage: "I have booked your house ...",
                 onTap: () {
-                  context.pushNamed(ORoutesName.chatForUserRoute,
-                      arguments: OConstants.inboxProfileName[index]);
+                  context.pushNamed(
+                    ORoutesName.chatForUserRoute,
+                    arguments: {
+                      // '': OConstants.inboxProfileName[index],
+                      'conversationId': conversation.id,
+                    },
+                  );
                 },
                 numOfMessage: "2",
                 // date: '13.29',

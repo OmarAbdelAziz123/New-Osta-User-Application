@@ -201,7 +201,8 @@ class _InboxScreen2State extends State<InboxScreen2> {
     OffersOrdersCubit.get(context).getAllMessagesFunction(
         orderId: widget.data['orderId'].toString(),
         page: countPage,
-        perPage: 10);
+        perPage: 10,
+    );
 
     _getDir();
     _initialiseControllers();
