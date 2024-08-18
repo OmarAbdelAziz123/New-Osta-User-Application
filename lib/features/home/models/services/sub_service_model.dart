@@ -1,7 +1,7 @@
 class SubServiceModel {
   bool? success;
   String? message;
-  List<Result>? result;
+  List<SubService>? result;
 
   SubServiceModel({this.success, this.message, this.result});
 
@@ -9,65 +9,107 @@ class SubServiceModel {
     success = json['success'];
     message = json['message'];
     if (json['result'] != null) {
-      result = <Result>[];
+      result = <SubService>[];
       json['result'].forEach((v) {
-        result!.add(new Result.fromJson(v));
+        result!.add(SubService.fromJson(v));
       });
     }
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['success'] = this.success;
-    data['message'] = this.message;
-    if (this.result != null) {
-      data['result'] = this.result!.map((v) => v.toJson()).toList();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['success'] = success;
+    data['message'] = message;
+    if (result != null) {
+      data['result'] = result!.map((v) => v.toJson()).toList();
     }
     return data;
   }
 }
 
-class Result {
+class SubService {
   int? id;
   String? name;
-  int? minPrice;
   int? maxPrice;
   String? type;
-  int? serviceId;
-  String? createdAt;
-  String? updatedAt;
+  List<Spaces>? spaces;
 
-  Result(
-      {this.id,
-        this.name,
-        this.minPrice,
-        this.maxPrice,
-        this.type,
-        this.serviceId,
-        this.createdAt,
-        this.updatedAt});
+  SubService({this.id, this.name, this.maxPrice, this.type, this.spaces});
 
-  Result.fromJson(Map<String, dynamic> json) {
+  SubService.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     name = json['name'];
-    minPrice = json['min_price'];
     maxPrice = json['max_price'];
     type = json['type'];
-    serviceId = json['service_id'];
-    createdAt = json['created_at'];
-    updatedAt = json['updated_at'];
+    if (json['spaces'] != null) {
+      spaces = <Spaces>[];
+      json['spaces'].forEach((v) {
+        spaces!.add(Spaces.fromJson(v));
+      });
+    }
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['name'] = this.name;
-    data['min_price'] = this.minPrice;
-    data['max_price'] = this.maxPrice;
-    data['type'] = this.type;
-    data['service_id'] = this.serviceId;
-    data['created_at'] = this.createdAt;
-    data['updated_at'] = this.updatedAt;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['name'] = name;
+    data['max_price'] = maxPrice;
+    data['type'] = type;
+    if (spaces != null) {
+      data['spaces'] = spaces!.map((v) => v.toJson()).toList();
+    }
+    return data;
+  }
+}
+
+class Spaces {
+  int? id;
+  String? name;
+  String? createdAt;
+  String? updatedAt;
+  Pivot? pivot;
+
+  Spaces({this.id, this.name, this.createdAt, this.updatedAt, this.pivot});
+
+  Spaces.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    name = json['name'];
+    createdAt = json['created_at'];
+    updatedAt = json['updated_at'];
+    pivot = json['pivot'] != null ? Pivot.fromJson(json['pivot']) : null;
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['name'] = name;
+    data['created_at'] = createdAt;
+    data['updated_at'] = updatedAt;
+    if (pivot != null) {
+      data['pivot'] = pivot!.toJson();
+    }
+    return data;
+  }
+}
+
+class Pivot {
+  int? subServiceId;
+  int? spaceId;
+  String? maxPrice;
+
+  Pivot({this.subServiceId, this.spaceId, this.maxPrice});
+
+  Pivot.fromJson(Map<String, dynamic> json) {
+    subServiceId = json['sub_service_id'];
+    spaceId = json['space_id'];
+    maxPrice = json['max_price'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['sub_service_id'] = subServiceId;
+    data['space_id'] = spaceId;
+    data['max_price'] = maxPrice;
     return data;
   }
 }

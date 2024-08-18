@@ -156,7 +156,6 @@ import 'package:osta_user_app/utils/constants/exports.dart';
 //   }
 // }
 
-
 class OffersScreen extends StatefulWidget {
   const OffersScreen({super.key, required this.orderId});
   final int orderId;
@@ -166,10 +165,10 @@ class OffersScreen extends StatefulWidget {
 }
 
 class _OffersScreenState extends State<OffersScreen> {
-
   @override
   void initState() {
-    OffersOrdersCubit.get(context).getAllOffersByMeFunction(orderId: widget.orderId);
+    OffersOrdersCubit.get(context)
+        .getAllOffersByMeFunction(orderId: widget.orderId);
     super.initState();
   }
 
@@ -180,19 +179,36 @@ class _OffersScreenState extends State<OffersScreen> {
       backgroundColor: OColors.greyScale50,
       body: BlocConsumer<OffersOrdersCubit, OffersOrdersState>(
         listener: (context, state) {
-          if(state is AcceptOffersSuccessState) {
-            OffersOrdersCubit.get(context).getAllOffersByMeFunction(orderId: widget.orderId);
-            context.pushNamedAndRemoveUntil(ORoutesName.inboxRoute, predicate: (route) => false, arguments: {
-              'orderId': widget.orderId,
-            });
-          } else if(state is AcceptOffersErrorState) {
-            ODeviceUtils.showSnackBar(context: context, message: AppLocalizations.of(context)!.translate('youHaveAnAProblem')!, textStyle: OStyles.bodyLargeRegular, textColor: OColors.whiteColor, bgColor: OColors.error);
-          } else if(state is RejectOffersSuccessState) {
-            OffersOrdersCubit.get(context).getAllOffersByMeFunction(orderId: widget.orderId);
-            context.pushReplacementNamed(ORoutesName.navigationMenuRoute, arguments: 2);
+          if (state is AcceptOffersSuccessState) {
+            OffersOrdersCubit.get(context)
+                .getAllOffersByMeFunction(orderId: widget.orderId);
+            context.pushNamedAndRemoveUntil(ORoutesName.inboxRoute,
+                predicate: (route) => false,
+                arguments: {
+                  'orderId': widget.orderId,
+                });
+          } else if (state is AcceptOffersErrorState) {
+            ODeviceUtils.showSnackBar(
+                context: context,
+                message: AppLocalizations.of(context)!
+                    .translate('youHaveAnAProblem')!,
+                textStyle: OStyles.bodyLargeRegular,
+                textColor: OColors.whiteColor,
+                bgColor: OColors.error);
+          } else if (state is RejectOffersSuccessState) {
+            OffersOrdersCubit.get(context)
+                .getAllOffersByMeFunction(orderId: widget.orderId);
+            context.pushReplacementNamed(ORoutesName.navigationMenuRoute,
+                arguments: 2);
           }
-          if(state is RejectOffersErrorState) {
-            ODeviceUtils.showSnackBar(context: context, message: AppLocalizations.of(context)!.translate('youHaveAnAProblem')!, textStyle: OStyles.bodyLargeRegular, textColor: OColors.whiteColor, bgColor: OColors.error);
+          if (state is RejectOffersErrorState) {
+            ODeviceUtils.showSnackBar(
+                context: context,
+                message: AppLocalizations.of(context)!
+                    .translate('youHaveAnAProblem')!,
+                textStyle: OStyles.bodyLargeRegular,
+                textColor: OColors.whiteColor,
+                bgColor: OColors.error);
           }
         },
         builder: (context, state) {
@@ -203,7 +219,13 @@ class _OffersScreenState extends State<OffersScreen> {
             child: Column(
               children: [
                 /// App Bar
-                AppBarWidget(leading: InkWellWidget(onTap: () => context.pop(), child: const Icon((Icons.arrow_back))), title: AppLocalizations.of(context)!.translate('offers')!, actions: SvgPicture.asset(OImages.moreIcon2), widthOfText: 280.w),
+                AppBarWidget(
+                    leading: InkWellWidget(
+                        onTap: () => context.pop(),
+                        child: const Icon((Icons.arrow_back))),
+                    title: AppLocalizations.of(context)!.translate('offers')!,
+                    actions: SvgPicture.asset(OImages.moreIcon2),
+                    widthOfText: 280.w),
 
                 /// Make Space
                 SizedBox(height: 24.h),
@@ -214,7 +236,11 @@ class _OffersScreenState extends State<OffersScreen> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(AppLocalizations.of(context)!.translate('offersForYou')!, style: OStyles.bodyXLargeSemiBold.copyWith(color: OColors.primaryColor500)),
+                      Text(
+                          AppLocalizations.of(context)!
+                              .translate('offersForYou')!,
+                          style: OStyles.bodyXLargeSemiBold
+                              .copyWith(color: OColors.primaryColor500)),
                       Container(
                         height: 4.h,
                         width: double.infinity,
@@ -227,47 +253,47 @@ class _OffersScreenState extends State<OffersScreen> {
                   ),
                 ),
 
-                state is GetAllOffersLoadingState || offersOrdersCubit.getAllOffersToMeModel.result == null ?
-                LoadingWidget(iconColor: OColors.primaryColor500) :
-                // const Center(child: NotFoundAndFoundOffersWidget(emoji: OImages.foundIcon, title: 'Waiting for offers', description: 'Don\'t worry, we will find you Osta as soon as possible. Receive the offers and choose the most suitable for you. We wish you an enjoyable experience')) :
-                offersOrdersCubit.getAllOffersToMeModel.result!.isEmpty || state is GetAllOrdersErrorState ?
-                NotFoundAndFoundOffersWidget(emoji: OImages.notFoundIcon, title: AppLocalizations.of(context)!.translate('notFound')!, description: AppLocalizations.of(context)!.translate('sorryTheKeyWord')!)
-                    : Expanded(
-                  child: ListView.builder(
-                    itemCount: offersOrdersCubit.getAllOffersToMeModel.result!.length,
-                    shrinkWrap: true,
-                    itemBuilder: (context, index) {
-                      var offerList = offersOrdersCubit.getAllOffersToMeModel.result;
-                      List<Services> services = offerList![index].provider!.services!;
-                      String serviceNames = services.map((service) => service.name).join(', ');
+                state is GetAllOffersLoadingState ||
+                        offersOrdersCubit.getAllOffersToMeModel.offersList ==
+                            null
+                    ? LoadingWidget(iconColor: OColors.primaryColor500)
+                    :
+                    // const Center(child: NotFoundAndFoundOffersWidget(emoji: OImages.foundIcon, title: 'Waiting for offers', description: 'Don\'t worry, we will find you Osta as soon as possible. Receive the offers and choose the most suitable for you. We wish you an enjoyable experience')) :
+                    offersOrdersCubit
+                                .getAllOffersToMeModel.offersList!.isEmpty ||
+                            state is GetAllOrdersErrorState
+                        ? NotFoundAndFoundOffersWidget(
+                            emoji: OImages.notFoundIcon,
+                            title: AppLocalizations.of(context)!
+                                .translate('notFound')!,
+                            description: AppLocalizations.of(context)!
+                                .translate('sorryTheKeyWord')!)
+                        : Expanded(
+                            child: ListView.builder(
+                              itemCount: offersOrdersCubit
+                                  .getAllOffersToMeModel.offersList!.length,
+                              shrinkWrap: true,
+                              itemBuilder: (context, index) {
+                                var offerList = offersOrdersCubit
+                                    .getAllOffersToMeModel.offersList;
+                                List<Services> services =
+                                    offerList![index].provider!.services!;
+                                String serviceNames = services
+                                    .map((service) => service.name)
+                                    .join(', ');
 
-                      /// Make The Fist Letter is UpperCase
-                      serviceNames = serviceNames.replaceAllMapped(
-                        RegExp(r'\b(\w)'),
-                            (match) => match.group(0)!.toUpperCase(),
-                      );
+                                /// Make The Fist Letter is UpperCase
+                                serviceNames = serviceNames.replaceAllMapped(
+                                  RegExp(r'\b(\w)'),
+                                  (match) => match.group(0)!.toUpperCase(),
+                                );
 
-                      return OfferWidget(
-                        priceOffer: offerList[index].price!,
-                        onTapOnRejectButton: () {
-                          offersOrdersCubit.rejectOffersByMeFunction(offerId: offerList[index].id!);
-                        },
-                        onTapOnAcceptButton: () {
-                          offersOrdersCubit.acceptOffersByMeFunction(offerId: offerList[index].id!);
-                        },
-                        widgetInRejectButton: state is RejectOffersLoadingState ? Lottie.asset(OImages.loadingTwo) : Text(AppLocalizations.of(context)!.translate('reject')!, style: OStyles.bodyXSmallSemiBold.copyWith(color: OColors.whiteColor)),
-                        widgetInAcceptButton: state is AcceptOffersLoadingState ? Lottie.asset(OImages.loadingTwo) : Text(AppLocalizations.of(context)!.translate('accept')!, style: OStyles.bodyXSmallSemiBold.copyWith(color: OColors.whiteColor)),
-                        distance: offerList[index].distance!,
-                        serviceName: serviceNames,
-                        firstName: offerList[index].provider!.firstName!,
-                        lastName: offerList[index].provider!.lastName!,
-                        timingArrive: offerList[index].arrivalTime!,
-                        containerGradient: offerList[index].price == 0 ? AppGradients.redGradient : AppGradients.whiteGradient,
-                        textsColor: offerList[index].price == 0 ? OColors.whiteColor : OColors.greyScale700 ,
-                      );
-                    },
-                  ),
-                ),
+                                return OfferWidget(
+                                  offerModel: offerList[index],
+                                );
+                              },
+                            ),
+                          ),
               ],
             ),
           );

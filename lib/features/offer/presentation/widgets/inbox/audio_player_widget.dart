@@ -6,11 +6,17 @@ import 'package:osta_user_app/utils/constants/log_util.dart';
 import '../../../../../utils/constants/styles.dart';
 
 class AudioPlayerWidget extends StatefulWidget {
-  const AudioPlayerWidget({super.key, required this.url, this.sendingTime, this.isMe});
+  const AudioPlayerWidget(
+      {super.key,
+      required this.url,
+      this.sendingTime,
+      this.isMe,
+      this.isInbox});
 
   final String url;
   final String? sendingTime;
   final bool? isMe;
+  final bool? isInbox;
 
   @override
   State<AudioPlayerWidget> createState() => _AudioPlayerWidgetState();
@@ -65,7 +71,8 @@ class _AudioPlayerWidgetState extends State<AudioPlayerWidget> {
     logWarning(widget.url);
 
     return Container(
-      constraints: BoxConstraints(maxWidth: MediaQuery.of(context).size.width * 0.68),
+      constraints:
+          BoxConstraints(maxWidth: MediaQuery.of(context).size.width * 0.68),
       child: Row(
         children: [
           Expanded(
@@ -80,11 +87,14 @@ class _AudioPlayerWidgetState extends State<AudioPlayerWidget> {
                           isPlaying
                               ? player.pause()
                               : widget.url.startsWith('http')
-                              ? player.play(UrlSource(widget.url))
-                              : player.play(DeviceFileSource(widget.url));
+                                  ? player.play(UrlSource(widget.url))
+                                  : player.play(DeviceFileSource(widget.url));
                         });
                       },
-                      icon: Icon(isPlaying ? Icons.pause : Icons.play_arrow, color: widget.isMe! ? Colors.grey.shade100 : OColors.primaryColor200),
+                      icon: Icon(isPlaying ? Icons.pause : Icons.play_arrow,
+                          color: widget.isMe!
+                              ? Colors.grey.shade100
+                              : OColors.darkGrey),
                       iconSize: 30,
                       splashRadius: 20,
                     ),
@@ -92,26 +102,35 @@ class _AudioPlayerWidgetState extends State<AudioPlayerWidget> {
                       child: Slider(
                         onChanged: (value) {
                           if (_duration == Duration.zero) return;
-                          final newPosition = Duration(milliseconds: (value * _duration.inMilliseconds).round());
+                          final newPosition = Duration(
+                              milliseconds:
+                                  (value * _duration.inMilliseconds).round());
                           player.seek(newPosition);
                         },
                         value: _calculateSliderValue(),
-                        activeColor: widget.isMe! ? Colors.grey.shade300 : OColors.primaryColor200,
-                        inactiveColor: widget.isMe! ? Colors.grey : Colors.grey.shade300,
+                        activeColor: widget.isMe!
+                            ? Colors.grey.shade300
+                            : OColors.primary,
+                        thumbColor: OColors.white,
+                        inactiveColor: widget.isMe! ? Colors.grey : Colors.grey,
                       ),
                     ),
                   ],
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      _formatDuration(_position),
-                      style: TextStyle(color: OColors.greyScale400, fontSize: 12),
-                    ),
-                    Text(widget.sendingTime ?? '', style: OStyles.bodyMediumRegular.copyWith(color: OColors.greyScale400)),
-                  ],
-                ),
+                if ((widget.isInbox ?? true))
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        _formatDuration(_position),
+                        style: TextStyle(
+                            color: OColors.greyScale400, fontSize: 12),
+                      ),
+                      Text(widget.sendingTime ?? '',
+                          style: OStyles.bodyMediumRegular
+                              .copyWith(color: OColors.greyScale400)),
+                    ],
+                  ),
               ],
             ),
           ),

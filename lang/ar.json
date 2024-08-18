@@ -111,5 +111,9 @@
   "nowThePlumingServiceIsAvailable": "الآن خدمة السباكة متاحة",
   "youHaveModeAServicesPayment": "لقد قمت بدفع الخدمات",
   "updateProfileDateSuccessfully": "تم تحديث بيانات الملف الشخصي بنجاح",
-  "updateProfileDateHaveAProblem": "تحديث بيانات الملف الشخصي لديه مشكلة"
+  "updateProfileDateHaveAProblem": "تحديث بيانات الملف الشخصي لديه مشكلة",
+  "pending": "انتظار",
+  "current": "جاري",
+  "finished": "تم",
+  "warranty": "الضمان"
 }

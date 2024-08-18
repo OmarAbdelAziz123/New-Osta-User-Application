@@ -1,7 +1,13 @@
 import 'package:osta_user_app/utils/constants/exports.dart';
 
 class RowSeeAllWidget extends StatelessWidget {
-  const RowSeeAllWidget({super.key, required this.mainText, required this.seeAllText, required this.onTap, this.isOpen, this.iconWidget});
+  const RowSeeAllWidget(
+      {super.key,
+      required this.mainText,
+      required this.seeAllText,
+      required this.onTap,
+      this.isOpen,
+      this.iconWidget});
 
   final String mainText, seeAllText;
   final void Function() onTap;
@@ -16,13 +22,13 @@ class RowSeeAllWidget extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(mainText, style: OStyles.h5Bold),
+          Text(mainText, style: OStyles.bodyLargeBold.copyWith(height: 0.9)),
           if (isOpen != null && isOpen! == false)
             InkWellWidget(
               onTap: onTap,
               child: Text(
                 seeAllText,
-                style: OStyles.bodyLargeBold.copyWith(
+                style: OStyles.bodySmallBold.copyWith(
                   color: OColors.primaryColor500,
                   height: 2.3.h,
                 ),

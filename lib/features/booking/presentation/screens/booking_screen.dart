@@ -1,6 +1,6 @@
 import 'package:osta_user_app/features/booking/managers/booking_cubit.dart';
-import 'package:osta_user_app/features/booking/presentation/screens/cancelled_screen.dart';
-import 'package:osta_user_app/features/booking/presentation/screens/upcoming_screen.dart';
+import 'package:osta_user_app/features/booking/presentation/screens/current_screen.dart';
+import 'package:osta_user_app/features/booking/presentation/screens/pending_screen.dart';
 import 'package:osta_user_app/features/offer/managers/offers_orders_cubit.dart';
 import 'package:osta_user_app/features/offer/managers/socket_cubit/socket_cubit.dart';
 import 'package:osta_user_app/utils/constants/exports.dart';
@@ -15,7 +15,8 @@ class BookingScreen extends StatefulWidget {
   State<BookingScreen> createState() => _BookingScreenState();
 }
 
-class _BookingScreenState extends State<BookingScreen> with SingleTickerProviderStateMixin{
+class _BookingScreenState extends State<BookingScreen>
+    with SingleTickerProviderStateMixin {
   TabController? _tabController;
 
   @override
@@ -34,55 +35,68 @@ class _BookingScreenState extends State<BookingScreen> with SingleTickerProvider
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.only(left: 24.w, right: 24.w, top: 68.h),
-      child: Column(
+    return Scaffold(
+      backgroundColor: OColors.white,
+      appBar: AppBar(
+        backgroundColor: OColors.white,
+        actions: [
+          Padding(
+            padding: EdgeInsets.only(right: 20.w),
+            child: Row(
+              children: [
+                Text(
+                  AppLocalizations.of(context)!.translate('myOrders')!,
+                  style: TextStyle(
+                    fontSize: 15.sp,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                SizedBox(width: 10.w),
+                SvgPicture.asset(OImages.profileLogo, fit: BoxFit.scaleDown),
+              ],
+            ),
+          )
+        ],
+      ),
+      body: Column(
         children: [
-          /// App Bar
-          AppBarWidget(leading: SvgPicture.asset(OImages.profileLogo, fit: BoxFit.scaleDown), title: AppLocalizations.of(context)!.translate('myBooking')!,
-              actions: Container(
-                child:
-                Row(
-                  children: [
-                    // SvgPicture.asset(OImages.searchIcon, fit: BoxFit.scaleDown),
-                    // SizedBox(width: 20.w),
-                    // SvgPicture.asset(OImages.chatIcon, fit: BoxFit.scaleDown),
-                  ],),),
-              widthOfText: 280.w),
-
-          /// Make Space
-          SizedBox(height: 24.h),
-
           /// TabBar
-          TabBar(
-            indicatorColor: OColors.primaryColor500,
-            controller: _tabController,
-            labelColor: OColors.primaryColor500,
-            unselectedLabelColor: OColors.greyScale500,
-            tabs: [
-              Tab(text: AppLocalizations.of(context)!.translate('upComing')!),
-              Tab(text: AppLocalizations.of(context)!.translate('completed')!),
-              Tab(text: AppLocalizations.of(context)!.translate('cancelled')!),
-            ],
+          Padding(
+            padding: EdgeInsets.only(
+              left: 24.w,
+              right: 24.w,
+            ),
+            child: TabBar(
+              indicatorColor: OColors.primaryColor500,
+              controller: _tabController,
+              labelStyle: TextStyle(
+                fontSize: 17.sp,
+                fontWeight: FontWeight.bold,
+                color: OColors.primary,
+              ),
+              unselectedLabelStyle: TextStyle(
+                fontSize: 17.sp,
+                color: OColors.greyScale500,
+              ),
+              tabs: [
+                Tab(text: AppLocalizations.of(context)!.translate('pending')!),
+                Tab(text: AppLocalizations.of(context)!.translate('current')!),
+                Tab(text: AppLocalizations.of(context)!.translate('finished')!),
+              ],
+            ),
           ),
           Expanded(
             child: TabBarView(
               controller: _tabController,
-              children:  [
-                UpcomingScreen(),
-                // EmptyUpcomingScreen(),
-                /// Completed Screen
-                const CompletedScreen(),
-                /// Cancelled Screen
-                const CancelledScreen(),
+              children: const [
+                PendingScreen(),
+                CurrentScreen(),
+                CompletedScreen(),
               ],
             ),
           ),
-
-
         ],
       ),
     );
   }
 }
-
