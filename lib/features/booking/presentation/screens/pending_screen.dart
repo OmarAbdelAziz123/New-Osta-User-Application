@@ -2,33 +2,27 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lottie/lottie.dart';
 import 'package:osta_user_app/features/booking/managers/booking_cubit.dart';
 import 'package:osta_user_app/features/booking/presentation/screens/empty_upcoming_screen.dart';
-import 'package:osta_user_app/features/booking/presentation/widgets/my_booking_container_widget/my_booking_container_widget.dart';
 import 'package:osta_user_app/features/booking/presentation/widgets/my_booking_container_widget/my_booking_container_widget2.dart';
 import 'package:osta_user_app/features/booking/presentation/widgets/show_location/show_location_for_user_screen.dart';
-import 'package:osta_user_app/features/offer/managers/offers_orders_cubit.dart';
 import 'package:osta_user_app/utils/constants/log_util.dart';
-
 import '../../../../utils/constants/exports.dart';
 
-class CompletedScreen extends StatefulWidget {
-  const CompletedScreen({super.key});
+class PendingScreen extends StatefulWidget {
+  const PendingScreen({super.key});
 
   @override
-  State<CompletedScreen> createState() => _CompletedScreenState();
+  State<PendingScreen> createState() => _PendingScreenState();
 }
 
-class _CompletedScreenState extends State<CompletedScreen> {
+class _PendingScreenState extends State<PendingScreen> {
   bool isExpanded = false;
-
   // late BookingCubit bookingCubit;
 
   @override
   void initState() {
-    // BookingCubit.get(context).getOrdersByFilterFunction(status: 'done');
     super.initState();
-    // bookingCubit = BookingCubit();
-    // bookingCubit.getOrdersByFilterFunction(status: 'done');
-    BookingCubit.get(context).getOrdersByFilterFunction(status: 'done');
+    BookingCubit.get(context).getOrdersByFilterFunction(status: 'pending');
+    // BookingCubit.get(context).getOrdersByFilterFunction(status: 'accepted');
   }
 
   @override
@@ -47,9 +41,7 @@ class _CompletedScreenState extends State<CompletedScreen> {
 
           return state is GetOrderByFilterLoadingState
               ? Center(child: LoadingWidget(iconColor: OColors.primaryColor500))
-              : acceptedOrdersCubit.getOrdersByFilterModel == null ||
-                      acceptedOrdersCubit
-                              .getOrdersByFilterModel.orderModelList ==
+              : acceptedOrdersCubit.getOrdersByFilterModel.orderModelList ==
                           null ||
                       acceptedOrdersCubit
                               .getOrdersByFilterModel.orderModelList!.data ==
@@ -58,27 +50,28 @@ class _CompletedScreenState extends State<CompletedScreen> {
                           .getOrdersByFilterModel.orderModelList!.data!.isEmpty
                   ? EmptyUpcomingScreen(
                       title: AppLocalizations.of(context)!
-                          .translate('youHaveNoUpComingBooking')!,
+                          .translate('youHaveNoCompleteBooking')!,
                       description: AppLocalizations.of(context)!
-                          .translate('youDoNotHaveAUpcomingBooking')!,
+                          .translate('youDoNotHaveACounterBooking')!,
                     )
                   : RefreshIndicator(
+                      onRefresh: () => BookingCubit.get(context)
+                          .getOrdersByFilterFunction(status: 'pending'),
                       child: ListView.builder(
                         itemCount: acceptedOrdersCubit.getOrdersByFilterModel
                             .orderModelList!.data!.length,
                         itemBuilder: (context, index) {
                           var ordersList = acceptedOrdersCubit
                               .getOrdersByFilterModel.orderModelList!.data;
-                          return RefreshIndicator(
-                              onRefresh: () => acceptedOrdersCubit
-                                  .getOrdersByFilterFunction(status: 'done'),
-                              child: OrderWidget(
-                                orderModel: ordersList?[index],
-                              ));
+
+                          logSuccess(
+                              '===================== ${ordersList![index].locationDesc}');
+
+                          return OrderWidget(
+                            orderModel: ordersList[index],
+                          );
                         },
                       ),
-                      onRefresh: () => acceptedOrdersCubit
-                          .getOrdersByFilterFunction(status: 'done'),
                     );
         },
       ),

@@ -42,6 +42,7 @@
         android:label="osta_user_app"
         android:name="${applicationName}"
         android:requestLegacyExternalStorage="true"
+        android:enableOnBackInvokedCallback="true"
         android:icon="@mipmap/ic_launcher">
         <meta-data android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyD03tmmafIJahLSvVG3xHQQa_7NDrEZ1i8"/>

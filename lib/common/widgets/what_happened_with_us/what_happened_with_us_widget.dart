@@ -8,9 +8,6 @@ class WhatHappenedWithUsWidget extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        /// Make Size
-        SizedBox(height: 18.h),
-
         Text('What happened with us?', style: OStyles.h5Bold),
 
         /// Make Size
@@ -26,7 +23,7 @@ class WhatHappenedWithUsWidget extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: List.generate(
               OConstants.servicesIcons1.length,
-                  (index) => Column(
+              (index) => Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   /// Services Icons
@@ -41,7 +38,8 @@ class WhatHappenedWithUsWidget extends StatelessWidget {
                   SizedBox(height: 12.h),
 
                   /// Services Texts
-                  Text(OConstants.servicesTexts1[index], style: OStyles.bodyLargeBold),
+                  Text(OConstants.servicesTexts1[index],
+                      style: OStyles.bodyLargeBold),
                 ],
               ),
             ),
@@ -51,7 +49,6 @@ class WhatHappenedWithUsWidget extends StatelessWidget {
     );
   }
 }
-
 
 class WhatHappenedWidget extends StatelessWidget {
   const WhatHappenedWidget({super.key, required this.image});

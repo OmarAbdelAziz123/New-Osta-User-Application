@@ -8,17 +8,22 @@ class CleanlinessAndGardensScreen extends StatefulWidget {
   final Map data;
 
   @override
-  State<CleanlinessAndGardensScreen> createState() => _CleanlinessAndGardensScreenState();
+  State<CleanlinessAndGardensScreen> createState() =>
+      _CleanlinessAndGardensScreenState();
 }
 
-class _CleanlinessAndGardensScreenState extends State<CleanlinessAndGardensScreen> with SingleTickerProviderStateMixin {
+class _CleanlinessAndGardensScreenState
+    extends State<CleanlinessAndGardensScreen>
+    with SingleTickerProviderStateMixin {
   TabController? _tabController;
 
   @override
   void initState() {
     _tabController = TabController(length: 3, vsync: this);
-    // if(HomeCubit.get(context).subServiceModel.result == null) HomeCubit.get(context).getSubServicesFunction(serviceId: widget.data['serviceId']);
-    // if(HomeCubit.get(context).getAllAddressesModel.result == null) HomeCubit.get(context).getAllAddressesFunction();
+    HomeCubit.get(context)
+        .getSubServicesFunction(serviceId: widget.data['serviceId']);
+    if (HomeCubit.get(context).getAllAddressesModel.result == null)
+      HomeCubit.get(context).getAllAddressesFunction();
     super.initState();
   }
 
@@ -31,62 +36,65 @@ class _CleanlinessAndGardensScreenState extends State<CleanlinessAndGardensScree
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: OColors.greyScale50,
-      body: BlocProvider(
-        create: (context) => HomeCubit()..getSubServicesFunction(serviceId: widget.data['serviceId'])..getAllAddressesFunction(),
-        child: BlocConsumer<HomeCubit, HomeState>(
-          listener: (context, state) {
+      backgroundColor: OColors.white,
+      body: BlocConsumer<HomeCubit, HomeState>(
+        listener: (context, state) {},
+        builder: (context, state) {
+          var subServiceCubit = HomeCubit.get(context);
+          var subServicesList = subServiceCubit.subServiceModel.result;
+          var addressList = subServiceCubit.getAllAddressesModel.result;
 
-          },
-          builder: (context, state) {
-            var subServiceCubit = HomeCubit.get(context);
-            var subServicesList = subServiceCubit.subServiceModel.result;
-            var addressList = subServiceCubit.getAllAddressesModel.result;
-
-            return Padding(
-              padding: EdgeInsets.only(left: 24.w, right: 24.w, top: 68.h, bottom: 0.h),
-              child: Column(
-                children: [
-                  /// App Bar
-                  AppBarWidget(
-                    leading: InkWellWidget(onTap: () => context.pop(), child: const Icon((Icons.arrow_back))),
-                    title: ODeviceUtils.capitalizeFirstLetter('${widget.data['name']} (${widget.data['category']})'),
-                    // title: '${widget.data['name']} (${widget.data['category']})',
-                    actions: Container(),
-                    widthOfText: 282.w,
-                  ),
-
-                  /// TabBar
-                  TabBar(
-                    indicatorColor: OColors.primaryColor500,
-                    controller: _tabController,
-                    labelColor: OColors.primaryColor500,
-                    unselectedLabelColor: OColors.greyScale500,
-                    tabs: const [
-                      Tab(text:  "One time"),
-                      Tab(text:  "Scheduling"),
-                      Tab(text:  "Subscriptions"),
-                    ],
-                  ),
-
-                  Expanded(
-                    child: TabBarView(
-                      controller: _tabController,
-                      children:  [
-                        /// One Time Screen
-                        OneTimeScreen(serviceId: widget.data['serviceId'], category: widget.data['category'], subServicesList: subServicesList, addressList: addressList),
-                        /// Scheduling Screen
-                        Container(),
-                        /// Subscriptions Screen
-                        Container(),
+          return Padding(
+            padding: EdgeInsets.only(
+                left: 24.w, right: 24.w, top: 68.h, bottom: 0.h),
+            child: Column(
+              children: [
+                /// App Bar
+                AppBarWidget(
+                  leading: InkWellWidget(
+                      onTap: () => context.pop(),
+                      child: const Icon((Icons.arrow_back))),
+                  // title: ODeviceUtils.capitalizeFirstLetter('${widget.data['name']} (${widget.data['category']})'),
+                  title: '',
+                  actions: Expanded(
+                    child: Row(
+                      children: [
+                        Text(
+                            ODeviceUtils.capitalizeFirstLetter(
+                                '${widget.data['name']}'),
+                            style: OStyles.h4Bold,
+                            overflow: TextOverflow.ellipsis),
+                        // ContainerIconsInServicesWidget(serviceIcon: widget.data['serviceIcon'], onTap: () {}, servicesBgColors: widget.data['serviceColor'])
+                        SizedBox(width: 10.w),
+                        Container(
+                            width: 50.h,
+                            height: 50.h,
+                            decoration: BoxDecoration(
+                              // color: OColors.purpleTransparent.withOpacity(.08),
+                              color: widget.data['serviceColor'],
+                              borderRadius: BorderRadius.circular(100.r),
+                            ),
+                            child: Center(
+                              child:
+                                  SvgPicture.asset(widget.data['serviceIcon']),
+                            ))
                       ],
                     ),
                   ),
-                ],
-              ),
-            );
-          },
-        ),
+                  widthOfText: ODeviceUtils.getScreenWidth(context) / 3,
+                ),
+
+                Expanded(
+                  child: OneTimeScreen(
+                      serviceId: widget.data['serviceId'],
+                      category: widget.data['category'],
+                      subServicesList: subServicesList,
+                      addressList: addressList),
+                ),
+              ],
+            ),
+          );
+        },
       ),
 
       // bottomNavigationBar: ContinueButtonInBottomWidget(onTap: () {}),

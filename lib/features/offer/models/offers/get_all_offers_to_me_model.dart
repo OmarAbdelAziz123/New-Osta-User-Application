@@ -1,33 +1,33 @@
 class GetAllOffersToMeModel {
   bool? success;
   String? message;
-  List<Result>? result;
+  List<OfferModel>? offersList;
 
-  GetAllOffersToMeModel({this.success, this.message, this.result});
+  GetAllOffersToMeModel({this.success, this.message, this.offersList});
 
   GetAllOffersToMeModel.fromJson(Map<String, dynamic> json) {
     success = json['success'];
     message = json['message'];
     if (json['result'] != null) {
-      result = <Result>[];
+      offersList = <OfferModel>[];
       json['result'].forEach((v) {
-        result!.add(new Result.fromJson(v));
+        offersList!.add(OfferModel.fromJson(v));
       });
     }
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['success'] = this.success;
-    data['message'] = this.message;
-    if (this.result != null) {
-      data['result'] = this.result!.map((v) => v.toJson()).toList();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['success'] = success;
+    data['message'] = message;
+    if (offersList != null) {
+      data['result'] = offersList!.map((v) => v.toJson()).toList();
     }
     return data;
   }
 }
 
-class Result {
+class OfferModel {
   int? id;
   String? arrivalTime;
   int? price;
@@ -39,19 +39,19 @@ class Result {
   String? updatedAt;
   Provider? provider;
 
-  Result(
+  OfferModel(
       {this.id,
-        this.arrivalTime,
-        this.price,
-        this.status,
-        this.providerId,
-        this.orderId,
-        this.distance,
-        this.createdAt,
-        this.updatedAt,
-        this.provider});
+      this.arrivalTime,
+      this.price,
+      this.status,
+      this.providerId,
+      this.orderId,
+      this.distance,
+      this.createdAt,
+      this.updatedAt,
+      this.provider});
 
-  Result.fromJson(Map<String, dynamic> json) {
+  OfferModel.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     arrivalTime = json['arrival_time'];
     price = json['price'];
@@ -61,24 +61,23 @@ class Result {
     distance = json['distance'];
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
-    provider = json['provider'] != null
-        ? new Provider.fromJson(json['provider'])
-        : null;
+    provider =
+        json['provider'] != null ? Provider.fromJson(json['provider']) : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['arrival_time'] = this.arrivalTime;
-    data['price'] = this.price;
-    data['status'] = this.status;
-    data['provider_id'] = this.providerId;
-    data['order_id'] = this.orderId;
-    data['distance'] = this.distance;
-    data['created_at'] = this.createdAt;
-    data['updated_at'] = this.updatedAt;
-    if (this.provider != null) {
-      data['provider'] = this.provider!.toJson();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['arrival_time'] = arrivalTime;
+    data['price'] = price;
+    data['status'] = status;
+    data['provider_id'] = providerId;
+    data['order_id'] = orderId;
+    data['distance'] = distance;
+    data['created_at'] = createdAt;
+    data['updated_at'] = updatedAt;
+    if (provider != null) {
+      data['provider'] = provider!.toJson();
     }
     return data;
   }
@@ -105,22 +104,22 @@ class Provider {
 
   Provider(
       {this.id,
-        this.firstName,
-        this.lastName,
-        this.phone,
-        this.email,
-        this.isPhoneVerified,
-        this.country,
-        this.city,
-        this.gender,
-        this.services,
-        this.bankAccount,
-        this.personalMediaUrl,
-        this.frontIdMediaUrl,
-        this.backIdMediaUrl,
-        this.certificateMediaUrl,
-        this.token,
-        this.totalCompletedOrders});
+      this.firstName,
+      this.lastName,
+      this.phone,
+      this.email,
+      this.isPhoneVerified,
+      this.country,
+      this.city,
+      this.gender,
+      this.services,
+      this.bankAccount,
+      this.personalMediaUrl,
+      this.frontIdMediaUrl,
+      this.backIdMediaUrl,
+      this.certificateMediaUrl,
+      this.token,
+      this.totalCompletedOrders});
 
   Provider.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -130,17 +129,17 @@ class Provider {
     email = json['email'];
     isPhoneVerified = json['is_phone_verified'];
     country =
-    json['country'] != null ? new Country.fromJson(json['country']) : null;
-    city = json['city'] != null ? new Country.fromJson(json['city']) : null;
+        json['country'] != null ? Country.fromJson(json['country']) : null;
+    city = json['city'] != null ? Country.fromJson(json['city']) : null;
     gender = json['gender'];
     if (json['services'] != null) {
       services = <Services>[];
       json['services'].forEach((v) {
-        services!.add(new Services.fromJson(v));
+        services!.add(Services.fromJson(v));
       });
     }
     bankAccount = json['bank_account'] != null
-        ? new BankAccount.fromJson(json['bank_account'])
+        ? BankAccount.fromJson(json['bank_account'])
         : null;
     personalMediaUrl = json['personal_media_url'];
     frontIdMediaUrl = json['front_id_media_url'];
@@ -151,32 +150,32 @@ class Provider {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['first_name'] = this.firstName;
-    data['last_name'] = this.lastName;
-    data['phone'] = this.phone;
-    data['email'] = this.email;
-    data['is_phone_verified'] = this.isPhoneVerified;
-    if (this.country != null) {
-      data['country'] = this.country!.toJson();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['first_name'] = firstName;
+    data['last_name'] = lastName;
+    data['phone'] = phone;
+    data['email'] = email;
+    data['is_phone_verified'] = isPhoneVerified;
+    if (country != null) {
+      data['country'] = country!.toJson();
     }
-    if (this.city != null) {
-      data['city'] = this.city!.toJson();
+    if (city != null) {
+      data['city'] = city!.toJson();
     }
-    data['gender'] = this.gender;
-    if (this.services != null) {
-      data['services'] = this.services!.map((v) => v.toJson()).toList();
+    data['gender'] = gender;
+    if (services != null) {
+      data['services'] = services!.map((v) => v.toJson()).toList();
     }
-    if (this.bankAccount != null) {
-      data['bank_account'] = this.bankAccount!.toJson();
+    if (bankAccount != null) {
+      data['bank_account'] = bankAccount!.toJson();
     }
-    data['personal_media_url'] = this.personalMediaUrl;
-    data['front_id_media_url'] = this.frontIdMediaUrl;
-    data['back_id_media_url'] = this.backIdMediaUrl;
-    data['certificate_media_url'] = this.certificateMediaUrl;
-    data['token'] = this.token;
-    data['total_completed_orders'] = this.totalCompletedOrders;
+    data['personal_media_url'] = personalMediaUrl;
+    data['front_id_media_url'] = frontIdMediaUrl;
+    data['back_id_media_url'] = backIdMediaUrl;
+    data['certificate_media_url'] = certificateMediaUrl;
+    data['token'] = token;
+    data['total_completed_orders'] = totalCompletedOrders;
     return data;
   }
 }
@@ -193,9 +192,9 @@ class Country {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['name'] = this.name;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['name'] = name;
     return data;
   }
 }
@@ -214,10 +213,10 @@ class Services {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['name'] = this.name;
-    data['category'] = this.category;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['name'] = name;
+    data['category'] = category;
     return data;
   }
 }
@@ -236,10 +235,10 @@ class BankAccount {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['name'] = this.name;
-    data['iban'] = this.iban;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['name'] = name;
+    data['iban'] = iban;
     return data;
   }
 }
