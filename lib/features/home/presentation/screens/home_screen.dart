@@ -59,17 +59,33 @@ class _HomeScreenState extends State<HomeScreen> {
                             Row(
                               children: [
                                 /// Profile Image
-                                CircleAvatar(
-                                  radius: 33.r,
-                                  backgroundColor: OColors.primaryColor100,
-                                  child: CachNetworkImages(
-                                    bottomLeftRadius: 100.r,
-                                    bottomRightRadius: 100.r,
-                                    topLeftRadius: 100.r,
-                                    topRightRadius: 100.r,
-                                    imageUrl: ProfileCubit.get(context).getProfileDataModel.result != null ? ProfileCubit.get(context).getProfileDataModel.result!.personalMediaUrl! : '',
-                                    width: 200.w,
-                                    height: 200.h,
+                                Container(
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(100.r),
+                                      gradient: LinearGradient(
+                                        begin: Alignment.topRight,
+                                        end: Alignment.bottomLeft,
+                                        colors: [
+                                          OColors.gradientOra1,
+                                          OColors.gradientOra2,
+                                        ],
+                                      )
+                                  ),
+                                  child: Padding(
+                                    padding: EdgeInsets.all(3.sp),
+                                    child: CircleAvatar(
+                                      radius: 33.r,
+                                      backgroundColor: OColors.primaryColor100,
+                                      child: CachNetworkImages(
+                                        bottomLeftRadius: 100.r,
+                                        bottomRightRadius: 100.r,
+                                        topLeftRadius: 100.r,
+                                        topRightRadius: 100.r,
+                                        imageUrl: ProfileCubit.get(context).getProfileDataModel.result != null ? ProfileCubit.get(context).getProfileDataModel.result!.personalMediaUrl! : '',
+                                        width: 200.w,
+                                        height: 200.h,
+                                      ),
+                                    ),
                                   ),
                                 ),
 

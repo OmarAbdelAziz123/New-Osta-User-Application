@@ -81,7 +81,7 @@ class ContainerChatsWidget extends StatelessWidget {
                 //     gradient: AppGradients.purpleGradient
                 //   ),
                 //   child: Center(
-                //     // child: Text(numOfMessage,style: OStyles.bodyXSmallRegular.copyWith(color: OColors.whiteColor)),
+                //     child: Text(numOfMessage,style: OStyles.bodyXSmallRegular.copyWith(color: OColors.whiteColor)),
                 //   ),
                 // ),
                 SizedBox(height: 9.5.h),

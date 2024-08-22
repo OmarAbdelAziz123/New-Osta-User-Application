@@ -49,6 +49,11 @@ class OColors {
 
   /// ----------------------------------------------- \\\
 
+  /// Gradient Orange2
+  /// Linear
+  static final gradientOra1 = HexColor('E5BA48');
+  static final gradientOra2 = HexColor('D5982F');
+
   /// Gradients
   /// Gradient Purple
   /// Linear

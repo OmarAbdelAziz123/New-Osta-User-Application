@@ -88,7 +88,9 @@ class _ChatsWidgetState extends State<ChatsWidget> {
                     },
                   );
                 },
-                numOfMessage: "2",
+                numOfMessage: conversation.lastMessage!.content == null
+                    ? ''
+                    : conversation.lastMessage!.isRead == true ? conversation.lastMessage!.id.toString() : '' ,
                 // date: '13.29',
                 date: ODeviceUtils.formatTime(conversation.lastMessage!.createdAt!),
                 // date: conversation.lastMessage!.createdAt!,

@@ -72,7 +72,7 @@ class _OtpInCreateAndLoginScreenState extends State<OtpInCreateAndLoginScreen> {
                         child: SizedBox(
                           width: double.infinity,
                           child: Pinput(
-                            androidSmsAutofillMethod: AndroidSmsAutofillMethod.smsUserConsentApi,
+                            // androidSmsAutofillMethod: AndroidSmsAutofillMethod.smsUserConsentApi,
                             controller: pinputController,
                             length: 4,
                             obscureText: true,
