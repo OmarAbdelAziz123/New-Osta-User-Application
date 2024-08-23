@@ -11,6 +11,7 @@ class AppGradients {
     end: Alignment.centerRight,
     stops: const [0, 1],
   );
+
   /// Green Gradient
   static final LinearGradient greenGradient = LinearGradient(
     colors: [
@@ -21,16 +22,18 @@ class AppGradients {
     end: Alignment.centerRight,
     stops: const [0, 1],
   );
+
   /// Red Gradient
   static final LinearGradient redGradient = LinearGradient(
     colors: [
-      OColors.gradientRed1,
       OColors.gradientRed2,
+      OColors.gradientRed1,
     ],
     begin: Alignment.centerLeft,
     end: Alignment.centerRight,
     stops: const [0, 1],
   );
+
   /// White Gradient
   static final LinearGradient whiteGradient = LinearGradient(
     colors: [

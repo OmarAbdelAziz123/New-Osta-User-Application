@@ -10,14 +10,14 @@ import 'package:osta_user_app/utils/constants/log_util.dart';
 
 import '../../../../utils/constants/exports.dart';
 
-class CompletedScreen extends StatefulWidget {
-  const CompletedScreen({super.key});
+class CurrentScreen extends StatefulWidget {
+  const CurrentScreen({super.key});
 
   @override
-  State<CompletedScreen> createState() => _CompletedScreenState();
+  State<CurrentScreen> createState() => _CurrentScreenState();
 }
 
-class _CompletedScreenState extends State<CompletedScreen> {
+class _CurrentScreenState extends State<CurrentScreen> {
   bool isExpanded = false;
 
   // late BookingCubit bookingCubit;

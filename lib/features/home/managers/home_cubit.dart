@@ -19,35 +19,34 @@ class HomeCubit extends Cubit<HomeState> {
 
   static HomeCubit get(context) => BlocProvider.of(context);
 
-
-
   var description = '';
   var nameOfPlace = '';
   var makeStore = false;
 
-  void setValueFunc({required String value}){
+  void setValueFunc({required String value}) {
     description = value;
     logWarning(value);
     emit(SetValueState(description));
   }
-  void setNameOfPlaceValueFunc({required String value}){
+
+  void setNameOfPlaceValueFunc({required String value}) {
     nameOfPlace = value;
     logWarning(value);
     emit(SetNameOfPlaceValueState(nameOfPlace));
   }
-  void setMakeStoreValueFunc({required bool value}){
+
+  void setMakeStoreValueFunc({required bool value}) {
     makeStore = value;
     logWarning(value.toString());
     emit(MakeStoreValueState(makeStore));
   }
 
-
-
   DioHelper dioHelper = DioHelper();
 
   AllServicesModel allServicesModel = AllServicesModel();
   SubServiceModel subServiceModel = SubServiceModel();
-  SubServiceInIdThreeModel subServiceInIdThreeModel = SubServiceInIdThreeModel();
+  SubServiceInIdThreeModel subServiceInIdThreeModel =
+      SubServiceInIdThreeModel();
 
   // Result allServicesModel = Result();
   // List<Result> allServicesModel = [];
@@ -67,8 +66,9 @@ class HomeCubit extends Cubit<HomeState> {
   /// Services Function
   Future<void> getAllServicesFunction() async {
     emit(AllServicesLoadingState());
-    await dioHelper.getData(endPoint: ApiConstants.servicesUrl).then((
-        response) {
+    await dioHelper
+        .getData(endPoint: ApiConstants.servicesUrl)
+        .then((response) {
       allServicesModel = AllServicesModel.fromJson(response.data);
       emit(AllServicesSuccessState());
     }).catchError((error) {
@@ -79,8 +79,9 @@ class HomeCubit extends Cubit<HomeState> {
   /// Get All Offers Function
   Future<void> getAllOffersFunction() async {
     emit(GetAllOffersLoadingState());
-    await dioHelper.getData(endPoint: ApiConstants.allOffersUrl).then((
-        response) {
+    await dioHelper
+        .getData(endPoint: ApiConstants.allOffersUrl)
+        .then((response) {
       getAllOffersToMeModel = GetAllOffersToMeModel.fromJson(response.data);
       emit(GetAllOffersSuccessState());
     }).catchError((error) {
@@ -91,14 +92,17 @@ class HomeCubit extends Cubit<HomeState> {
   /// Sub Services Function
   Future<void> getSubServicesFunction({required int serviceId}) async {
     emit(SubServicesLoadingState());
-    await dioHelper.getData(
-        endPoint: '${ApiConstants.subServiceUrl}?service_id=$serviceId').then((
-        response) {
+    await dioHelper
+        .getData(
+            endPoint: '${ApiConstants.subServiceUrl}?service_id=$serviceId')
+        .then((response) {
+      logSuccess("getSubServices ${response.data}");
+
       subServiceModel = SubServiceModel.fromJson(response.data);
-      // log(response.data);
+      // logSuccess("subServices ${subServiceModel.toJson()}");
       emit(SubServicesSuccessState());
     }).catchError((error) {
-      log(error);
+      log(error.toString());
       emit(SubServicesErrorState());
     });
   }
@@ -106,9 +110,11 @@ class HomeCubit extends Cubit<HomeState> {
   /// Sub Services In Id 3
   Future<void> getSubServicesInIdThreeFunction({required int serviceId}) async {
     emit(SubServicesInIdThreeLoadingState());
-    await dioHelper.getData(endPoint: '${ApiConstants
-        .subServiceUrl}?service_id=$serviceId&group_by_type=type').then((
-        response) {
+    await dioHelper
+        .getData(
+            endPoint:
+                '${ApiConstants.subServiceUrl}?service_id=$serviceId&group_by_type=type')
+        .then((response) {
       // print(response.data);
       subServiceInIdThreeModel =
           SubServiceInIdThreeModel.fromJson(response.data);
@@ -131,7 +137,10 @@ class HomeCubit extends Cubit<HomeState> {
     int? locationId,
     List<int>? subServicesIds,
     List<int>? subServiceQuantities,
+    List<int>? subServiceSpaces,
     List<File>? images,
+    String? voicePath,
+    String? discount,
     double? locationLatitude,
     double? locationLongitude,
     String? locationDesc,
@@ -144,17 +153,18 @@ class HomeCubit extends Cubit<HomeState> {
   }) async {
     emit(MakeOrderLoadingState());
 
-      List<MultipartFile> imageFiles = [];
-      if (images != null) {
-        for (var image in images) {
-          imageFiles.add(await MultipartFile.fromFile(image.path, filename: image.path.split('/').last));
-        }
+    List<MultipartFile> imageFiles = [];
+    if (images != null) {
+      for (var image in images) {
+        imageFiles.add(await MultipartFile.fromFile(image.path,
+            filename: image.path.split('/').last));
       }
-
+    }
 
     Map<String, dynamic> data = {
       'sub_services_ids[]': subServicesIds,
       'sub_service_quantities[]': subServiceQuantities,
+      'spaces_ids[]': subServiceQuantities,
       'category': category,
       'space': space,
       'warranty_id': warrantyId,
@@ -162,13 +172,20 @@ class HomeCubit extends Cubit<HomeState> {
       'service_id': serviceId,
       'unknown_problem': unknownProblem,
       'images[]': imageFiles,
+      if (voicePath != null)
+        'voice_desc': await MultipartFile.fromFile(voicePath,
+            filename: voicePath.split('/').last),
+      if (discount != null) 'discount_code': discount,
     };
 
     if (locationId != null) {
       data['location_id'] = locationId;
-    }
-    else {
-      if (locationLatitude != null && locationLongitude != null && locationDesc != null && name != null || id != null) {
+    } else {
+      if (locationLatitude != null &&
+              locationLongitude != null &&
+              locationDesc != null &&
+              name != null ||
+          id != null) {
         data['location_latitude'] = locationLatitude;
         data['location_longitude'] = locationLongitude;
         data['location_desc'] = locationDesc;
@@ -184,7 +201,8 @@ class HomeCubit extends Cubit<HomeState> {
     FormData formData = FormData.fromMap(data);
 
     Options options = Options(headers: {
-      'authorization': "Bearer ${OCacheHelper.getString(key: CacheKeys.token)}"
+      'authorization': "Bearer ${OCacheHelper.getString(key: CacheKeys.token)}",
+      'Accept': 'application/json'
     });
 
     String url = '${ApiConstants.baseUrl}api/user/order';
@@ -209,6 +227,7 @@ class HomeCubit extends Cubit<HomeState> {
         emit(MakeOrderErrorState(errorMessage));
       }
     } on DioError catch (error) {
+      logError("makeOrder Error :$error");
       String errorMessage;
       if (error.response?.statusCode == 422) {
         errorMessage = error.response?.data['message'] ?? 'Validation error';
@@ -249,7 +268,8 @@ class HomeCubit extends Cubit<HomeState> {
     emit(StoreOrUpdateLocationLoadingState());
 
     // Build the base URL
-    String url = 'api/user/location?name=$name&latitude=$locationLatitude&longitude=$locationLongitude&desc=$locationDesc';
+    String url =
+        'api/user/location?name=$name&latitude=$locationLatitude&longitude=$locationLongitude&desc=$locationDesc';
 
     // Append id parameter if it exists
     if (id != null) {
@@ -264,7 +284,6 @@ class HomeCubit extends Cubit<HomeState> {
       emit(StoreOrUpdateLocationErrorState());
     });
   }
-
 
   // Future<void> makeOrderFunction({
   //   required String category,
@@ -352,7 +371,9 @@ class HomeCubit extends Cubit<HomeState> {
   /// City Index
   Future<void> getAllCitiesFunction({required int countryId}) async {
     emit(CityIndexLoadingState());
-    await dioHelper.getData(endPoint: '${ApiConstants.cityUrl}?country_id=$countryId').then((response) {
+    await dioHelper
+        .getData(endPoint: '${ApiConstants.cityUrl}?country_id=$countryId')
+        .then((response) {
       cityIndexModel = CityIndexModel.fromJson(response.data);
       log(cityIndexModel.result![0].name.toString());
 
@@ -379,8 +400,9 @@ class HomeCubit extends Cubit<HomeState> {
   /// Get All Addresses Function
   Future<void> getAllAddressesFunction() async {
     emit(GetAllAddressesLoadingState());
-    await dioHelper.getData(endPoint: ApiConstants.getAllAddressesUrl).then((
-        response) {
+    await dioHelper
+        .getData(endPoint: ApiConstants.getAllAddressesUrl)
+        .then((response) {
       getAllAddressesModel = GetAllAddressesModel.fromJson(response.data);
       emit(GetAllAddressesSuccessState());
     }).catchError((error) {
@@ -389,13 +411,13 @@ class HomeCubit extends Cubit<HomeState> {
   }
 
   /// Update All Addresses Function
-  Future<void> updateAddressesFunction({required Response<dynamic> response}) async {
+  Future<void> updateAddressesFunction(
+      {required Response<dynamic> response}) async {
     Map<String, dynamic>? responseData = response.data;
     if (responseData != null) {
       getAllAddressesModel = GetAllAddressesModel.fromJson(responseData);
     }
   }
-
 
   /// Add Data For New Addresses Function
   Future<void> addDataForNewAddressesFunction({
@@ -407,11 +429,16 @@ class HomeCubit extends Cubit<HomeState> {
     required String description,
     required String latitude,
     required String longitude,
-}) async {
+  }) async {
     emit(AddDataForNewAddressesLoadingState());
-    await dioHelper.postData(endPoint: '${ApiConstants.getAllAddressesUrl}?name=$name&street=$streetName&apartment_number=$apartmentNumber&floor_number=$floorNumber&city_id=$cityId&desc=$description&latitude=$latitude&longitude=$longitude').then((response) {
+    await dioHelper
+        .postData(
+            endPoint:
+                '${ApiConstants.getAllAddressesUrl}?name=$name&street=$streetName&apartment_number=$apartmentNumber&floor_number=$floorNumber&city_id=$cityId&desc=$description&latitude=$latitude&longitude=$longitude')
+        .then((response) {
       updateAddressesFunction(response: response);
-      getAllAddressesModel.result = GetAllAddressesModel.fromJson(response.data).result;
+      getAllAddressesModel.result =
+          GetAllAddressesModel.fromJson(response.data).result;
       // log(response.data.toString());
       emit(AddDataForNewAddressesSuccessState());
     }).catchError((error) {

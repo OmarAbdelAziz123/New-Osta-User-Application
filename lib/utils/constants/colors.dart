@@ -3,6 +3,16 @@ import 'package:osta_user_app/utils/constants/hex_color.dart';
 class OColors {
   OColors._();
 
+  /// ----------------------------------------------- \\\
+  static final primary = HexColor('7C21FF');
+  static final grey = HexColor('EEEEEE');
+  static final darkGrey = HexColor('5A5A5A');
+  static final hover = HexColor('CBA8FF');
+  static final shadow = HexColor('000012');
+  static final black = HexColor('000000');
+  static final white = HexColor('FFFFFF');
+  static final green = HexColor('3ED18B');
+
   /// Main Colors
   /// Primary
   static final primaryColor500 = HexColor('7210FF');
@@ -45,7 +55,6 @@ class OColors {
   static final greyScale50 = HexColor('FAFAFA');
 
   static final hintColor = HexColor('CCCCCC');
-
 
   /// ----------------------------------------------- \\\
 

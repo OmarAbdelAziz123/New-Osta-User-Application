@@ -113,5 +113,9 @@
   "nowThePlumingServiceIsAvailable": "Now the plumbing service is available",
   "youHaveModeAServicesPayment": "You have made a services payment",
   "updateProfileDateSuccessfully": "Update profile data successfully",
-  "updateProfileDateHaveAProblem": "Update profile data have an a problem"
+  "updateProfileDateHaveAProblem": "Update profile data have an a problem",
+  "pending": "Pending",
+  "current": "Current",
+  "finished": "Finished",
+  "warranty": "Warranty"
 }
