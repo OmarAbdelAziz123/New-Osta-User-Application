@@ -1,5 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import 'package:osta_user_app/utils/language/app_localizations.dart';
+import 'package:osta/utils/language/app_localizations.dart';
 
 class AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
   const AppLocalizationsDelegate();

@@ -1,5 +1,5 @@
 import 'package:intl/intl.dart';
-import 'package:osta_user_app/utils/constants/exports.dart';
+import 'package:osta/utils/constants/exports.dart';
 
 class OHelperFunctions {
   static void showSnackBar(String message, BuildContext context) {

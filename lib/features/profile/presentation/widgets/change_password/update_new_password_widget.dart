@@ -1,5 +1,5 @@
-import 'package:osta_user_app/utils/constants/exports.dart';
-import 'package:osta_user_app/utils/formatters/formatter.dart';
+import 'package:osta/utils/constants/exports.dart';
+import 'package:osta/utils/formatters/formatter.dart';
 
 class UpdateNewPasswordWidget extends StatefulWidget {
   const UpdateNewPasswordWidget({super.key});

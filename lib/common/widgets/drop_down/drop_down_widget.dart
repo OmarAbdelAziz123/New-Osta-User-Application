@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:osta_user_app/utils/constants/exports.dart';
+import 'package:osta/utils/constants/exports.dart';
 
 class DropDownWidget extends StatefulWidget {
   DropDownWidget({super.key, required this.selectedItem, required this.items, required this.isInFillProfile, this.onItemSelected});

@@ -1,4 +1,4 @@
-// import 'package:osta_user_app/features/inbox/presentation/widget/inbox_container_widget/container_chats_widget.dart';
+// import 'package:osta/features/inbox/presentation/widget/inbox_container_widget/container_chats_widget.dart';
 //
 // import '../../../../../../utils/constants/exports.dart';
 //
@@ -20,9 +20,9 @@
 // }
 
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:osta_user_app/features/inbox/inbox_for_delivery/managers/inbox_cubit.dart';
-import 'package:osta_user_app/features/inbox/presentation/widget/inbox_container_widget/container_chats_widget.dart';
-import 'package:osta_user_app/utils/constants/log_util.dart';
+import 'package:osta/features/inbox/inbox_for_delivery/managers/inbox_cubit.dart';
+import 'package:osta/features/inbox/presentation/widget/inbox_container_widget/container_chats_widget.dart';
+import 'package:osta/utils/constants/log_util.dart';
 
 import '../../../../../../utils/constants/exports.dart';
 

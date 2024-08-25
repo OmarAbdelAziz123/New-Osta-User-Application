@@ -1,4 +1,4 @@
-import 'package:osta_user_app/utils/constants/exports.dart';
+import 'package:osta/utils/constants/exports.dart';
 
 class ContainerIconsInServicesWidget extends StatelessWidget {
   const ContainerIconsInServicesWidget({super.key, required this.serviceIcon, required this.onTap, required this.servicesBgColors});

@@ -1,10 +1,10 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
-import 'package:osta_user_app/common/widgets/loading_widget/loading_services_widget.dart';
-import 'package:osta_user_app/features/profile/managers/profile_cubit.dart';
-import 'package:osta_user_app/features/profile/presentation/widgets/help_center/container_faq_widget.dart';
-import 'package:osta_user_app/features/profile/presentation/widgets/help_center/question_container_widget.dart';
-import 'package:osta_user_app/utils/constants/log_util.dart';
+import 'package:osta/common/widgets/loading_widget/loading_services_widget.dart';
+import 'package:osta/features/profile/managers/profile_cubit.dart';
+import 'package:osta/features/profile/presentation/widgets/help_center/container_faq_widget.dart';
+import 'package:osta/features/profile/presentation/widgets/help_center/question_container_widget.dart';
+import 'package:osta/utils/constants/log_util.dart';
 
 import '../../../../../utils/constants/exports.dart';
 

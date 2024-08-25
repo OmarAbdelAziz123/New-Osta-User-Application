@@ -1,6 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:lottie/lottie.dart';
-import 'package:osta_user_app/utils/constants/exports.dart';
+import 'package:osta/utils/constants/exports.dart';
 
 class CachNetworkImages extends StatelessWidget {
   const CachNetworkImages({super.key, required this.imageUrl, this.topLeftRadius = 0, this.topRightRadius = 0, this.bottomLeftRadius = 0, this.bottomRightRadius = 0, required this.width, required this.height});

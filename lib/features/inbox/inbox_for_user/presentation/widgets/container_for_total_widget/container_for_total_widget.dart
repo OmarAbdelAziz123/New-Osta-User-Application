@@ -1,4 +1,4 @@
-import 'package:osta_user_app/features/inbox/inbox_for_delivery/presentation/widgets/text/text_of_details_price_widget.dart';
+import 'package:osta/features/inbox/inbox_for_delivery/presentation/widgets/text/text_of_details_price_widget.dart';
 
 import '../../../../../../utils/constants/exports.dart';
 

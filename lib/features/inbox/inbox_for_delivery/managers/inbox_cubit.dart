@@ -1,8 +1,8 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meta/meta.dart';
-import 'package:osta_user_app/features/inbox/inbox_for_delivery/models/get_all_conversations_model.dart';
-import 'package:osta_user_app/utils/constants/log_util.dart';
-import 'package:osta_user_app/utils/dio/dio_helper.dart';
+import 'package:osta/features/inbox/inbox_for_delivery/models/get_all_conversations_model.dart';
+import 'package:osta/utils/constants/log_util.dart';
+import 'package:osta/utils/dio/dio_helper.dart';
 part 'inbox_state.dart';
 
 class InboxCubit extends Cubit<InboxState> {

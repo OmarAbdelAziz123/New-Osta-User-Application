@@ -1,7 +1,7 @@
-import 'package:osta_user_app/common/widgets/app_bar/app_bar_widget2.dart';
-import 'package:osta_user_app/features/inbox/inbox_for_delivery/presentation/widgets/calls_widget.dart';
-import 'package:osta_user_app/features/inbox/inbox_for_delivery/presentation/widgets/chats_widget.dart';
-import 'package:osta_user_app/utils/constants/exports.dart';
+import 'package:osta/common/widgets/app_bar/app_bar_widget2.dart';
+import 'package:osta/features/inbox/inbox_for_delivery/presentation/widgets/calls_widget.dart';
+import 'package:osta/features/inbox/inbox_for_delivery/presentation/widgets/chats_widget.dart';
+import 'package:osta/utils/constants/exports.dart';
 
 class InboxScreen extends StatefulWidget {
   const InboxScreen({super.key});

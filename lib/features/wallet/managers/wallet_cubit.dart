@@ -1,9 +1,9 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meta/meta.dart';
-import 'package:osta_user_app/features/wallet/models/transactions_model.dart';
-import 'package:osta_user_app/features/wallet/models/wallet_model.dart';
-import 'package:osta_user_app/utils/constants/log_util.dart';
-import 'package:osta_user_app/utils/dio/dio_helper.dart';
+import 'package:osta/features/wallet/models/transactions_model.dart';
+import 'package:osta/features/wallet/models/wallet_model.dart';
+import 'package:osta/utils/constants/log_util.dart';
+import 'package:osta/utils/dio/dio_helper.dart';
 
 part 'wallet_state.dart';
 

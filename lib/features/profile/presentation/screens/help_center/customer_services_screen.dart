@@ -5,15 +5,15 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_sound/flutter_sound.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
-import 'package:osta_user_app/features/offer/managers/offers_orders_cubit.dart';
-import 'package:osta_user_app/features/offer/managers/socket_cubit/socket_cubit.dart';
-import 'package:osta_user_app/features/offer/models/inbox/get_all_messages_model.dart';
-import 'package:osta_user_app/features/offer/presentation/widgets/inbox/audio_player_widget.dart';
-import 'package:osta_user_app/features/profile/managers/profile_cubit.dart';
-import 'package:osta_user_app/features/profile/models/help_center/get_tickets_customer_services_model.dart';
-import 'package:osta_user_app/utils/constants/exports.dart';
-import 'package:osta_user_app/utils/constants/log_util.dart';
-import 'package:osta_user_app/utils/dio/dio_helper.dart';
+import 'package:osta/features/offer/managers/offers_orders_cubit.dart';
+import 'package:osta/features/offer/managers/socket_cubit/socket_cubit.dart';
+import 'package:osta/features/offer/models/inbox/get_all_messages_model.dart';
+import 'package:osta/features/offer/presentation/widgets/inbox/audio_player_widget.dart';
+import 'package:osta/features/profile/managers/profile_cubit.dart';
+import 'package:osta/features/profile/models/help_center/get_tickets_customer_services_model.dart';
+import 'package:osta/utils/constants/exports.dart';
+import 'package:osta/utils/constants/log_util.dart';
+import 'package:osta/utils/dio/dio_helper.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:path_provider/path_provider.dart';
 
@@ -337,7 +337,7 @@ class _CustomerServicesScreenState extends State<CustomerServicesScreen> {
                                     children: [
                                       messagesListLocally[index].content == null && messagesListLocally[index].media!.isNotEmpty ?
                                       messagesListLocally[index].media![0].url!.endsWith('opus') || messagesListLocally[index].media![0].url!.endsWith('aac') ?
-                                      AudioPlayerWidget(url: messagesListLocally[index].media![0].url!) :
+                                      AudioPlayerWidget(url: messagesListLocally[index].media![0].url!,isInbox: true,) :
                                       InkWell(
                                         onTap: () {
                                           setState(() {

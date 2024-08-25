@@ -1,4 +1,4 @@
-import 'package:osta_user_app/features/profile/models/help_center/get_tickets_customer_services_model.dart';
+import 'package:osta/features/profile/models/help_center/get_tickets_customer_services_model.dart';
 
 class SendTicketResponseModel {
   bool? success;

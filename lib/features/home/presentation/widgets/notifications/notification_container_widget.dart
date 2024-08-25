@@ -1,4 +1,4 @@
-import 'package:osta_user_app/utils/constants/exports.dart';
+import 'package:osta/utils/constants/exports.dart';
 
 class NotificationContainerWidget extends StatelessWidget {
   const NotificationContainerWidget({super.key, required this.image, required this.title, required this.description});

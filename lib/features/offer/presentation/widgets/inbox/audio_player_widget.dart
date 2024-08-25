@@ -1,8 +1,9 @@
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
-import 'package:osta_user_app/utils/constants/colors.dart';
-import 'package:osta_user_app/utils/constants/exports.dart';
-import 'package:osta_user_app/utils/constants/log_util.dart';
+import 'package:osta/utils/constants/colors.dart';
+import 'package:osta/utils/constants/exports.dart';
+import 'package:osta/utils/constants/log_util.dart';
+import 'package:osta/utils/constants/text_styles.dart';
 import '../../../../../utils/constants/styles.dart';
 
 class AudioPlayerWidget extends StatefulWidget {
@@ -11,12 +12,12 @@ class AudioPlayerWidget extends StatefulWidget {
       required this.url,
       this.sendingTime,
       this.isMe,
-      this.isInbox});
+      required this.isInbox});
 
   final String url;
   final String? sendingTime;
   final bool? isMe;
-  final bool? isInbox;
+  final bool isInbox;
 
   @override
   State<AudioPlayerWidget> createState() => _AudioPlayerWidgetState();
@@ -79,6 +80,23 @@ class _AudioPlayerWidgetState extends State<AudioPlayerWidget> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                if (!widget.isInbox)
+                  Padding(
+                    padding: EdgeInsets.fromLTRB(20.w,10.h,20.w,0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          _formatDuration(_position),
+                          style: AppTextStyles.regularStyle.copyWith(
+                              color: OColors.darkGrey, fontSize: 9),
+                        ),
+                        Text(_formatDuration(_duration),
+                          style: AppTextStyles.regularStyle.copyWith(
+                              color: OColors.darkGrey, fontSize: 9),),
+                      ],
+                    ),
+                  ),
                 Row(
                   children: [
                     IconButton(
@@ -92,9 +110,9 @@ class _AudioPlayerWidgetState extends State<AudioPlayerWidget> {
                         });
                       },
                       icon: Icon(isPlaying ? Icons.pause : Icons.play_arrow,
-                          color: widget.isMe!
-                              ? Colors.grey.shade100
-                              : OColors.darkGrey),
+                          color: isPlaying
+                              ? OColors.grey2
+                              : OColors.primary),
                       iconSize: 30,
                       splashRadius: 20,
                     ),

@@ -1,13 +1,13 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
-import 'package:osta_user_app/common/widgets/bottom_sheet/show_location_bottom_sheet.dart';
-import 'package:osta_user_app/common/widgets/checkbox/remember_me_widget.dart';
-import 'package:osta_user_app/common/widgets/what_happened_with_us/what_happened_with_us_widget.dart';
-import 'package:osta_user_app/features/home/managers/home_cubit.dart';
-import 'package:osta_user_app/features/home/models/address/get_all_addresses_model.dart';
-import 'package:osta_user_app/features/offer/managers/offers_orders_cubit.dart';
-import 'package:osta_user_app/utils/constants/exports.dart';
-import 'package:osta_user_app/utils/constants/log_util.dart';
+import 'package:osta/common/widgets/bottom_sheet/show_location_bottom_sheet.dart';
+import 'package:osta/common/widgets/checkbox/remember_me_widget.dart';
+import 'package:osta/common/widgets/what_happened_with_us/what_happened_with_us_widget.dart';
+import 'package:osta/features/home/managers/home_cubit.dart';
+import 'package:osta/features/home/models/address/get_all_addresses_model.dart';
+import 'package:osta/features/offer/managers/offers_orders_cubit.dart';
+import 'package:osta/utils/constants/exports.dart';
+import 'package:osta/utils/constants/log_util.dart';
 
 class OneTimeScreenInTilingAndPainting extends StatefulWidget {
   OneTimeScreenInTilingAndPainting({super.key, required this.subServicesList, required this.addressList, required this.serviceId, required this.category});

@@ -54,7 +54,7 @@
   "orderRef": "Order Ref:",
   "status": "Status:",
   "description": "Description:",
-  "maxAllowedPrice": "Max allowed price:",
+  "maxAllowedPrice": "Max allowed price",
   "serviceName": "Service name:",
   "numberOfOffers": "Number of offers:",
   "jennyOffers": "Jenny offers you an offer worth",

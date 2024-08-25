@@ -1,4 +1,4 @@
-# osta_user_app
+# osta
 
 A new osta application.
 

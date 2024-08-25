@@ -1,10 +1,10 @@
-import 'package:osta_user_app/features/booking/managers/booking_cubit.dart';
-import 'package:osta_user_app/features/booking/presentation/screens/current_screen.dart';
-import 'package:osta_user_app/features/booking/presentation/screens/pending_screen.dart';
-import 'package:osta_user_app/features/offer/managers/offers_orders_cubit.dart';
-import 'package:osta_user_app/features/offer/managers/socket_cubit/socket_cubit.dart';
-import 'package:osta_user_app/utils/constants/exports.dart';
-import 'package:osta_user_app/utils/constants/log_util.dart';
+import 'package:osta/features/booking/managers/booking_cubit.dart';
+import 'package:osta/features/booking/presentation/screens/current_screen.dart';
+import 'package:osta/features/booking/presentation/screens/pending_screen.dart';
+import 'package:osta/features/offer/managers/offers_orders_cubit.dart';
+import 'package:osta/features/offer/managers/socket_cubit/socket_cubit.dart';
+import 'package:osta/utils/constants/exports.dart';
+import 'package:osta/utils/constants/log_util.dart';
 import 'completed_screen.dart';
 import 'empty_upcoming_screen.dart';
 

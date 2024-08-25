@@ -1,4 +1,4 @@
-package com.osta.ostaUser
+package com.osta.ostaCustomer
 
 import io.flutter.embedding.android.FlutterActivity
 

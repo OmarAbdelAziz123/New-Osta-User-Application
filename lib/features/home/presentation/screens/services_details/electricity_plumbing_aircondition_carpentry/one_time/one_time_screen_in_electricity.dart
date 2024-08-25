@@ -4,19 +4,20 @@ import 'dart:ui' as Ui;
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:flutter/material.dart';
-import 'package:osta_user_app/utils/constants/exports.dart';
+import 'package:osta/utils/constants/exports.dart';
 
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_sound/flutter_sound.dart';
 import 'package:flutter_sound/public/flutter_sound_recorder.dart';
 
 // ... (other imports)
-import 'package:osta_user_app/common/widgets/bottom_sheet/show_location_bottom_sheet.dart';
-import 'package:osta_user_app/common/widgets/checkbox/remember_me_widget.dart';
-import 'package:osta_user_app/common/widgets/what_happened_with_us/what_happened_with_us_widget.dart';
-import 'package:osta_user_app/features/home/managers/home_cubit.dart';
-import 'package:osta_user_app/features/home/presentation/widgets/home/electricity_widgets/sub_services_widget.dart';
-import 'package:osta_user_app/features/offer/managers/offers_orders_cubit.dart';
+import 'package:osta/common/widgets/bottom_sheet/show_location_bottom_sheet.dart';
+import 'package:osta/common/widgets/checkbox/remember_me_widget.dart';
+import 'package:osta/common/widgets/what_happened_with_us/what_happened_with_us_widget.dart';
+import 'package:osta/features/home/managers/home_cubit.dart';
+import 'package:osta/features/home/presentation/widgets/home/electricity_widgets/sub_services_widget.dart';
+import 'package:osta/features/offer/managers/offers_orders_cubit.dart';
+import 'package:osta/utils/constants/text_styles.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 
@@ -324,20 +325,23 @@ class _OneTimeScreenInElectricityState
               child: Container(
                 width: double.infinity,
                 height: 50.h,
+                padding: EdgeInsets.symmetric(horizontal: 15.w),
                 decoration: BoxDecoration(
                   color: isExtended
-                      ? OColors.greyScale300
+                      ? OColors.primary
                       : OColors.primaryColor100,
-                  // gradient: isExtended ? AppGradients.purpleGradient : null,
                   borderRadius: BorderRadius.circular(100.r),
                 ),
                 child: Center(
-                    child: Text(
-                        'Possibility of purchasing an additional warranty',
-                        style: OStyles.bodyMediumMedium.copyWith(
-                            color: isExtended
-                                ? OColors.greyScale600
-                                : OColors.primaryColor500))),
+                    child: FittedBox(
+                      child: Text(
+                          'Possibility of purchasing an additional warranty',
+                          style: AppTextStyles.boldStyle.copyWith(
+                            fontSize: 15,
+                              color: isExtended
+                                  ? OColors.greyScale300
+                                  : selectedWarranty == 0?OColors.primaryColor500:OColors.white)),
+                    )),
               ),
             ),
 
@@ -350,10 +354,6 @@ class _OneTimeScreenInElectricityState
                     width: double.infinity,
                     height: 180.h,
                     padding: EdgeInsets.symmetric(vertical: 20.h),
-                    decoration: BoxDecoration(
-                      border: Border.all(color: OColors.greyScale500),
-                      borderRadius: BorderRadius.circular(25.r),
-                    ),
                     child: Center(
                       child: ListView.separated(
                         scrollDirection: Axis.horizontal,
@@ -379,30 +379,36 @@ class _OneTimeScreenInElectricityState
                                 Container(
                                   height: 130.h,
                                   padding: EdgeInsets.symmetric(
-                                      horizontal: 28.w, vertical: 12.h),
+                                      horizontal: 24.w, vertical: 12.h),
                                   decoration: BoxDecoration(
+                                    color: OColors.white,
                                     borderRadius: BorderRadius.circular(15.r),
-                                    border: Border.all(
-                                        color: OColors.greyScale300,
-                                        width: 2.w),
+                                    boxShadow: [
+                                      BoxShadow(
+                                          color: const Color.fromARGB(7, 0, 0, 0),
+                                          offset: Offset(0, 3),
+                                          blurRadius: 5.h,
+                                          spreadRadius: 0)
+                                    ],
                                   ),
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       Text(OConstants.daysList[index],
-                                          style: OStyles.h2Bold.copyWith(
-                                              color: OColors.primaryColor500,
-                                              height: .8)),
+                                          style: AppTextStyles.boldStyle.copyWith(
+                                            color: OColors.primary,
+                                            fontSize: 42
+                                          )),
                                       Text("days",
                                           maxLines: 2,
-                                          style: OStyles.bodyMediumBold
-                                              .copyWith(
-                                                  color: OColors.blackColor)),
+                                          style: AppTextStyles.regularStyle.copyWith(
+                                              fontSize: 13
+                                          )),
                                       Text(OConstants.pricesList[index],
                                           textAlign: TextAlign.center,
-                                          style: OStyles.bodyXLargeSemiBold
-                                              .copyWith(
-                                                  color: OColors.greyScale500))
+                                          style: AppTextStyles.regular12.copyWith(
+                                              color: OColors.grey4,
+                                          ))
                                     ],
                                   ),
                                 ),
@@ -449,7 +455,7 @@ class _OneTimeScreenInElectricityState
             SizedBox(height: 10.h),
 
             /// Specific Services
-            widget.subServicesList == null
+            widget.subServicesList.isEmpty
                 ? LoadingWidget(iconColor: OColors.primaryColor500)
                 : Column(
                     children: [

@@ -1,4 +1,4 @@
-import 'package:osta_user_app/features/profile/managers/profile_cubit.dart';
+import 'package:osta/features/profile/managers/profile_cubit.dart';
 
 import '../../../../../utils/constants/exports.dart';
 import 'contact_us_container_widget.dart';

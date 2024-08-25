@@ -1,10 +1,10 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lottie/lottie.dart';
-import 'package:osta_user_app/features/booking/managers/booking_cubit.dart';
-import 'package:osta_user_app/features/booking/presentation/screens/empty_upcoming_screen.dart';
-import 'package:osta_user_app/features/booking/presentation/widgets/my_booking_container_widget/my_booking_container_widget2.dart';
-import 'package:osta_user_app/features/booking/presentation/widgets/show_location/show_location_for_user_screen.dart';
-import 'package:osta_user_app/utils/constants/log_util.dart';
+import 'package:osta/features/booking/managers/booking_cubit.dart';
+import 'package:osta/features/booking/presentation/screens/empty_upcoming_screen.dart';
+import 'package:osta/features/booking/presentation/widgets/my_booking_container_widget/order_widget.dart';
+import 'package:osta/features/booking/presentation/widgets/show_location/show_location_for_user_screen.dart';
+import 'package:osta/utils/constants/log_util.dart';
 import '../../../../utils/constants/exports.dart';
 
 class PendingScreen extends StatefulWidget {

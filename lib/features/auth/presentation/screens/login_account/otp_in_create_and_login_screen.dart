@@ -1,7 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:osta_user_app/common/widgets/texts_rich/text_rich2_widget.dart';
-import 'package:osta_user_app/features/auth/managers/auth_cubit.dart';
-import 'package:osta_user_app/utils/constants/exports.dart';
+import 'package:osta/common/widgets/texts_rich/text_rich2_widget.dart';
+import 'package:osta/features/auth/managers/auth_cubit.dart';
+import 'package:osta/utils/constants/exports.dart';
 
 class OtpInCreateAndLoginScreen extends StatefulWidget {
   const OtpInCreateAndLoginScreen({super.key, required this.phoneNumber});

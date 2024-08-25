@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:osta_user_app/features/booking/managers/booking_cubit.dart';
-import 'package:osta_user_app/features/booking/models/get_orders_by_filter_model.dart';
-import 'package:osta_user_app/utils/constants/exports.dart';
-import 'package:osta_user_app/utils/formatters/formatter.dart';
+import 'package:osta/features/booking/managers/booking_cubit.dart';
+import 'package:osta/features/booking/models/get_orders_by_filter_model.dart';
+import 'package:osta/utils/constants/exports.dart';
+import 'package:osta/utils/formatters/formatter.dart';
 
 class ReceiptScreen extends StatefulWidget {
   const ReceiptScreen({super.key, required this.data});
@@ -30,7 +30,7 @@ class _ReceiptScreenState extends State<ReceiptScreen> {
 
   void fetchData() {
     if(!dataFetched) {
-      BookingCubit.get(context).getReceiptFunction(orderId: widget.data['orderId']);
+      BookingCubit.get(context).getReceiptFunction(orderId: widget.data['orderId'].toString());
       setState(() {
         dataFetched = true;
       });

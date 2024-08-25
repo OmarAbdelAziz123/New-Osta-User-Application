@@ -1,4 +1,4 @@
-import 'package:osta_user_app/features/offer/models/inbox/get_all_messages_model.dart';
+import 'package:osta/features/offer/models/inbox/get_all_messages_model.dart';
 
 class GetTicketsModel {
   bool? success;

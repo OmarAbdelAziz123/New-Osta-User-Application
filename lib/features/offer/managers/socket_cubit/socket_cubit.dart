@@ -1,9 +1,9 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meta/meta.dart';
-import 'package:osta_user_app/features/offer/models/inbox/socket_response_model.dart';
-import 'package:osta_user_app/utils/constants/api_constants.dart';
-import 'package:osta_user_app/utils/constants/exports.dart';
-import 'package:osta_user_app/utils/constants/log_util.dart';
+import 'package:osta/features/offer/models/inbox/socket_response_model.dart';
+import 'package:osta/utils/constants/api_constants.dart';
+import 'package:osta/utils/constants/exports.dart';
+import 'package:osta/utils/constants/log_util.dart';
 import 'package:socket_io_client/socket_io_client.dart' as IO;
 import 'package:socket_io_client/socket_io_client.dart';
 

@@ -1,5 +1,5 @@
 // import 'package:flutter/material.dart';
-// import 'package:osta_user_app/utils/constants/colors.dart';
+// import 'package:osta/utils/constants/colors.dart';
 //
 // class OAppTheme {
 //   OAppTheme._();

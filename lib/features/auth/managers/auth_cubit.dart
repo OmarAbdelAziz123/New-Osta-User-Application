@@ -1,14 +1,14 @@
 import 'dart:developer';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meta/meta.dart';
-import 'package:osta_user_app/features/auth/models/address/country_index_model.dart';
-import 'package:osta_user_app/features/auth/models/check_phone_model.dart';
-import 'package:osta_user_app/features/auth/models/fill_your_account/fill_your_account.dart';
-import 'package:osta_user_app/features/auth/models/user_data.dart';
-import 'package:osta_user_app/features/auth/models/user_data_after_verified.dart';
-import 'package:osta_user_app/utils/constants/exports.dart';
-import 'package:osta_user_app/utils/constants/log_util.dart';
-import 'package:osta_user_app/utils/dio/dio_helper.dart';
+import 'package:osta/features/auth/models/address/country_index_model.dart';
+import 'package:osta/features/auth/models/check_phone_model.dart';
+import 'package:osta/features/auth/models/fill_your_account/fill_your_account.dart';
+import 'package:osta/features/auth/models/user_data.dart';
+import 'package:osta/features/auth/models/user_data_after_verified.dart';
+import 'package:osta/utils/constants/exports.dart';
+import 'package:osta/utils/constants/log_util.dart';
+import 'package:osta/utils/dio/dio_helper.dart';
 
 part 'auth_state.dart';
 

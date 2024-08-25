@@ -1,4 +1,4 @@
-import 'package:osta_user_app/utils/constants/exports.dart';
+import 'package:osta/utils/constants/exports.dart';
 
 class AppGradients {
   /// Purple Gradient
@@ -24,14 +24,14 @@ class AppGradients {
   );
 
   /// Red Gradient
-  static final LinearGradient redGradient = LinearGradient(
+  static const LinearGradient redGradient = LinearGradient(
     colors: [
-      OColors.gradientRed2,
-      OColors.gradientRed1,
+      Color(0xffFF6E76),
+      Color(0xffFF6E76),
     ],
-    begin: Alignment.centerLeft,
-    end: Alignment.centerRight,
-    stops: const [0, 1],
+    begin: Alignment.topLeft,
+    end: Alignment.bottomRight,
+    stops: [0, 1],
   );
 
   /// White Gradient

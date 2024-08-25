@@ -1,17 +1,17 @@
 import 'dart:developer';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meta/meta.dart';
-import 'package:osta_user_app/features/home/models/address/city_index_model.dart';
-import 'package:osta_user_app/features/home/models/address/country_index_model.dart';
-import 'package:osta_user_app/features/home/models/address/get_all_addresses_model.dart';
-import 'package:osta_user_app/features/home/models/services/all_services_model.dart';
-import 'package:osta_user_app/features/home/models/services/sub_service_in_id_three_model.dart';
-import 'package:osta_user_app/features/home/models/services/sub_service_model.dart';
-import 'package:osta_user_app/features/offer/models/offers/get_all_offers_to_me_model.dart';
-import 'package:osta_user_app/utils/constants/api_constants.dart';
-import 'package:osta_user_app/utils/constants/exports.dart';
-import 'package:osta_user_app/utils/constants/log_util.dart';
-import 'package:osta_user_app/utils/dio/dio_helper.dart';
+import 'package:osta/features/home/models/address/city_index_model.dart';
+import 'package:osta/features/home/models/address/country_index_model.dart';
+import 'package:osta/features/home/models/address/get_all_addresses_model.dart';
+import 'package:osta/features/home/models/services/all_services_model.dart';
+import 'package:osta/features/home/models/services/sub_service_in_id_three_model.dart';
+import 'package:osta/features/home/models/services/sub_service_model.dart';
+import 'package:osta/features/offer/models/offers/get_all_offers_to_me_model.dart';
+import 'package:osta/utils/constants/api_constants.dart';
+import 'package:osta/utils/constants/exports.dart';
+import 'package:osta/utils/constants/log_util.dart';
+import 'package:osta/utils/dio/dio_helper.dart';
 part 'home_state.dart';
 
 class HomeCubit extends Cubit<HomeState> {

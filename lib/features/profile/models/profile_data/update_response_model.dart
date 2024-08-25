@@ -1,4 +1,4 @@
-import 'package:osta_user_app/features/profile/models/profile_data/get_profile_data_model.dart';
+import 'package:osta/features/profile/models/profile_data/get_profile_data_model.dart';
 
 class UpdateResponseModel {
   bool? success;

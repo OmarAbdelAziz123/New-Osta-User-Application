@@ -1,5 +1,5 @@
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:osta_user_app/utils/constants/exports.dart';
+import 'package:osta/utils/constants/exports.dart';
 
 class ShowLocationForUserScreen extends StatefulWidget {
   const ShowLocationForUserScreen({super.key, required this.map});

@@ -1,6 +1,6 @@
-import 'package:osta_user_app/common/widgets/date_input_formatter/date_input_formatter.dart';
-import 'package:osta_user_app/features/auth/presentation/widgets/fill_your_profile/fill_your_profile_from_widget.dart';
-import 'package:osta_user_app/utils/constants/exports.dart';
+import 'package:osta/common/widgets/date_input_formatter/date_input_formatter.dart';
+import 'package:osta/features/auth/presentation/widgets/fill_your_profile/fill_your_profile_from_widget.dart';
+import 'package:osta/utils/constants/exports.dart';
 
 class FillYourProfileScreen extends StatelessWidget {
   const FillYourProfileScreen({super.key, required this.phoneNumber});

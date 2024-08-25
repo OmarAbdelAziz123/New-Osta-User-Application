@@ -1,5 +1,5 @@
-// import 'package:osta_user_app/features/auth/presentation/widgets/password_configuration/check_to_send_otp_container_widget.dart';
-// import 'package:osta_user_app/utils/constants/exports.dart';
+// import 'package:osta/features/auth/presentation/widgets/password_configuration/check_to_send_otp_container_widget.dart';
+// import 'package:osta/utils/constants/exports.dart';
 //
 // class ForgetPasswordScreen extends StatefulWidget {
 //   const ForgetPasswordScreen({super.key});

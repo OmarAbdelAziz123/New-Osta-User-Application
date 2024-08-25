@@ -1,6 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.osta.ostaUser">
+    package="com.osta.ostaCustomer">
 
     <uses-permission
         android:name="android.hardware.telephony"
@@ -39,7 +39,7 @@
         </intent>
     </queries>
     <application
-        android:label="osta_user_app"
+        android:label="osta"
         android:name="${applicationName}"
         android:requestLegacyExternalStorage="true"
         android:enableOnBackInvokedCallback="true"

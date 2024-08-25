@@ -3,10 +3,10 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lottie/lottie.dart';
-import 'package:osta_user_app/common/widgets/drop_down/drop_down_widget.dart';
-import 'package:osta_user_app/features/home/managers/home_cubit.dart';
-import 'package:osta_user_app/features/home/presentation/screens/services_details/electricity_plumbing_aircondition_carpentry/one_time/one_time_screen_in_electricity.dart';
-import 'package:osta_user_app/utils/constants/exports.dart';
+import 'package:osta/common/widgets/drop_down/drop_down_widget.dart';
+import 'package:osta/features/home/managers/home_cubit.dart';
+import 'package:osta/features/home/presentation/screens/services_details/electricity_plumbing_aircondition_carpentry/one_time/one_time_screen_in_electricity.dart';
+import 'package:osta/utils/constants/exports.dart';
 
 class AddDataForNewAddressScreen extends StatefulWidget {
   const AddDataForNewAddressScreen({super.key});

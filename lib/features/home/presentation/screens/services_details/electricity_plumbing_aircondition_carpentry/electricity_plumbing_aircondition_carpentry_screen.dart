@@ -1,8 +1,8 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:osta_user_app/common/widgets/what_happened_with_us/what_happened_with_us_widget.dart';
-import 'package:osta_user_app/features/home/managers/home_cubit.dart';
-import 'package:osta_user_app/features/home/presentation/screens/services_details/electricity_plumbing_aircondition_carpentry/one_time/one_time_screen_in_electricity.dart';
-import 'package:osta_user_app/utils/constants/exports.dart';
+import 'package:osta/common/widgets/what_happened_with_us/what_happened_with_us_widget.dart';
+import 'package:osta/features/home/managers/home_cubit.dart';
+import 'package:osta/features/home/presentation/screens/services_details/electricity_plumbing_aircondition_carpentry/one_time/one_time_screen_in_electricity.dart';
+import 'package:osta/utils/constants/exports.dart';
 
 class ElectricityPlumbingAirConditionCarpentryScreen extends StatefulWidget {
   const ElectricityPlumbingAirConditionCarpentryScreen(

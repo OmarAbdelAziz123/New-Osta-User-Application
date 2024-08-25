@@ -1,14 +1,14 @@
 import 'dart:developer';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meta/meta.dart';
-import 'package:osta_user_app/features/offer/models/inbox/get_all_messages_model.dart';
-import 'package:osta_user_app/features/offer/models/inbox/make_order_is_done.dart';
-import 'package:osta_user_app/features/offer/models/inbox/send_message_response.dart';
-import 'package:osta_user_app/features/offer/models/offers/get_all_offers_to_me_model.dart';
-import 'package:osta_user_app/features/offer/models/orders/get_all_orders_by_me.dart';
-import 'package:osta_user_app/utils/constants/exports.dart';
-import 'package:osta_user_app/utils/constants/log_util.dart';
-import 'package:osta_user_app/utils/dio/dio_helper.dart';
+import 'package:osta/features/offer/models/inbox/get_all_messages_model.dart';
+import 'package:osta/features/offer/models/inbox/make_order_is_done.dart';
+import 'package:osta/features/offer/models/inbox/send_message_response.dart';
+import 'package:osta/features/offer/models/offers/get_all_offers_to_me_model.dart';
+import 'package:osta/features/offer/models/orders/get_all_orders_by_me.dart';
+import 'package:osta/utils/constants/exports.dart';
+import 'package:osta/utils/constants/log_util.dart';
+import 'package:osta/utils/dio/dio_helper.dart';
 
 part 'offers_orders_state.dart';
 

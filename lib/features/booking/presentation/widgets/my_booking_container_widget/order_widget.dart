@@ -1,5 +1,6 @@
-import 'package:osta_user_app/features/offer/presentation/widgets/offers/offer_widget.dart';
-import 'package:osta_user_app/utils/constants/log_util.dart';
+import 'package:osta/features/offer/presentation/widgets/offers/offer_widget.dart';
+import 'package:osta/utils/constants/log_util.dart';
+import 'package:osta/utils/constants/text_styles.dart';
 
 import '../../../../../utils/constants/exports.dart';
 import '../../../../home/presentation/widgets/home/electricity_widgets/sub_services_widget.dart';
@@ -28,7 +29,7 @@ class _OrderWidgetState extends State<OrderWidget> {
       firstChild: Container(
         margin: EdgeInsets.symmetric(
           horizontal: 24.w,
-          vertical: 24.w,
+          vertical: 12.h,
         ),
         // padding: EdgeInsets.all(20.h),
         width: double.infinity,
@@ -38,9 +39,10 @@ class _OrderWidgetState extends State<OrderWidget> {
           border: Border.all(color: OColors.grey),
           boxShadow: [
             BoxShadow(
-                color: const Color(0x22000012),
-                blurRadius: 10.h,
-                spreadRadius: 3.h)
+                color: const Color.fromARGB(7, 0, 0, 0),
+                offset: Offset(0, 3),
+                blurRadius: 5.h,
+                spreadRadius: 0)
           ],
         ),
         child: ShrinkOrderView(
@@ -58,7 +60,7 @@ class _OrderWidgetState extends State<OrderWidget> {
         curve: Curves.easeInOut,
         margin: EdgeInsets.symmetric(
           horizontal: 24.w,
-          vertical: 24.w,
+          vertical: 12.h,
         ),
         child: SingleChildScrollView(
           child: Column(
@@ -66,11 +68,6 @@ class _OrderWidgetState extends State<OrderWidget> {
               AnimatedContainer(
                 duration: const Duration(milliseconds: 300),
                 curve: Curves.easeInOut,
-                // margin: EdgeInsets.symmetric(
-                //   horizontal: 24.w,
-                //   vertical: 24.w,
-                // ),
-                // padding: EdgeInsets.all(20.h),
                 width: double.infinity,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(30.r),
@@ -78,9 +75,10 @@ class _OrderWidgetState extends State<OrderWidget> {
                   border: Border.all(color: OColors.grey),
                   boxShadow: [
                     BoxShadow(
-                        color: const Color(0x22000012),
-                        blurRadius: 10.h,
-                        spreadRadius: 3.h)
+                        color: const Color.fromARGB(7, 0, 0, 0),
+                        offset: Offset(0, 3),
+                        blurRadius: 5.h,
+                        spreadRadius: 0)
                   ],
                 ),
                 child: SingleChildScrollView(
@@ -103,34 +101,6 @@ class _OrderWidgetState extends State<OrderWidget> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              if (widget.orderModel?.subServices != null &&
-                                  widget.orderModel!.subServices!.isNotEmpty)
-                                SizedBox(
-                                  height: 65.h,
-                                  child: ListView.separated(
-                                    scrollDirection: Axis.horizontal,
-                                    itemCount: widget
-                                            .orderModel?.subServices?.length ??
-                                        0,
-                                    itemBuilder: (context, index) =>
-                                        SubServicesWidget(
-                                      subServiceName: widget.orderModel
-                                              ?.subServices?[index].name ??
-                                          '',
-                                      onTap: () {},
-                                      numberOfPieces:
-                                          "${widget.orderModel?.subServices?[index].quantity ?? '0'}",
-                                      onPressed: () {},
-                                    ),
-                                    separatorBuilder: (context, index) =>
-                                        SizedBox(
-                                      width: 10.w,
-                                    ),
-                                  ),
-                                ),
-                              SizedBox(
-                                height: 15.h,
-                              ),
                               if (widget.orderModel?.desc != null)
                                 Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -153,25 +123,27 @@ class _OrderWidgetState extends State<OrderWidget> {
                                 ),
                               if (widget.orderModel?.voiceDesc != null &&
                                   widget.orderModel!.voiceDesc != '')
-                                Container(
-                                  margin: EdgeInsets.symmetric(
-                                      horizontal: 20.w, vertical: 12.h),
-                                  padding: EdgeInsets.symmetric(
-                                    horizontal: 2.w,
-                                  ),
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(10.r),
-                                    color: OColors.grey,
-                                  ),
-                                  child: AudioPlayerWidget(
-                                    url: widget.orderModel!.voiceDesc!,
-                                    isMe: false,
-                                    isInbox: false,
+                                Center(
+                                  child: Container(
+                                    margin: EdgeInsets.symmetric(
+                                        vertical: 12.h),
+                                    padding: EdgeInsets.symmetric(
+                                      horizontal: 2.w,
+                                    ),
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(10.r),
+                                      color: OColors.grey,
+                                    ),
+                                    child: AudioPlayerWidget(
+                                      url: widget.orderModel!.voiceDesc!,
+                                      isMe: false,
+                                      isInbox: false,
+                                    ),
                                   ),
                                 ),
                               Container(
                                 margin: EdgeInsets.symmetric(
-                                    horizontal: 20.w, vertical: 12.h),
+                                    vertical: 12.h),
                                 padding: EdgeInsets.symmetric(
                                     horizontal: 12.w, vertical: 6.h),
                                 decoration: BoxDecoration(
@@ -186,9 +158,9 @@ class _OrderWidgetState extends State<OrderWidget> {
                                             ? "Current"
                                             : "Finished",
                                     textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                        fontSize: 12.sp,
-                                        color: OColors.redColor)),
+                                    style: AppTextStyles.regular12.copyWith(
+                                      color: OColors.red,
+                                    )),
                               ),
                             ],
                           ),
@@ -218,7 +190,7 @@ class _OrderWidgetState extends State<OrderWidget> {
                       : Container(
                           margin: EdgeInsets.symmetric(vertical: 12.h),
                           padding: EdgeInsets.symmetric(
-                              horizontal: 20.w, vertical: 20.h),
+                              horizontal: 20.w, vertical: 15.h),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(100.r),
                             color: OColors.primary,
@@ -226,10 +198,8 @@ class _OrderWidgetState extends State<OrderWidget> {
                           child: Text(
                             "More",
                             textAlign: TextAlign.center,
-                            style: TextStyle(
-                              fontSize: 17.sp,
-                              color: OColors.white,
-                              fontWeight: FontWeight.bold,
+                            style: AppTextStyles.boLd16.copyWith(
+                              color: OColors.white
                             ),
                           ),
                         ),
@@ -274,28 +244,22 @@ class IconTitleValueWidget extends StatelessWidget {
           children: [
             if (icon != null) SvgPicture.asset(icon!),
             SizedBox(width: 10.w),
-            Text(AppLocalizations.of(context)?.translate('$title') ?? 'title',
-                style: TextStyle(
-                    fontSize: 14.sp,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.grey)),
+            Text("${AppLocalizations.of(context)?.translate('$title') ?? 'title'} : ",
+                style:AppTextStyles.regularStyle.copyWith(
+                  color:  Colors.grey
+                )),
           ],
         ),
         Text.rich(
-          style: TextStyle(
+          style: AppTextStyles.boldStyle.copyWith(
             color: valueColor ?? OColors.blackColor,
-            fontSize: 17.sp,
-            fontWeight: FontWeight.w800,
+            fontSize: valueSuffix != null?17.sp:14.sp,
           ),
           TextSpan(text: value, children: [
             if (valueSuffix != null)
               TextSpan(
                 text: valueSuffix,
-                style: TextStyle(
-                  color: OColors.blackColor,
-                  fontSize: 17.sp,
-                  fontWeight: FontWeight.w800,
-                ),
+                style: AppTextStyles.boLd17,
               )
           ]),
         ),
@@ -324,17 +288,16 @@ class ShrinkOrderView extends StatelessWidget {
         GestureDetector(
           onTap: onTap,
           child: Container(
-            padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 12.h),
+            padding: EdgeInsets.fromLTRB(25.w,18.h,12.w,12.h),
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.vertical(top: Radius.circular(30.r)),
+              borderRadius: BorderRadius.vertical(top: Radius.circular(28.r)),
               color: OColors.grey,
             ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(orderModel?.service?.name ?? "",
-                    style: TextStyle(
-                        fontSize: 17.sp, fontWeight: FontWeight.bold)),
+                    style: AppTextStyles.boLd17),
                 Row(
                   children: [
                     Text.rich(
@@ -342,21 +305,20 @@ class ShrinkOrderView extends StatelessWidget {
                         children: [
                           TextSpan(
                               text: 'O.N ',
-                              style: TextStyle(
-                                fontSize: 14.sp,
-                              )),
+                              style: AppTextStyles.regularStyle),
                           TextSpan(
                               text: "${orderModel?.id ?? 0}",
-                              style: TextStyle(
-                                  fontSize: 14.sp,
-                                  fontWeight: FontWeight.bold)),
+                              style: AppTextStyles.boLd14),
                         ],
                       ),
                     ),
                     SizedBox(width: 10.w),
                     SvgPicture.asset(showDetailsBooking
                         ? OImages.arrowUpIOS
-                        : OImages.arrowDownIOS),
+                        : OImages.arrowDownIOS,
+                      height: 15.sp,
+                      width: 27.sp,
+                      colorFilter: ColorFilter.mode(OColors.primary, BlendMode.srcIn),),
                   ],
                 ),
               ],
@@ -364,8 +326,28 @@ class ShrinkOrderView extends StatelessWidget {
           ),
         ),
         InkWell(
-          onTap: () => context.pushNamed(ORoutesName.offersRoute,
-              arguments: orderModel?.id),
+          onTap: (){
+            switch(orderModel?.status){
+              case "accepted":
+                context.pushNamed(ORoutesName.inboxRoute,
+                    arguments: {
+                      'orderId':orderModel?.id,
+                    });
+                break;
+              case "done":
+                context.pushNamed(ORoutesName.receiptRoute,
+                    arguments: {
+                      'orderId':orderModel?.id,
+                    });
+                break;
+              default:
+
+              context.pushNamed(ORoutesName.offersRoute,
+              arguments: orderModel?.id);
+              break;
+            }
+
+          },
           child: Padding(
             padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 12.h),
             child: Column(
@@ -388,8 +370,8 @@ class ShrinkOrderView extends StatelessWidget {
                     Expanded(
                       child: IconTitleValueWidget(
                         icon: OImages.icStatus,
-                        title: 'status',
-                        value: orderModel?.status ?? '',
+                        title: 'offers',
+                        value: "${orderModel?.totalPendingOffers ?? ''}",
                       ),
                     ),
                   ],
@@ -403,13 +385,6 @@ class ShrinkOrderView extends StatelessWidget {
                   value: "${orderModel?.maxAllowedPrice ?? ''}",
                   valueSuffix: " \$",
                   valueColor: OColors.primaryColor500,
-                ),
-                SizedBox(
-                  height: 12.h,
-                ),
-                IconTitleValueWidget(
-                  title: 'offers',
-                  value: "${orderModel?.totalPendingOffers ?? ''}",
                 ),
               ],
             ),

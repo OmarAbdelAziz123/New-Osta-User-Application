@@ -10,20 +10,20 @@ import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_sound/flutter_sound.dart';
 import 'package:lottie/lottie.dart';
-import 'package:osta_user_app/common/widgets/loading_two.dart';
-import 'package:osta_user_app/features/booking/managers/booking_cubit.dart';
-import 'package:osta_user_app/features/inbox/inbox_for_user/presentation/widgets/container_number_of_order_widget/container_number_of_order_widget.dart';
-import 'package:osta_user_app/features/offer/managers/offers_orders_cubit.dart';
-import 'package:osta_user_app/features/offer/managers/socket_cubit/socket_cubit.dart';
-import 'package:osta_user_app/features/offer/models/inbox/get_all_messages_model.dart';
-import 'package:osta_user_app/features/offer/presentation/screens/offers_screen.dart';
-import 'package:osta_user_app/features/offer/presentation/widgets/inbox/audio_message_bubble.dart';
-import 'package:osta_user_app/features/offer/presentation/widgets/inbox/audio_player_widget.dart';
-import 'package:osta_user_app/features/profile/models/help_center/get_tickets_customer_services_model.dart';
-import 'package:osta_user_app/utils/constants/exports.dart';
-import 'package:osta_user_app/utils/constants/log_util.dart';
-import 'package:osta_user_app/utils/dio/dio_helper.dart';
-import 'package:osta_user_app/utils/formatters/formatter.dart';
+import 'package:osta/common/widgets/loading_two.dart';
+import 'package:osta/features/booking/managers/booking_cubit.dart';
+import 'package:osta/features/inbox/inbox_for_user/presentation/widgets/container_number_of_order_widget/container_number_of_order_widget.dart';
+import 'package:osta/features/offer/managers/offers_orders_cubit.dart';
+import 'package:osta/features/offer/managers/socket_cubit/socket_cubit.dart';
+import 'package:osta/features/offer/models/inbox/get_all_messages_model.dart';
+import 'package:osta/features/offer/presentation/screens/offers_screen.dart';
+import 'package:osta/features/offer/presentation/widgets/inbox/audio_message_bubble.dart';
+import 'package:osta/features/offer/presentation/widgets/inbox/audio_player_widget.dart';
+import 'package:osta/features/profile/models/help_center/get_tickets_customer_services_model.dart';
+import 'package:osta/utils/constants/exports.dart';
+import 'package:osta/utils/constants/log_util.dart';
+import 'package:osta/utils/dio/dio_helper.dart';
+import 'package:osta/utils/formatters/formatter.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:audioplayers/audioplayers.dart';
@@ -531,6 +531,7 @@ class _InboxScreen2State extends State<InboxScreen2> {
                                                                     url: value[index].media![0].url!,
                                                                     sendingTime: OFormatter.formatTime(formatTime(value[index].createdAt!)),
                                                                     isMe: isMe,
+                                                                  isInbox: true,
                                                                   )
                                                                 :
 

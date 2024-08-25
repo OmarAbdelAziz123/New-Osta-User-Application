@@ -52,7 +52,7 @@
   "orderRef": "مرجع الطلب:",
   "status": "حالة:",
   "description": "وصف:",
-  "maxAllowedPrice": "الحد الأقصى للسعر المسموح به:",
+  "maxAllowedPrice": "الحد الأقصى للسعر المسموح به",
   "serviceName": "اسم الخدمة:",
   "numberOfOffers": "عدد العروض:",
   "jennyOffers": "جيني تقدم لك عرضا يستحق",

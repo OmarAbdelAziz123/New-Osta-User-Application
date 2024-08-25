@@ -1,5 +1,5 @@
 
-import 'package:osta_user_app/features/inbox/presentation/widget/inbox_container_widget/container_calls_widget.dart';
+import 'package:osta/features/inbox/presentation/widget/inbox_container_widget/container_calls_widget.dart';
 
 import '../../../../../../utils/constants/exports.dart';
 

@@ -1,4 +1,4 @@
-// import 'package:osta_user_app/utils/constants/exports.dart';
+// import 'package:osta/utils/constants/exports.dart';
 //
 // class ThirdButtonWidget extends StatelessWidget {
 //   const ThirdButtonWidget({super.key, required this.isRejected, required this.buttonText, required this.textStyle, required this.containerColor});
@@ -34,7 +34,7 @@
 //     );
 //   }
 // }
-import 'package:osta_user_app/utils/constants/exports.dart';
+import 'package:osta/utils/constants/exports.dart';
 
 class ThirdButtonWidget extends StatelessWidget {
   const ThirdButtonWidget({super.key, required this.isRejected, required this.widgetInButton, required this.textStyle, required this.containerColor,required this .width,required this.height, required this.borderRadius, required this.onTap});

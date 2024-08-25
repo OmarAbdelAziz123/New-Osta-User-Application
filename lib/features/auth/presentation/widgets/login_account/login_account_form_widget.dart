@@ -1,10 +1,10 @@
 import 'dart:developer';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:osta_user_app/common/widgets/snack_bar/floating_snack_bar_widget.dart';
-import 'package:osta_user_app/features/auth/managers/auth_cubit.dart';
-import 'package:osta_user_app/utils/constants/exports.dart';
-import 'package:osta_user_app/utils/formatters/formatter.dart';
+import 'package:osta/common/widgets/snack_bar/floating_snack_bar_widget.dart';
+import 'package:osta/features/auth/managers/auth_cubit.dart';
+import 'package:osta/utils/constants/exports.dart';
+import 'package:osta/utils/formatters/formatter.dart';
 
 class LoginAccountFormWidget extends StatefulWidget {
   const LoginAccountFormWidget({super.key});

@@ -1,5 +1,5 @@
-import 'package:osta_user_app/utils/constants/exports.dart';
-import 'package:osta_user_app/utils/constants/log_util.dart';
+import 'package:osta/utils/constants/exports.dart';
+import 'package:osta/utils/constants/log_util.dart';
 
 class SwitchWidget extends StatefulWidget {
   // SwitchWidget({super.key, this.valueData = false});

@@ -1,5 +1,5 @@
 import 'package:lottie/lottie.dart';
-import 'package:osta_user_app/utils/constants/exports.dart';
+import 'package:osta/utils/constants/exports.dart';
 
 class OrderWidget extends StatelessWidget {
   const OrderWidget({Key? key,

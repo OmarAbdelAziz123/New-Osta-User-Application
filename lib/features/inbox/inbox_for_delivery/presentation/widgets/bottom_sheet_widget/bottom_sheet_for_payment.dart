@@ -1,4 +1,4 @@
-import 'package:osta_user_app/common/widgets/buttons/close_button_widget.dart';
+import 'package:osta/common/widgets/buttons/close_button_widget.dart';
 
 import '../../../../../../utils/constants/exports.dart';
 

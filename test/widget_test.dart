@@ -7,9 +7,9 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:osta_user_app/app/osta_user_app.dart';
+import 'package:osta/app/osta_user_app.dart';
 
-import 'package:osta_user_app/main.dart';
+import 'package:osta/main.dart';
 
 void main() {
   testWidgets('Counter increments smoke test', (WidgetTester tester) async {

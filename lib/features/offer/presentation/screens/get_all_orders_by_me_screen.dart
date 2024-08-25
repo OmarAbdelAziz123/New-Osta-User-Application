@@ -1,8 +1,8 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:osta_user_app/features/offer/managers/offers_orders_cubit.dart';
-import 'package:osta_user_app/features/offer/presentation/widgets/offers/not_found_and_found_offers_widget.dart';
-import 'package:osta_user_app/features/offer/presentation/widgets/orders/order_widget.dart';
-import 'package:osta_user_app/utils/constants/exports.dart';
+import 'package:osta/features/offer/managers/offers_orders_cubit.dart';
+import 'package:osta/features/offer/presentation/widgets/offers/not_found_and_found_offers_widget.dart';
+import 'package:osta/features/offer/presentation/widgets/orders/order_widget.dart';
+import 'package:osta/utils/constants/exports.dart';
 
 class GetAllOrdersByMeScreen extends StatefulWidget {
   const GetAllOrdersByMeScreen({super.key});

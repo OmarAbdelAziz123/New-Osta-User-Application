@@ -1,17 +1,24 @@
-import 'package:osta_user_app/utils/constants/hex_color.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:osta/utils/constants/hex_color.dart';
 
 class OColors {
   OColors._();
 
   /// ----------------------------------------------- \\\
-  static final primary = HexColor('7C21FF');
-  static final grey = HexColor('EEEEEE');
-  static final darkGrey = HexColor('5A5A5A');
-  static final hover = HexColor('CBA8FF');
-  static final shadow = HexColor('000012');
-  static final black = HexColor('000000');
-  static final white = HexColor('FFFFFF');
-  static final green = HexColor('3ED18B');
+  static const primary = Color(0xff7210FF);
+  static const grey = Color(0xffEEEEEE);
+  static const grey2 = Color(0xff888888);
+  static const grey3 = Color(0xffE0E0E0);
+  static const darkGrey = Color(0xff212121);
+  static const grey4 = Color(0xff9E9E9E);
+  static const hover = Color(0xffCBA8FF);
+  static const shadow = Color(0xff000012);
+  static const black = Color(0xff000000);
+  static const white = Color(0xffFFFFFF);
+  static const green = Color(0xff3ED18B);
+  static const red = Color(0xffF3513E);
+  static const yellow = Color(0xffFFEA62);
+
 
   /// Main Colors
   /// Primary

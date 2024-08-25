@@ -1,4 +1,4 @@
-import 'package:osta_user_app/utils/constants/exports.dart';
+import 'package:osta/utils/constants/exports.dart';
 
 class ProductContainerWidget extends StatelessWidget {
   const ProductContainerWidget({super.key, required this.ostaName, required this.serviceName, required this.servicePrice, required this.serviceRate, required this.numberOfReviews});

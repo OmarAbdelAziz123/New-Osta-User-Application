@@ -1,6 +1,6 @@
-import 'package:osta_user_app/features/wallet/presentation/screens/wallet_screen.dart';
-import 'package:osta_user_app/utils/constants/exports.dart';
-import 'package:osta_user_app/utils/constants/hex_color.dart';
+import 'package:osta/features/wallet/presentation/screens/wallet_screen.dart';
+import 'package:osta/utils/constants/exports.dart';
+import 'package:osta/utils/constants/hex_color.dart';
 
 class WalletScreenInProfile extends StatefulWidget {
   const WalletScreenInProfile({super.key});

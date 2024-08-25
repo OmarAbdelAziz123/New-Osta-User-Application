@@ -1,7 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:osta_user_app/features/profile/managers/profile_cubit.dart';
-import 'package:osta_user_app/features/profile/presentation/widgets/help_center/contact_us_widget.dart';
-import 'package:osta_user_app/features/profile/presentation/widgets/help_center/faq_widget.dart';
+import 'package:osta/features/profile/managers/profile_cubit.dart';
+import 'package:osta/features/profile/presentation/widgets/help_center/contact_us_widget.dart';
+import 'package:osta/features/profile/presentation/widgets/help_center/faq_widget.dart';
 import '../../../../../utils/constants/exports.dart';
 
 class HelpCenterScreen extends StatefulWidget {

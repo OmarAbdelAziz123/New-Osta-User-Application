@@ -1,4 +1,4 @@
-import 'package:osta_user_app/utils/constants/exports.dart';
+import 'package:osta/utils/constants/exports.dart';
 
 class TopRowInAllScreens extends StatelessWidget {
   const TopRowInAllScreens({super.key, this.titleOfScreenWidget, this.onTap});

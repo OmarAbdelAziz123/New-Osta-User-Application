@@ -1,4 +1,4 @@
-import 'package:osta_user_app/utils/constants/exports.dart';
+import 'package:osta/utils/constants/exports.dart';
 
 class OTPTextFormFieldWidget extends StatelessWidget {
   const OTPTextFormFieldWidget({super.key, required this.focusNode, required this.isFieldFocused, required this.controller});

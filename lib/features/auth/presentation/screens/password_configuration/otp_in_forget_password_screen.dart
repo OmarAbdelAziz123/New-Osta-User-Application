@@ -1,5 +1,5 @@
-// import 'package:osta_user_app/common/widgets/texts_rich/text_rich2_widget.dart';
-// import 'package:osta_user_app/utils/constants/exports.dart';
+// import 'package:osta/common/widgets/texts_rich/text_rich2_widget.dart';
+// import 'package:osta/utils/constants/exports.dart';
 //
 // class OtpInForgetPasswordScreen extends StatefulWidget {
 //   const OtpInForgetPasswordScreen({super.key, required this.map});

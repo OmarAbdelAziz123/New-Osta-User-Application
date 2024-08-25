@@ -2,16 +2,16 @@ import 'dart:developer';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meta/meta.dart';
-import 'package:osta_user_app/features/profile/models/help_center/get_all_faqs_index_model.dart';
-import 'package:osta_user_app/features/profile/models/help_center/get_all_faqs_model.dart';
-import 'package:osta_user_app/features/profile/models/help_center/get_tickets_customer_services_model.dart';
-import 'package:osta_user_app/features/profile/models/help_center/send_ticket_response_model.dart';
-import 'package:osta_user_app/features/profile/models/profile_data/get_profile_data_model.dart';
-import 'package:osta_user_app/features/profile/models/profile_data/update_response_model.dart';
-import 'package:osta_user_app/utils/constants/api_constants.dart';
-import 'package:osta_user_app/utils/constants/exports.dart';
-import 'package:osta_user_app/utils/constants/log_util.dart';
-import 'package:osta_user_app/utils/dio/dio_helper.dart';
+import 'package:osta/features/profile/models/help_center/get_all_faqs_index_model.dart';
+import 'package:osta/features/profile/models/help_center/get_all_faqs_model.dart';
+import 'package:osta/features/profile/models/help_center/get_tickets_customer_services_model.dart';
+import 'package:osta/features/profile/models/help_center/send_ticket_response_model.dart';
+import 'package:osta/features/profile/models/profile_data/get_profile_data_model.dart';
+import 'package:osta/features/profile/models/profile_data/update_response_model.dart';
+import 'package:osta/utils/constants/api_constants.dart';
+import 'package:osta/utils/constants/exports.dart';
+import 'package:osta/utils/constants/log_util.dart';
+import 'package:osta/utils/dio/dio_helper.dart';
 
 part 'profile_state.dart';
 

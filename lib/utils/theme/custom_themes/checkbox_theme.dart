@@ -1,4 +1,4 @@
-// import 'package:osta_user_app/utils/constants/exports.dart';
+// import 'package:osta/utils/constants/exports.dart';
 //
 // class DCheckBoxTheme {
 //   DCheckBoxTheme._();
@@ -42,7 +42,7 @@
 //   );
 // }
 
-import 'package:osta_user_app/utils/constants/exports.dart';
+import 'package:osta/utils/constants/exports.dart';
 
 class DCheckBoxTheme {
   DCheckBoxTheme._();

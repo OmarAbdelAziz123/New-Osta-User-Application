@@ -1,5 +1,5 @@
 // import 'package:floating_snackbar/floating_snackbar.dart';
-// import 'package:osta_user_app/utils/constants/exports.dart';
+// import 'package:osta/utils/constants/exports.dart';
 //
 // class FloatingSnackBarWidget extends StatelessWidget {
 //   const FloatingSnackBarWidget({super.key});
@@ -19,7 +19,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:floating_snackbar/floating_snackbar.dart';
-import 'package:osta_user_app/utils/constants/exports.dart'; // Assuming necessary imports
+import 'package:osta/utils/constants/exports.dart'; // Assuming necessary imports
 
 class FloatingSnackBarWidget extends StatelessWidget {
   const FloatingSnackBarWidget({super.key});

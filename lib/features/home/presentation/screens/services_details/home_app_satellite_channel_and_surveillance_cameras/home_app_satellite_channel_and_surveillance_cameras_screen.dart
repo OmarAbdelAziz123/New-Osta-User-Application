@@ -1,7 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:osta_user_app/features/home/managers/home_cubit.dart';
-import 'package:osta_user_app/features/home/presentation/screens/services_details/home_app_satellite_channel_and_surveillance_cameras/one_time/one_time_screen_in_home_app_salellite.dart';
-import 'package:osta_user_app/utils/constants/exports.dart';
+import 'package:osta/features/home/managers/home_cubit.dart';
+import 'package:osta/features/home/presentation/screens/services_details/home_app_satellite_channel_and_surveillance_cameras/one_time/one_time_screen_in_home_app_salellite.dart';
+import 'package:osta/utils/constants/exports.dart';
 
 class HomeAppSatelliteChannelAndSurveillanceCameras extends StatefulWidget {
   const HomeAppSatelliteChannelAndSurveillanceCameras({super.key, required this.data});

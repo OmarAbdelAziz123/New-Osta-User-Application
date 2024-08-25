@@ -1,4 +1,4 @@
-import 'package:osta_user_app/utils/constants/exports.dart';
+import 'package:osta/utils/constants/exports.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});

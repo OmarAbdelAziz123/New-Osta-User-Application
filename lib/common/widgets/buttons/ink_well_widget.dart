@@ -1,4 +1,4 @@
-import 'package:osta_user_app/utils/constants/exports.dart';
+import 'package:osta/utils/constants/exports.dart';
 
 class InkWellWidget extends StatelessWidget {
   const InkWellWidget({super.key, required this.onTap, required this.child});

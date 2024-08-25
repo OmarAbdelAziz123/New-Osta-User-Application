@@ -1,6 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:osta_user_app/features/home/managers/home_cubit.dart';
-import 'package:osta_user_app/utils/constants/exports.dart';
+import 'package:osta/features/home/managers/home_cubit.dart';
+import 'package:osta/utils/constants/exports.dart';
 
 class CleanlinessAndGardensScreen extends StatefulWidget {
   const CleanlinessAndGardensScreen({super.key, required this.data});

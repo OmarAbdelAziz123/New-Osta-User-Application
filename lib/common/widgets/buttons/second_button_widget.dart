@@ -1,4 +1,4 @@
-import 'package:osta_user_app/utils/constants/exports.dart';
+import 'package:osta/utils/constants/exports.dart';
 
 class SecondButtonWidget extends StatelessWidget {
   const SecondButtonWidget({super.key, required this.bgColor, required this.widget, required this.onTap, this.border, this.borderRadius});

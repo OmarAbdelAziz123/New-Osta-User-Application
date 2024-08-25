@@ -1,12 +1,12 @@
-import 'package:osta_user_app/common/widgets/app_bar/app_bar_widget2.dart';
-import 'package:osta_user_app/features/inbox/inbox_for_delivery/presentation/widgets/bottom_sheet_widget/bottom_sheet_for_payment.dart';
-import 'package:osta_user_app/features/inbox/inbox_for_delivery/presentation/widgets/chat_bottom_navigation_bar_widget/chat_bottom_navigation_bar_widget.dart';
-import 'package:osta_user_app/features/inbox/inbox_for_delivery/presentation/widgets/container_details_price_widget/container_details_price_widget.dart';
-import 'package:osta_user_app/features/inbox/inbox_for_delivery/presentation/widgets/container_details_price_widget/container_total_amount.dart';
-import 'package:osta_user_app/features/inbox/inbox_for_delivery/presentation/widgets/container_info_widget/container_info_widget.dart';
-import 'package:osta_user_app/features/inbox/inbox_for_delivery/presentation/widgets/container_of_confirmtion/container_of_confirmation_widget.dart';
-import 'package:osta_user_app/features/inbox/inbox_for_delivery/presentation/widgets/container_of_confirmtion/container_of_confirmation_widget2.dart';
-import 'package:osta_user_app/features/inbox/inbox_for_delivery/presentation/widgets/text/container_text_widget.dart';
+import 'package:osta/common/widgets/app_bar/app_bar_widget2.dart';
+import 'package:osta/features/inbox/inbox_for_delivery/presentation/widgets/bottom_sheet_widget/bottom_sheet_for_payment.dart';
+import 'package:osta/features/inbox/inbox_for_delivery/presentation/widgets/chat_bottom_navigation_bar_widget/chat_bottom_navigation_bar_widget.dart';
+import 'package:osta/features/inbox/inbox_for_delivery/presentation/widgets/container_details_price_widget/container_details_price_widget.dart';
+import 'package:osta/features/inbox/inbox_for_delivery/presentation/widgets/container_details_price_widget/container_total_amount.dart';
+import 'package:osta/features/inbox/inbox_for_delivery/presentation/widgets/container_info_widget/container_info_widget.dart';
+import 'package:osta/features/inbox/inbox_for_delivery/presentation/widgets/container_of_confirmtion/container_of_confirmation_widget.dart';
+import 'package:osta/features/inbox/inbox_for_delivery/presentation/widgets/container_of_confirmtion/container_of_confirmation_widget2.dart';
+import 'package:osta/features/inbox/inbox_for_delivery/presentation/widgets/text/container_text_widget.dart';
 
 import '../../../../../utils/constants/exports.dart';
 import '../widgets/container_problem_description_widget/continer_problem_description_widget.dart';

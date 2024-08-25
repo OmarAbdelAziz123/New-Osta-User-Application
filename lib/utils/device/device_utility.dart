@@ -1,7 +1,7 @@
 import 'package:floating_snackbar/floating_snackbar.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
-import 'package:osta_user_app/utils/constants/exports.dart';
+import 'package:osta/utils/constants/exports.dart';
 
 class ODeviceUtils {
   // static Future<XFile?> pickImageFromGallery() async {

@@ -1,5 +1,5 @@
-import 'package:osta_user_app/features/home/presentation/screens/services_details/electricity_plumbing_aircondition_carpentry/one_time/one_time_screen_in_electricity.dart';
-import 'package:osta_user_app/utils/constants/exports.dart';
+import 'package:osta/features/home/presentation/screens/services_details/electricity_plumbing_aircondition_carpentry/one_time/one_time_screen_in_electricity.dart';
+import 'package:osta/utils/constants/exports.dart';
 
 class SubServicesWidget extends StatefulWidget {
   const SubServicesWidget(
@@ -46,13 +46,13 @@ class _SubServicesWidgetState extends State<SubServicesWidget> {
               duration: const Duration(milliseconds: 300),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(100.r),
-                color: OColors.primaryColor100,
+                color: widget.numberOfPieces!='0'?OColors.primary:OColors.grey,
                 boxShadow: [AppBoxShadows.cardShadowTwo],
               ),
               child: Center(
                 child: Text(widget.subServiceName,
                     style: OStyles.bodyLargeBold
-                        .copyWith(color: OColors.primaryColor500)),
+                        .copyWith(color:  widget.numberOfPieces!='0'?OColors.white:OColors.primaryColor500)),
               ),
             ),
           ),

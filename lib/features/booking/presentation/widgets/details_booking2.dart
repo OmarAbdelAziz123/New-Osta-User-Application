@@ -1,6 +1,6 @@
-import 'package:osta_user_app/common/widgets/buttons/button_with_border.dart';
-import 'package:osta_user_app/common/widgets/buttons/third_button_widget.dart';
-import 'package:osta_user_app/features/booking/presentation/widgets/buttom_navigation_bar_cancel_booking.dart';
+import 'package:osta/common/widgets/buttons/button_with_border.dart';
+import 'package:osta/common/widgets/buttons/third_button_widget.dart';
+import 'package:osta/features/booking/presentation/widgets/buttom_navigation_bar_cancel_booking.dart';
 
 import '../../../../utils/constants/exports.dart';
 

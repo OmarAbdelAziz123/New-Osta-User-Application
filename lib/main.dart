@@ -1,6 +1,8 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:osta_user_app/utils/constants/bloc_observer.dart';
-import 'package:osta_user_app/utils/constants/exports.dart';
+import 'package:osta/utils/constants/bloc_observer.dart';
+import 'package:osta/utils/constants/exports.dart';
+import 'package:osta/app/osta_user_app.dart';
+
 
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 

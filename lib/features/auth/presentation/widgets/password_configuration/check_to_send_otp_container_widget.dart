@@ -1,4 +1,4 @@
-import 'package:osta_user_app/utils/constants/exports.dart';
+import 'package:osta/utils/constants/exports.dart';
 
 class CheckToSendOTPContainerWidget extends StatelessWidget {
   const CheckToSendOTPContainerWidget({super.key, required this.logo, required this.connectionType, required this.detailsText, required this.onTap, required this.borderColor});

@@ -1,4 +1,4 @@
-import 'package:osta_user_app/utils/constants/exports.dart';
+import 'package:osta/utils/constants/exports.dart';
 
 class MainButtonWidget extends StatelessWidget {
   const MainButtonWidget({super.key, this.onTap, required this.centerWidgetInButton, required this.margin, required this.buttonColor, required this.boxShadow});

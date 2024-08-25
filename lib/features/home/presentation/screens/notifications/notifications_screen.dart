@@ -1,5 +1,5 @@
-import 'package:osta_user_app/features/home/presentation/widgets/notifications/notification_container_widget.dart';
-import 'package:osta_user_app/utils/constants/exports.dart';
+import 'package:osta/features/home/presentation/widgets/notifications/notification_container_widget.dart';
+import 'package:osta/utils/constants/exports.dart';
 
 class NotificationsScreen extends StatelessWidget {
   const NotificationsScreen({super.key});

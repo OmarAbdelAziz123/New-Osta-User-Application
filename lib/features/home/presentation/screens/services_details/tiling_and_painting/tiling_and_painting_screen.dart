@@ -1,7 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:osta_user_app/features/home/managers/home_cubit.dart';
-import 'package:osta_user_app/features/home/presentation/screens/services_details/tiling_and_painting/one_time/one_time_screen_in_tiling_and_painting.dart';
-import 'package:osta_user_app/utils/constants/exports.dart';
+import 'package:osta/features/home/managers/home_cubit.dart';
+import 'package:osta/features/home/presentation/screens/services_details/tiling_and_painting/one_time/one_time_screen_in_tiling_and_painting.dart';
+import 'package:osta/utils/constants/exports.dart';
 
 class TilingAndPaintingScreen extends StatefulWidget {
   const TilingAndPaintingScreen({super.key, required this.data});

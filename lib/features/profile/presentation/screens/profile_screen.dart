@@ -3,13 +3,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:lottie/lottie.dart';
-import 'package:osta_user_app/common/widgets/cach_network_images/cach_network_images.dart';
-import 'package:osta_user_app/features/profile/managers/localizations/localizations_cubit.dart';
-import 'package:osta_user_app/features/profile/managers/profile_cubit.dart';
-import 'package:osta_user_app/features/profile/presentation/widgets/remove_account_widget.dart';
-import 'package:osta_user_app/utils/constants/exports.dart';
-import 'package:osta_user_app/utils/device/device_utility.dart';
-import 'package:osta_user_app/utils/language/app_localizations.dart';
+import 'package:osta/common/widgets/cach_network_images/cach_network_images.dart';
+import 'package:osta/features/profile/managers/localizations/localizations_cubit.dart';
+import 'package:osta/features/profile/managers/profile_cubit.dart';
+import 'package:osta/features/profile/presentation/widgets/remove_account_widget.dart';
+import 'package:osta/utils/constants/exports.dart';
+import 'package:osta/utils/device/device_utility.dart';
+import 'package:osta/utils/language/app_localizations.dart';
 
 // class ProfileScreen extends StatelessWidget {
 //   const ProfileScreen({super.key});

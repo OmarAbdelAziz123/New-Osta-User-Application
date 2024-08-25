@@ -1,5 +1,5 @@
-import 'package:osta_user_app/common/widgets/what_happened_with_us/what_happened_with_us_widget.dart';
-import 'package:osta_user_app/utils/constants/exports.dart';
+import 'package:osta/common/widgets/what_happened_with_us/what_happened_with_us_widget.dart';
+import 'package:osta/utils/constants/exports.dart';
 
 class OrderDetailsScreen extends StatefulWidget {
   const OrderDetailsScreen({super.key});

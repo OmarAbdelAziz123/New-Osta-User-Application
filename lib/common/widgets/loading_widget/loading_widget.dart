@@ -1,4 +1,4 @@
-import 'package:osta_user_app/utils/constants/exports.dart';
+import 'package:osta/utils/constants/exports.dart';
 
 class LoadingWidget extends StatelessWidget {
   const LoadingWidget({super.key, required this.iconColor});

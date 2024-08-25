@@ -1,5 +1,5 @@
 import 'dart:async';
-import 'package:osta_user_app/utils/constants/exports.dart';
+import 'package:osta/utils/constants/exports.dart';
 
 class TextRich2Widget extends StatefulWidget {
   final String text1;

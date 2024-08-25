@@ -1,10 +1,10 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
-import 'package:osta_user_app/common/widgets/drop_down/drop_down_widget.dart';
-import 'package:osta_user_app/features/auth/managers/auth_cubit.dart';
-import 'package:osta_user_app/features/profile/managers/profile_cubit.dart';
-import 'package:osta_user_app/utils/constants/exports.dart';
-import 'package:osta_user_app/utils/constants/log_util.dart';
+import 'package:osta/common/widgets/drop_down/drop_down_widget.dart';
+import 'package:osta/features/auth/managers/auth_cubit.dart';
+import 'package:osta/features/profile/managers/profile_cubit.dart';
+import 'package:osta/utils/constants/exports.dart';
+import 'package:osta/utils/constants/log_util.dart';
 
 class EditProfileFormWidget extends StatefulWidget {
   const EditProfileFormWidget({super.key});

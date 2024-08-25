@@ -1,5 +1,5 @@
-import 'package:osta_user_app/features/auth/presentation/widgets/password_configuration/create_new_password_form_widget.dart';
-import 'package:osta_user_app/utils/constants/exports.dart';
+import 'package:osta/features/auth/presentation/widgets/password_configuration/create_new_password_form_widget.dart';
+import 'package:osta/utils/constants/exports.dart';
 
 class CreateNewPasswordScreen extends StatelessWidget {
   const CreateNewPasswordScreen({super.key});

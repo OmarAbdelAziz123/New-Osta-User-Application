@@ -1,11 +1,11 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:osta_user_app/common/widgets/cach_network_images/cach_network_images.dart';
-import 'package:osta_user_app/common/widgets/loading_widget/loading_services_widget.dart';
-import 'package:osta_user_app/features/home/managers/home_cubit.dart';
-import 'package:osta_user_app/features/profile/managers/profile_cubit.dart';
-import 'package:osta_user_app/utils/constants/exports.dart';
-import 'package:osta_user_app/utils/constants/log_util.dart';
-import 'package:osta_user_app/utils/language/app_localizations.dart';
+import 'package:osta/common/widgets/cach_network_images/cach_network_images.dart';
+import 'package:osta/common/widgets/loading_widget/loading_services_widget.dart';
+import 'package:osta/features/home/managers/home_cubit.dart';
+import 'package:osta/features/profile/managers/profile_cubit.dart';
+import 'package:osta/utils/constants/exports.dart';
+import 'package:osta/utils/constants/log_util.dart';
+import 'package:osta/utils/language/app_localizations.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -24,8 +24,10 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   void initState() {
-    if(HomeCubit.get(context).allServicesModel.result == null) HomeCubit.get(context).getAllServicesFunction();
-    if(HomeCubit.get(context).getAllOffersToMeModel.result == null) HomeCubit.get(context).getAllOffersFunction();
+    if (HomeCubit.get(context).allServicesModel.result == null)
+      HomeCubit.get(context).getAllServicesFunction();
+    if (HomeCubit.get(context).getAllOffersToMeModel.offersList == null)
+      HomeCubit.get(context).getAllOffersFunction();
     super.initState();
   }
 
@@ -37,8 +39,10 @@ class _HomeScreenState extends State<HomeScreen> {
           var homeCubit = HomeCubit.get(context);
           var servicesList = homeCubit.allServicesModel.result ?? [];
 
-          var displayedServices = showServices ? servicesList : servicesList.sublist(0, servicesList.length > 7 ? 7 : servicesList.length);
-
+          var displayedServices = showServices
+              ? servicesList
+              : servicesList.sublist(
+                  0, servicesList.length > 7 ? 7 : servicesList.length);
 
           return Padding(
             padding: EdgeInsets.only(right: 0.w, top: 68.h),
@@ -59,33 +63,25 @@ class _HomeScreenState extends State<HomeScreen> {
                             Row(
                               children: [
                                 /// Profile Image
-                                Container(
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(100.r),
-                                      gradient: LinearGradient(
-                                        begin: Alignment.topRight,
-                                        end: Alignment.bottomLeft,
-                                        colors: [
-                                          OColors.gradientOra1,
-                                          OColors.gradientOra2,
-                                        ],
-                                      )
-                                  ),
-                                  child: Padding(
-                                    padding: EdgeInsets.all(3.sp),
-                                    child: CircleAvatar(
-                                      radius: 33.r,
-                                      backgroundColor: OColors.primaryColor100,
-                                      child: CachNetworkImages(
-                                        bottomLeftRadius: 100.r,
-                                        bottomRightRadius: 100.r,
-                                        topLeftRadius: 100.r,
-                                        topRightRadius: 100.r,
-                                        imageUrl: ProfileCubit.get(context).getProfileDataModel.result != null ? ProfileCubit.get(context).getProfileDataModel.result!.personalMediaUrl! : '',
-                                        width: 200.w,
-                                        height: 200.h,
-                                      ),
-                                    ),
+                                CircleAvatar(
+                                  radius: 33.r,
+                                  backgroundColor: OColors.primaryColor100,
+                                  child: CachNetworkImages(
+                                    bottomLeftRadius: 100.r,
+                                    bottomRightRadius: 100.r,
+                                    topLeftRadius: 100.r,
+                                    topRightRadius: 100.r,
+                                    imageUrl: ProfileCubit.get(context)
+                                                .getProfileDataModel
+                                                .result !=
+                                            null
+                                        ? ProfileCubit.get(context)
+                                            .getProfileDataModel
+                                            .result!
+                                            .personalMediaUrl!
+                                        : '',
+                                    width: 200.w,
+                                    height: 200.h,
                                   ),
                                 ),
 
@@ -97,10 +93,20 @@ class _HomeScreenState extends State<HomeScreen> {
                                   width: 230.w,
                                   height: 56.h,
                                   child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
-                                      Text('${AppLocalizations.of(context)!.translate('goodMorning')!} 👋', style: OStyles.bodyLargeRegular.copyWith(color: OColors.greyScale600)),
-                                      Text(OCacheHelper.getString(key: CacheKeys.fullName).toString(), style: OStyles.h5Bold, overflow: TextOverflow.ellipsis),
+                                      Text(
+                                          '${AppLocalizations.of(context)!.translate('goodMorning')!} 👋',
+                                          style: OStyles.bodyLargeRegular
+                                              .copyWith(
+                                                  color: OColors.greyScale600)),
+                                      Text(
+                                          OCacheHelper.getString(
+                                                  key: CacheKeys.fullName)
+                                              .toString(),
+                                          style: OStyles.h5Bold,
+                                          overflow: TextOverflow.ellipsis),
                                       // Text('Andrew Ainsley', style: OStyles.h5Bold),
                                     ],
                                   ),
@@ -110,8 +116,10 @@ class _HomeScreenState extends State<HomeScreen> {
 
                             /// Notification Icon
                             InkWellWidget(
-                              onTap: () => context.pushNamed(ORoutesName.notificationsRoute),
-                              child: SvgPicture.asset(OImages.notificationIcon, color: Theme.of(context).colorScheme.primary),
+                              onTap: () => context
+                                  .pushNamed(ORoutesName.notificationsRoute),
+                              child: SvgPicture.asset(OImages.notificationIcon,
+                                  color: Theme.of(context).colorScheme.primary),
                             ),
 
                             /// Make Space
@@ -136,19 +144,26 @@ class _HomeScreenState extends State<HomeScreen> {
                               autoPlay: true,
                               viewportFraction: 1,
                               enlargeCenterPage: true,
-                              onPageChanged: (index, reason) => setState(() => currentIndex = index),
+                              onPageChanged: (index, reason) =>
+                                  setState(() => currentIndex = index),
                             ),
-                            items: OConstants.bannerImages.map((item) => Container(
-                              decoration: BoxDecoration(
-                                // color: Colors.red,
-                                boxShadow: [AppBoxShadows.cardShadowTwo],
-                                image: DecorationImage(
-                                  image: AssetImage(item),
-                                  fit: BoxFit.cover, // Changed to BoxFit.cover to fill the container
-                                ),
-                                borderRadius: BorderRadius.circular(32.r),
-                              ),
-                            )).toList(),
+                            items: OConstants.bannerImages
+                                .map((item) => Container(
+                                      decoration: BoxDecoration(
+                                        // color: Colors.red,
+                                        boxShadow: [
+                                          AppBoxShadows.cardShadowTwo
+                                        ],
+                                        image: DecorationImage(
+                                          image: AssetImage(item),
+                                          fit: BoxFit
+                                              .cover, // Changed to BoxFit.cover to fill the container
+                                        ),
+                                        borderRadius:
+                                            BorderRadius.circular(32.r),
+                                      ),
+                                    ))
+                                .toList(),
                           ),
                           // Positioned dots indicator
                           Positioned(
@@ -157,7 +172,16 @@ class _HomeScreenState extends State<HomeScreen> {
                             right: 0,
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
-                              children: List.generate(OConstants.bannerImages.length, (index) => ODeviceUtils.buildDotWidget(index, currentIndex, context, BoxDecoration(color: OColors.whiteColor, borderRadius: BorderRadius.circular(100.r)))),
+                              children: List.generate(
+                                  OConstants.bannerImages.length,
+                                  (index) => ODeviceUtils.buildDotWidget(
+                                      index,
+                                      currentIndex,
+                                      context,
+                                      BoxDecoration(
+                                          color: OColors.whiteColor,
+                                          borderRadius:
+                                              BorderRadius.circular(100.r)))),
                             ),
                           ),
                         ],
@@ -168,8 +192,9 @@ class _HomeScreenState extends State<HomeScreen> {
 
                       /// Row (Services - See All)
                       RowSeeAllWidget(
-                        mainText: AppLocalizations.of(context)!.translate('daily')!,
-                        seeAllText: '', 
+                        mainText:
+                            AppLocalizations.of(context)!.translate('daily')!,
+                        seeAllText: '',
                         iconWidget: InkWellWidget(
                           onTap: () {
                             setState(() {
@@ -179,11 +204,15 @@ class _HomeScreenState extends State<HomeScreen> {
                           child: Row(
                             crossAxisAlignment: CrossAxisAlignment.end,
                             children: [
-                              Text(AppLocalizations.of(context)!.translate('minimize')!,  style: OStyles.bodyLargeBold.copyWith(
-                                color: Theme.of(context).primaryColor,
-                                height: 2.3.h,
-                              )),
-                              SvgPicture.asset(OImages.minIcon, width: 22.w, color: OColors.primaryColor500),
+                              Text(
+                                  AppLocalizations.of(context)!
+                                      .translate('minimize')!,
+                                  style: OStyles.bodyLargeBold.copyWith(
+                                    color: Theme.of(context).primaryColor,
+                                    height: 2.3.h,
+                                  )),
+                              SvgPicture.asset(OImages.minIcon,
+                                  width: 22.w, color: OColors.primaryColor500),
                             ],
                           ),
                         ),
@@ -196,246 +225,222 @@ class _HomeScreenState extends State<HomeScreen> {
 
                       /// Services
                       homeCubit.allServicesModel.result == null
-                          ?  const LoadingServicesWidget()
-                      : Container(
-                        width: double.infinity,
-                        child: Column(
-                          children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Expanded(
-                                  child: AnimatedSwitcher(
-                                    duration: const Duration(milliseconds: 500),
-                                    child: GridView.builder(
-                                      key: ValueKey<bool>(showServices),
-                                      physics: const NeverScrollableScrollPhysics(),
-                                      shrinkWrap: true,
-                                      // itemCount: showServices ? displayedServices.length : displayedServices.length < 7 ? displayedServices.length : 8,
-                                      itemCount: showServices ? displayedServices.length : displayedServices.length < 7 ? displayedServices.length : 8,
-                                      // itemCount: showServices ? displayedServices.length : (displayedServices.length > 7 ? 7 : displayedServices.length),
-                                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                                        crossAxisCount: 4,
-                                        mainAxisSpacing: 24.w,
-                                        crossAxisSpacing: ODeviceUtils.getScreenHeight(context) / 90,
-                                        childAspectRatio: ODeviceUtils.getScreenHeight(context) / 1000,
+                          ? const LoadingServicesWidget()
+                          : Container(
+                              width: double.infinity,
+                              child: Column(
+                                children: [
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Expanded(
+                                        child: AnimatedSwitcher(
+                                          duration:
+                                              const Duration(milliseconds: 500),
+                                          child: GridView.builder(
+                                            key: ValueKey<bool>(showServices),
+                                            physics:
+                                                const NeverScrollableScrollPhysics(),
+                                            shrinkWrap: true,
+                                            // itemCount: showServices ? displayedServices.length : displayedServices.length < 7 ? displayedServices.length : 8,
+                                            itemCount: showServices
+                                                ? displayedServices.length
+                                                : displayedServices.length < 7
+                                                    ? displayedServices.length
+                                                    : 8,
+                                            // itemCount: showServices ? displayedServices.length : (displayedServices.length > 7 ? 7 : displayedServices.length),
+                                            gridDelegate:
+                                                SliverGridDelegateWithFixedCrossAxisCount(
+                                              crossAxisCount: 4,
+                                              mainAxisSpacing: 24.w,
+                                              crossAxisSpacing:
+                                                  ODeviceUtils.getScreenHeight(
+                                                          context) /
+                                                      90,
+                                              childAspectRatio:
+                                                  ODeviceUtils.getScreenHeight(
+                                                          context) /
+                                                      1000,
+                                            ),
+                                            itemBuilder: (context, index) {
+                                              if (index < 7 || showServices) {
+                                                var service =
+                                                    displayedServices[index];
+                                                var serviceIcon =
+                                                    OConstants.servicesIcons2[
+                                                        index %
+                                                            OConstants
+                                                                .servicesIcons2
+                                                                .length];
+                                                var serviceColor = OConstants
+                                                        .servicesColorsWhite[
+                                                    index %
+                                                        OConstants
+                                                            .servicesColorsWhite
+                                                            .length];
+
+                                                return Column(
+                                                  children: [
+                                                    ContainerIconsInServicesWidget(
+                                                      serviceIcon: serviceIcon,
+                                                      servicesBgColors:
+                                                          serviceColor,
+                                                      onTap: () {
+                                                        var routeName;
+                                                        var arguments = {
+                                                          'serviceId':
+                                                              service.id,
+                                                          'category':
+                                                              service.category,
+                                                          'name': service.name,
+                                                          'serviceIcon':
+                                                              serviceIcon,
+                                                          'serviceColor':
+                                                              serviceColor,
+                                                        };
+                                                        switch (
+                                                            service.category) {
+                                                          case 'basic':
+                                                            routeName = ORoutesName
+                                                                .electricityPlumbingAirConditionCarpentrySRoute;
+                                                            break;
+                                                          case 'space_based':
+                                                            routeName = ORoutesName
+                                                                .tilingAndPaintingRoute;
+                                                            break;
+                                                          case 'technical':
+                                                            routeName = ORoutesName
+                                                                .homeAppSatelliteChannelAndSurveillanceCamerasSRoute;
+                                                            break;
+                                                          case 'other':
+                                                            routeName = ORoutesName
+                                                                .cleanlinessAndGardensRoute;
+                                                            break;
+                                                          default:
+                                                            return;
+                                                        }
+                                                        context.pushNamed(
+                                                            routeName,
+                                                            arguments:
+                                                                arguments);
+                                                      },
+                                                    ),
+                                                    SizedBox(height: 12.h),
+                                                    Text(
+                                                      ODeviceUtils
+                                                          .capitalizeFirstLetter(
+                                                              service.name!),
+                                                      style:
+                                                          OStyles.bodyLargeBold,
+                                                      overflow:
+                                                          TextOverflow.ellipsis,
+                                                    ),
+                                                  ],
+                                                );
+                                              } else {
+                                                return Column(
+                                                  children: [
+                                                    ContainerIconsInServicesWidget(
+                                                        serviceIcon:
+                                                            OImages.moreIcon3,
+                                                        onTap: () {
+                                                          setState(() {
+                                                            showServices =
+                                                                !showServices;
+                                                          });
+                                                        },
+                                                        servicesBgColors:
+                                                            OColors.purpleBg),
+                                                    SizedBox(height: 12.h),
+                                                    Text(
+                                                      AppLocalizations.of(
+                                                              context)!
+                                                          .translate('more')!,
+                                                      // style: OStyles.bodyLargeBold.copyWith(color: Theme.of(context).colorScheme.primary),
+                                                      style:
+                                                          OStyles.bodyLargeBold,
+                                                      overflow:
+                                                          TextOverflow.ellipsis,
+                                                    ),
+                                                  ],
+                                                );
+                                              }
+                                            },
+                                          ),
+                                        ),
                                       ),
-                                      itemBuilder: (context, index) {
-                                        if (index < 7 || showServices) {
-                                          var service = displayedServices[index];
-                                          var serviceIcon = OConstants.servicesIcons2[index % OConstants.servicesIcons2.length];
-                                          var serviceColor = OConstants.servicesColorsWhite[index % OConstants.servicesColorsWhite.length];
-
-                                          return Column(
-                                            children: [
-                                              ContainerIconsInServicesWidget(
-                                                serviceIcon: serviceIcon,
-                                                servicesBgColors: serviceColor,
-                                                onTap: () {
-                                                  var routeName;
-                                                  var arguments = {
-                                                    'serviceId': service.id,
-                                                    'category': service.category,
-                                                    'name': service.name,
-                                                    'serviceIcon': serviceIcon,
-                                                    'serviceColor': serviceColor,
-                                                  };
-                                                  switch (service.category) {
-                                                    case 'basic':
-                                                      routeName = ORoutesName.electricityPlumbingAirConditionCarpentrySRoute;
-                                                      break;
-                                                    case 'space_based':
-                                                      routeName = ORoutesName.tilingAndPaintingRoute;
-                                                      break;
-                                                    case 'technical':
-                                                      routeName = ORoutesName.homeAppSatelliteChannelAndSurveillanceCamerasSRoute;
-                                                      break;
-                                                    case 'other':
-                                                      routeName = ORoutesName.cleanlinessAndGardensRoute;
-                                                      break;
-                                                    default:
-                                                      return;
-                                                  }
-                                                  context.pushNamed(routeName, arguments: arguments);
-                                                },
-                                              ),
-                                              SizedBox(height: 12.h),
-                                              Text(
-                                                ODeviceUtils.capitalizeFirstLetter(service.name!),
-                                                style: OStyles.bodyLargeBold,
-                                                overflow: TextOverflow.ellipsis,
-                                              ),
-                                            ],
-                                          );
-                                        } else {
-                                          return Column(
-                                            children: [
-                                              ContainerIconsInServicesWidget(serviceIcon: OImages.moreIcon3, onTap: () {
-                                                setState(() {
-                                                  showServices = !showServices;
-                                                });
-                                              }, servicesBgColors: OColors.purpleBg),
-                                              SizedBox(height: 12.h),
-                                              Text(
-                                                AppLocalizations.of(context)!.translate('more')!,
-                                                // style: OStyles.bodyLargeBold.copyWith(color: Theme.of(context).colorScheme.primary),
-                                                style: OStyles.bodyLargeBold,
-                                                overflow: TextOverflow.ellipsis,
-                                              ),
-
-                                            ],
-                                          );
-                                        }
-                                      },
-                                    ),
+                                    ],
                                   ),
-                                ),
-                              ],
+
+                                  // var service = displayedServices[index];
+                                  // var serviceIcon = OConstants.servicesIcons2[index % OConstants.servicesIcons2.length];
+                                  // var serviceColor = OConstants.servicesColors[index % OConstants.servicesColors.length];
+                                  //
+                                  // return Column(
+                                  //   children: [
+                                  //     ContainerIconsInServicesWidget(
+                                  //       serviceIcon: serviceIcon,
+                                  //       servicesBgColors: serviceColor,
+                                  //       onTap: () {
+                                  //         var routeName;
+                                  //         var arguments = {
+                                  //           'serviceId': service.id,
+                                  //           'category': service.category,
+                                  //           'name': service.name,
+                                  //           'serviceIcon': serviceIcon,
+                                  //           'serviceColor': serviceColor,
+                                  //         };
+                                  //         switch (service.category) {
+                                  //           case 'basic':
+                                  //             routeName = ORoutesName.electricityPlumbingAirConditionCarpentrySRoute;
+                                  //             break;
+                                  //           case 'space_based':
+                                  //             routeName = ORoutesName.tilingAndPaintingRoute;
+                                  //             break;
+                                  //           case 'technical':
+                                  //             routeName = ORoutesName.homeAppSatelliteChannelAndSurveillanceCamerasSRoute;
+                                  //             break;
+                                  //           case 'other':
+                                  //             routeName = ORoutesName.cleanlinessAndGardensRoute;
+                                  //             break;
+                                  //           default:
+                                  //             return;
+                                  //         }
+                                  //         context.pushNamed(routeName, arguments: arguments);
+                                  //       },
+                                  //     ),
+                                  //     SizedBox(height: 12.h),
+                                  //     Text(
+                                  //       ODeviceUtils.capitalizeFirstLetter(service.name!),
+                                  //       style: OStyles.bodyLargeBold,
+                                  //       overflow: TextOverflow.ellipsis,
+                                  //     ),
+                                  //   ],
+                                  // );
+
+                                  /// Make Space
+                                  // SizedBox(height: 12.h),
+                                  //
+                                  // InkWellWidget(
+                                  //   onTap: () {
+                                  //     setState(() {
+                                  //       showServices = !showServices;
+                                  //     });
+                                  //   },
+                                  //   child: Text(showServices ? '🔼' : '🔽', style: OStyles.bodyLargeBold.copyWith(fontSize: 26.sp)),
+                                  // ),
+                                  // IconButton(
+                                  //   onPressed: () {
+                                  //     setState(() {
+                                  //       showServices = !showServices;
+                                  //     });
+                                  //   },
+                                  //   icon: Icon(showServices ? Icons.arrow_upward : Icons.arrow_downward),
+                                  // ),
+                                ],
+                              ),
                             ),
-
-                            // var service = displayedServices[index];
-                            // var serviceIcon = OConstants.servicesIcons2[index % OConstants.servicesIcons2.length];
-                            // var serviceColor = OConstants.servicesColors[index % OConstants.servicesColors.length];
-                            //
-                            // return Column(
-                            //   children: [
-                            //     ContainerIconsInServicesWidget(
-                            //       serviceIcon: serviceIcon,
-                            //       servicesBgColors: serviceColor,
-                            //       onTap: () {
-                            //         var routeName;
-                            //         var arguments = {
-                            //           'serviceId': service.id,
-                            //           'category': service.category,
-                            //           'name': service.name,
-                            //           'serviceIcon': serviceIcon,
-                            //           'serviceColor': serviceColor,
-                            //         };
-                            //         switch (service.category) {
-                            //           case 'basic':
-                            //             routeName = ORoutesName.electricityPlumbingAirConditionCarpentrySRoute;
-                            //             break;
-                            //           case 'space_based':
-                            //             routeName = ORoutesName.tilingAndPaintingRoute;
-                            //             break;
-                            //           case 'technical':
-                            //             routeName = ORoutesName.homeAppSatelliteChannelAndSurveillanceCamerasSRoute;
-                            //             break;
-                            //           case 'other':
-                            //             routeName = ORoutesName.cleanlinessAndGardensRoute;
-                            //             break;
-                            //           default:
-                            //             return;
-                            //         }
-                            //         context.pushNamed(routeName, arguments: arguments);
-                            //       },
-                            //     ),
-                            //     SizedBox(height: 12.h),
-                            //     Text(
-                            //       ODeviceUtils.capitalizeFirstLetter(service.name!),
-                            //       style: OStyles.bodyLargeBold,
-                            //       overflow: TextOverflow.ellipsis,
-                            //     ),
-                            //   ],
-                            // );
-
-                            /// Make Space
-                            // SizedBox(height: 12.h),
-                            //
-                            // InkWellWidget(
-                            //   onTap: () {
-                            //     setState(() {
-                            //       showServices = !showServices;
-                            //     });
-                            //   },
-                            //   child: Text(showServices ? '🔼' : '🔽', style: OStyles.bodyLargeBold.copyWith(fontSize: 26.sp)),
-                            // ),
-                            // IconButton(
-                            //   onPressed: () {
-                            //     setState(() {
-                            //       showServices = !showServices;
-                            //     });
-                            //   },
-                            //   icon: Icon(showServices ? Icons.arrow_upward : Icons.arrow_downward),
-                            // ),
-                          ],
-                        ),
-                      ),
-                      //     : Container(
-                      //   // height: ODeviceUtils.getScreenHeight(context) / 3.4,
-                      //   width: double.infinity,
-                      //   color: Colors.blueGrey,
-                      //   child: Column(
-                      //     children: [
-                      //       Row(
-                      //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      //         children: [
-                      //           Expanded(
-                      //             child: GridView.builder(
-                      //               physics: const NeverScrollableScrollPhysics(),
-                      //               shrinkWrap: true,
-                      //               itemCount: 8,
-                      //               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      //                 crossAxisCount: 4,
-                      //                 mainAxisSpacing: 24.w,
-                      //                 crossAxisSpacing: ODeviceUtils.getScreenHeight(context) / 90,
-                      //                 childAspectRatio: ODeviceUtils.getScreenHeight(context) / 1000,
-                      //               ),
-                      //               itemBuilder: (context, index) {
-                      //                 // var servicesList = homeCubit.allServicesModel.result!.sublist(0, 8);
-                      //                 var servicesList = homeCubit.allServicesModel.result!;
-                      //                 var displayedServices = showServices ? servicesList : servicesList.sublist(0, 8);
-                      //
-                      //                 return Column(
-                      //                   children: [
-                      //                     ContainerIconsInServicesWidget(
-                      //                       serviceIcon: OConstants.servicesIcons2[index],
-                      //                       onTap: () {
-                      //                         if(servicesList[index].category == 'basic') {
-                      //                           context.pushNamed(ORoutesName.electricityPlumbingAirConditionCarpentrySRoute, arguments: {
-                      //                             'serviceId': servicesList[index].id,
-                      //                             'category': servicesList[index].category,
-                      //                             'name': servicesList[index].name,
-                      //                           });
-                      //                         } else if(servicesList[index].category == 'space_based') {
-                      //                           context.pushNamed(ORoutesName.tilingAndPaintingRoute, arguments: {
-                      //                             'serviceId': servicesList[index].id,
-                      //                             'category': servicesList[index].category,
-                      //                             'name': servicesList[index].name,
-                      //                           });
-                      //                         } else if(servicesList[index].category == 'technical') {
-                      //                           context.pushNamed(ORoutesName.homeAppSatelliteChannelAndSurveillanceCamerasSRoute, arguments: {
-                      //                             'serviceId': servicesList[index].id,
-                      //                             'category': servicesList[index].category,
-                      //                             'name': servicesList[index].name,
-                      //                           });
-                      //                         } else if(servicesList[index].category == 'other') {
-                      //                           context.pushNamed(ORoutesName.cleanlinessAndGardensRoute,arguments: {
-                      //                             'serviceId': servicesList[index].id,
-                      //                             'category': servicesList[index].category,
-                      //                             'name': servicesList[index].name,
-                      //                           });
-                      //                         }
-                      //                       },
-                      //                     ),
-                      //                     SizedBox(height: 12.h),
-                      //                     Text(ODeviceUtils.capitalizeFirstLetter(servicesList[index].name!), style: OStyles.bodyLargeBold, overflow: TextOverflow.ellipsis,),
-                      //                     // Text(servicesList[index].name.toString(), style: OStyles.bodyLargeBold, overflow: TextOverflow.ellipsis,),
-                      //                   ],
-                      //                 );
-                      //               },
-                      //             ),
-                      //           ),
-                      //
-                      //         ],
-                      //       ),
-                      //
-                      //       IconButton(onPressed: () {}, icon: const Icon(Icons.arrow_downward))
-                      //
-                      //     ],
-                      //   ),
-                      // ),
-
                       /// Make Space
                       SizedBox(height: 12.h),
 
@@ -448,7 +453,10 @@ class _HomeScreenState extends State<HomeScreen> {
                       /// Row (Advanced Services)
                       Row(
                         children: [
-                          Text(AppLocalizations.of(context)!.translate('advancedServices')!, style: OStyles.h5Bold),
+                          Text(
+                              AppLocalizations.of(context)!
+                                  .translate('advancedServices')!,
+                              style: OStyles.h5Bold),
                         ],
                       ),
 
@@ -459,9 +467,21 @@ class _HomeScreenState extends State<HomeScreen> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           // Expanded(flex: 10, child: AdvancedServicesWidget(image: OImages.contractorRequestIcon, title: 'Contractor request', onTap: () => context.pushNamed(ORoutesName.contructorRequests))),
-                          Expanded(flex: 15, child: AdvancedServicesWidget(image: OImages.contractorRequestIcon, title: AppLocalizations.of(context)!.translate('contractorRequest')!, onTap: () => context.pushNamed(ORoutesName.oneTimeServiceInHomeScreenRoute))),
+                          Expanded(
+                              flex: 15,
+                              child: AdvancedServicesWidget(
+                                  image: OImages.contractorRequestIcon,
+                                  title: AppLocalizations.of(context)!
+                                      .translate('contractorRequest')!,
+                                  onTap: () => context.pushNamed(ORoutesName
+                                      .oneTimeServiceInHomeScreenRoute))),
                           const Expanded(child: SizedBox()),
-                          Expanded(flex: 15, child: AdvancedServicesWidget(image: OImages.marketIcon, title: AppLocalizations.of(context)!.translate('market')!)),
+                          Expanded(
+                              flex: 15,
+                              child: AdvancedServicesWidget(
+                                  image: OImages.marketIcon,
+                                  title: AppLocalizations.of(context)!
+                                      .translate('market')!)),
                         ],
                       ),
 

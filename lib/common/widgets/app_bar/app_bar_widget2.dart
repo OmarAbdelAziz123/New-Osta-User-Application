@@ -1,4 +1,4 @@
-import 'package:osta_user_app/utils/constants/exports.dart';
+import 'package:osta/utils/constants/exports.dart';
 
 class AppBarWidget2 extends StatelessWidget {
   const AppBarWidget2({super.key, required this.leading, required this.actions, required this.title, required this.widthOfText});
